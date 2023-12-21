@@ -1,0 +1,13 @@
+django
+mysql
+pymysql
+mysqlclient
+pandas
+numpy
+matplotlib
+seaborn
+tensorflow
+ultralytics
+opencv-python 
+pillow
+pydub
