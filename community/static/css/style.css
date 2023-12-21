@@ -1,0 +1,81 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+caption {
+    display: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.board_free_wrap {
+    width: 100%;
+    padding: 50px;
+}
+
+.board_list {
+    width: 100%;
+    border-top: 1px solid green;
+}
+
+.board_list tr {
+    border-bottom: 1px solid #ccc;
+}
+
+.board_list th,
+.board_list td {
+    padding: 10px;
+    font-size: 14px;
+}
+
+.board_list td {
+    text-align: center;
+}
+
+.board_list .title {
+    width: 50%;
+    text-align: center;
+}
+
+.board_list tbody tr td:nth-child(2):hover {
+    text-decoration: underline;
+}
+
+.board_free_wrap .paging{
+    margin-top: 20px;
+    font-size: 0;
+    text-align: center;
+}
+
+.board_free_wrap .paging a {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 100px;
+    font-size: 12px;
+}
+
+.board_free_wrap .paging a:first-child {
+    margin-left: 0;
+}
+
+.board_free_wrap .paging a .num {
+    background: green;
+}
+
+.board_free_wrap .paging a .bt {
+    border: 1px solid #000;
+    font-weight: 600;
+}
+
+.board_free_wrap .paging a.num.on {
+    color: #000;
+}
