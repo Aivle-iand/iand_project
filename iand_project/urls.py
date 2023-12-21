@@ -1,5 +1,5 @@
 """
-URL configuration for iand_project project.
+URL configuration for iand project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -15,8 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('admin/', admin.site.urls),
+    # path('main/', 'main.urls'),
+    # path('playground/', 'playground.urls'),
+    path('community/', include('community.urls')),
+    # path('mypage/', 'mypage.urls'),
 ]

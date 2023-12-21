@@ -1,0 +1,54 @@
+/* MAIN 구간 */
+
+.main {
+    margin-top : 80px;
+    min-height : 800px;
+}
+
+/* MAIN-TOP 구간 */
+
+.main_top {
+    height : 240px;
+    width : 100%;
+    background-color: rgba(242, 242, 242, 0.999);
+
+}
+
+.page_name {
+    font-size : 35px;
+    font-weight : 600;
+    padding-top : 185px;
+    padding-left : 60px;
+}
+
+/*MAIN 사이드*/
+
+.div_center {
+    margin-top : 30px;
+    margin-bottom : 30px;
+    display : flex;
+    height : 100%;
+}
+
+.side_center{
+    display : flex;
+    flex-direction: column;
+    width : 320px;
+    height : 100%;
+    border-right : 3px solid rgb(242, 242, 242);
+}
+
+.side_center div {
+    font-size : 20px;
+    text-align: left;
+    color : black;
+    height : 40px;
+    width : 100%;
+    padding-left : 100px;
+    margin-top : 20px;
+}
+
+.side_center div:hover {
+    transform: scale(1.15);
+    transition-duration: 0.2s;
+}
