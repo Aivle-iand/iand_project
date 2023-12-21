@@ -1,0 +1,83 @@
+/* MAIN-CENTER 구간 */
+
+.center_center {
+    width : calc(100% - 320px);
+    height : 100%;
+}
+
+.center_image {
+    display : flex;
+    width : 100%;
+    height : calc(40% + 100px);
+}
+
+.center_none {
+    height : 10px;
+}
+
+.webcam {
+    min-width: 200px;
+    width : 30%;
+    margin-left : 15%;
+    text-align: center;
+}
+
+.webcam_text {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom : 10px;
+}
+
+.webcam_display {
+    border: 2px solid black;
+    height: calc(100% - 110px);
+}
+
+.webcam_picture_button {
+    text-align: center;
+    margin-top: 10px;
+    width: 150px;
+    height: 60px;
+}
+
+.arrow {
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top : 150px;
+}
+
+.output {
+    min-width: 200px;
+    width : 30%;
+    margin-right : 15%;
+    text-align: center;
+}
+
+.output_text {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom : 10px;
+}
+
+.output_display {
+    border : 2px solid black;
+    height : calc(100% - 110px);
+}
+
+.output_msg {
+    margin-top: 10px;
+}
+
+.image_submit{
+    margin-top : 10px;
+    text-align: center;
+}
+
+.image_submit_button {
+    width: 200px;
+    height: 80px;
+}
+
+
