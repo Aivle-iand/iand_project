@@ -43,10 +43,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECRET_KEY = get_secret('SECRET_KEY')
 
-SECRET_KEY = "django-insecure-@ff*bv71why14^4c7qm+!n0&j9n(ev3njd#^*)-%ix_g(v(cvd"
 
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = "django-insecure-@dy9d5l_f%m_-07#g-%&mex_07$(+5v42nxzczo%h4m40rl$qw"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -57,48 +56,43 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'community',
-    'login_manager',
-    'main',
-    'mypage',
-    'playground',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'iand.urls'
+ROOT_URLCONF = "iand_project.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'iand.wsgi.application'
+WSGI_APPLICATION = "iand_project.wsgi.application"
 
 
 # Database
@@ -106,15 +100,8 @@ WSGI_APPLICATION = 'iand.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": 'iandDB1', 
-        "USER" : 'admin',
-        "PASSWORD" : 'aivle202304',
-        "HOST" : 'iand-db-1.cwr76q1tgyva.ap-northeast-2.rds.amazonaws.com',
-        "PORT" : '3306',
-        "OPTIONS" : {
-            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
