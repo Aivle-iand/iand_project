@@ -209,10 +209,27 @@ header a {
 }
 
 .main_top {
-    height : 240px;
-    width : 100%;
-    background-color: rgba(242, 242, 242, 0.999);
-    text-align : center;
+    position: relative; /* Needed for positioning the pseudo-element */
+    height: 240px;
+    width: 100%;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.main_top::before {
+    content: ''; /* Required for pseudo-elements */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/static/images/top.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.5; /* Adjust the opacity as needed, 0 (fully transparent) to 1 (fully opaque) */
+    z-index: -1; /* Place the pseudo-element behind the content */
 }
 
 .main_top_12 {

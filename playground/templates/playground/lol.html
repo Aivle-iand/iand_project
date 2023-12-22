@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type='text/css' href="{% static 'css/lol.css' %}">
-    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> {% endcomment %}
+    
 
     <title>1인칭 주인공 시점</title>
     </head>
@@ -84,35 +84,40 @@
                             <div class="nav_div">
                                 <div class="function">
                                     
-                                    <form id="searchForm">
-                                        <input type="text" id="search_Input" placeholder="검색어를 입력하세요">
-                                        <button type="button" onclick="performSearch()">검색</button>
+                                    <form id="searchForm" method="get" action="{% url 'index' %}">
+                                        <input type="text" id="search_Input" name="search" placeholder="위인을 검색하세요" value="{{ search_query }}">
+                                        <button type="submit">검색</button>
                                     </form>
-                                
+
+                                                          
                                     <form id="radioForm">
-                                        <input type="radio" name="categoryOption" id="category0" value="category0" onchange = "performSearch()" checked>
+                                        <input type="radio" name="categoryOption" id="category0" value="0" checked onchange="this.form.submit()" {% if categoryOption == '0' %}checked{% endif %}>
                                         <label for="category0">전체<div class='nav_under'></div></label>
-                                        
                                     
-                                        <input type="radio" name="categoryOption" id="category1" value="category1" onchange = "performSearch()">
+                                        <input type="radio" name="categoryOption" id="category1" value="1" onchange="this.form.submit()" {% if categoryOption == '1' %}checked{% endif %}>
                                         <label for="category1">과학자<div class='nav_under'></div></label>
                                     
-                                        <input type="radio" name="categoryOption" id="category2" value="category2" onchange = "performSearch()">
+                                        <input type="radio" name="categoryOption" id="category2" value="2" onchange="this.form.submit()" {% if categoryOption == '2' %}checked{% endif %}>
                                         <label for="category2">수학자<div class='nav_under'></div></label>
 
-                                        <input type="radio" name="categoryOption" id="category3" value="category3" onchange = "performSearch()"> 
+                                        <input type="radio" name="categoryOption" id="category3" value="3" onchange="this.form.submit()" {% if categoryOption == '3' %}checked{% endif %}> 
                                         <label for="category3">철학자<div class='nav_under'></div></label>
 
-                                        <input type="radio" name="categoryOption" id="category4" value="category4" onchange = "performSearch()">
+                                        <input type="radio" name="categoryOption" id="category4" value="4" onchange="this.form.submit()" {% if categoryOption == '4' %}checked{% endif %}>
                                         <label for="category4">음악가<div class='nav_under'></div></label>
                                     </form>
-                                    <div class="user-area ms-auto me-4">
-                                        <select>
-                                            <option value="all_book" >전체</option>
-                                            <option value="read_book">읽은 책</option>
-                                            <option value="unread_book">안읽은 책</option>
+                                    
+                            
+                                    <form method="get" action="{% url 'index' %}">
+                                        <select name="filter" onchange="this.form.submit()">
+                                            <option value="all_book" {% if filter_option == 'all_book' %}selected{% endif %}>전체</option>
+                                            <option value="read_book" {% if filter_option == 'read_book' %}selected{% endif %}>읽은 책</option>
+                                            <option value="unread_book" {% if filter_option == 'unread_book' %}selected{% endif %}>안읽은 책</option>
                                         </select>
-                                    </div>
+                                        <!-- 검색어 유지를 위한 숨겨진 필드 -->
+                                        <input type="hidden" name="search" value="{{ search_query }}">
+                                    </form>
+
                                 </div>
                             </div>
                         </nav>
@@ -122,15 +127,19 @@
                 <section class="book_section">
                     <div class="book_div">
                         <div class="container">
+                            {% for book in books %}
                             <div class="item">
-                                <input type="checkbox" id="no-1" checked>
-                                <label for="no-1">
-                                    <div class="human"></div>
-                                    <div class="name">아이작 뉴턴</div>
+                                <input type="checkbox" id="no_{{ book.id }}" checked>
+                                <label for="no_{{ book.id }}">
+                                    <div class="human" style="background-image: url('{{ book.image.url }}');"></div>
+                                    <div class="name">{{ book.title }}</div>
                                 </label>
+                            
+
+
                                 <div>
                                     <div class="modal_window">
-                                        <label for="no-1"></label>
+                                        <label for="no_{{ book.id }}"></label>
                                         <div class="modal_side">
                                             <label for=""></label>
                                             <input type="radio" name="side_option" id="profile" class="profile" checked>
@@ -165,41 +174,18 @@
                                             <div class="quiz">ㅇㅇㅇㅇㅇㅇㅇㅇ마</div>
                                         </div>
                                     </div>
-                                    <label for="no-1"></label>
+                                    <label for="no_{{ book.id }}"></label>
                                 <script>
-                                    document.getElementById('no-1').addEventListener('change', function () {
-                                        var popupDiv = document.querySelector('input[id="no-1"] + label + div');
+                                    document.getElementById('no_{{ book.id }}').addEventListener('change', function () {
+                                        var popupDiv = document.querySelector('input[id="no_{{ book.id }}"] + label + div');
                                         popupDiv.style.display = this.checked ? 'block' : 'none';
                                     });
                                 </script>
                                 </div>
                             </div>
+                            {% endfor %}
 
-                            <div class="item">
-                                <input type="checkbox" id="no-2" checked>
-                                <label for="no-2">2</label>
-                                <div>
-                                    <div>
-                                        <label for="no-2"></label>
-                                        2번 내용은 여기에 적어야 해요 
-                                    </div>
-                                    <label for="no-2"></label>
-                                <script>
-                                    document.getElementById('no-2').addEventListener('change', function () {
-                                        var popupDiv = document.querySelector('input[id="no-2"] + label + div');
-                                        popupDiv.style.display = this.checked ? 'block' : 'none';
-                                    });
-                                </script>
-                                </div>
-                            </div>
-                            <div class="item">3</div>
-                            <div class="item">4</div>
-                            <div class="item">5</div>
-                            <div class="item">6</div>
-                            <div class="item">7</div>
-                            <div class="item">8</div>
-                            <div class="item">9</div>
-                            <div class="item">10</div>
+                            
                         </div>
                     </div>
                 </section>
@@ -215,6 +201,6 @@
             <span>경기도 성남시 분당구 불정로 90 (정자동)</span><br>
             <span>Copyright© 2023 KT Corp. All rights reserved.</span>
         </footer>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        
     </body>
 </html>
