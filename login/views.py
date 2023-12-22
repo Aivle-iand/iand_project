@@ -3,5 +3,5 @@ from django.http import HttpResponse
 
 # Create your views here.
 
-app_name = 'login_manager'
+app_name = 'login'
 
