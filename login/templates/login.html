@@ -1,4 +1,6 @@
 {% load static %}
+{% load socialaccount %}
+{% providers_media_js %}
 
 <html lang="en">
     <head>
@@ -23,10 +25,12 @@
             background-image: url('{% static "img/logo-google.png" %}');
             background-size: cover;
         }
+        
         .kakao-login-btn {
             background-image: url('{% static "img/logo-kakao.png" %}');
             background-size: cover;
         }
+
         .naver-login-btn {
             background-image: url('{% static "img/logo-naver.png" %}');
             background-size: cover;
@@ -79,21 +83,27 @@
 
                             <div class="api-login-btn">
                                 <div class="google_login_div">
-                                    <button class="google-login-btn">
-                                    <a href=""></a>
-                                    </button>
+                                    <form action="{% provider_login_url 'google' %}" method='POST'>
+                                        {% csrf_token %}
+                                        <button class="google-login-btn">
+                                        </button>
+                                    </form>
                                 </div>
                                 
                                 <div class="kakao_login_div">
-                                    <button class="kakao-login-btn">
-                                    <a href=""></a>
-                                    </button>
+                                    <form action="{% provider_login_url 'kakao' %}" method='POST'>
+                                        {% csrf_token %}
+                                        <button class="kakao-login-btn" href="{% provider_login_url 'kakao' %}">
+                                        </button>
+                                    </form>
                                 </div>
   
                                 <div class="naver_login_div">
-                                    <button class="naver-login-btn">
-                                    <a href=""></a>
-                                    </button>
+                                    <form action="" method="POST">
+                                        {% csrf_token %}
+                                        <button class="naver-login-btn" href="">
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

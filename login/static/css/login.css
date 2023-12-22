@@ -148,7 +148,6 @@ body>* {
 
 .api-login button {
     border-radius: 100%;
-    border: none;
     cursor: pointer;
     width: 30px;
     height: 30px;
@@ -162,15 +161,18 @@ body>* {
 }
 
 .google-login-btn {
-    background-color: #F5F6F7;
+    background-color: white;
+    border: 2px solid #ECECEC;
 }
 
 .kakao-login-btn {
     background-color: #371D1E;
+    border: 2px solid #371D1E;
 }
 
 .naver-login-btn {
     background-color: #00C300;
+    border: 2px solid #00C300;
 }
 
 .login-remember {
