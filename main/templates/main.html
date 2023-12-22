@@ -1,0 +1,21 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css\login.css' %}">
+    <title>메인페이지</title>
+    </head>
+    <body>
+        <label>메인페이지</label>
+        <button id="go_login"><a href="login"></a>로그인
+            <script>
+                document.getElementById("go_login").addEventListener("click", function() {
+                  window.location.href = "http://127.0.0.1:8000/login";
+                });
+            </script>
+        </button>
+    </body>
+</html>
+    

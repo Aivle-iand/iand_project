@@ -8,7 +8,7 @@ body>* {
 }
 
 .header {
-    height: 80px;
+    height: 60px;
 }
 
 .logo_img {
@@ -19,44 +19,47 @@ body>* {
 
 .main {
     display: flex;
+    min-height: auto;
 }
 
-.left_main {
+/* .left_main {
     width: 50%;
-}
+} */
 
-.right_main {
-    width: 50%;
-}
+/* .right_main {
+    position: relative;
+}  */
 
 .loginpage {
     background: rgb(255, 255, 255);
     border-radius: 10px;
     padding: 20px;
     display: flex;
-    margin-left: auto;
     flex-direction: column;
     position: absolute;
-    margin-left: auto;
+    right: 50px;
+    height: 290px;
 }
 
-
 .loginpage h5 {
-    font-size: 10px;
+    margin-top: auto;
+    font-size: 15px;
+    text-align: center;
 }
 
 .login-id-pass div {
-    margin: 10px;
+    margin: 1vw;
     position: relative;
     display: flex;
 }
 
 .login-id-pass input {
+    position: relative;
     background: transparent;
     border: none;
     padding: 31px 8px 15px;
     box-sizing: border-box;
-    height: 40px;
+    height: 3vw;
     display: block;
     outline: none;
     width: 100%;
@@ -133,7 +136,7 @@ body>* {
 
 
 .api-login-btn {
-    position: relative;
+    position: absolute;
     display: flex;
     margin-top: 10px;
 }
@@ -195,10 +198,23 @@ body>* {
     display: none;
 }
 
+.sign_up_btn{
+    position: relative;
+    margin: auto;
+    margin-top: 10%;
+    font-size: 10px;
+    color: #D1D1D1;
+    font-family: "FF Mark W05", sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    padding: 0px 30px 0px 30px;
+}
+
 .footer {
     color: #F1F1F1;
     font-size: 8px;
-    margin-top: auto;
     text-align: center;
-    padding: 10px;
+    margin-top: 350px;
+    height: 60px;
+    user-select: none;
 }

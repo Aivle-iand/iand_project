@@ -39,12 +39,17 @@
     
     <body>
         <header class="header">
-            <a href=""></a>
-            <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img">
+            <a href="main"></a>
+            <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img" id="logo_img">
         </header>
+        <script>
+            document.getElementById("logo_img").addEventListener("click", function() {
+              window.location.href = "http://127.0.0.1:8000/";
+            });</script>
+
 
         <main class="main">
-            <div class="left_main"></div>
+            {% comment %} <div class="left_main"></div> {% endcomment %}
             
             <div class="right_main">
                 <div class="loginpage">
@@ -75,7 +80,7 @@
                             <div class="api-login-btn">
                                 <div class="google_login_div">
                                     <button class="google-login-btn">
-                                    <a href="">
+                                    <a href=""></a>
                                     </button>
                                 </div>
                                 
@@ -92,6 +97,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="sign_up_btn">
+                        <a href="signup">회원 가입</a>
                     </div>
                 </div>  
             </div>
