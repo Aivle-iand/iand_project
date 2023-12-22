@@ -4,33 +4,49 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css\lol-login.css' %}">
+    <link rel="stylesheet" href="{% static 'css\login.css' %}">
     <title>로그인페이지</title>
     <style>
         body {
-            margin : 0;
-            padding : 0;;
+            margin: 0;
+            padding: 0;
             background-image: url('{% static "img/back_img1.png" %}');
-            background-size: cover; /* 배경 이미지를 뷰포트에 맞게 조절 */
-            background-position: center; /* 배경 이미지를 가운데 정렬 */
-            background-repeat: no-repeat; /* 배경 이미지 반복 없음 */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* 최소 높이를 화면의 높이로 설정 */
         }
+        .google-login-btn {
+            background-image: url('{% static "img/logo-google.png" %}');
+            background-size: cover;
+        }
+        .kakao-login-btn {
+            background-image: url('{% static "img/logo-kakao.png" %}');
+            background-size: cover;
+        }
+        .naver-login-btn {
+            background-image: url('{% static "img/logo-naver.png" %}');
+            background-size: cover;
+        }
+
+
+        
     </style>
     </head>
     
     <body>
-        <!--
-            <header class="header">
-            </header> 
-        -->
+        <header class="header">
+            <a href=""></a>
+            <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img">
+        </header>
 
         <main class="main">
-            <div class="logo_img">
-                <img src="{% static 'img/iand_logo_w.png' %}">
-            </div>
-
-            <div class="loginpage-main">
+            <div class="left_main"></div>
+            
+            <div class="right_main">
                 <div class="loginpage">
                     <h5 class="loginpage-title">로그인</h5>
 
@@ -42,7 +58,6 @@
                                 <span>계정이름</span>
                             </div>
                             
-
                             <div class="login-pass">
                                 <input class="password" data-testid="input-password" type="password" autocomplete="off" value="">
                                 <label>비밀번호</label>
@@ -51,18 +66,30 @@
                         </div>
 
                         <div class="api-login">
-                            <div class="api-login-btn">
-                                <button class="google-login-btn">
-                                <a href=""><img src="{% static 'img/logo-google.png' %}" alt="logo-google" class="google-img"></a>
-                                </button>
+                            <div class="sns_line">
+                                <div class="line1"></div>
+                                <label>소셜 계정 로그인</label>
+                                <div class="line2"></div>
+                            </div>
 
-                                <button class="kakao-login-btn">
-                                <a href=""><img src="{% static 'img/logo-kakao.png' %}" alt="logo-kakao" class="kakao-img"></a>
-                                </button>
+                            <div class="api-login-btn">
+                                <div class="google_login_div">
+                                    <button class="google-login-btn">
+                                    <a href="">
+                                    </button>
+                                </div>
+                                
+                                <div class="kakao_login_div">
+                                    <button class="kakao-login-btn">
+                                    <a href=""></a>
+                                    </button>
+                                </div>
   
-                                <button class="naver-login-btn">
-                                <a href=""><img src="{% static 'img/logo-naver.png' %}" alt="logo-naver" class="naver-img"></a>
-                                </button>
+                                <div class="naver_login_div">
+                                    <button class="naver-login-btn">
+                                    <a href=""></a>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -71,7 +98,9 @@
         </main>
 
         <footer class="footer">
-            푸터도 만들어야지 ㅜ
+            <span>AIVLE 4기 빅프로젝트 1조  2023.12.11 ~ 2024.01.17 </span><br>
+            <span>경기도 성남시 분당구 불정로 90 (정자동)</span><br>
+            <span>Copyright© 2023 KT Corp. All rights reserved.</span>
         </footer>
         
     </body>

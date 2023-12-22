@@ -1,0 +1,204 @@
+:lang(ko-kr) {
+    word-break: keep-all;
+    letter-spacing: normal !important;
+}
+
+body>* {
+    box-sizing: border-box;
+}
+
+.header {
+    height: 80px;
+}
+
+.logo_img {
+    height: 15vw;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.main {
+    display: flex;
+}
+
+.left_main {
+    width: 50%;
+}
+
+.right_main {
+    width: 50%;
+}
+
+.loginpage {
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    margin-left: auto;
+    flex-direction: column;
+    position: absolute;
+    margin-left: auto;
+}
+
+
+.loginpage h5 {
+    font-size: 10px;
+}
+
+.login-id-pass div {
+    margin: 10px;
+    position: relative;
+    display: flex;
+}
+
+.login-id-pass input {
+    background: transparent;
+    border: none;
+    padding: 31px 8px 15px;
+    box-sizing: border-box;
+    height: 40px;
+    display: block;
+    outline: none;
+    width: 100%;
+    color: rgb(31, 31, 31);
+    line-height: 18px;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: "FF Mark W05", sans-serif;
+    border-radius:5px;
+}
+
+.login-id-pass input:not(:focus):hover {
+    background:#F1F1F1;
+    border: #ECECEC;
+}
+
+.login-id-pass label {
+    color: rgb(102, 102, 102);
+    font-family: "FF Mark W05", sans-serif;
+    position: absolute;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    font-size: 10px;
+    left: 14px;
+    top: 20px;
+    opacity: 1;
+    pointer-events: none;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s, opacity;
+}
+
+.login-id-pass span {
+    color: rgb(102, 102, 102);
+    font-family: "FF Mark W05", sans-serif;
+    position: absolute;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 100%;
+    font-size: 8px;
+    left: 8px;
+    top: 7.33px;
+    pointer-events: none;
+    transform-origin: left top;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    transform: translateY(-50%);
+}
+
+.login-id-pass div {
+    position: relative;
+}
+
+.sns_line {
+    margin: auto;
+    padding: 10px;
+    position: relative;
+    display: flex;
+}
+
+.sns_line div {
+    width: 40px;
+    height: 0.5px;
+    background-color: #D1D1D1;
+}
+
+.sns_line label {
+    font-size: 10px;
+    color: #D1D1D1;
+    font-family: "FF Mark W05", sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    padding: 0px 30px 0px 30px;
+}
+
+
+.api-login-btn {
+    position: relative;
+    display: flex;
+    margin-top: 10px;
+}
+
+.api-login div {
+    margin: auto;
+    position: relative;
+}
+
+.api-login button {
+    border-radius: 100%;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+
+.api-login-btn img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.google-login-btn {
+    background-color: #F5F6F7;
+}
+
+.kakao-login-btn {
+    background-color: #371D1E;
+}
+
+.naver-login-btn {
+    background-color: #00C300;
+}
+
+.login-remember {
+    position: relative;
+}
+
+.login-remember label {
+    cursor: pointer;
+}
+
+.login-id-pass input:not(:focus) {
+    background: #F8F8F8;
+}
+
+.login-id-pass input:focus {
+    background: none;
+    outline: auto;
+}
+
+.login-id-pass input:focus ~label {
+    display: none;
+}
+
+.login-id-pass input:not(:focus) ~span {
+    display: none;
+}
+
+.footer {
+    color: #F1F1F1;
+    font-size: 8px;
+    margin-top: auto;
+    text-align: center;
+    padding: 10px;
+}
