@@ -1,0 +1,117 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css\lol-login.css' %}">
+    <title>로그인페이지</title>
+    <style>
+        body {
+            margin : 0;
+            padding : 0;;
+            background-image: url('{% static "img/back_img1.png" %}');
+            background-size: cover; /* 배경 이미지를 뷰포트에 맞게 조절 */
+            background-position: center; /* 배경 이미지를 가운데 정렬 */
+            background-repeat: no-repeat; /* 배경 이미지 반복 없음 */
+            background-attachment: fixed;
+        }
+    </style>
+    </head>
+    
+    <body>
+        <!--
+            <header class="header">
+            </header> 
+        -->
+
+        <main class="main">
+            <div class="logo_img">
+                <img src="{% static 'img/iand_logo_w.png' %}">
+            </div>
+
+            <div class="loginpage-main">
+                <div class="loginpage">
+                    <h5 class="loginpage-title">로그인</h5>
+
+                    <div class="loginbox">
+                        <div class="login-id-pass">
+                            <div class="login-id">
+                                <input class="username" data-testid="input-username" autocapitalize="off" type="text" value="">
+                                <label>계정이름</label>
+                                <span>계정이름</span>
+                            </div>
+                            
+
+                            <div class="login-pass">
+                                <input class="password" data-testid="input-password" type="password" autocomplete="off" value="">
+                                <label>비밀번호</label>
+                                <span>비밀번호</span>
+                            </div>
+                        </div>
+
+                        <div class="api-login">
+                            <div class="api-login-btn">
+                                <button class="google-login-btn">
+                                <a href=""><img src="{% static 'img/logo-google.png' %}" alt="logo-google" class="google-img"></a>
+                                </button>
+
+                                <button class="kakao-login-btn">
+                                <a href=""><img src="{% static 'img/logo-kakao.png' %}" alt="logo-kakao" class="kakao-img"></a>
+                                </button>
+  
+                                <button class="naver-login-btn">
+                                <a href=""><img src="{% static 'img/logo-naver.png' %}" alt="logo-naver" class="naver-img"></a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </main>
+
+        <footer class="footer">
+            푸터도 만들어야지 ㅜ
+        </footer>
+        
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 팝업 관련코드  -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="lol.css">
+  <title>Popup Example</title>
+</head>
+<body>
+
+  <button id="showPopup">Show Popup</button>
+
+  <div id="popup" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closePopup">&times;</span>
+      <p>This is a popup content!</p>
+    </div>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html> -->
