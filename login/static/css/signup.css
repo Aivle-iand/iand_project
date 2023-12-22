@@ -1,8 +1,29 @@
+
 :lang(ko-kr) {
     word-break: keep-all;
     letter-spacing: normal !important;
 }
- 
+
+a {
+    background: transparent;
+    padding: 31px 8px 15px;
+    box-sizing: border-box;
+    height: 50px;
+    display: block;
+    outline: none;
+    width: 100%;
+    color: rgb(31, 31, 31);
+    line-height: 18px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "FF Mark W05", sans-serif;
+    border-radius:5px;
+}
+
+.signup-pass .password {
+    font-size: 16px;
+}
+
 body>* {
     box-sizing: border-box;
 }
@@ -27,21 +48,24 @@ body>* {
     width: 50%;
 }
  
-.loginpage {
+.signuppage {
     background: rgb(255, 255, 255);
     border-radius: 10px;
     padding: 30px;
     display: flex;
     margin-left: auto;
+    margin-top: 10%;
+    min-width: 40%;
     flex-direction: column;
     position: absolute;
 }
  
+.signup-id-pass *{
+    padding-bottom: 10px;
+}
  
- 
- 
- 
-.login-id-pass input {
+
+.signup-id-pass input {
     background: transparent;
     border: none;
     padding: 31px 8px 15px;
@@ -50,24 +74,24 @@ body>* {
     display: block;
     outline: none;
     width: 100%;
-    color: rgb(31, 31, 31);
+    color: rgb(0, 0, 0);
     line-height: 18px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     font-family: "FF Mark W05", sans-serif;
     border-radius:5px;
 }
  
-.login-id-pass input:not(:focus):hover {
+.signup-id-pass input:not(:focus):hover {
     background:#F1F1F1;
     border: #ECECEC;
 }
  
-.api-login {
+.api-signup {
     padding: 10px 0px;
 }
  
-.api-login button {
+.api-signup button {
     -webkit-box-flex: 1;
     flex-grow: 1;
     border-radius: 12.8px;
@@ -83,14 +107,14 @@ body>* {
     margin: 0 5px;
 }
  
-.login-id-pass label {
+.signup-id-pass label {
     color: rgb(102, 102, 102);
     font-family: "FF Mark W05", sans-serif;
     position: absolute;
     text-transform: uppercase;
     font-weight: 800;
     letter-spacing: 0.06em;
-    font-size: 12.64px;
+    font-size: 14px;
     left: 16px;
     top: 22px;
     opacity: 1;
@@ -99,7 +123,7 @@ body>* {
     transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s, opacity;
 }
  
-.login-id-pass span {
+.signup-id-pass span {
     color: rgb(102, 102, 102);
     font-family: "FF Mark W05", sans-serif;
     position: absolute;
@@ -107,7 +131,7 @@ body>* {
     font-weight: 800;
     letter-spacing: 0.08em;
     line-height: 100%;
-    font-size: 11.24px;
+    font-size: 12px;
     left: 8px;
     top: 7.33px;
     pointer-events: none;
@@ -116,50 +140,50 @@ body>* {
     transform: translateY(-50%);
 }
  
-.login-id-pass div {
+.signup-id-pass div {
     position: relative;
 }
  
-.google-login-btn {
+.google-signup-btn {
     background: white;
 }
  
-.kakao-login-btn {
+.kakao-signup-btn {
     background: #FAE100;
 }
  
-.naver-login-btn {
+.naver-signup-btn {
     background: #00C300;
 }
  
-.api-login-btn img {
+.api-signup-btn img {
     width: 30px;
     height: 30px;
     padding: 5px 20px;
 }
  
-.login-remember {
+.signup-remember {
     position: relative;
 }
  
-.login-remember label {
+.signup-remember label {
     cursor: pointer;
 }
  
-.login-id-pass input:not(:focus) {
+.signup-id-pass input:not(:focus) {
     background: #F8F8F8;
 }
  
-.login-id-pass input:focus {
+.signup-id-pass input:focus {
     background: none;
     outline: auto;
 }
  
-.login-id-pass input:focus ~label {
+.signup-id-pass input:focus ~label {
     display: none;
 }
  
-.login-id-pass input:not(:focus) ~span {
+.signup-id-pass input:not(:focus) ~span {
     display: none;
 }
  
@@ -167,3 +191,39 @@ body>* {
     color: white;
     font-size: 10px;
 }
+ 
+/*
+ 
+.signuppage-main {
+    display: flex;
+    place-items: center;
+}
+ 
+ 
+ 
+.signuppage-title {
+    margin: 0px;
+    padding-top: 48px;
+    text-align: center;
+    font-size: 25.63px;
+    font-weight: 700;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+ 
+.signupbox {
+    text-align: center;
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+}
+ 
+.signup-id-pass div {
+    height: auto;
+    margin-bottom : 20px;
+}
+ */
