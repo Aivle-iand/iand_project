@@ -1,0 +1,420 @@
+:lang(ko-kr) {
+    word-break: keep-all;
+    letter-spacing: normal !important;
+}
+
+
+body {
+    margin : 0;
+    padding : 0;
+
+    background-image: url('christmas_tree.png');
+    background-size: cover; /* 배경 이미지를 뷰포트에 맞게 조절 */
+    background-position: center; /* 배경 이미지를 가운데 정렬 */
+    background-repeat: no-repeat; /* 배경 이미지 반복 없음 */
+}
+
+body>* {
+    box-sizing: border-box;
+}
+
+.login-header {
+    display: flex;
+    position: relative;
+    padding: 24px 16px;
+}
+
+.loginpage-logo {
+    height: 40px;
+    fill: rgb(252, 252, 252);
+    padding-right: 32px;
+}
+
+
+
+/*
+.div_header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    border: 0;
+    z-index: 200000;
+    height : 80px;
+    background-color: black;
+    border-bottom: 2px solid rgba(51,51,51,.25);
+    font-size: 14px !important;
+    font-weight: bold;
+    line-height: normal;
+    text-align: left;
+    display: flex;
+    width: 100%;
+}
+
+.header_left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 25px;
+}
+
+.header_center {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left : 10px;
+}
+
+.header_center div {
+    display: inline-flex;
+    position: relative;
+    height: 80px;
+    cursor: pointer;
+    min-width : 115px;
+}
+
+.header_center a {
+    display: flex;
+    margin: auto;
+    padding: 0;
+    flex-direction: column;
+    justify-content: center;
+    height: 66px;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 120%;
+    letter-spacing: .08em;
+    overflow: hidden;
+    transition: color 1s cubic-bezier(0.06, 0.81, 0, 0.98), border-color .5s 
+                         cubic-bezier(0.06, 0.81, 0, 0.98);
+}
+*/
+
+/* 이고 꼭 써야해>? */
+/*
+.header_center a p {
+    padding: 7.5px 16px;
+}  
+
+.header_center a p:hover {
+    padding: 7.5px 16px;
+    background: rgba(128,128,128,.3);
+    border-radius: 6.4px;
+}
+
+.header_center a p:hover + .underbar {
+    background-color: rgb(236, 232, 44); 
+    position: absolute; 
+    bottom: 7px; 
+    height: 4px; 
+    width: 100%; 
+    border-radius: 2px;
+}
+
+.header_right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 16px;
+}
+
+.header_right div {
+    display: inline-flex;
+    position: relative;
+    height: 80px;
+    cursor: pointer;
+    min-width : 87px;
+}
+
+.header_right a {
+    display: flex;
+    margin: auto;
+    padding: 0;
+    width : 100%;
+    flex-direction: column;
+    justify-content: center;
+    height: 66px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 120%;
+    letter-spacing: .08em;
+    overflow: hidden;
+    transition: color 1s cubic-bezier(0.06, 0.81, 0, 0.98), border-color .5s 
+                         cubic-bezier(0.06, 0.81, 0, 0.98);
+}
+
+ a p {
+    text-align: center;
+    display : inline-block;
+}
+
+.header_right a p span {
+    white-space: nowrap;
+}
+.language_arrow {
+    width: 10px;
+    height : 5px;
+}
+
+
+header a {
+    text-decoration: none;
+    color : white;
+}
+*/
+
+/* .main {
+    margin-top : 80px;
+    height : 1000px;
+} */
+
+/* .main {
+    grid-template-columns: repeat(8, 1fr);
+    column-gap: 16px;
+    margin: 0px 16px;
+} */
+
+.loginpage-main {
+    box-sizing: border-box;
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 16px;
+    margin: 0px 16px;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+}
+
+.loginpage {
+    background: rgb(255, 255, 255);
+    padding: 32px;
+    display: flex;
+    margin: auto;
+    margin-right: 10px;
+    flex-direction: column;
+}
+
+.loginpage-title {
+    margin: 0px;
+    padding-top: 48px;
+    text-align: center;
+    font-size: 25.63px;
+    font-weight: 700;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.loginbox {
+    text-align: center;
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+}
+
+.login-id-pass div {
+    height: auto;
+    margin-bottom : 20px;
+}
+
+
+.login-id-pass input {
+    background: transparent;
+    border: none;
+    padding: 31px 8px 15px;
+    box-sizing: border-box;
+    height: 50px;
+    display: block;
+    outline: none;
+    width: 100%;
+    color: rgb(31, 31, 31);
+    line-height: 18px;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: "FF Mark W05", sans-serif;
+    border-radius:5px;
+}
+
+.login-id-pass input:not(:focus):hover {
+    background:#F1F1F1;
+    border: #ECECEC;
+}
+
+.api-login {
+    padding: 10px 0px;
+}
+
+.api-login button {
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    border-radius: 12.8px;
+    height: auto;
+    border-radius: 9.6px;
+    padding: 0px 16px;
+    color: black;
+    border: 2px solid rgba(0, 0, 0, 0.05);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px; /* 각 버튼 사이의 간격 조절을 위한 스타일 */
+}
+
+.login-id-pass label {
+    color: rgb(102, 102, 102);
+    font-family: "FF Mark W05", sans-serif;
+    position: absolute;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    font-size: 12.64px;
+    left: 16px;
+    top: 22px;
+    opacity: 1;
+    height: 17.33px;
+    pointer-events: none;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s, opacity;
+}
+
+.login-id-pass span {
+    color: rgb(102, 102, 102);
+    font-family: "FF Mark W05", sans-serif;
+    position: absolute;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 100%;
+    font-size: 11.24px;
+    left: 8px;
+    top: 7.33px;
+    pointer-events: none;
+    transform-origin: left top;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    transform: translateY(-50%);
+}
+
+.login-id-pass div {
+    position: relative;
+}
+
+.google-login-btn {
+    background: white;
+}
+
+.kakao-login-btn {
+    background: #FAE100;
+}
+
+.naver-login-btn {
+    background: #00C300;
+}
+
+.api-login-btn img {
+    width: 30px;
+    height: 30px;
+    padding: 5px 20px;
+}
+
+
+.login-id-pass input:not(:focus) {
+    background: #F8F8F8;
+}
+
+.login-id-pass input:focus {
+    background: none;
+    outline: auto;
+}
+
+.login-id-pass input:focus ~label {
+    display: none;
+}
+
+.login-id-pass input:not(:focus) ~span {
+    display: none;
+}
+
+.login-check {
+    margin-left: -1.5px;
+    background: transparent;
+    border: none;
+    padding: 31px 8px 15px;
+    box-sizing: border-box;
+    display: block;
+    outline: none;
+    color: rgb(31, 31, 31);
+    line-height: 18px;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: "FF Mark W05", sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+/* 
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item {
+    flex: 0 0 200px; /25% 너비를 가지고, 간격은 20px로 조절
+    margin: 10px; /간격 조절
+    box-sizing: border-box;
+    background-color: #3498db;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+} */
+
+
+
+
+/* body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  } */

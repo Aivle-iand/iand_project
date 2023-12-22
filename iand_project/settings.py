@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'login_manager',
 ]
 
 MIDDLEWARE = [
@@ -148,6 +149,7 @@ STATIC_DIRS = [
     os.path.join(BASE_DIR, 'main', 'static'),
     os.path.join(BASE_DIR, 'mypage', 'static'),
     os.path.join(BASE_DIR, 'playground', 'static'),
+    os.path.join(BASE_DIR, 'login_manager', 'static'),
 ]
 
 # Default primary key field type
