@@ -6,3 +6,6 @@ from django.http import HttpResponse
 
 def custom_login_view(request):
     return render(request, "login.html")
+
+def custom_signup_view(request):
+    return render(request, "signup.html")
