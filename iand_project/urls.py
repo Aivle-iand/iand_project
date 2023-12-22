@@ -23,4 +23,5 @@ urlpatterns = [
     # path('playground/', 'playground.urls'),
     path('community/', include('community.urls')),
     path('mypage/', include('mypage.urls')),
+    path('login/', include('login.urls')),
 ]
