@@ -4,7 +4,7 @@
     letter-spacing: normal !important;
 }
 
-a {
+signup-id-pass * > a {
     background: transparent;
     padding: 31px 8px 15px;
     box-sizing: border-box;
@@ -19,7 +19,6 @@ a {
     font-family: "FF Mark W05", sans-serif;
     border-radius:5px;
 }
-
 
 .error-message {
     display: none;
@@ -135,8 +134,8 @@ body>* {
     font-weight: 800;
     letter-spacing: 0.06em;
     font-size: 12px;
-    left: 16px;
-    top: 22px;
+    left: 14px;
+    top: 20px;
     opacity: 1;
     height: 17.33px;
     pointer-events: none;
@@ -191,9 +190,7 @@ body>* {
     background-color: #004494; /* Even darker background for active state */
 }
 
-.signup-button > a {
-    
-}
+
 
 .signup-remember {
     position: relative;
