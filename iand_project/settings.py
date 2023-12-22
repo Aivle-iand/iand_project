@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'playground',
     'community',
     'mypage',
+    'login',
 ]
 
 MIDDLEWARE = [

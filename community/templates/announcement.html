@@ -26,9 +26,9 @@
             <div class="main_center">
                 <div class="div_center">
                     <div class="side_center">   
-                        <div id="announcement"><a href="/community">- 공지사항</a></div>
-                        <div id="freeboard"><a href="./freeboard">- 자유게시판</a></div>
-                        <div id="qna"><a href="./qna">- 문의게시판</a></div>
+                        <div class="board_div" id="announcement"><a href="/community">- 공지사항</a></div>
+                        <div class="board_div" id="freeboard"><a href="./freeboard">- 자유게시판</a></div>
+                        <div class="board_div" id="qna"><a href="./qna">- 문의게시판</a></div>
                     </div>
                     <div class="board_free_wrap">
                         <table class="board_list">
@@ -42,12 +42,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td class="title">
-                                        <a href='#'>공지사항</a></td>
-                                    <td>관리자</td>
-                                    <td>2023-12-20</td>
-                                    <td>555</td>
+                                    {% for list in post_list %}
+                                        <td><a href="{{list.pk}}">{{list.postname}}</a></td>
+                                    {% endfor %}
                                 </tr>
                             </tbody>
                         </table>
