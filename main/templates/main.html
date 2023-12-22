@@ -4,20 +4,32 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css\main.css' %}">
+    <link rel="stylesheet" href="{% static 'css\login.css' %}">
     <title>메인페이지</title>
     </head>
     <body>
-        {% include 'header.html'%}
         <label>메인페이지</label>
-        <button id="go_login"><a href="login"></a>로그인
-            <script>
-                document.getElementById("go_login").addEventListener("click", function() {
-                  window.location.href = "http://127.0.0.1:8000/login";
-                });
-            </script>
-        </button>
-        <footer>{% include 'footer.html' %}</footer>
+
+        {% if not user.is_authenticated %}
+            <button id="go_login">
+                <a href="http://127.0.0.1:8000/accounts/">로그인</a>
+            </button>
+        {% else %}
+            <br><a>안녕하세요. {{user}}님</a><br>
+            <button id="go_logout">
+                <a href="{% url 'logout' %}">로그아웃</a>
+            </button>
+        {% endif %}
+
+        <script>
+            // JavaScript를 이용하여 로그인 또는 로그아웃 버튼 클릭 시 페이지 이동
+            document.getElementById("go_login").addEventListener("click", function() {
+                window.location.href = "http://127.0.0.1:8000/accounts/";
+            });
+
+            document.getElementById("go_logout").addEventListener("click", function() {
+                window.location.href = "{% url 'logout' %}";
+            });
+        </script>
     </body>
 </html>
-    
