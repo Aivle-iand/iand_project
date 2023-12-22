@@ -1,0 +1,47 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css\signup.css' %}">
+    <title>I&_ 회원가입</title>
+    <style>
+        body {
+            margin : 0;
+            padding : 0;;
+            background-image: url('{% static "img/back_img_signup.png" %}');
+            background-size: cover; /* 배경 이미지를 뷰포트에 맞게 조절 */
+            background-position: center; /* 배경 이미지를 가운데 정렬 */
+            background-repeat: no-repeat; /* 배경 이미지 반복 없음 */
+            background-attachment: fixed;
+        }
+    </style>
+    </head>
+    
+    <body>
+        <main>
+            <div class="signup-main">
+                <div class="signuppage">
+                    <h5 class="signup_title">I&_ 회원 가입</h5>
+                    <div class="signup_box">
+                        <div class="signup-id-pass">
+                            <div class="signup-id">
+                                <input class="id" data-testid="input-id" autocapitalize="off" type="text" value="">
+                                <label>새 이메일</label>
+                                <span>example@email.com</span>
+                            </div>
+                            
+
+                            <div class="signup-pass">
+                                <input class="password" data-testid="signup-password" type="password" autocomplete="off" value="">
+                                <label>새 비밀번호</label>
+                                <span>6-18자, 특수기호 및 영문 조합 필수</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </main> 
+    </body>
+</html>
