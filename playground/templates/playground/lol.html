@@ -1,0 +1,206 @@
+{% load static %}
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type='text/css' href="{% static 'css/lol.css' %}">
+    
+
+    <title>1인칭 주인공 시점</title>
+    </head>
+
+    <body>
+        <header class="header">
+            <div class="div_header">
+                
+                <div class="header_left">
+                    <a href=""><img src="{% static 'images/logoc_.png' %}" alt="logo"></a>
+                </div>
+
+                <div class="header_center">
+                    <div class="experience_link">
+                        <a href="">
+                            <p>위인체험</p>
+                            <div class="underbar"></div>
+                        </a>
+                    </div>
+                    <div class="community_link">
+                        <a href="">
+                            <p>커뮤니티</p>
+                            <div class="underbar"></div>
+                        </a>
+                    </div> 
+                </div>
+
+                <div class="header_right">
+                    <div class="language_setting">
+                        <a class="a" href="">
+                            <p>언어설정
+                                <svg  class="language_arrow" viewBox="0 0 8 5">
+                                    <title>mainNavArrowDownHover</title>
+                                    <path d="M.707 1.707l2.586 2.586a1 1 0 001.414 0l2.586-2.586C7.923 1.077 7.477 0 6.586 0H1.414C.524 0 .077 1.077.707 1.707z" fill="#fff"></path>
+                                </svg> 
+                            </p>
+                        </a>
+                        <ul class="language_chart">
+                            <li><a href="">한국어</a></li>
+                            <li><a href="">English</a></li>
+                        </ul>
+                        
+                    </div>
+                    <div class="login">
+                        <a class="a" href="">
+                            <p>로그인</p>
+                        </a>
+                    </div>
+                    <div class="join">
+                        <a class="a" href="">
+                            <p>회원가입</p>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="main_top">
+                <p class="main_top_12">
+                    <span class="main_top_1">위인을</span><br>
+                    <span class="main_top_2">
+                    <strong>선택하세요</strong>
+                    </span>
+                </p>
+                <p class="main_top_3"> 
+                    검색 혹은 카테고리를 통해 과학자와 수학자 중<br>
+                    경험해보고 싶은 위인을 찾아 주인공이 되어 봅시다!
+                </p>
+            </div>
+            <div class="main_center">
+                
+                <section class="nav_section">
+                    <section class="nav_section">
+                        <nav class="classification_bar">
+                            <div class="nav_div">
+                                <div class="function">
+                                    
+                                    <form id="searchForm" method="get" action="{% url 'index' %}">
+                                        <input type="text" id="search_Input" name="search" placeholder="위인을 검색하세요" value="{{ search_query }}">
+                                        <button type="submit">검색</button>
+                                    </form>
+
+                                                          
+                                    <form id="radioForm">
+                                        <input type="radio" name="categoryOption" id="category0" value="0" checked onchange="this.form.submit()" {% if categoryOption == '0' %}checked{% endif %}>
+                                        <label for="category0">전체<div class='nav_under'></div></label>
+                                    
+                                        <input type="radio" name="categoryOption" id="category1" value="1" onchange="this.form.submit()" {% if categoryOption == '1' %}checked{% endif %}>
+                                        <label for="category1">과학자<div class='nav_under'></div></label>
+                                    
+                                        <input type="radio" name="categoryOption" id="category2" value="2" onchange="this.form.submit()" {% if categoryOption == '2' %}checked{% endif %}>
+                                        <label for="category2">수학자<div class='nav_under'></div></label>
+
+                                        <input type="radio" name="categoryOption" id="category3" value="3" onchange="this.form.submit()" {% if categoryOption == '3' %}checked{% endif %}> 
+                                        <label for="category3">철학자<div class='nav_under'></div></label>
+
+                                        <input type="radio" name="categoryOption" id="category4" value="4" onchange="this.form.submit()" {% if categoryOption == '4' %}checked{% endif %}>
+                                        <label for="category4">음악가<div class='nav_under'></div></label>
+                                    </form>
+                                    
+                            
+                                    <form method="get" action="{% url 'index' %}">
+                                        <select name="filter" onchange="this.form.submit()">
+                                            <option value="all_book" {% if filter_option == 'all_book' %}selected{% endif %}>전체</option>
+                                            <option value="read_book" {% if filter_option == 'read_book' %}selected{% endif %}>읽은 책</option>
+                                            <option value="unread_book" {% if filter_option == 'unread_book' %}selected{% endif %}>안읽은 책</option>
+                                        </select>
+                                        <!-- 검색어 유지를 위한 숨겨진 필드 -->
+                                        <input type="hidden" name="search" value="{{ search_query }}">
+                                    </form>
+
+                                </div>
+                            </div>
+                        </nav>
+                      </section>
+                </section>
+                
+                <section class="book_section">
+                    <div class="book_div">
+                        <div class="container">
+                            {% for book in books %}
+                            <div class="item">
+                                <input type="checkbox" id="no_{{ book.id }}" checked>
+                                <label for="no_{{ book.id }}">
+                                    <div class="human" style="background-image: url('{{ book.image.url }}');"></div>
+                                    <div class="name">{{ book.title }}</div>
+                                </label>
+                            
+
+
+                                <div>
+                                    <div class="modal_window">
+                                        <label for="no_{{ book.id }}"></label>
+                                        <div class="modal_side">
+                                            <label for=""></label>
+                                            <input type="radio" name="side_option" id="profile" class="profile" checked>
+                                            <label class='label_profile' for="profile">
+                                                프로필
+                                            </label>
+                                            <input type="radio" id="episode1" class="episode1" name="side_option" >
+                                            <label for="episode1">
+                                                사과가 왜 떨어졌을까?
+                                            </label>
+                                            <input type="radio" id="episode2" class="episode2" name="side_option" >
+                                            <label for="episode2">
+                                                하늘의 무지개를 봐!
+                                            </label>
+                                            <input type="radio" id="episode3" class="episode3" name="side_option" >
+                                            <label for="episode3">
+                                                내가 너를 밀었는데...
+                                            </label>
+                                            <input type="radio" id="quiz"  class="quiz" name="side_option" >
+                                            <label for="quiz">
+                                                Quiz
+                                            </label>
+
+                                        </div>
+                                        <div class="modal_main">
+                                            <div class="profile_main">
+                                            가
+                                            </div>
+                                            <div class="epi1">ㅇㅇ나</div>
+                                            <div class="epi2">ㅇㅇㅇㅇ다</div>
+                                            <div class="epi3">ㅇㅇㅇㅇㅇㅇ라</div>
+                                            <div class="quiz">ㅇㅇㅇㅇㅇㅇㅇㅇ마</div>
+                                        </div>
+                                    </div>
+                                    <label for="no_{{ book.id }}"></label>
+                                <script>
+                                    document.getElementById('no_{{ book.id }}').addEventListener('change', function () {
+                                        var popupDiv = document.querySelector('input[id="no_{{ book.id }}"] + label + div');
+                                        popupDiv.style.display = this.checked ? 'block' : 'none';
+                                    });
+                                </script>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                            
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            <div class="main_bottom">
+                여긴 하단인데 구독링크 등 광고 넣으면 좋을 듯
+            </div>
+        </main>
+
+        <footer class="footer">
+            <span>AIVLE 4기 빅프로젝트 1조  2023.12.11 ~ 2024.01.17 </span><br>
+            <span>경기도 성남시 분당구 불정로 90 (정자동)</span><br>
+            <span>Copyright© 2023 KT Corp. All rights reserved.</span>
+        </footer>
+        
+    </body>
+</html>

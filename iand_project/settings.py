@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'login',
     'main',
     'playground',
     'community',
@@ -159,6 +160,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'playground', 'static'),
     os.path.join(BASE_DIR, 'mypage', 'static'),
     os.path.join(BASE_DIR, 'main', 'static'),
+    os.path.join(BASE_DIR, 'login', 'static'),
     ]
 
 # Default primary key field type
