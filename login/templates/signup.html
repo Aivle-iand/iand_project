@@ -20,17 +20,22 @@
     </head>
     
     <body>
+        <header class="header">
+            <a href=""></a>
+            <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img">
+        </header>
+        
         <main class="main">
             <div class="left_main"></div>     
             <div class="right_main">
                 <div class="signuppage">
                     <h1 class="signuppage-title">I&_ 회원가입</h1>
-    
                     <div class="signupbox">
                         <div class="signup-id-pass">
                             <div class="signup-id">
                                 <a>이메일</a>
-                                <input class="username" data-testid="input-username" autocapitalize="off" type="text" placeholder="example@email.com">
+                                <input class="username" data-testid="input-username" autocapitalize="off" type="text" placeholder="example@email.com" required>
+                                <div class="error-message" id="name-error">이메일은 필수 입력 정보입니다.</div>
                             </div>
                             
     
@@ -60,7 +65,11 @@
                                 <a>생년월일</a>
                                 <input class="birthday"  type="date" , placeholder="2000-01-01">
                             </div>
-
+                            
+                            <div class="signup-check">
+                                <button class="signup-button">
+                                    회원가입
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -13,15 +13,27 @@ a {
     outline: none;
     width: 100%;
     color: rgb(31, 31, 31);
-    line-height: 18px;
+    line-height: 10px;
     font-size: 16px;
     font-weight: 700;
     font-family: "FF Mark W05", sans-serif;
     border-radius:5px;
 }
 
+
+.error-message {
+    display: none;
+    color: red;
+    font-size: 12px;
+  }
+  
+  input.error {
+    border: 1px solid red;
+  }
+
+  
 .signup-pass .password {
-    font-size: 16px;
+    font-size: 12px;
 }
 
 body>* {
@@ -33,7 +45,9 @@ body>* {
 }
  
 .logo_img {
-    height: 100px;
+    height: 15vw;
+    padding: 10px;
+    cursor: pointer;
 }
  
 .main {
@@ -51,15 +65,21 @@ body>* {
 .signuppage {
     background: rgb(255, 255, 255);
     border-radius: 10px;
-    padding: 30px;
+    padding: 20px;
     display: flex;
-    margin-left: auto;
-    margin-top: 10%;
     min-width: 40%;
+    margin-left: auto;
     flex-direction: column;
     position: absolute;
+    margin-left: auto;
+    opacity: 0.5; /* Start with a lower opacity */
+    transition: opacity 0.5s ease;
 }
- 
+
+.signuppage:hover {
+    opacity: 1; /* Full opacity on hover */
+}
+
 .signup-id-pass *{
     padding-bottom: 10px;
 }
@@ -76,7 +96,7 @@ body>* {
     width: 100%;
     color: rgb(0, 0, 0);
     line-height: 18px;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 700;
     font-family: "FF Mark W05", sans-serif;
     border-radius:5px;
@@ -100,7 +120,7 @@ body>* {
     padding: 0px 16px;
     color: black;
     border: 2px solid rgba(0, 0, 0, 0.05);
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 700;
     cursor: pointer;
     display: inline-block;
@@ -114,7 +134,7 @@ body>* {
     text-transform: uppercase;
     font-weight: 800;
     letter-spacing: 0.06em;
-    font-size: 14px;
+    font-size: 12px;
     left: 16px;
     top: 22px;
     opacity: 1;
@@ -143,25 +163,38 @@ body>* {
 .signup-id-pass div {
     position: relative;
 }
- 
-.google-signup-btn {
-    background: white;
+
+/* General Button Styling */
+.signup-button {
+    padding: 10px 20px; 
+    background-color: #004494; 
+    border: none; 
+    border-radius: 5px; 
+    font-size: 14px;
+    font-weight: bold;
+    color: white; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    display: inline-block; 
 }
- 
-.kakao-signup-btn {
-    background: #FAE100;
+
+/* Hover Effect */
+.signup-button:hover {
+    background-color: white; /* Darken background on hover */
+    color: black;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* Add shadow effect on hover */
 }
- 
-.naver-signup-btn {
-    background: #00C300;
+
+/* Active/Focus Effect */
+.signup-button:active, .signup-button:focus {
+    outline: none; /* Removes the outline */
+    background-color: #004494; /* Even darker background for active state */
 }
- 
-.api-signup-btn img {
-    width: 30px;
-    height: 30px;
-    padding: 5px 20px;
+
+.signup-button > a {
+    
 }
- 
+
 .signup-remember {
     position: relative;
 }
@@ -191,39 +224,4 @@ body>* {
     color: white;
     font-size: 10px;
 }
- 
-/*
- 
-.signuppage-main {
-    display: flex;
-    place-items: center;
-}
- 
- 
- 
-.signuppage-title {
-    margin: 0px;
-    padding-top: 48px;
-    text-align: center;
-    font-size: 25.63px;
-    font-weight: 700;
-    line-height: 120%;
-    letter-spacing: -0.02em;
-    text-transform: none;
-    text-align: center;
-    color: rgb(0, 0, 0);
-}
- 
-.signupbox {
-    text-align: center;
-    padding-top: 24px;
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 0%;
-}
- 
-.signup-id-pass div {
-    height: auto;
-    margin-bottom : 20px;
-}
- */
+
