@@ -1,0 +1,80 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css\signup.css' %}">
+    <title>I&_ 회원가입</title>
+    <style>
+        body {
+            margin : 0;
+            padding : 0;
+            background-image: url('{% static "img/back_img_signup.png" %}');
+            background-size: cover; /* 배경 이미지를 뷰포트에 맞게 조절 */
+            background-position: center; /* 배경 이미지를 가운데 정렬 */
+            background-repeat: no-repeat; /* 배경 이미지 반복 없음 */
+            background-attachment: fixed;
+        }
+    </style>
+    </head>
+    
+    <body>
+        <header class="header">
+            <a href=""></a>
+            <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img">
+        </header>
+        
+        <main class="main">
+            <div class="left_main"></div>     
+            <div class="right_main">
+                <div class="signuppage">
+                    <h1 class="signuppage-title">I&_ 회원가입</h1>
+                    <div class="signupbox">
+                        <div class="signup-id-pass">
+                            <div class="signup-id">
+                                <a>이메일</a>
+                                <input class="username" data-testid="input-username" autocapitalize="off" type="text" placeholder="example@email.com" required>
+                                <div class="error-message" id="name-error">이메일은 필수 입력 정보입니다.</div>
+                            </div>
+                            
+    
+                            <div class="signup-pass">
+                                <a>비밀번호</a> 
+                                <input class="password"  type="password"  placeholder="비밀번호는 최소 8자이상 최대 16자이하이며, 최소 하나의 특수 문자를 포함해야 합니다.">
+                            </div>
+                            
+
+                            <div class="signup-pass-check">
+                                <a>비밀번호 재확인</a>
+                                <input class="password"  type="password"  placeholder="비밀번호 재입력">
+                                
+                            </div>
+
+                            <div class="signup-name">
+                                <a>이름</a>
+                                <input class="name" type="text" >
+                            </div>
+
+                            <div class="signup-nickname">
+                                <a>닉네임</a>
+                                <input class="nickname"  type="text" >
+                            </div>
+
+                            <div class="signup-birthday">
+                                <a>생년월일</a>
+                                <input class="birthday"  type="date" , placeholder="2000-01-01">
+                            </div>
+                            
+                            <div class="signup-check">
+                                <button class="signup-button">
+                                    회원가입
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </main> 
+    </body>
+</html>
