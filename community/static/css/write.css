@@ -1,0 +1,87 @@
+.board_wrap {
+    margin-left: 30px;
+    width: 100%;
+}
+
+.board_write {
+    border-top: 2px solid #000;
+}
+
+.board_write .title,
+.board_write .info {
+    padding: 10px;
+}
+
+.board_write .info {
+    border-top: 1px dashed #ddd;
+    border-bottom: 1px solid #000;
+    font-size: 0;
+}
+
+.board_write .content {
+    border-bottom:  1px solid #000;
+}
+
+.board_write .content textarea {
+    display: block;
+    width: 100%;
+    height: 300px;
+    padding: 15px;
+    box-sizing: border-box;
+    border: 0;
+    resize: vertical;
+}
+
+.board_write .info {
+    border-top: 1px dashed #ddd;
+    border-bottom: 1px solid #000;
+    font-size: 0;
+}
+
+.board_write .info dl {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 20px;
+}
+
+.board_write .title dt,
+.board_write .title dd,
+.board_write .info dt,
+.board_write .info dd {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1.4rem;
+}
+
+.board_write .title dt,
+.board_write .info dt {
+    width: 80px;
+}
+
+.board_write .title dd,
+.board_write .info dd {
+    width: cal(100% - 80px);
+}
+
+.board_write .title input[type="text"],
+.board_write .info input[type="text"],
+.board_write .info input[type="password"] {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+
+.board_title .title dl {
+    font-size: 0;
+}
+
+.board_title {
+    font-size: 30px;
+}
+
+.board_write .title .new_board,
+.board_write .info .new_board,
+.board_write .password .new_board {
+    font-size: 18px;
+}

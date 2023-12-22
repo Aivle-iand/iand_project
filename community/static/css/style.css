@@ -1,19 +1,9 @@
-*{
-    margin: 0;
-    padding: 0;
-}
-
 table {
     border-collapse: collapse;
 }
 
 caption {
     display: none;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
 }
 
 .board_free_wrap {
@@ -78,4 +68,27 @@ a {
 
 .board_free_wrap .paging a.num.on {
     color: #000;
+}
+
+.write_btn {
+    text-align: right;
+}
+
+.write_btn a.bt {
+    background: #988d8d;
+    color: #fff;
+    text-decoration: none;
+}
+
+.write_btn a {
+    display: inline-block;
+    min-width: 30px;
+    padding: 7px;
+    border: 1px solid #000;
+    border-radius: 2px;
+    font-size: 1rem;
+}
+
+.board_cate {
+    text-decoration: none;
 }
