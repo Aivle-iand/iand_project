@@ -1,0 +1,220 @@
+{% load static %}
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type='text/css' href="{% static 'css/lol.css' %}">
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> {% endcomment %}
+
+    <title>1인칭 주인공 시점</title>
+    </head>
+
+    <body>
+        <header class="header">
+            <div class="div_header">
+                
+                <div class="header_left">
+                    <a href=""><img src="{% static 'images/logoc_.png' %}" alt="logo"></a>
+                </div>
+
+                <div class="header_center">
+                    <div class="experience_link">
+                        <a href="">
+                            <p>위인체험</p>
+                            <div class="underbar"></div>
+                        </a>
+                    </div>
+                    <div class="community_link">
+                        <a href="">
+                            <p>커뮤니티</p>
+                            <div class="underbar"></div>
+                        </a>
+                    </div> 
+                </div>
+
+                <div class="header_right">
+                    <div class="language_setting">
+                        <a class="a" href="">
+                            <p>언어설정
+                                <svg  class="language_arrow" viewBox="0 0 8 5">
+                                    <title>mainNavArrowDownHover</title>
+                                    <path d="M.707 1.707l2.586 2.586a1 1 0 001.414 0l2.586-2.586C7.923 1.077 7.477 0 6.586 0H1.414C.524 0 .077 1.077.707 1.707z" fill="#fff"></path>
+                                </svg> 
+                            </p>
+                        </a>
+                        <ul class="language_chart">
+                            <li><a href="">한국어</a></li>
+                            <li><a href="">English</a></li>
+                        </ul>
+                        
+                    </div>
+                    <div class="login">
+                        <a class="a" href="">
+                            <p>로그인</p>
+                        </a>
+                    </div>
+                    <div class="join">
+                        <a class="a" href="">
+                            <p>회원가입</p>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="main_top">
+                <p class="main_top_12">
+                    <span class="main_top_1">위인을</span><br>
+                    <span class="main_top_2">
+                    <strong>선택하세요</strong>
+                    </span>
+                </p>
+                <p class="main_top_3"> 
+                    검색 혹은 카테고리를 통해 과학자와 수학자 중<br>
+                    경험해보고 싶은 위인을 찾아 주인공이 되어 봅시다!
+                </p>
+            </div>
+            <div class="main_center">
+                
+                <section class="nav_section">
+                    <section class="nav_section">
+                        <nav class="classification_bar">
+                            <div class="nav_div">
+                                <div class="function">
+                                    
+                                    <form id="searchForm">
+                                        <input type="text" id="search_Input" placeholder="검색어를 입력하세요">
+                                        <button type="button" onclick="performSearch()">검색</button>
+                                    </form>
+                                
+                                    <form id="radioForm">
+                                        <input type="radio" name="categoryOption" id="category0" value="category0" onchange = "performSearch()" checked>
+                                        <label for="category0">전체<div class='nav_under'></div></label>
+                                        
+                                    
+                                        <input type="radio" name="categoryOption" id="category1" value="category1" onchange = "performSearch()">
+                                        <label for="category1">과학자<div class='nav_under'></div></label>
+                                    
+                                        <input type="radio" name="categoryOption" id="category2" value="category2" onchange = "performSearch()">
+                                        <label for="category2">수학자<div class='nav_under'></div></label>
+
+                                        <input type="radio" name="categoryOption" id="category3" value="category3" onchange = "performSearch()"> 
+                                        <label for="category3">철학자<div class='nav_under'></div></label>
+
+                                        <input type="radio" name="categoryOption" id="category4" value="category4" onchange = "performSearch()">
+                                        <label for="category4">음악가<div class='nav_under'></div></label>
+                                    </form>
+                                    <div class="user-area ms-auto me-4">
+                                        <select>
+                                            <option value="all_book" >전체</option>
+                                            <option value="read_book">읽은 책</option>
+                                            <option value="unread_book">안읽은 책</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                      </section>
+                </section>
+                
+                <section class="book_section">
+                    <div class="book_div">
+                        <div class="container">
+                            <div class="item">
+                                <input type="checkbox" id="no-1" checked>
+                                <label for="no-1">
+                                    <div class="human"></div>
+                                    <div class="name">아이작 뉴턴</div>
+                                </label>
+                                <div>
+                                    <div class="modal_window">
+                                        <label for="no-1"></label>
+                                        <div class="modal_side">
+                                            <label for=""></label>
+                                            <input type="radio" name="side_option" id="profile" class="profile" checked>
+                                            <label class='label_profile' for="profile">
+                                                프로필
+                                            </label>
+                                            <input type="radio" id="episode1" class="episode1" name="side_option" >
+                                            <label for="episode1">
+                                                사과가 왜 떨어졌을까?
+                                            </label>
+                                            <input type="radio" id="episode2" class="episode2" name="side_option" >
+                                            <label for="episode2">
+                                                하늘의 무지개를 봐!
+                                            </label>
+                                            <input type="radio" id="episode3" class="episode3" name="side_option" >
+                                            <label for="episode3">
+                                                내가 너를 밀었는데...
+                                            </label>
+                                            <input type="radio" id="quiz"  class="quiz" name="side_option" >
+                                            <label for="quiz">
+                                                Quiz
+                                            </label>
+
+                                        </div>
+                                        <div class="modal_main">
+                                            <div class="profile_main">
+                                            가
+                                            </div>
+                                            <div class="epi1">ㅇㅇ나</div>
+                                            <div class="epi2">ㅇㅇㅇㅇ다</div>
+                                            <div class="epi3">ㅇㅇㅇㅇㅇㅇ라</div>
+                                            <div class="quiz">ㅇㅇㅇㅇㅇㅇㅇㅇ마</div>
+                                        </div>
+                                    </div>
+                                    <label for="no-1"></label>
+                                <script>
+                                    document.getElementById('no-1').addEventListener('change', function () {
+                                        var popupDiv = document.querySelector('input[id="no-1"] + label + div');
+                                        popupDiv.style.display = this.checked ? 'block' : 'none';
+                                    });
+                                </script>
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <input type="checkbox" id="no-2" checked>
+                                <label for="no-2">2</label>
+                                <div>
+                                    <div>
+                                        <label for="no-2"></label>
+                                        2번 내용은 여기에 적어야 해요 
+                                    </div>
+                                    <label for="no-2"></label>
+                                <script>
+                                    document.getElementById('no-2').addEventListener('change', function () {
+                                        var popupDiv = document.querySelector('input[id="no-2"] + label + div');
+                                        popupDiv.style.display = this.checked ? 'block' : 'none';
+                                    });
+                                </script>
+                                </div>
+                            </div>
+                            <div class="item">3</div>
+                            <div class="item">4</div>
+                            <div class="item">5</div>
+                            <div class="item">6</div>
+                            <div class="item">7</div>
+                            <div class="item">8</div>
+                            <div class="item">9</div>
+                            <div class="item">10</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            <div class="main_bottom">
+                여긴 하단인데 구독링크 등 광고 넣으면 좋을 듯
+            </div>
+        </main>
+
+        <footer class="footer">
+            <span>AIVLE 4기 빅프로젝트 1조  2023.12.11 ~ 2024.01.17 </span><br>
+            <span>경기도 성남시 분당구 불정로 90 (정자동)</span><br>
+            <span>Copyright© 2023 KT Corp. All rights reserved.</span>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+</html>
