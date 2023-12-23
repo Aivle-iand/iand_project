@@ -23,5 +23,7 @@ urlpatterns = [
     path('playground/', include('playground.urls')),
     path('community/', include('community.urls')),
     path('mypage/', include('mypage.urls')),
-    path('login/', include('login.urls')),
+    
+    path('accounts/', include('login.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
