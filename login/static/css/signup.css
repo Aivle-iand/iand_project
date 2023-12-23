@@ -35,6 +35,14 @@ signup-id-pass * > a {
     font-size: 12px;
 }
 
+.signup-id-pass .already_signup{
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    font-size: 10px;
+    color:#004494;
+    text-decoration-line: none;
+}
+
 body>* {
     box-sizing: border-box;
 }
