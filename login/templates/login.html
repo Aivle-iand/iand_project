@@ -1,4 +1,6 @@
 {% load static %}
+{% load socialaccount %}
+{% providers_media_js %}
 
 <html lang="en">
     <head>
@@ -23,10 +25,12 @@
             background-image: url('{% static "img/logo-google.png" %}');
             background-size: cover;
         }
+        
         .kakao-login-btn {
             background-image: url('{% static "img/logo-kakao.png" %}');
             background-size: cover;
         }
+
         .naver-login-btn {
             background-image: url('{% static "img/logo-naver.png" %}');
             background-size: cover;
@@ -39,12 +43,17 @@
     
     <body>
         <header class="header">
-            <a href=""></a>
-            <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img">
+            <a href="main"></a>
+            <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img" id="logo_img">
         </header>
+        <script>
+            document.getElementById("logo_img").addEventListener("click", function() {
+              window.location.href = "http://127.0.0.1:8000/";
+            });</script>
+
 
         <main class="main">
-            <div class="left_main"></div>
+            {% comment %} <div class="left_main"></div> {% endcomment %}
             
             <div class="right_main">
                 <div class="loginpage">
@@ -74,24 +83,33 @@
 
                             <div class="api-login-btn">
                                 <div class="google_login_div">
-                                    <button class="google-login-btn">
-                                    <a href="">
-                                    </button>
+                                    <form action="{% provider_login_url 'google' %}" method='POST'>
+                                        {% csrf_token %}
+                                        <button class="google-login-btn">
+                                        </button>
+                                    </form>
                                 </div>
                                 
                                 <div class="kakao_login_div">
-                                    <button class="kakao-login-btn">
-                                    <a href=""></a>
-                                    </button>
+                                    <form action="{% provider_login_url 'kakao' %}" method='POST'>
+                                        {% csrf_token %}
+                                        <button class="kakao-login-btn" href="{% provider_login_url 'kakao' %}">
+                                        </button>
+                                    </form>
                                 </div>
   
                                 <div class="naver_login_div">
-                                    <button class="naver-login-btn">
-                                    <a href=""></a>
-                                    </button>
+                                    <form action="" method="POST">
+                                        {% csrf_token %}
+                                        <button class="naver-login-btn" href="">
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="sign_up_btn">
+                        <a href="signup">회원 가입</a>
                     </div>
                 </div>  
             </div>
