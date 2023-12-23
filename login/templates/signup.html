@@ -6,25 +6,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css\signup.css' %}">
     <title>I&_ 회원가입</title>
+    
     <style>
         body {
             margin : 0;
             padding : 0;
-            background-image: url('{% static "img/back_img_signup.png" %}');
-            background-size: cover; /* 배경 이미지를 뷰포트에 맞게 조절 */
-            background-position: center; /* 배경 이미지를 가운데 정렬 */
-            background-repeat: no-repeat; /* 배경 이미지 반복 없음 */
+            background-image: url("{% static 'img\back_img_signup.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             background-attachment: fixed;
+
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+
+            -webkit-animation: myfirst 1s ; /* Chrome, Safari, Opera */
+            animation: myfirst 1s ;
+        }
+
+        .google-signup-btn {
+            background-image: url('{% static "img/logo-google.png" %}');
+            background-size: cover;
+        }
+        .kakao-signup-btn {
+            background-image: url('{% static "img/logo-kakao.png" %}');
+            background-size: cover;
+        }
+        .naver-signup-btn {
+            background-image: url('{% static "img/logo-naver.png" %}');
+            background-size: cover;
+        }
+
+        /* Chrome, Safari, Opera */
+        @-webkit-keyframes myfirst {
+            from {opacity: 0.2;}
+            to {opacity: 1;}
+        }
+
+        /* Standard syntax */
+        @keyframes myfirst {
+            from {opacity: 0.2;}
+            to {opacity: 1;}
         }
     </style>
     </head>
     
     <body>
         <header class="header">
-            <a href=""></a>
-            <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img">
+            <a href="../">
+                <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img">
+            </a>
+            
         </header>
-        
+        <div id="bg">
+
+        </div>
+
+
         <main class="main">
             <div class="left_main"></div>     
             <div class="right_main">
@@ -71,6 +111,27 @@
                                     회원가입
                                 </button>
                             </div>
+
+                            <!-- <div class="api-login-btn">
+                                <div class="google_login_div">
+                                    <button class="google-login-btn">
+                                    <a href="">
+                                    </button>
+                                </div>
+                                
+                                <div class="kakao_login_div">
+                                    <button class="kakao-login-btn">
+                                    <a href=""></a>
+                                    </button>
+                                </div>
+  
+                                <div class="naver_login_div">
+                                    <button class="naver-login-btn">
+                                    <a href=""></a>
+                                    </button>
+                                </div>
+                            </div> -->
+                            <a class='already_signup' href="/accounts">이미 가입된 계정이 있으신가요?</a>
                         </div>
                     </div>
                 </div>  
