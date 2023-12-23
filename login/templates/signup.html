@@ -16,7 +16,6 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
@@ -58,16 +57,10 @@
             <a href="../">
                 <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img">
             </a>
-            
         </header>
-        <div id="bg">
-
-        </div>
-
 
         <main class="main">
-            <div class="left_main"></div>     
-            <div class="right_main">
+            <div class="main_container"> <!-- main 중앙 정렬 속성 -->
                 <div class="signuppage">
                     <h1 class="signuppage-title">I&_ 회원가입</h1>
                     <div class="signupbox">
@@ -111,31 +104,17 @@
                                     회원가입
                                 </button>
                             </div>
-
-                            <!-- <div class="api-login-btn">
-                                <div class="google_login_div">
-                                    <button class="google-login-btn">
-                                    <a href="">
-                                    </button>
-                                </div>
-                                
-                                <div class="kakao_login_div">
-                                    <button class="kakao-login-btn">
-                                    <a href=""></a>
-                                    </button>
-                                </div>
-  
-                                <div class="naver_login_div">
-                                    <button class="naver-login-btn">
-                                    <a href=""></a>
-                                    </button>
-                                </div>
-                            </div> -->
                             <a class='already_signup' href="/accounts">이미 가입된 계정이 있으신가요?</a>
                         </div>
                     </div>
                 </div>  
             </div>
         </main> 
+        
+        <footer class="footer">
+            <span>AIVLE 4기 빅프로젝트 1조  2023.12.11 ~ 2024.01.17 </span><br>
+            <span>경기도 성남시 분당구 불정로 90 (정자동)</span><br>
+            <span>Copyright© 2023 KT Corp. All rights reserved.</span>
+        </footer>
     </body>
 </html>
