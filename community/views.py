@@ -6,8 +6,8 @@ from django.http import HttpResponse
 
 
 def writepage(request):
-    if not request.session.get('user'):
-        return redirect('../login')
+    # if not request.session.get('user'):
+    #     return redirect('../login')
     if request.method == 'GET':
         form = PostForm()
         
