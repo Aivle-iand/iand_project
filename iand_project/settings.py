@@ -56,6 +56,14 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+SITE_ID = 5
+
+ACCOUNT_SIGNUP_REDIRECTION_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_ON_GET = True
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
