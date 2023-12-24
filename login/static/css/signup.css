@@ -4,7 +4,7 @@
     letter-spacing: normal !important;
 }
 
-a {
+signup-id-pass * > a {
     background: transparent;
     padding: 31px 8px 15px;
     box-sizing: border-box;
@@ -19,7 +19,6 @@ a {
     font-family: "FF Mark W05", sans-serif;
     border-radius:5px;
 }
-
 
 .error-message {
     display: none;
@@ -36,6 +35,14 @@ a {
     font-size: 12px;
 }
 
+.signup-id-pass .already_signup{
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    font-size: 10px;
+    color:#004494;
+    text-decoration-line: none;
+}
+
 body>* {
     box-sizing: border-box;
 }
@@ -50,28 +57,18 @@ body>* {
     cursor: pointer;
 }
  
-.main {
-    display: flex;
+.main_container {
+    display: flex; /* Flexbox를 활성화 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; 수직 중앙 정렬
+    height: 100%; /* 전체 뷰포트 높이를 차지하도록 설정 */
 }
- 
-.left_main {
-    width: 50%;
-}
- 
-.right_main {
-    width: 50%;
-}
- 
+
 .signuppage {
     background: rgb(255, 255, 255);
     border-radius: 10px;
     padding: 20px;
-    display: flex;
     min-width: 40%;
-    margin-left: auto;
-    flex-direction: column;
-    position: absolute;
-    margin-left: auto;
     opacity: 0.5; /* Start with a lower opacity */
     transition: opacity 0.5s ease;
 }
@@ -135,31 +132,15 @@ body>* {
     font-weight: 800;
     letter-spacing: 0.06em;
     font-size: 12px;
-    left: 16px;
-    top: 22px;
+    left: 14px;
+    top: 20px;
     opacity: 1;
     height: 17.33px;
     pointer-events: none;
     transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s, opacity;
 }
  
-.signup-id-pass span {
-    color: rgb(102, 102, 102);
-    font-family: "FF Mark W05", sans-serif;
-    position: absolute;
-    text-transform: uppercase;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    line-height: 100%;
-    font-size: 12px;
-    left: 8px;
-    top: 7.33px;
-    pointer-events: none;
-    transform-origin: left top;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s;
-    transform: translateY(-50%);
-}
- 
+
 .signup-id-pass div {
     position: relative;
 }
@@ -191,9 +172,7 @@ body>* {
     background-color: #004494; /* Even darker background for active state */
 }
 
-.signup-button > a {
-    
-}
+
 
 .signup-remember {
     position: relative;
@@ -219,9 +198,12 @@ body>* {
 .signup-id-pass input:not(:focus) ~span {
     display: none;
 }
- 
-.footer {
-    color: white;
-    font-size: 10px;
-}
 
+.footer {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #F1F1F1;
+    font-size: 12px;
+    text-align: center;
+    padding: 3%;
+    user-select: none;
+}

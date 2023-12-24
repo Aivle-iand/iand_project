@@ -4,7 +4,7 @@ from django.http import HttpResponse
 # Create your views here.
 # views.py
 
-def custom_login_view(request):
+def custom_signin_view(request):
     return render(request, "login.html")
 
 def custom_signup_view(request):

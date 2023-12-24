@@ -16,7 +16,8 @@
         </style>
     </head>
     <body>
-        {% include 'header.html'%}
+        <header>{% include 'header.html'%}</header>
+        
         
         <main class="main">
             <div class="main_top">
@@ -25,9 +26,9 @@
             <div class="main_center">
                 <div class="div_center">
                     <div class="side_center">   
-                        <div id="announcement"><a href="/community">- 공지사항</a></div>
-                        <div id="freeboard"><a href="./freeboard">- 자유게시판</a></div>
-                        <div id="qna"><a href="./qna">- 문의게시판</a></div>
+                        <div class="board_div" id="announcement"><a href="/community">- 공지사항</a></div>
+                        <div class="board_div" id="freeboard"><a href="./freeboard">- 자유게시판</a></div>
+                        <div class="board_div" id="qna"><a href="./qna">- 문의게시판</a></div>
                     </div>
                     <div class="board_free_wrap">
                         <table class="board_list">
@@ -41,12 +42,10 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td class="title">
-                                        <a href='#'>자유게시판</a></td>
-                                    <td>관리자</td>
-                                    <td>2023-12-20</td>
-                                    <td>555</td>
+                                    {% for list in post_list %}
+                                        <td>{{list.postname}}</td>
+                                        <td>{{list.contents}}</td>
+                                    {% endfor %}
                                 </tr>
                             </tbody>
                         </table>
@@ -59,10 +58,14 @@
                             <a href="#" class="bt">다음 페이지</a>
                             <a href="#" class="bt">마지막 페이지</a>
                         </div>
+
+                        <div class="write_btn">
+                            <a href="writepage" class="bt">글쓰기</a>
+                        </div>
                     </div>
                 </div>                
             </div>
-            <div class="main_bottom"></div>
+            
         </main>
         <footer>
             {% include 'footer.html' %}

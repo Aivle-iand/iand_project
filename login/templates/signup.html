@@ -6,28 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css\signup.css' %}">
     <title>I&_ 회원가입</title>
+    
     <style>
         body {
             margin : 0;
             padding : 0;
-            background-image: url('{% static "img/back_img_signup.png" %}');
-            background-size: cover; /* 배경 이미지를 뷰포트에 맞게 조절 */
-            background-position: center; /* 배경 이미지를 가운데 정렬 */
-            background-repeat: no-repeat; /* 배경 이미지 반복 없음 */
+            background-image: url("{% static 'img\back_img_signup.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             background-attachment: fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+
+            -webkit-animation: myfirst 1s ; /* Chrome, Safari, Opera */
+            animation: myfirst 1s ;
+        }
+
+        .google-signup-btn {
+            background-image: url('{% static "img/logo-google.png" %}');
+            background-size: cover;
+        }
+        .kakao-signup-btn {
+            background-image: url('{% static "img/logo-kakao.png" %}');
+            background-size: cover;
+        }
+        .naver-signup-btn {
+            background-image: url('{% static "img/logo-naver.png" %}');
+            background-size: cover;
+        }
+
+        /* Chrome, Safari, Opera */
+        @-webkit-keyframes myfirst {
+            from {opacity: 0.2;}
+            to {opacity: 1;}
+        }
+
+        /* Standard syntax */
+        @keyframes myfirst {
+            from {opacity: 0.2;}
+            to {opacity: 1;}
         }
     </style>
     </head>
     
     <body>
         <header class="header">
-            <a href=""></a>
-            <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img">
+            <a href="../">
+                <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img">
+            </a>
         </header>
-        
+
         <main class="main">
-            <div class="left_main"></div>     
-            <div class="right_main">
+            <div class="main_container"> <!-- main 중앙 정렬 속성 -->
                 <div class="signuppage">
                     <h1 class="signuppage-title">I&_ 회원가입</h1>
                     <div class="signupbox">
@@ -71,10 +104,17 @@
                                     회원가입
                                 </button>
                             </div>
+                            <a class='already_signup' href="/accounts">이미 가입된 계정이 있으신가요?</a>
                         </div>
                     </div>
                 </div>  
             </div>
         </main> 
+        
+        <footer class="footer">
+            <span>AIVLE 4기 빅프로젝트 1조  2023.12.11 ~ 2024.01.17 </span><br>
+            <span>경기도 성남시 분당구 불정로 90 (정자동)</span><br>
+            <span>Copyright© 2023 KT Corp. All rights reserved.</span>
+        </footer>
     </body>
 </html>
