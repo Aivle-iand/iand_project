@@ -11,4 +11,4 @@ ultralytics
 opencv-python 
 pillow
 pydub
-django-allauth # 추가
+django-allauth
