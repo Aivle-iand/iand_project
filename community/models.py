@@ -4,8 +4,8 @@ from django.db import models
 class Board(models.Model):
     postname = models.CharField(max_length=64, verbose_name="제목")
     contents = models.TextField()
-    registered_date = models.DateTimeField(auto_now_add=True, verbose_name="등록 시간")
-    writer = models.ForeignKey('users.Users', verbose_name="글쓴이", on_delete=models.CASCADE)
+    # registered_date = models.DateTimeField(auto_now_add=True, verbose_name="등록 시간")
+    # writer = models.ForeignKey('users.Users', verbose_name="글쓴이", on_delete=models.CASCADE)
 
     # 게시글의 제목(postname)이 Post object 대신하기
     def __str__(self):
@@ -17,7 +17,7 @@ class Board(models.Model):
         verbose_name_plural = "게시물"
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Board, on_delete=models.CASCADE)
     author = models.CharField(max_length=20)
     message = models.TextField()
     created = models.DateField(auto_now_add=True)
