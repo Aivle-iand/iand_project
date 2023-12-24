@@ -1,9 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import path
 from .forms import PostForm
 from .models import *
 from django.http import HttpResponse
-
 
 def writepage(request):
     # if not request.session.get('user'):
