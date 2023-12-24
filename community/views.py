@@ -14,13 +14,13 @@ def writepage(request):
     elif request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            user_id = request.session.get('user')
-            user = Users.objects.get(pk=user_id)
+            # user_id = request.session.get('user')
+            # user = Users.objects.get(pk=user_id)
             
             new_article=Board(
                 postname = form.cleaned_data['postname'],
                 contents = form.cleaned_data['contents'],
-                writer = user
+                # writer = user
             )
         new_article.save()
         
