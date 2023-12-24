@@ -38,12 +38,14 @@
                                 <th>제목</th>
                                 <th>글쓴이</th>
                                 <th>작성일</th>
-                                <th>조회</th>
                             </thead>
                             <tbody>
                                 <tr>
-                                    {% for list in post_list %}
-                                        <td><a href="{{list.pk}}">{{list.postname}}</a></td>
+                                    {% for list in post_all %}
+                                        <td>{{list.id}}</td>
+                                        <td>{{list.postname}}</td>
+                                        <td>{{list.writer}}</td>
+                                        <td>{{list.registerd_date}}</td>
                                     {% endfor %}
                                 </tr>
                             </tbody>

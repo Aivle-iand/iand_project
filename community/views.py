@@ -13,13 +13,13 @@ def writepage(request):
         
     elif request.method == 'POST':
         form = PostForm(request.POST)
-        if form.is_valid():
-            # user_id = request.session.get('user')
+        # if form.is_valid():
+        user_id = request.session.get('login_user')
             # user = Users.objects.get(pk=user_id)
             
-            new_article=Board(
-                postname = form.cleaned_data['postname'],
-                contents = form.cleaned_data['contents'],
+        new_article=Board(
+                postname = request.POST['postname'],
+                contents = request.POST['contents'],
                 # writer = user
             )
         new_article.save()
@@ -29,7 +29,7 @@ def writepage(request):
 
 # Create your views here.
 def announcement(request):
-    post_list = Board.objects.all()
+    post_list = Board.objects.all().order_by('-id')
     return render(request, 'announcement.html', {'post_all':post_list})
 
 def freeboard(request):
@@ -37,7 +37,7 @@ def freeboard(request):
     return render(request, 'freeboard.html', {'post_all':post_list})
 
 def qna(request):
-    post_list = Board.objects.all()
+    post_list = Board.objects.all().order_by('-id')
     return render(request, 'qna.html', {'post_all':post_list})
 
 def posting(request, pk):
