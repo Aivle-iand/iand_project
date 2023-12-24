@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,7 +25,3 @@ urlpatterns = [
     path('playground/', include('playground.urls')),
     path('community/', include('community.urls')),
     path('mypage/', include('mypage.urls')),
-    
-    path('accounts/', include('login.urls')),
-    path('accounts/', include('allauth.urls')),
-]
