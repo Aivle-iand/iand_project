@@ -1,0 +1,67 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <style>
+        /* Previous CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        label {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    </style>
+    <title>메인페이지</title>
+</head>
+<body>
+    <label>메인페이지</label>
+
+    {% if not user.is_authenticated %}
+        <button id="go_login">
+            <a href="http://127.0.0.1:8000/accounts">로그인</a>
+        </button>
+    {% else %}
+        <br><a>안녕하세요. {{ user }}님</a><br>
+        <button id="go_logout">
+            <a href="http://127.0.0.1:8000/logout">로그아웃</a>
+        </button>
+    {% endif %}
+
+    <!-- Additional Buttons for other pages -->
+    <button>
+        <a href="http://127.0.0.1:8000/playground">학습페이지</a>
+    </button>
+    <button>
+        <a href="http://127.0.0.1:8000/community">커뮤니티페이지</a>
+    </button>
+    <button>
+        <a href="http://127.0.0.1:8000/accounts/signup">회원가입</a>
+    </button>
+
+    <button>
+        <a href="/mypage">개인 정보 수정</a>
+    </button>
+
+    <script>
+        // Existing JavaScript for navigation
+    </script>
+</body>
+</html>

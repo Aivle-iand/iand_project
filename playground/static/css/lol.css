@@ -1,0 +1,561 @@
+:lang(ko-kr) {
+    word-break: keep-all;
+    letter-spacing: normal !important;
+}
+
+
+body {
+    margin : 0;
+    padding : 0;
+}
+
+body * {
+    box-sizing: border-box;
+}
+
+/* HEADER 구간 */
+
+.div_header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    border: 0;
+    z-index: 200000;
+    height : 80px;
+    background-color: black;
+    border-bottom: 2px solid rgba(51,51,51,.25);
+    font-size: 14px !important;
+    font-weight: bold;
+    line-height: normal;
+    text-align: left;
+    display: flex;
+    width: 100%;
+}
+
+.header_left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 25px;
+}
+
+.header_center {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left : 10px;
+}
+
+.header_center div {
+    display: inline-flex;
+    position: relative;
+    height: 80px;
+    cursor: pointer;
+    min-width : 115px;
+}
+
+.header_center a {
+    display: flex;
+    margin: auto;
+    padding: 0;
+    flex-direction: column;
+    justify-content: center;
+    height: 66px;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 120%;
+    letter-spacing: .08em;
+    overflow: hidden;
+    transition: color 1s cubic-bezier(0.06, 0.81, 0, 0.98), border-color .5s 
+                         cubic-bezier(0.06, 0.81, 0, 0.98);
+}
+
+/* 이고 꼭 써야해>? */
+.header_center a p {
+    padding: 7.5px 16px;
+}  
+
+.header_center a p:hover {
+    padding: 7.5px 16px;
+    background: rgba(128,128,128,.3);
+    border-radius: 6.4px;
+}
+
+.header_center a p:hover + .underbar {
+    background-color: rgb(236, 232, 44); 
+    position: absolute; 
+    bottom: 7px; 
+    height: 4px; 
+    width: 100%; 
+    border-radius: 2px;
+}
+
+.header_right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 16px;
+}
+
+.header_right div {
+    display: inline-flex;
+    position: relative;
+    height: 80px;
+    cursor: pointer;
+    min-width : 90px;
+}
+
+.header_right .a {
+    display: flex;
+    margin: auto;
+    padding: 0;
+    width : 100%;
+    flex-direction: column;
+    justify-content: center;
+    height: 66px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 120%;
+    letter-spacing: .08em;
+    overflow: hidden;
+    transition: color 1s cubic-bezier(0.06, 0.81, 0, 0.98), border-color .5s 
+                         cubic-bezier(0.06, 0.81, 0, 0.98);
+}
+
+header a p {
+    text-align: center;
+    display : inline-block;
+}
+
+.language_arrow {
+    width: 10px;
+    height : 5px;
+}
+
+.language_chart {
+    visibility: hidden;
+    position: absolute;
+    left: 5px;
+    top: 50px;
+    background-color: #292929;
+    box-shadow: 0px 4px 16px 0px rgba(0,0,0,.2);
+    border-radius: 0 0 2px 2px;
+    text-align: left;
+    font-size: 16px;
+    width: 108px;
+    opacity: 0;
+    transition: opacity .5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s,visibility 0s;
+    display: none;
+    list-style: none;
+    padding-inline-start: 0;
+    padding : 4px 4px;
+}
+
+
+.header_right .a:hover+.language_chart {
+    transition: opacity .5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s,visibility 0s;
+    opacity: 1;
+    visibility: visible;
+    display: block;
+}
+
+.header_right .language_chart:hover {
+    transition: opacity .5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s,visibility 0s;
+    opacity: 1;
+    visibility: visible;
+    display: block;
+}
+
+.header_right .join p:hover, .header_right .login p:hover {
+    padding: 7.5px 16px;
+    background: rgb(236,232,44);
+    border-radius: 6.4px;
+    color : black;
+}
+
+header a {
+    text-decoration: none;
+    color : white;
+}
+
+.header_right a p {
+    padding: 7.5px 16px;
+}
+
+.header_right>div {
+    margin : 0 3px; 
+}
+
+.join p,.login p {
+    background: rgba(128,128,128,.3);
+    border-radius: 6.4px;
+}
+
+.language_chart li {
+    padding-bottom : 2px;
+    text-align : center;
+}
+
+
+/* MAIN 구간 */
+
+
+.main {
+    margin-top : 80px;
+    min-height : 800px;
+}
+
+.main_top {
+    position: relative; /* Needed for positioning the pseudo-element */
+    height: 240px;
+    width: 100%;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.main_top::before {
+    content: ''; /* Required for pseudo-elements */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/static/images/top.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.5; /* Adjust the opacity as needed, 0 (fully transparent) to 1 (fully opaque) */
+    z-index: -1; /* Place the pseudo-element behind the content */
+}
+
+.main_top_12 {
+    padding-top : 45px;
+    margin : 0px;
+    min-width : 300px;
+}
+
+.main_top_1 {
+    font-size : 35px;
+}
+
+.main_top_2 {
+    font-size : 60px;    
+}
+
+.main_top_3 {
+    padding-top : 10px;
+    margin : 0;
+    font-size : 18px;
+    min-width: 440px;
+}
+
+
+.nav_section {
+    margin-top : 20px;
+    height : 45px;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.classification_bar {
+    margin : 0 200px;
+}
+
+.function {
+    display : flex;
+    flex : 1;
+    height : 45px;
+    align-items: center;
+    border : 2px solid rgb(161, 161, 161);
+    min-width : 700px;
+}
+
+.search {
+    width : 35%;
+    border-right : 2px solid rgb(161,161,161);
+    height : 100%;
+    text-align: center;
+}
+
+.category {
+    width : 65%;
+    height : 100%;
+    text-align: center;
+    vertical-align : center;
+}
+
+
+.container {
+    padding-left : 80px;
+    padding-right : 80px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.item {
+    height : 330px;
+    flex: 0 0 20%; /* 25% 너비를 가지고, 간격은 20px로 조절 */
+    min-width : 250px;
+    margin: 10px; /* 간격 조절 */
+    box-sizing: border-box;
+    background-color: #5d7f96;
+    color: #fff;
+    text-align: center;
+    margin : 20px;
+}
+/* 검색 바 */
+
+.nav_section {
+    margin-top : 20px;
+    height : 45px;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.function {
+    display : flex;
+    justify-content: center;
+    flex : 1;
+    height : 45px;
+    align-items: center;
+    border : 2px solid rgb(161, 161, 161);
+    min-width : 700px;
+    border-radius: 8px; 
+}
+
+#searchForm {
+    margin :0 1px;
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;  
+    width : 220px;
+}
+
+#searchForm>input[type="text"] {
+    flex: 1;
+    color: black;
+    margin-right : 5px;
+}
+
+ 
+
+#radioForm {
+    margin : 0px 20px;
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    gap : 10px;  
+}
+
+#radioForm>label { 
+    color : rgb(104, 101, 101);
+    min-width : 60px;
+    width : 18%;
+}
+
+#radioForm input[type='radio'] {
+    display : none;
+}
+
+#radioForm input:checked + label{
+    color : black;
+    font-weight: 600;
+}
+
+#radioForm input:checked + label>div{
+    border-bottom: 4px solid yellow;
+    width : 100%;
+    height : 100%;
+}
+
+/* 모달 */
+
+.container input {
+    display : none;
+}
+
+.item input+.item label {
+    display : inline-block;
+    color : #fff;
+    width : 100%;
+    height : 100%;
+}
+
+.item input+label>.human{
+    height : 85%;
+    background-image : url('/static/images/newton.png');
+}
+
+.item input+ label>.name{
+    height : 15%;
+    font-size : 25px;
+    font-weight : 600;
+    padding-top : 7px;
+}
+
+
+.item input +label +div {
+    display : none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
+
+.item input + label + div > div {
+    position : absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 850px;
+    height: 520px;
+    background: #001007;
+    z-index : 2;
+    border : 2px solid rgb(14, 64, 14);
+}
+
+.item input + label + div > div > label {
+    position : absolute;
+    top: 3%;
+    right: 2%;
+    transform: translate(40%,-40%);
+    padding : 20px;
+    /* background: #dd5347;
+    border-radius : 100%; */
+    background-image: url('/static/images/X_button.png');
+    z-index : 5;
+}
+
+.item input + label + div > label {
+    position :absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.9);
+    z-index: 1;
+}
+
+.modal_window{
+    display : flex;
+}
+
+.modal_side {
+    display : flex;
+    flex-direction: column;
+    border-right : 2px solid rgb(14,64,14);
+    width : 25%;
+    height : 100%;
+    text-align: left;
+}
+.modal_side label {
+    padding : 15px 0 0 20px;
+    height : 50px;
+    font-size : 16px;
+}
+
+.modal_side input:checked + label {
+    background-color: rgb(14, 46, 14);
+}
+
+.modal_main {
+    position : relative;
+    width : 75%;
+    height : 100%;  
+}
+
+.modal_main>div {
+    position : absolute;
+    width : 100%;
+    height : 100%;
+    top : 0%;
+    left : 0%;
+    display : none;
+}
+
+.profile_main {
+    background-image: url('/static/images/newton_profile.png');
+}
+
+
+.modal_side>.profile:checked ~ .modal_main>.profile_main {
+    position : absolute;
+    width : 100%;
+    height : 100%;
+    top : 0%;
+    left : 0%;
+    z-index : 4;
+    background-image: url('/static/images/newton_profile.png');
+    display : block;
+}
+
+
+
+/* 
+.modal_main>.profile_main {
+    display : block;
+} */
+
+/* footer */
+
+.footer{
+    padding-top :20px;
+    height : 180px;
+    background-color : rgb(116, 115, 115);
+    text-align : center;
+    font-size : 18px;
+    color : rgb(30,30,30);
+    font-weight : 400;
+}
+
+
+
+/* body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  } */

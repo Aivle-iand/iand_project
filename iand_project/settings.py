@@ -63,10 +63,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'login',
     'main',
     'playground',
     'community',
     'mypage',
+    
+    # allauth
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    
+    # login-api
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.kakao',
 ]
 
 MIDDLEWARE = [
@@ -77,9 +88,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
-ROOT_URLCONF = 'iand.urls'
+ROOT_URLCONF = 'iand_project.urls'
 
 TEMPLATES = [
     {
@@ -97,7 +109,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'iand.wsgi.application'
+WSGI_APPLICATION = 'iand_project.wsgi.application'
 
 
 # Database
@@ -159,9 +171,13 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'playground', 'static'),
     os.path.join(BASE_DIR, 'mypage', 'static'),
     os.path.join(BASE_DIR, 'main', 'static'),
+    os.path.join(BASE_DIR, 'login', 'static'),
     ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
