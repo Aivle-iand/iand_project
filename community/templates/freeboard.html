@@ -41,7 +41,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    {% for list in post_list %}
+                                    {% for list in post_all %}
                                         <td>{{list.id}}</td>
                                         <td>{{list.postname}}</td>
                                         <td>{{list.writer}}</td>
@@ -51,13 +51,11 @@
                             </tbody>
                         </table>
                         <div class="paging">
-                            <a href="#" class="bt">첫 페이지로 이동</a>
-                            <a href="#" class="bt">이전 페이지로 이동</a>
-                            <a href="#" class="num">1</a>
-                            <a href="#" class="num">2</a>
-                            <a href="#" class="num">3</a>
-                            <a href="#" class="bt">다음 페이지</a>
-                            <a href="#" class="bt">마지막 페이지</a>
+                            <a href="#" class="bt"><<</a>
+                            <a href="#" class="bt"><</a>
+                            <a href="#" class="num on">1</a>
+                            <a href="#" class="bt">></a>
+                            <a href="#" class="bt">>></a>
                         </div>
 
                         <div class="write_btn">

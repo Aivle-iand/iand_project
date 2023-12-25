@@ -5,7 +5,7 @@ class Board(models.Model):
     postname = models.CharField(max_length=64, verbose_name="제목")
     contents = models.TextField()
     # registered_date = models.DateTimeField(auto_now_add=True, verbose_name="등록 시간")
-    # writer = models.ForeignKey('users.Users', verbose_name="글쓴이", on_delete=models.CASCADE)
+    # writer = models.ForeignKey('login_user.nickname', verbose_name="글쓴이", on_delete=models.CASCADE)
 
     # 게시글의 제목(postname)이 Post object 대신하기
     def __str__(self):
@@ -23,3 +23,6 @@ class Comment(models.Model):
     created = models.DateField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+# class Users(models.Model):
+    
+    
