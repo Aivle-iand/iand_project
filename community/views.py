@@ -41,9 +41,9 @@ def qna(request):
 
 def posting_ann(request, pk):
     # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
-    post = BoardAnn.objects.get(id=pk)
+    post_ann = BoardAnn.objects.get(id=pk)
     # posting.html 페이지를 열 때, 찾아낸 게시글(post)을 post라는 이름으로 가져옴
-    return render(request, 'posting.html', {'posting':post})
+    return render(request, 'posting.html', {'posting':post_ann})
 
 def posting_free(request, pk):
     # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
