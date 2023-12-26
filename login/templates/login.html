@@ -36,7 +36,10 @@
             background-size: cover;
         }
 
-
+        .login_btn {
+            background-image: url('{% static "img/login_img.png" %}');
+            background-size: cover;
+        }
         
     </style>
     </head>
@@ -53,9 +56,8 @@
 
 
         <main class="main">
-            {% comment %} <div class="left_main"></div> {% endcomment %}
             
-            <div class="right_main">
+            <div class="login_main">
                 <div class="loginpage">
                     <h5 class="loginpage-title">로그인</h5>
 
@@ -107,9 +109,17 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="sign_up_btn">
-                        <a href="signup">회원 가입</a>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="login_btn_div">
+                                <button class="login_btn"></button>
+                            </div>
+                        </form>
+    
+                        <div class="sign_up_div">
+                            <a href="signup" class="sign_up_btn">회원 가입</a>
+                        </div>
+
                     </div>
                 </div>  
             </div>
