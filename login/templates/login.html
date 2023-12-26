@@ -6,13 +6,13 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css\login.css' %}">
+    <link rel="stylesheet" href="{% static 'login\css\login.css' %}">
     <title>로그인페이지</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-image: url('{% static "img/back_img1.png" %}');
+            background-image: url('{% static "login/img/back_img1.png" %}');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -22,22 +22,22 @@
             min-height: 100vh; /* 최소 높이를 화면의 높이로 설정 */
         }
         .google-login-btn {
-            background-image: url('{% static "img/logo-google.png" %}');
+            background-image: url('{% static "login/img/logo-google.png" %}');
             background-size: cover;
         }
         
         .kakao-login-btn {
-            background-image: url('{% static "img/logo-kakao.png" %}');
+            background-image: url('{% static "login/img/logo-kakao.png" %}');
             background-size: cover;
         }
 
         .naver-login-btn {
-            background-image: url('{% static "img/logo-naver.png" %}');
+            background-image: url('{% static "login/img/logo-naver.png" %}');
             background-size: cover;
         }
 
         .login_btn {
-            background-image: url('{% static "img/login_img.png" %}');
+            background-image: url('{% static "login/img/login_img.png" %}');
             background-size: cover;
         }
         
@@ -47,7 +47,7 @@
     <body>
         <header class="header">
             <a href="main"></a>
-            <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img" id="logo_img">
+            <img src="{% static 'login/img/iand_logo_w.png' %}" class="logo_img" id="logo_img">
         </header>
         <script>
             document.getElementById("logo_img").addEventListener("click", function() {
