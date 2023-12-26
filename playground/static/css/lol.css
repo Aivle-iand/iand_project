@@ -564,6 +564,22 @@ header a {
     display : none;
 }
 
+/* 모달 profile */
+
+.profile_main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items : center;
+}
+
+.profile_img {
+    height : 280px;
+    width : 500px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin : 0 auto;
+}
 
 /* footer */
 

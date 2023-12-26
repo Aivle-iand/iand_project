@@ -161,7 +161,7 @@
                                             <div class="modal_main" id="modal_main_{{ book.id }}">
                                                 
                                                 <div class="profile_main profile_main_{{ book.id }}">{{ book.name }} 프로필 정보
-                                                    <div class= "profile_img" style='url("/static/images/newton_profile.png")'></div>
+                                                    <div class= "profile_img" style="background-image: url('{{ book.profile_image.url }}');"></div>
                                                     <div class= "profile_name">{{book.name}}</div>
                                                     <div class= "profile_description">{{book.prologue}}</div>
                                                     <div class= "change_voice_face">
