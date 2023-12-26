@@ -15,7 +15,7 @@ def index(request):
         books = books.filter(quiz=0)
         
     if search_query:
-        books = books.filter(title__icontains=search_query)
+        books = books.filter(name__icontains=search_query)
         
         
         
@@ -24,6 +24,14 @@ def index(request):
             pass  # 모든 책을 이미 불러왔으므로 추가 조건 없음
         else:
             cate = {'1':'과학자', '2':'수학자', '3': '철학자', '4':'음악가'}
-            books = books.filter(description=cate[categoryOption])
+            books = books.filter(category=cate[categoryOption])
 
     return render(request, 'playground/lol.html', {'books': books, "search_query": search_query, "filter_option" : filter_option, "categoryOption":categoryOption })
+
+
+
+
+
+def profile_view(request):
+    profiles = Book.objects.all()
+    return render(request, 'playground/lol.html', {'profiles': profiles})
