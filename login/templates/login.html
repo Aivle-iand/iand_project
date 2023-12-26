@@ -93,15 +93,15 @@
                                 <div class="kakao_login_div">
                                     <form action="{% provider_login_url 'kakao' %}" method='POST'>
                                         {% csrf_token %}
-                                        <button class="kakao-login-btn" href="{% provider_login_url 'kakao' %}">
+                                        <button class="kakao-login-btn">
                                         </button>
                                     </form>
                                 </div>
   
                                 <div class="naver_login_div">
-                                    <form action="" method="POST">
+                                    <form action="{% provider_login_url 'naver' %}" method="POST">
                                         {% csrf_token %}
-                                        <button class="naver-login-btn" href="">
+                                        <button class="naver-login-btn">
                                         </button>
                                     </form>
                                 </div>

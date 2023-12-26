@@ -56,6 +56,15 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+SITE_ID = 5
+
+ACCOUNT_SIGNUP_REDIRECTION_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 물어보는 페이지 안나옴
+
+SESSION_COOKIE_AGE = 3600 # 로그인 세션 1시간 유지?
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -78,6 +87,7 @@ INSTALLED_APPS = [
     # login-api
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.kakao',
+    'allauth.socialaccount.providers.naver',
 ]
 
 MIDDLEWARE = [
@@ -108,6 +118,22 @@ TEMPLATES = [
         },
     },
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        # These are provider-specific settings that can only be
+        # listed here:
+        "SCOPE": [
+            "profile",
+            "email",
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        },
+    },
+}
+
+
 
 WSGI_APPLICATION = 'iand_project.wsgi.application'
 
