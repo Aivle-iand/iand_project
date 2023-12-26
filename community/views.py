@@ -28,19 +28,31 @@ def writepage(request):
 
 # Create your views here.
 def announcement(request):
-    post_list = Board.objects.all().order_by('-id')
-    return render(request, 'announcement.html', {'post_all':post_list})
+    post_list = BoardAnn.objects.all().order_by('-id')
+    return render(request, 'announcement.html', {'post_all':ann_list})
 
 def freeboard(request):
-    post_list = Board.objects.all().order_by('-id')
-    return render(request, 'freeboard.html', {'post_all':post_list})
+    post_list = BoardFree.objects.all().order_by('-id')
+    return render(request, 'freeboard.html', {'post_all':free_list})
 
 def qna(request):
-    post_list = Board.objects.all().order_by('-id')
-    return render(request, 'qna.html', {'post_all':post_list})
+    post_list = BoardQna.objects.all().order_by('-id')
+    return render(request, 'qna.html', {'post_all':qna_list})
 
-def posting(request, pk):
+def posting_ann(request, pk):
     # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
-    post = Board.objects.get(id=pk)
+    post = BoardAnn.objects.get(id=pk)
+    # posting.html 페이지를 열 때, 찾아낸 게시글(post)을 post라는 이름으로 가져옴
+    return render(request, 'posting.html', {'posting':post})
+
+def posting_free(request, pk):
+    # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
+    post = BoardFree.objects.get(id=pk)
+    # posting.html 페이지를 열 때, 찾아낸 게시글(post)을 post라는 이름으로 가져옴
+    return render(request, 'posting.html', {'posting':post})
+
+def posting_qna(request, pk):
+    # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
+    post = BoardQna.objects.get(id=pk)
     # posting.html 페이지를 열 때, 찾아낸 게시글(post)을 post라는 이름으로 가져옴
     return render(request, 'posting.html', {'posting':post})

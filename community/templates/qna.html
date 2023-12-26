@@ -6,8 +6,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>자유게시판</title>
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <link rel="stylesheet" href="{% static 'css/main_center.css' %}">
+        <link rel="stylesheet" href="{% static 'community/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'community/css/main_center.css' %}">
         <style>
             #qna {
                 font-weight: 900;
@@ -39,14 +39,20 @@
                                 <th>작성일</th>
                             </thead>
                             <tbody>
-                                <tr>
+                                {% if post_all %}
                                     {% for list in post_all %}
+                                    <tr class="{% cycle '' 'even_bgcolor' %}"></tr>
                                         <td>{{list.id}}</td>
                                         <td>{{list.postname}}</td>
                                         <td>{{list.writer}}</td>
                                         <td>{{list.registerd_date}}</td>
-                                    {% endfor %}
-                                </tr>
+                                    </tr>
+                                    {% endfor %}            
+                                {% else %}
+                                    <tr>
+                                        <td>작성된 게시글이 없습니다.</td>
+                                    </tr>
+                                {% endif %}
                             </tbody>
                         </table>
                         <div class="paging">
