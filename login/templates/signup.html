@@ -62,7 +62,7 @@
         <main class="main">
             <div class="main_container"> <!-- main 중앙 정렬 속성 -->
                 <div class="signuppage">
-                <form method="post" action="/accounts/signup_complete">
+                <form method="post">
                     {% csrf_token %}
                     
                         <h1 class="signuppage-title">I&_ 회원가입</h1>
@@ -70,35 +70,34 @@
                             <div class="signup-id-pass">
                                 <div class="signup-id">
                                     <a>아이디</a>
-                                    <input class="username"
-                                        data-testid="input-username"
+                                    <input id="user_id" name="user_id" 
                                         autocapitalize="off" type="text"
                                         placeholder="ex) iam123" required>
+                                        <div id="userIdHelp"></div>
                                 </div>
-
 
                                 <div class="signup-pass">
                                     <a>비밀번호</a>
-                                    <input class="password" type="password"
-                                        placeholder="비밀번호는 최소 8자이상 최대 16자이하이며, 최소 하나의 특수 문자를 포함해야 합니다." required>
+                                    <input id="password" name="user_pw" type="password"
+                                           placeholder="· · · · · · · ·" oninput="validatePassword();" required>
+                                           <div id="passwordHelp" class="form-text"></div>
                                 </div>
-
-
+                            
                                 <div class="signup-pass-check">
                                     <a>비밀번호 재확인</a>
-                                    <input class="password" type="password"
-                                        placeholder="비밀번호 재입력" required>
-
+                                    <input id="confirmPassword" name="check_pw" type="password"
+                                           placeholder="비밀번호 재입력" oninput="validatePassword();" required>
+                                    <div id="passwordHelp" class="form-text"></div>
                                 </div>
 
                                 <div class="signup-name">
                                     <a>이름</a>
-                                    <input class="name" type="text" placeholder = "ex) 아이앤"required> 
+                                    <input name="username" type="text" placeholder = "ex) 아이앤"required> 
                                 </div>
 
                                 <div class="signup-nickname">
                                     <a>닉네임</a>
-                                    <input class="nickname" type="text" placeholder = "ex) 뉴턴광팬"required>
+                                    <input name="nickname" type="text" placeholder = "ex) 뉴턴광팬"required>
                                 </div>
 
                                 <div class="signup-security">
@@ -113,12 +112,12 @@
                                         <option value="4">가장 좋아하는 영화는?</option>
                                         <option value="5">기억에 남는 선생님 성함은?</option>
                                     </select>
-                                    <input class="security-answer" type="text"
+                                    <input name="security-answer" type="text"
                                         placeholder="보안 질문의 답" required>
                                 </div>
 
                                 <div class="signup-button">
-                                    <input type="submit" value="회원가입">
+                                    <input type="submit" id="submitBtn" value="회원가입">
                                 </div>
 
                                 <a class='already_signup' href="/accounts">이미
@@ -128,6 +127,7 @@
                     </div>
                 </form>
             </div>
+            <script src= "{% static 'login/js/signup.js' %}"></script>
         </main>
 
         <footer class="footer">

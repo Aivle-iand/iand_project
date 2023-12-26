@@ -241,3 +241,9 @@ body>* {
     padding: 3%;
     user-select: none;
 }
+
+input[type=submit]:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed; /* 호버 시 금지 표시 커서로 변경 */
+}
