@@ -105,8 +105,19 @@ body * {
     position: relative;
     height: 80px;
     cursor: pointer;
-    min-width : 90px;
 }
+
+.login {
+    min-width : 85px;
+}
+
+.join {
+    min-width : 105px;
+}
+
+.language_setting {
+    min-width : 120px;
+} 
 
 .header_right .a {
     display: flex;
@@ -191,6 +202,7 @@ header a {
 
 .join p,.login p {
     background: rgba(128,128,128,.3);
+    
     border-radius: 6.4px;
 }
 
@@ -209,7 +221,7 @@ header a {
 }
 
 .main_top {
-    position: relative; /* Needed for positioning the pseudo-element */
+    position: relative; 
     height: 240px;
     width: 100%;
     text-align: center;
@@ -219,7 +231,7 @@ header a {
 
 
 .main_top::before {
-    content: ''; /* Required for pseudo-elements */
+    content: ''; 
     position: absolute;
     top: 0;
     left: 0;
@@ -228,8 +240,8 @@ header a {
     background-image: url('/static/images/top.png');
     background-repeat: no-repeat;
     background-size: cover;
-    opacity: 0.5; /* Adjust the opacity as needed, 0 (fully transparent) to 1 (fully opaque) */
-    z-index: -1; /* Place the pseudo-element behind the content */
+    opacity: 0.5; 
+    z-index: -1; 
 }
 
 .main_top_12 {
@@ -254,26 +266,7 @@ header a {
 }
 
 
-.nav_section {
-    margin-top : 20px;
-    height : 45px;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-}
 
-.classification_bar {
-    margin : 0 200px;
-}
-
-.function {
-    display : flex;
-    flex : 1;
-    height : 45px;
-    align-items: center;
-    border : 2px solid rgb(161, 161, 161);
-    min-width : 700px;
-}
 
 .search {
     width : 35%;
@@ -296,29 +289,42 @@ header a {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
 }
 
 .item {
     height : 330px;
-    flex: 0 0 20%; /* 25% 너비를 가지고, 간격은 20px로 조절 */
-    min-width : 250px;
-    margin: 10px; /* 간격 조절 */
+    flex: 0 0 22%; 
+    min-width : 0px;
+    margin: 10px; 
     box-sizing: border-box;
-    background-color: #5d7f96;
+    background-color: rgb(6,28,37);
+    border : 4px solid rgb(6,28,37);
     color: #fff;
     text-align: center;
     margin : 20px;
 }
+
+.item:hover {
+    background-color: rgb(19, 38, 91);
+    border : 4px solid rgb(19, 38, 91);
+}
 /* 검색 바 */
 
-.nav_section {
-    margin-top : 20px;
-    height : 45px;
-    align-content: center;
-    align-items: center;
+.classification_bar {
+    display : flex;
     justify-content: center;
+    align-items: center;
 }
+
+
+.nav_section {
+    margin : 20px 0;
+    height : 45px;
+
+}
+
+
 
 .function {
     display : flex;
@@ -327,8 +333,17 @@ header a {
     height : 45px;
     align-items: center;
     border : 2px solid rgb(161, 161, 161);
-    min-width : 700px;
+    min-width : 800px;
     border-radius: 8px; 
+    margin : 0 250px;
+}
+
+.function>form {
+    height : 100%;
+    margin : 0px;
+    display : flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #searchForm {
@@ -345,8 +360,12 @@ header a {
     flex: 1;
     color: black;
     margin-right : 5px;
+    font-size : 15px;
+    width : 110px;
 }
-
+#searchForm>button {
+    width : 50px;
+}
  
 
 #radioForm {
@@ -376,11 +395,25 @@ header a {
 
 #radioForm input:checked + label>div{
     border-bottom: 4px solid yellow;
+
+}
+
+#optionForm>select {
+    font-size : 16px;
+}
+
+.no_result {
+    padding-top : 130px;
     width : 100%;
-    height : 100%;
+    height : 300px;
+    text-align: center;
+    font-size: 20px;
+    color : rgb(104, 101, 101);
 }
 
 /* 모달 */
+
+
 
 .container input {
     display : none;
@@ -394,15 +427,61 @@ header a {
 }
 
 .item input+label>.human{
-    height : 85%;
-    background-image : url('/static/images/newton.png');
+        height : 85%;
+        background-size: cover;
+}
+
+.item>label:hover
+
+
+.human {
+    position: relative;
+}
+
+.human::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    display: block;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 100%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.item>label:hover .human::before {
+    animation: circle .75s;
+}
+
+@keyframes circle {
+    0% {
+        opacity: 1;
+    }
+    40% {
+        opacity: 1;
+    }
+    100% {
+        width: 200%;
+        height: 200%;
+        opacity: 0;
+    }
+}
+
+
+.item {
+        overflow: hidden;
 }
 
 .item input+ label>.name{
-    height : 15%;
-    font-size : 25px;
-    font-weight : 600;
-    padding-top : 7px;
+        height : 15%;
+        font-size : 25px;
+        font-weight : 600;
+        padding-top : 7px;
+
 }
 
 
@@ -423,7 +502,7 @@ header a {
     transform: translate(-50%,-50%);
     width: 850px;
     height: 520px;
-    background: #001007;
+    background: #000603;
     z-index : 2;
     border : 2px solid rgb(14, 64, 14);
 }
@@ -434,8 +513,6 @@ header a {
     right: 2%;
     transform: translate(40%,-40%);
     padding : 20px;
-    /* background: #dd5347;
-    border-radius : 100%; */
     background-image: url('/static/images/X_button.png');
     z-index : 5;
 }
@@ -469,7 +546,7 @@ header a {
 }
 
 .modal_side input:checked + label {
-    background-color: rgb(14, 46, 14);
+    background-color: rgba(14, 46, 14,0.7);
 }
 
 .modal_main {
@@ -487,28 +564,6 @@ header a {
     display : none;
 }
 
-.profile_main {
-    background-image: url('/static/images/newton_profile.png');
-}
-
-
-.modal_side>.profile:checked ~ .modal_main>.profile_main {
-    position : absolute;
-    width : 100%;
-    height : 100%;
-    top : 0%;
-    left : 0%;
-    z-index : 4;
-    background-image: url('/static/images/newton_profile.png');
-    display : block;
-}
-
-
-
-/* 
-.modal_main>.profile_main {
-    display : block;
-} */
 
 /* footer */
 
@@ -521,41 +576,3 @@ header a {
     color : rgb(30,30,30);
     font-weight : 400;
 }
-
-
-
-/* body {
-    font-family: Arial, sans-serif;
-  }
-  
-  .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  
-  .modal-content {
-    background-color: #fefefe;
-    margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-  }
-  
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  } */

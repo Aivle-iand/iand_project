@@ -4,14 +4,14 @@ from .models import Book
 
 def index(request):
     search_query = request.GET.get('search', '')
-    filter_option = request.GET.get('filter', 'all_book')
+    filter_option = request.GET.get('filter', '')
     categoryOption = request.GET.get('categoryOption', '')
     
     books = Book.objects.all()
 
-    if filter_option == 'read_book':
+    if filter_option == '1':
         books = books.filter(quiz=1)
-    elif filter_option == 'unread_book':
+    elif filter_option == '0':
         books = books.filter(quiz=0)
         
     if search_query:
