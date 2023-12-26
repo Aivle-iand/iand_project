@@ -1,0 +1,50 @@
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/main_center.css' %}">
+
+    <title>1인칭 주인공 시점</title>
+    </head>
+
+    <body>
+        {% include 'header.html' %}
+        <main class="main">
+            <div class="main_center">
+                <nav class="internal_navigation">
+                    <div class="internal_navigation_positional">
+                        <h1>Account Management</h1>
+                        <div class="internal_navigation_content">
+                            <ul class="internal_navigation_list">
+                                <li>test</li>
+                                <li>test2</li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                {% comment %} <div class="div_center">
+                    <div class="side_center">  
+                        <nav class="internal_navigation">
+                            <div class="internal_navigation_positional">
+                                <h1>Account Management</h1>
+                                <div class="internal_navigation_content">
+                                    <ul class="internal_navigation_list">
+                                        <li>test</li>
+                                        <li>test2</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav> 
+                    </div>
+                    <div class='center_center'>
+                        
+                    </div>
+                </div>                 {% endcomment %}
+            </div>
+            <div></div>
+            {% comment %} <div class="main_bottom"></div> {% endcomment %}
+        </main> 
+        {% include 'footer.html' %}     
+    </body>
+</html>

@@ -3,37 +3,50 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{% static 'css/mypage_temp.css' %}">
-        <link rel="stylesheet" href="{% static 'css/main_center.css' %}">
+        <link rel="stylesheet" href="{% static 'mypage/css/main_center.css' %}">
 
     <title>1인칭 주인공 시점</title>
-        <style>
-            #info_modify {
-                font-weight:900;
-                font-size:22px;
-            }
-        </style>
     </head>
 
     <body>
         {% include 'header.html' %}
         <main class="main">
-            <div class="main_top">
-                <div class="page_name">My Page</div>
-            </div>
-            <div class="main_center">
-                <div class="div_center">
-                    <div class="side_center">   
-                        <div class="board_div" id="info_modify"><a href="./mypage_temp">- 개인 정보 수정</a></div>
-                        <div class="board_div" id="face_register"><a href="./upload_img">- 얼굴 등록</a></div>
-                        <div class="board_div" id="voice_register"><a href="./upload_voice">- 목소리 등록</a></div>
+            <div class="nav_root">
+                <nav class="internal_navigation">
+                    <div class="internal_navigation_positional">
+                        <h1>Account Management</h1>
+                        <div class="internal_navigation_content">
+                            <ul class="internal_navigation_list">
+                                <li><a class="personal_information_link" href="#personal_information_card"><span>PERSONAL INFORMATION</span></a></li>
+                                <li><a class="change_password_link" href="#change_password"><span>CHANGE PASSWORD</span></a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class='center_center'>
-                        
-                    </div>
-                </div>                
+                </nav>
             </div>
-            <div class="main_bottom"></div>
+            <div class="main_root">
+                <div class="personal_information_card" id="personal_information_card">
+                    <div class="personal_information_explain">
+                        <h1>Personal Information</h1>
+                        <p>This information is private and will not be shared with other players. Read the Riot Privacy Notice anytime!</p>
+                    </div>
+                    <div class="personal_information_content">test</div>
+                </div>
+                <div class="personal_information_card" id="change_password">
+                    <div class="personal_information_explain">
+                        <h1>Change Password</h1>
+                        <p>We recommend that you periodically update your password to help prevent unauthorized access to your account.</p>
+                    </div>
+                    <div class="personal_information_content">test</div>
+                </div>
+                <div class="personal_information_card" id="personal_information_card">
+                    <div class="personal_information_explain">
+                        <h1>test3</h1>
+                        <p>This information is private and will not be shared with other players. Read the Riot Privacy Notice anytime!</p>
+                    </div>
+                    <div class="personal_information_content">test</div>
+                </div>
+            </div>
         </main> 
         {% include 'footer.html' %}     
     </body>
