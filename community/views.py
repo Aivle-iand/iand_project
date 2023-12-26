@@ -28,15 +28,15 @@ def writepage(request):
 
 # Create your views here.
 def announcement(request):
-    post_list = BoardAnn.objects.all().order_by('-id')
+    ann_list = BoardAnn.objects.all().order_by('-id')
     return render(request, 'announcement.html', {'post_all':ann_list})
 
 def freeboard(request):
-    post_list = BoardFree.objects.all().order_by('-id')
+    free_list = BoardFree.objects.all().order_by('-id')
     return render(request, 'freeboard.html', {'post_all':free_list})
 
 def qna(request):
-    post_list = BoardQna.objects.all().order_by('-id')
+    qna_list = BoardQna.objects.all().order_by('-id')
     return render(request, 'qna.html', {'post_all':qna_list})
 
 def posting_ann(request, pk):
