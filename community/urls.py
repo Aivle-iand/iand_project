@@ -8,7 +8,7 @@ from django.conf.urls.static import static
 app_name = 'community'
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.categoryView, name='post_all'),
+    path('', views.categoryView, name='community_board'),
     # path("<str:category_name>/", views.categoryView, name="category",)
     # path('freeboard', views.freeboard, name='freeboard'),
     # path('qna', views.qna, name='qna'),
