@@ -7,35 +7,33 @@ body>* {
     box-sizing: border-box;
 }
 
-.header {
-    height: 0px;
+main {
+    position: relative;
+}
+
+.logo_class {
+    cursor : pointer;
+    position: absolute;
 }
 
 .logo_img {
     height: 15vw;
     padding: 10px;
-    cursor: pointer;
 }
 
 .login_main {
-    height: calc(100vh - 100px);
-    display: flex; /* Flexbox를 활성화 */
-    justify-content: right; /* 수평 중앙 정렬 */
-    align-items: center; /*수직 중앙 정렬*/
-    margin-right: 5%;
-    /* height: 100%; 전체 뷰포트 높이를 차지하도록 설정 */
+    height: calc( 100vh - 100px );
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-right: 10%;
 }
 
 .loginpage {
     background: rgb(255, 255, 255);
     border-radius: 10px;
     padding: 20px;
-    /* display: flex; */
-    /* flex-direction: column;
-    position: absolute; */
-    /* right: 100px;
-    height: 400px;
-    width: 350px; */
+    min-width: 350px;
 }
 
 .loginpage h5 {
@@ -196,13 +194,14 @@ body>* {
 }
 
 .login_btn {
-    border: 2px solid #F8F8F8;
+    border: none;
     position: relative;
     margin: auto;
     width: 40px;
     height: 40px;
     cursor: pointer;
     padding: 5%;
+    background: none;
 }
 
 .sign_up_div {
@@ -232,7 +231,9 @@ body>* {
     height: 100px;
     display: flex;
     text-align: center;
+    height: 100px;
+    background: rgba(0,0,0,0.5);
+    display: flex;
     align-items: center;
     justify-content: center;
-    user-select: none;
 }

@@ -45,17 +45,12 @@
     </head>
     
     <body>
-        <header class="header">
-            <a href="main"></a>
-            <img src="{% static 'login/img/iand_logo_w.png' %}" class="logo_img" id="logo_img">
-        </header>
-        <script>
-            document.getElementById("logo_img").addEventListener("click", function() {
-              window.location.href = "http://127.0.0.1:8000/";
-            });</script>
-
 
         <main class="main">
+            <a class="logo_class" href="">
+                <img src="{% static 'login/img/iand_logo_w.png' %}" class="logo_img" id="logo_img">
+            </a>
+            
             <div class="login_main">
                 <div class="loginpage">
                     <h5 class="loginpage-title">로그인</h5>
@@ -63,15 +58,15 @@
                     <div class="loginbox">
                         <div class="login-id-pass">
                             <div class="login-id">
-                                <input class="username" data-testid="input-username" autocapitalize="off" type="text" value="">
-                                <label>계정이름</label>
-                                <span>계정이름</span>
+                                <input class="username" id ="usernameInput" data-testid="input-username" autocapitalize="off" type="text" value="">
+                                <label for="usernameInput" id="usernameLabel">계정이름</label>
+                                <span for="usernameLabel" id="usernameSpan">계정이름</span>
                             </div>
                             
                             <div class="login-pass">
-                                <input class="password" data-testid="input-password" type="password" autocomplete="off" value="">
-                                <label>비밀번호</label>
-                                <span>비밀번호</span>
+                                <input class="password" id="passwordInput" data-testid="input-password" type="password" autocomplete="off" value="">
+                                <label for="passwordInput" id="passwordLabel">비밀번호</label>
+                                <span for ="passwordLabel" id="passwordSpan">비밀번호</span>
                             </div>
                         </div>
 
@@ -125,7 +120,7 @@
         </main>
 
         <footer class="footer">
-            <div class="footer_text">
+            <div>
                 <span>AIVLE 4기 빅프로젝트 1조  2023.12.11 ~ 2024.01.17 </span><br>
                 <span>경기도 성남시 분당구 불정로 90 (정자동)</span><br>
                 <span>Copyright© 2023 KT Corp. All rights reserved.</span>
@@ -133,6 +128,51 @@
         </footer>
         
     </body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const usernameInput = document.getElementById('usernameInput');
+            const usernameLabel = document.getElementById('usernameLabel');
+            const usernameSpan = document.getElementById('usernameSpan');
+
+            const passwordInput = document.getElementById('passwordInput');
+            const passwordLabel = document.getElementById('passwordLabel');
+            const passwordSpan = document.getElementById('passwordSpan');
+
+            // 포커스 이벤트 리스너 추가
+            usernameInput.addEventListener('focus', function () {
+                hideLabelAndShowSpan(usernameLabel, usernameSpan);
+            });
+
+            passwordInput.addEventListener('focus', function () {
+                hideLabelAndShowSpan(passwordLabel, passwordSpan);
+            });
+
+            // 입력 이벤트 리스너 추가
+            usernameInput.addEventListener('input', function () {
+                toggleLabelAndSpan(usernameInput, usernameLabel, usernameSpan);
+            });
+
+            passwordInput.addEventListener('input', function () {
+                toggleLabelAndSpan(passwordInput, passwordLabel, passwordSpan);
+            });
+
+            function toggleLabelAndSpan(inputElement, labelElement, spanElement) {
+                if (inputElement.value.trim() !== '') {
+                    labelElement.style.display = 'none';
+                    spanElement.style.display = 'inline';
+                } else {
+                    labelElement.style.display = 'inline';
+                    spanElement.style.display = 'none';
+                }
+            }
+
+            function hideLabelAndShowSpan(labelElement, spanElement) {
+                labelElement.style.display = 'none';
+                spanElement.style.display = 'inline';
+            }
+        });
+    </script>
 
     {% if messages %}
     <script type="text/javascript">
@@ -143,4 +183,43 @@
     {% endif %}
 
     
-</html
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 팝업 관련코드  -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="lol.css">
+  <title>Popup Example</title>
+</head>
+<body>
+
+  <button id="showPopup">Show Popup</button>
+
+  <div id="popup" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closePopup">&times;</span>
+      <p>This is a popup content!</p>
+    </div>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html> -->
