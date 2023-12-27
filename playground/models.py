@@ -12,3 +12,16 @@ class Book(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+
+# Episode table 추가
+class Episode(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='episodes')
+    title = models.CharField(max_length=200)
+    content = models.TextField(null=True, blank=True)
+    episode_number = models.PositiveIntegerField(default=1, help_text="에피소드 번호") #양수만 받는 필드
+    book_image = models.ImageField(upload_to='contents/')  # Image for each episode
+
+    def __str__(self):
+        return f"{self.book.name} - {self.title}"

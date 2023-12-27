@@ -415,7 +415,7 @@ header a {
 
 
 
-.container input {
+.container .modal_check,.container .modal_radio {
     display : none;
 }
 
@@ -500,7 +500,7 @@ header a {
     top: 55%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 850px;
+    width: 1000px;
     height: 520px;
     background: #000603;
     z-index : 2;
@@ -535,7 +535,7 @@ header a {
     display : flex;
     flex-direction: column;
     border-right : 2px solid rgb(14,64,14);
-    width : 25%;
+    width : 250px;
     height : 100%;
     text-align: left;
 }
@@ -571,14 +571,164 @@ header a {
     flex-direction: column;
     justify-content: center;
     align-items : center;
+    position : absolute;
 }
 
+
 .profile_img {
-    height : 280px;
-    width : 500px;
+    height : 250px;
+    width : 450px;
     background-repeat: no-repeat;
     background-size: cover;
     margin : 0 auto;
+    top : 20px;
+    position : relative;
+    z-index: 10;
+}
+
+.profile_name {
+    top : -6px;
+    position : relative;
+    z-index: 11;
+}
+
+.profile_name_span {
+    font-size : 50px;
+    font-weight: 700;
+}
+
+.profile_life_span {
+    font-size : 20px;
+    font-weight: 600;
+}
+
+.profile_prologue {
+    padding : 0 30px;
+    font-size : 16px;
+    text-align: left;
+    position : relative;
+    top : -4px;
+}
+
+.change_voice_face {
+    display : flex;
+    flex-direction: row-reverse;
+    position : relative;
+    bottom : 13px;
+}
+
+.voice_label, .face_label {
+    display: flex;
+    align-items: center; 
+}
+
+.voice_face_form {
+    display : flex;
+    flex-direction: row-reverse;
+}
+
+.voice_face_form > * {
+    margin-right : 15px;
+}
+
+.voice_face_form input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    background-color: #12533700;
+    cursor: pointer;
+    position: relative; 
+}
+
+.voice_face_form input[type="checkbox"]:checked::before {
+    background-color: #00000000;
+    color: #ffffff; 
+    cursor: pointer;
+}
+
+.voice_face_form input[type="checkbox"]::before {
+    content: "✔︎";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #000000; 
+    font-size: 19px;
+}
+
+.button_voice_face {
+    background-color: #ff000000;
+    color: #fff;
+    font-size: 16px;
+    font-weight : 530;
+    border: 2px solid white;    
+    cursor: pointer;
+}
+
+.button_voice_face:hover {
+    background-color: #ffffff;
+    color: black;
+    font-weight : 600;
+}
+
+.change_voice_face {
+    margin : 20px;
+}
+
+/* 에피소드  모달 */
+
+
+/* Quiz 모달 */
+.quiz_wrap > form {
+    display : flex;
+    flex-direction: column;
+    margin : 0 40px;
+    margin-top : 60px;
+    
+}
+
+.quiz_wrap > form * {
+    text-align: left;
+    margin-bottom : 9px;
+}
+
+.quiz_input_wrap{
+    display :flex;
+    flex-direction: row-reverse;
+}
+
+
+.quiz_input_wrap>input[type="text"] {
+    background-color: #00000000;
+    border : 2px solid white;
+    color : white;
+    height : 25px;
+    text-align: right;
+}
+
+#quiz_button {
+    display : flex;
+    flex-direction: row-reverse;
+
+}
+
+#quiz_button>button {
+    background-color: #00000000;
+    border : 2px solid white;
+    color : white;
+    height : 25px;
+    font-size : 17px;
+}
+
+#quiz_button>button:hover {
+    background-color: #ffffff;
+    border : 2px solid white;
+    color : black;
+    font-weight: 600;
 }
 
 /* footer */
@@ -591,4 +741,24 @@ header a {
     font-size : 18px;
     color : rgb(30,30,30);
     font-weight : 400;
+}
+
+
+/* episode */
+
+.episode_main {
+    display: flex;
+    flex-direction: column; /* 자식 요소를 세로로 배치 */
+    align-items: center;    /* 수직 방향에서 중앙 정렬 */
+    justify-content: center;/* 수평 방향에서 중앙 정렬 */
+    min-height: 100vh;      /* 뷰포트의 높이와 같게 설정 */
+    text-align: center;     /* 텍스트 중앙 정렬 */
+    margin-top: 30%;
+}
+
+.episode_img {
+    width: 70%;            /* 이미지의 너비를 컨테이너의 50%로 설정 */
+    max-width: 600px;      /* 이미지의 최대 너비를 600px로 제한 */
+    height: 200px;          /* 이미지의 높이를 비율에 맞게 자동 조절 */
+    margin-bottom: 20px;   /* 이미지 아래에 여백 추가 */
 }

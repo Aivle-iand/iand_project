@@ -134,89 +134,204 @@
                         <div class="container">
                             {% if books %}
                                 {% for book in books %}
-                                <div class="item">
-                                    <input type="checkbox" id="no_{{ book.id }}" checked>
-                                    <label for="no_{{ book.id }}">
-                                        <div class="human" style="background-image: url('{{ book.card_image.url }}');"></div>
-                                        <div class="name">{{ book.name }}</div>
-                                    </label>
+                                    <div class="item">
+                                        <input type="checkbox" id="no_{{ book.id }}" class="modal_check">
+                                        <label for="no_{{ book.id }}">
+                                            <div class="human" style="background-image: url('{{ book.card_image.url }}');"></div>
+                                            <div class="name">{{ book.name }}</div>
+                                        </label>
 
-                                    <div>
-                                        <div class="modal_window">
-                                            <label for="no_{{ book.id }}"></label>
-                                            <div class="modal_side">
-                                                <label for=""></label>
-                                                <input type="radio" name="side_option_{{ book.id }}" id="profile_side_{{ book.id }}" checked>
-                                                <label for="profile_side_{{ book.id }}">{{ book.id }} 프로필</label>
-                                                <input type="radio" name="side_option_{{ book.id }}" id="episode1_side_{{ book.id }}">
-                                                <label for="episode1_side_{{ book.id }}">{{ book.id }} 에피소드1 제목</label>
-                                                <input type="radio" name="side_option_{{ book.id }}" id="episode2_side_{{ book.id }}">
-                                                <label for="episode2_side_{{ book.id }}">{{ book.id }} 에피소드2 제목</label>
-                                                <input type="radio" name="side_option_{{ book.id }}" id="episode3_side_{{ book.id }}">
-                                                <label for="episode3_side_{{ book.id }}">{{ book.id }} 에피소드3 제목</label>
-                                                <input type="radio" name="side_option_{{ book.id }}" id="quiz_side_{{ book.id }}">
-                                                <label for="quiz_side_{{ book.id }}">Quiz</label>
-                                            </div>
-                                    
-                                            <div class="modal_main" id="modal_main_{{ book.id }}">
-                                                
-                                                <div class="profile_main profile_main_{{ book.id }}">{{ book.name }} 프로필 정보
-                                                    <div class= "profile_img" style="background-image: url('{{ book.profile_image.url }}');"></div>
-                                                    <div class= "profile_name">{{book.name}}</div>
-                                                    <div class= "profile_description">{{book.prologue}}</div>
-                                                    <div class= "change_voice_face">
-                                                        <form id="searchForm" method="get" >
-                                                            <label class="voice_label"><input type="checkbox" class="voice_check" name='voice'>음성 입히기</label> 
-                                                            <label class="face_label"><input type="checkbox" class="face_check" name='face'>얼굴 입히기</label>
-                                                            <button type="submit" class="button_voice_face">적용</button> 
+                                        <div>
+                                            <div class="modal_window">
+                                                <label for="no_{{ book.id }}"></label>
+                                                <div class="modal_side">
+                                                    <label for=""></label>
+                                                    <input type="radio" name="side_option_{{ book.id }}" id="profile_side_{{ book.id }}" class="modal_radio" checked>
+                                                    <label for="profile_side_{{ book.id }}">{{ book.id }} 프로필</label>
+                                                    <input type="radio" name="side_option_{{ book.id }}" id="episode1_side_{{ book.id }}" class="modal_radio">
+                                                    <label for="episode1_side_{{ book.id }}">{{ book.id }} 에피소드1 제목</label>
+                                                    <input type="radio" name="side_option_{{ book.id }}" id="episode2_side_{{ book.id }}" class="modal_radio">
+                                                    <label for="episode2_side_{{ book.id }}">{{ book.id }} 에피소드2 제목</label>
+                                                    <input type="radio" name="side_option_{{ book.id }}" id="episode3_side_{{ book.id }}" class="modal_radio">
+                                                    <label for="episode3_side_{{ book.id }}">{{ book.id }} 에피소드3 제목</label>
+                                                    <input type="radio" name="side_option_{{ book.id }}" id="quiz_side_{{ book.id }}" class="modal_radio">
+                                                    <label for="quiz_side_{{ book.id }}">Quiz</label>
+                                                </div>
+                                        
+                                                <div class="modal_main" id="modal_main_{{ book.id }}">
+                                                    
+                                                    <div class="profile_main profile_main_{{ book.id }}">
+                                                        <div class= "profile_img" style="background-image: url('{{ book.profile_image.url }}');"></div>
+                                                        <div class= "profile_name">
+                                                            <span class="profile_name_span">{{book.name}}</span>
+                                                            <span class="profile_life_span"> {{book.year_of_life}}</span></div>
+                                                        <div class= "profile_prologue">{{book.prologue}}</div>
+                                                        <div class= "change_voice_face">
+                                                            <form class="voice_face_form" id="voice_face_form_{{ book.id }}" method="get">
+                                                                <button type="submit" class="button_voice_face">적용</button> 
+                                                                <label class="voice_label"><input type="checkbox" class="voice_check" name='voice' value="{{ book.id }}">음성 입히기</label> 
+                                                                <label class="face_label"><input type="checkbox" class="face_check" name='face' value="{{ book.id }}">얼굴 입히기</label>
+                                                            </form>
+                                                        </div>
                                                     </div>
+
+                                                <!-- episode 1 -->
+                                                <div class="episode_main episode_main_{{ book.id }}">
+                                                    {% if book.episodes %}
+                                                        {% for episode in book.episodes.all %}
+                                                            {% if episode.episode_number == 1 %}
+                                                                <div class="episode_item" style="display: flex;">
+                                                                    <div class="episode_img" style="flex: 30%; background-image: url('{{ episode.book_image.url }}');"></div>
+                                                                    <div class="episode_content" style="flex: 50%;">
+                                                                        <h2>{{ episode.title }}</h2>
+                                                                        <p>{{ episode.content }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </div>                                                
+                                                
+                                                <!-- episode 2 -->
+                                                <div class="episode_main episode_main_{{ book.id }}">
+                                                    {% if book.episodes %}
+                                                        {% for episode in book.episodes.all %}
+                                                            {% if episode.episode_number == 2 %}
+                                                                <div class="episode_item" style="display: flex;">
+                                                                    <div class="episode_img" style="flex: 30%; background-image: url('{{ episode.book_image.url }}');"></div>
+                                                                    <div class="episode_content" style="flex: 50%;">
+                                                                        <h2>{{ episode.title }}</h2>
+                                                                        <p>{{ episode.content }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </div>
+                                            
+                                                <!-- episode 3 -->
+                                                <div class="episode_main episode_main_{{ book.id }}">
+                                                    {% if book.episodes %}
+                                                        {% for episode in book.episodes.all %}
+                                                            {% if episode.episode_number == 3 %}
+                                                                <div class="episode_item" style="display: flex;">
+                                                                    <div class="episode_img" style="flex: 30%; background-image: url('{{ episode.book_image.url }}');"></div>
+                                                                    <div class="episode_content" style="flex: 50%;">
+                                                                        <h2>{{ episode.title }}</h2>
+                                                                        <p>{{ episode.content }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
                                                 </div>
 
-                                                <div class="episode1_main_{{ book.id }}">{{ book.name }} 에피소드1 내용</div>
-                                                <div class="episode2_main_{{ book.id }}">{{ book.name }} 에피소드2 내용</div>
-                                                <div class="episode3_main_{{ book.id }}">{{ book.name }} 에피소드3 내용</div>
-                                                <div class="quiz_main_{{ book.id }}">{{ book.name }} Quiz 내용</div>
+
+                                                    <div class="quiz_main_{{ book.id }}">
+                                                        <div class="quiz_wrap">
+                                                            <form>
+                                                                <div class="quiz_div" id="quiz_1">
+                                                                    <div class="quiz_text">Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1
+                                                                        Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1
+                                                                        Quiz1 Quiz1 Quiz1 Quiz1
+                                                                    </div>
+                                                                    <div class="quiz_input_wrap">
+                                                                        <input type = text>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="quiz_div" id="quiz_2">
+                                                                    <div class="quiz_text">
+                                                                        Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 
+                                                                        Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2
+                                                                        Quiz2 Quiz2
+                                                                    </div>
+                                                                    <div class="quiz_input_wrap">
+                                                                        <input type = text>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="quiz_div" id="quiz_3">
+                                                                    <div class="quiz_text">
+                                                                        Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 
+                                                                        Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3
+                                                                        Quiz3 Quiz3 
+                                                                    </div>
+                                                                    <div class="quiz_input_wrap">
+                                                                        <input type = text>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="quiz_div" id="quiz_4">
+                                                                    <div class="quiz_text">
+                                                                        Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 
+                                                                        Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4
+                                                                        Quiz4 Quiz4
+                                                                    </div>
+                                                                    <div class="quiz_input_wrap">
+                                                                        <input type = text>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="quiz_button">
+                                                                    <button type="submit">채점</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <label for="no_{{ book.id }}"></label>
-                                                <script>
-                                                    const radioButtons{{ book.id }} = document.querySelectorAll('input[name="side_option_{{ book.id }}"]');
-                                                    const contentDivs{{ book.id }} = document.querySelectorAll('#modal_main_{{ book.id }} > div');
-                                            
-                                                    contentDivs{{ book.id }}[0].style.display = 'block';
-                                            
-                                                    radioButtons{{ book.id }}.forEach((radioButton, index) => {
-                                                        radioButton.addEventListener('change', () => {
-                                                            contentDivs{{ book.id }}.forEach((div, divIndex) => {
-                                                                div.style.display = index === divIndex ? 'block' : 'none';
-                                                            });
+                                            <label for="no_{{ book.id }}"></label>
+                                            <script>
+                                                const radioButtons{{ book.id }} = document.querySelectorAll('input[name="side_option_{{ book.id }}"]');
+                                                const contentDivs{{ book.id }} = document.querySelectorAll('#modal_main_{{ book.id }} > div');
+                                        
+                                                contentDivs{{ book.id }}[0].style.display = 'block';
+                                        
+                                                radioButtons{{ book.id }}.forEach((radioButton, index) => {
+                                                    radioButton.addEventListener('change', () => {
+                                                        contentDivs{{ book.id }}.forEach((div, divIndex) => {
+                                                            div.style.display = index === divIndex ? 'block' : 'none';
                                                         });
                                                     });
-                                                </script>
+                                                });
+                                            </script>
                                             <script>
                                                 document.getElementById('no_{{ book.id }}').addEventListener('change', function () {
                                                     var popupDiv = document.querySelector('input[id="no_{{ book.id }}"] + label + div');
                                                     popupDiv.style.display = this.checked ? 'block' : 'none';
                                                 });
                                             </script>                               
-                                            </div>
                                         </div>
-                                    {% endfor %}
-                                {% else %}
-                                        <div class="no_result">
-                                            조건에 맞는 위인이 없습니다.<br>
-                                            다시 검색해 주세요.
-                                        </div>
-                                {% endif %}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                    <div class="no_result">
+                                        조건에 맞는 위인이 없습니다.<br>
+                                        다시 검색해 주세요.
+                                    </div>
+                            {% endif %}
 
-                            
+                            {% if voice %}
+                                <script>
+                                    var voice = {{ voice|default:0 }};
+                                    var elementId = 'no_' + voice;
+                                    var popupDiv_open = document.querySelector('input[id="' + elementId + '"] + label + div');
+                                    var name = 'input[id="' + elementId + '"] + label + div';
+                                    popupDiv_open.style.display = "block";
+                                    
+                                </script>
+                            {% elif face %}
+                                <script>
+                                    var face = {{ face|default:0 }};
+                                    var elementId = 'no_' + face;
+                                    var popupDiv_open = document.querySelector('input[id="' + elementId + '"] + label + div');
+                                    popupDiv_open.style.display = "block";
+                                </script>
+                            {% endif %}
                         </div>
                     </div>
                 </section>
 
             </div>
             <div class="main_bottom">
-                여긴 하단인데 구독링크 등 광고 넣으면 좋을 듯
+                여긴 하단인데 구독링크 등 광고 넣으면 좋을 듯~
             </div>
         </main>
 
