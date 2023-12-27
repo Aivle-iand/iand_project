@@ -41,8 +41,8 @@
                                 <th>작성일</th>
                             </thead>
                             <tbody>
-                                {% if post_list %}
-                                    {% for list in post_list %}
+                                {% if post_obj %}
+                                    {% for list in post_obj %}
                                     <tr class="{% cycle '' 'even_bgcolor' %}"></tr>
                                         <td>{{ list.id }}</td>
                                         <td>{{ list.postname }}</td>
@@ -58,11 +58,19 @@
                             </tbody>
                         </table>
                         <div class="paging">
-                            <a href="#" class="bt"><<</a>
-                            <a href="#" class="bt"><</a>
-                            <a href="#" class="num on">1</a>
-                            <a href="#" class="bt">></a>
-                            <a href="#" class="bt">>></a>
+                            <ul style="display:flex;list-style: none;">
+                            {% if page_obj.has_previous %}
+                            <li style="margin:3px;"><a style="text-decoration:none; color:blue;" href="?page={{page_obj.previous_page_number}}">&#10094; Prev</a></li>
+                            {% endif %}
+                            
+                            {% for page in paginator.page_range %}
+                            {% if page == page_obj.number %}
+                                <li style="margin:3px;"><a style="text-decoration:none; color:#000;" href="?page={{page}}">{{page}}</a></li>
+                            {% else %}
+                                <li style="margin:3px;"><a style="text-decoration:none; color:blue;" href="?page={{page}}">{{page}}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                            </ul>
                         </div>
 
                         <div class="write_btn">
