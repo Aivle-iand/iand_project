@@ -4,6 +4,9 @@ from django.shortcuts import render
 def index(request):
     return render(request, 'mypage/mypage_certify.html')
 
+def mypage_temp(request):
+    return render(request, 'mypage/mypage_temp.html')
+
 def upload_img(request):
     return render(request, 'mypage/face_register.html')
 

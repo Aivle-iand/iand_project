@@ -137,8 +137,8 @@
                                 <div class="item">
                                     <input type="checkbox" id="no_{{ book.id }}" checked>
                                     <label for="no_{{ book.id }}">
-                                        <div class="human" style="background-image: url('{{ book.image.url }}');"></div>
-                                        <div class="name">{{ book.title }}</div>
+                                        <div class="human" style="background-image: url('{{ book.card_image.url }}');"></div>
+                                        <div class="name">{{ book.name }}</div>
                                     </label>
 
                                     <div>
@@ -159,11 +159,23 @@
                                             </div>
                                     
                                             <div class="modal_main" id="modal_main_{{ book.id }}">
-                                                <div class="profile_main_{{ book.id }}">{{ book.title }} 프로필 정보</div>
-                                                <div class="episode1_main_{{ book.id }}">{{ book.title }} 에피소드1 내용</div>
-                                                <div class="episode2_main_{{ book.id }}">{{ book.title }} 에피소드2 내용</div>
-                                                <div class="episode3_main_{{ book.id }}">{{ book.title }} 에피소드3 내용</div>
-                                                <div class="quiz_main_{{ book.id }}">{{ book.title }} Quiz 내용</div>
+                                                
+                                                <div class="profile_main profile_main_{{ book.id }}">{{ book.name }} 프로필 정보
+                                                    <div class= "profile_img" style="background-image: url('{{ book.profile_image.url }}');"></div>
+                                                    <div class= "profile_name">{{book.name}}</div>
+                                                    <div class= "profile_description">{{book.prologue}}</div>
+                                                    <div class= "change_voice_face">
+                                                        <form id="searchForm" method="get" >
+                                                            <label class="voice_label"><input type="checkbox" class="voice_check" name='voice'>음성 입히기</label> 
+                                                            <label class="face_label"><input type="checkbox" class="face_check" name='face'>얼굴 입히기</label>
+                                                            <button type="submit" class="button_voice_face">적용</button> 
+                                                    </div>
+                                                </div>
+
+                                                <div class="episode1_main_{{ book.id }}">{{ book.name }} 에피소드1 내용</div>
+                                                <div class="episode2_main_{{ book.id }}">{{ book.name }} 에피소드2 내용</div>
+                                                <div class="episode3_main_{{ book.id }}">{{ book.name }} 에피소드3 내용</div>
+                                                <div class="quiz_main_{{ book.id }}">{{ book.name }} Quiz 내용</div>
                                             </div>
                                         </div>
                                         <label for="no_{{ book.id }}"></label>
