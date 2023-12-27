@@ -47,74 +47,73 @@
     <body>
 
         <main class="main">
-            <a class="logo_class" href="">
+            <a class="logo_class" href='{% url "main:main" %}'>
                 <img src="{% static 'login/img/iand_logo_w.png' %}" class="logo_img" id="logo_img">
             </a>
             
             <div class="login_main">
                 <div class="loginpage">
-                    <h5 class="loginpage-title">로그인</h5>
+                    <form action="" method="POST">
+                        <h5 class="loginpage-title">로그인</h5>
 
-                    <div class="loginbox">
-                        <div class="login-id-pass">
-                            <div class="login-id">
-                                <input class="username" id ="usernameInput" data-testid="input-username" autocapitalize="off" type="text" value="">
-                                <label for="usernameInput" id="usernameLabel">계정이름</label>
-                                <span for="usernameLabel" id="usernameSpan">계정이름</span>
-                            </div>
-                            
-                            <div class="login-pass">
-                                <input class="password" id="passwordInput" data-testid="input-password" type="password" autocomplete="off" value="">
-                                <label for="passwordInput" id="passwordLabel">비밀번호</label>
-                                <span for ="passwordLabel" id="passwordSpan">비밀번호</span>
-                            </div>
-                        </div>
-
-                        <div class="api-login">
-                            <div class="sns_line">
-                                <div class="line1"></div>
-                                <label>소셜 계정 로그인</label>
-                                <div class="line2"></div>
-                            </div>
-
-                            <div class="api-login-btn">
-                                <div class="google_login_div">
-                                    <form action="{% provider_login_url 'google' %}" method='POST'>
-                                        {% csrf_token %}
-                                        <button class="google-login-btn">
-                                        </button>
-                                    </form>
+                        <div class="loginbox">
+                            <div class="login-id-pass">
+                                <div class="login-id">
+                                    <input class="username" id ="usernameInput" data-testid="input-username" autocapitalize="off" type="text" value="">
+                                    <label for="usernameInput" id="usernameLabel">계정이름</label>
+                                    <span for="usernameLabel" id="usernameSpan">계정이름</span>
                                 </div>
                                 
-                                <div class="kakao_login_div">
-                                    <form action="{% provider_login_url 'kakao' %}" method='POST'>
-                                        {% csrf_token %}
-                                        <button class="kakao-login-btn">
-                                        </button>
-                                    </form>
-                                </div>
-  
-                                <div class="naver_login_div">
-                                    <form action="{% provider_login_url 'naver' %}" method="POST">
-                                        {% csrf_token %}
-                                        <button class="naver-login-btn">
-                                        </button>
-                                    </form>
+                                <div class="login-pass">
+                                    <input class="password" id="passwordInput" data-testid="input-password" type="password" autocomplete="off" value="">
+                                    <label for="passwordInput" id="passwordLabel">비밀번호</label>
+                                    <span for ="passwordLabel" id="passwordSpan">비밀번호</span>
                                 </div>
                             </div>
-                        </div>
-                        <form action="" method="POST">
-                            {% csrf_token %}
-                            <div class="login_btn_div">
-                                <button class="login_btn"></button>
-                            </div>
-                        </form>
-    
-                        <div class="sign_up_div">
-                            <a href="signup" class="sign_up_btn">회원 가입</a>
-                        </div>
 
+                            <div class="api-login">
+                                <div class="sns_line">
+                                    <div class="line1"></div>
+                                    <label>소셜 계정 로그인</label>
+                                    <div class="line2"></div>
+                                </div>
+
+                                <div class="api-login-btn">
+                                    <div class="google_login_div">
+                                        <form action="{% provider_login_url 'google' %}" method='POST'>
+                                            {% csrf_token %}
+                                            <button class="google-login-btn">
+                                            </button>
+                                        </form>
+                                    </div>
+                                    
+                                    <div class="kakao_login_div">
+                                        <form action="{% provider_login_url 'kakao' %}" method='POST'>
+                                            {% csrf_token %}
+                                            <button class="kakao-login-btn">
+                                            </button>
+                                        </form>
+                                    </div>
+    
+                                    <div class="naver_login_div">
+                                        <form action="{% provider_login_url 'naver' %}" method="POST">
+                                            {% csrf_token %}
+                                            <button class="naver-login-btn">
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                                {% csrf_token %}
+                                <div class="login_btn_div">
+                                    <input type="submit" class="login_btn"/>
+                                </div>
+        
+                            <div class="sign_up_div">
+                                <a href="signup" class="sign_up_btn">회원 가입</a>
+                            </div>
                     </div>
+                </form>
                 </div>  
             </div>
         </main>
