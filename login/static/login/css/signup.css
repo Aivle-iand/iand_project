@@ -1,9 +1,10 @@
-
 :lang(ko-kr) {
     word-break: keep-all;
     letter-spacing: normal !important;
 }
-
+html {
+    background-color: black;
+}
 signup-id-pass * > a {
     background: transparent;
     padding: 15px 8px 15px;
@@ -36,9 +37,7 @@ border: 1px solid red;
 }
 
 .signup-id-pass .already_signup{
-    display: flex;
-    justify-content: flex-end; /* 오른쪽 정렬 */
-    font-size: 10px;
+    font-size: 12px;
     color:#004494;
     text-decoration-line: none;
 }
@@ -69,20 +68,21 @@ body>* {
     border-radius: 10px;
     padding: 20px;
     min-width: 40%;
-    opacity: 0.5; /* Start with a lower opacity */
+    opacity: 0.7; /* Start with a lower opacity */
     transition: opacity 0.5s ease;
 }
 
 .signuppage:hover {
-    opacity: 0.95; /* Full opacity on hover */
+    opacity: 0.97; /* Full opacity on hover */
 }
 
 .signup-id-pass *{
     padding-bottom: 10px;
 }
  
+.signup-id-pass input[type="password"],
 
-.signup-id-pass input {
+.signup-id-pass input[type="text"]  {
     background: transparent;
     border: none;
     padding: 15px 8px 15px;
@@ -99,7 +99,7 @@ body>* {
     font-family: "FF Mark W05", sans-serif;
     border-radius:5px;
 }
- 
+
 .signup-id-pass input:not(:focus):hover {
     background:#F1F1F1;
     border: #ECECEC;
@@ -230,6 +230,25 @@ body>* {
     outline: none;
     border-color: #555; /* Even darker border on focus */
     box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+
+/* Base container styling */
+.agree_privacy {
+    background-color: #f7f7f7; /* Light gray background */
+    padding: 20px; /* Spacing around the content */
+    border-radius: 8px; /* Rounded corners */
+    display: inline-block; /* Keeps the content aligned together */
+    /* margin: 10px; Outer spacing */
+    width: 100%;
+}
+
+.agree_privacy a {
+    margin-right: 10%;
+}
+/* Styling specific to the radio buttons */
+.agree_privacy input[type="radio"] {
+    cursor: pointer; /* Changes cursor to a pointer when hovering over the radio */
+    margin-right: 20px; /* Space between the agree and disagree options */
 }
 
 
