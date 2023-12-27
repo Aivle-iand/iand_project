@@ -1,11 +1,10 @@
 {% load static %}
-
 <!doctype html>
 <html lang="ko">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>자유게시판</title>
+        <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'community/css/style.css' %}">
         <link rel="stylesheet" href="{% static 'community/css/main_center.css' %}">
         <style>
@@ -17,8 +16,7 @@
 
     </head>
     <body>
-        {% include 'header.html'%}
-        
+        <header>{% include 'header.html'%}</header>
         <main class="main">
             <div class="main_top">
                 <div class="page_name">게시판 목록</div>
@@ -26,9 +24,12 @@
             <div class="main_center">
                 <div class="div_center">
                     <div class="side_center">   
-                        <div class="board_div" id="announcement"><a href="/community">- 공지사항</a></div>
-                        <div class="board_div" id="freeboard"><a href="./freeboard">- 자유게시판</a></div>
-                        <div class="board_div" id="qna"><a href="./qna">- 문의게시판</a></div>
+                        <div class="board_div" id="announcement">
+                            <a href="">- 전체 게시글</a>
+                        </div>
+                        {% for cate in links %}
+                            <div class="board_div"><a href="{% url 'community:post_by_category' cate.slug %}">- {{ cate.name }}</a></div>
+                        {% endfor %}
                     </div>
                     <div class="board_free_wrap">
                         <table class="board_list">
@@ -43,10 +44,10 @@
                                 {% if post_all %}
                                     {% for list in post_all %}
                                     <tr class="{% cycle '' 'even_bgcolor' %}"></tr>
-                                        <td>{{list.id}}</td>
-                                        <td>{{list.postname}}</td>
-                                        <td>{{list.writer}}</td>
-                                        <td>{{list.registerd_date}}</td>
+                                        <td>{{ list.id }}</td>
+                                        <td>{{ list.postname }}</td>
+                                        <td>{{ list.writer }}</td>
+                                        <td>{{ list.registerd_date }}</td>
                                     </tr>
                                     {% endfor %}            
                                 {% else %}
@@ -63,11 +64,17 @@
                             <a href="#" class="bt">></a>
                             <a href="#" class="bt">>></a>
                         </div>
+
+                        <div class="write_btn">
+                            <a href="writepage" class="bt">글쓰기</a>
+                        </div>
                     </div>
                 </div>                
             </div>
-            <div class="main_bottom"></div>
+            
         </main>
-        <footer>{% include 'footer.html' %}</footer>
+        <footer>
+            {% include 'footer.html' %}
+        </footer>
     </body>
-</html>
+</html> 

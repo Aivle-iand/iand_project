@@ -9,11 +9,12 @@
         <link rel="stylesheet" href="{% static 'community/css/style.css' %}">
         <link rel="stylesheet" href="{% static 'community/css/main_center.css' %}">
         <style>
-            #qna {
+            #announcement {
                 font-weight: 900;
                 font-size: 22px;
             }
         </style>
+
     </head>
     <body>
         {% include 'header.html'%}
@@ -25,13 +26,14 @@
             <div class="main_center">
                 <div class="div_center">
                     <div class="side_center">   
-                        <div class="board_div" id="announcement"><a href="/community">- 공지사항</a></div>
-                        <div class="board_div" id="freeboard"><a href="./freeboard">- 자유게시판</a></div>
-                        <div class="board_div" id="qna"><a href="./qna">- 문의게시판</a></div>
+                        {% if category %}
+                            {{ category.description|truncatewords:155}} - category
+                        {% else %}
+                            공지사항
                     </div>
                     <div class="board_free_wrap">
                         <table class="board_list">
-                            <caption>게시판 목록</caption>
+                            <caption>목록</caption>
                             <thead>
                                 <th>번호</th>
                                 <th>제목</th>
@@ -40,12 +42,12 @@
                             </thead>
                             <tbody>
                                 {% if post_all %}
-                                    {% for list in post_all %}
+                                    {% for post in post_all %}
                                     <tr class="{% cycle '' 'even_bgcolor' %}"></tr>
-                                        <td>{{list.id}}</td>
-                                        <td>{{list.postname}}</td>
-                                        <td>{{list.writer}}</td>
-                                        <td>{{list.registerd_date}}</td>
+                                        <td>{{post.id}}</td>
+                                        <td><a href="{% url 'community:post_by_category' post.id %}">{{post.postname}}</a></td>
+                                        <td>{{post.writer}}</td>
+                                        <td>{{post.registerd_date}}</td>
                                     </tr>
                                     {% endfor %}            
                                 {% else %}
@@ -62,15 +64,11 @@
                             <a href="#" class="bt">></a>
                             <a href="#" class="bt">>></a>
                         </div>
-                        <div class="write_btn">
-                            <a href="writepage" class="bt">글쓰기</a>
-                        </div>
                     </div>
                 </div>                
             </div>
+            <div class="main_bottom"></div>
         </main>
-        <footer>
-            {% include 'footer.html' %}
-        </footer>
+        <footer>{% include 'footer.html' %}</footer>
     </body>
 </html>
