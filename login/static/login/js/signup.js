@@ -16,8 +16,35 @@ function validateUserId() {
     } else {
         userIdHelp.innerHTML = ""; // or any other success message or action
         is_error = false;
+        checkUserIdDuplication(userId);
     }
 }
+
+function checkUserIdDuplication(userId) {
+    // AJAX 요청 설정
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "signup/check_id_dup", true); // '/check-user-id'는 서버의 중복 확인 API 경로
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var response = JSON.parse(this.responseText);
+            if (response.isDuplicate) {
+                userIdHelp.style.color = 'red';
+                userIdHelp.innerHTML = "이미 사용 중인 아이디입니다.";
+                is_error = true;
+            } else {
+                userIdHelp.style.color = 'green';
+                userIdHelp.innerHTML = "사용 가능한 아이디입니다.";
+                is_error = false;
+            }
+        }
+    };
+
+    // 서버에 요청 보내기
+    xhr.send(JSON.stringify({ user_id: user_id }));
+}
+
+
 
 // 폼 제출 이벤트 또는 user_id 필드의 다른 이벤트에 validateUserId 함수를 연결합니다.
 document.getElementById("user_id").onchange = validateUserId;

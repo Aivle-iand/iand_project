@@ -8,7 +8,7 @@ body>* {
 }
 
 .header {
-    height: 60px;
+    height: 0px;
 }
 
 .logo_img {
@@ -17,21 +17,25 @@ body>* {
     cursor: pointer;
 }
 
-.main {
-    display: flex;
-    min-height: auto;
+.login_main {
+    height: calc(100vh - 100px);
+    display: flex; /* Flexbox를 활성화 */
+    justify-content: right; /* 수평 중앙 정렬 */
+    align-items: center; /*수직 중앙 정렬*/
+    margin-right: 5%;
+    /* height: 100%; 전체 뷰포트 높이를 차지하도록 설정 */
 }
 
 .loginpage {
     background: rgb(255, 255, 255);
     border-radius: 10px;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    right: 100px;
+    /* display: flex; */
+    /* flex-direction: column;
+    position: absolute; */
+    /* right: 100px;
     height: 400px;
-    width: 350px;
+    width: 350px; */
 }
 
 .loginpage h5 {
@@ -222,10 +226,13 @@ body>* {
 }
 
 .footer {
+    background-color: rgba(0, 0, 0, 0.3);
     color: #F1F1F1;
-    font-size: 10px;
+    font-size: 12px;
+    height: 100px;
+    display: flex;
     text-align: center;
-    margin-top: 500px;
-    height: 60px;
+    align-items: center;
+    justify-content: center;
     user-select: none;
 }
