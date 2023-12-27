@@ -132,6 +132,16 @@
         </footer>
         
     </body>
+
+    {% if messages %}
+    <script type="text/javascript">
+    {% for message in messages %}
+        alert("{{ message }}");
+    {% endfor %}
+    </script>
+    {% endif %}
+
+    
 </html>
 
 
