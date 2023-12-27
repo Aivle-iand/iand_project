@@ -34,7 +34,7 @@ def signup(request):
         user.save()
 
         # 성공 시 로그인 페이지 또는 다른 페이지로 리다이렉트
-        return redirect('/login/')  # 성공 시 리다이렉트 될 경로 지정
+        return render(request, 'login.html', {'success' : 'I&_ 회원가입이 완료되었습니다.'})  # 성공 시 리다이렉트 될 경로 지정
     else:
         # GET 요청 시 회원가입 페이지 렌더링
         return render(request, 'signup.html')
