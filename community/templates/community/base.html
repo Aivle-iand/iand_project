@@ -25,10 +25,10 @@
                 <div class="div_center">
                     <div class="side_center">   
                         <div class="board_div" id="all">
-                            <a href="">- 전체 게시글</a>
+                            <a href="/community/">- 전체 게시글</a>
                         </div>
                         {% for cate in links %}
-                            <div class="board_div"><a href="{{cate.get_url}}">- {{ cate.name }}</a></div>
+                            <div class="board_div"><a href="{{ cate.get_url }}">- {{ cate.name }}</a></div>
                         {% endfor %}
                     </div>
                     <div class="board_free_wrap">
@@ -64,7 +64,6 @@
                             <a href="#" class="bt">></a>
                             <a href="#" class="bt">>></a>
                         </div>
-
                         <div class="write_btn">
                             <a href="writepage" class="bt">글쓰기</a>
                         </div>
