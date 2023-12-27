@@ -30,7 +30,7 @@ body * {
 
 /* nav_root */
 .nav_root {
-    width: 300px;
+    width: 260px;
     height: 100%;
     margin: 0px 15px 0px 0px;
     position: sticky;
@@ -58,21 +58,62 @@ body * {
 /* main_root */
 
 .main_root {
-    width: calc(100% - 300px);
+    width: calc(100% - 260px);
     height: 100%;
     /* background-color: #292727; */
+}
+
+.none {
+    padding-bottom: 20px;
 }
 
 .personal_information_card {
     display: flex;
     width: 100%;
-    height: 380px;
+    height: 450px;
     padding-top: 80px;
 }
 
+#change_password {
+    height: 620px;
+}
+
+#login_history {
+    height: 600px;
+}
+
+.delete_card {
+    display: flex;
+    width: 100%;
+    height: 250px;
+    padding-top: 80px;
+    margin-bottom: 50px;
+}
+
+.delete_information_explain {
+    width: 40%;
+    height: calc(100% - 80px);
+    background-color: #211e1f;
+    padding: 20px 30px 20px 30px;
+}
+
+.delete_information_content {
+    width: 60%;
+    height: calc(100% - 80px);
+    background-color: #292727;
+    padding: 20px 40px 20px 40px;
+}
+
+.delete_information_explain h1 {
+    color: #f0f0f0;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+
 .personal_information_explain {
     width: 40%;
-    height: 300px;
+    height: calc(100% - 80px);
     background-color: #211e1f;
     padding: 30px 40px 30px 40px;
 }
@@ -90,9 +131,121 @@ body * {
 
 .personal_information_content {
     width: 60%;
-    height: 300px;
+    height: calc(100% - 80px);
     background-color: #292727;
     padding: 30px 40px 30px 40px;
+}
+
+.personal_information_empty {
+    margin: 0px 0px 10px 0px;
+}
+
+.user_name {
+    width: 60%;
+    outline: none;
+}
+
+.personal_information_content div {
+    position: relative;
+    border: none;
+    box-sizing: border-box;
+    height: 3vw;
+    display: block;
+    width: 100%;
+    padding: 8px 6px 40px;
+}
+
+.personal_information_content input {
+    position: relative;
+    background: transparent;
+    border: none;
+    box-sizing: border-box;
+    height: 3vw;
+    display: block;
+    padding: none;
+    outline: none;
+    width: 100%;
+    color: white;
+    line-height: 18px;
+    font-size: 18px;
+    font-family: "FF Mark W05", sans-serif;
+}
+
+.personal_information_content input:not(:focus):hover {
+    border: rgb(102, 102, 102);
+}
+
+/* .personal_information_content input:focus {
+    border: #ffffff 2px solid
+} */
+
+
+.personal_information_username {
+    outline: rgba(138,138,138,0.1) 2px solid;
+    margin-bottom: 40px;
+}
+
+.personal_information_nickname {
+    outline: rgba(138,138,138,0.1) 2px solid;
+    margin-bottom: 10px;
+    background-color: rgb(51, 49, 49);
+}
+
+.personal_information_content span {
+    color: rgb(142, 141, 141);
+    font-family: "FF Mark W05", sans-serif;
+    position: absolute;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 100%;
+    font-size: 10px;
+    left: 8px;
+    top: 7.33px;
+    pointer-events: none;
+    transform-origin: left top;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    transform: translateY(-50%);
+}
+
+
+.nickname_change {
+    margin-top: 40px;
+    text-align: right;
+    color: #525252;
+}
+
+.nickname_change_button {
+    background-color: transparent;
+    border: none;
+    outline: rgba(138,138,138,0.1) 2px solid;
+    text-align: center;
+    padding: 10px 20px 10px 20px;
+    color: #525252;
+    font-weight: 700;
+}
+
+.change_password_text {
+    font-size: 18px;
+}
+
+.delete_button_layout {
+    width: 100%;
+}
+
+.delete_button {
+    background-color: rgba(138,138,138,0.1);
+    color: #f0f0f0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    border:0;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.delete_button:hover {
+    background-color: rgba(138,138,138,0.15);
 }
 
 /* MAIN-TOP 구간 */
