@@ -17,22 +17,24 @@ class Category(models.Model):
     
     def __str__(self):
         return '{}'.format(self.name)
+    
+    def get_url(self):
+        return reverse('community:post_by_category', args=[self.slug])
 
 class Board(models.Model):
     postname = models.CharField(max_length=64, verbose_name="제목")
-    slug = models.SlugField(max_length=64, unique=True, null=True)
     contents = models.TextField()
     registered_date = models.DateField(auto_now_add=True)
     # writer = models.ForeignKey('login_user.nickname', verbose_name="글쓴이", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE)
+    # slug = models.SlugField(max_length=64, unique=True, null=True)
     
     # 게시글의 제목(postname)이 Post object 대신하기
     def __str__(self):
         return self.postname
-    def get_url(self):
-        return reverse('./community:post_by_category', arg=[self.slug])
+    
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.postname)
+        self.slug = slugify(self.category)
         super(Board, self).save(*args, **kwargs)
     class Meta:
         db_table = "community_board"
