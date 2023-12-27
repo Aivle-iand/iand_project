@@ -24,11 +24,11 @@
             <div class="main_center">
                 <div class="div_center">
                     <div class="side_center">   
-                        <div class="board_div" id="announcement">
+                        <div class="board_div" id="all">
                             <a href="">- 전체 게시글</a>
                         </div>
                         {% for cate in links %}
-                            <div class="board_div"><a href="{% url 'community:post_by_category' cate.slug %}">- {{ cate.name }}</a></div>
+                            <div class="board_div"><a href="{{cate.get_url}}">- {{ cate.name }}</a></div>
                         {% endfor %}
                     </div>
                     <div class="board_free_wrap">
@@ -41,8 +41,8 @@
                                 <th>작성일</th>
                             </thead>
                             <tbody>
-                                {% if post_all %}
-                                    {% for list in post_all %}
+                                {% if post_list %}
+                                    {% for list in post_list %}
                                     <tr class="{% cycle '' 'even_bgcolor' %}"></tr>
                                         <td>{{ list.id }}</td>
                                         <td>{{ list.postname }}</td>

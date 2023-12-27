@@ -26,29 +26,17 @@ def writepage(request):
         
         return redirect(f'community:detail', new_article.id)
     return render(request, 'community/writepage.html')
-
-# Create your views here.
-# def announcement(request):
-#     ann_list = Board.objects.all().order_by('-id')
-#     return render(request, 'announcement.html', {'post_all':ann_list})
-
-# def freeboard(request):
-#     free_list = Board.objects.all().order_by('-id')
-#     return render(request, 'freeboard.html', {'post_all':free_list})
-
-# def qna(request):
-#     qna_list = Board.objects.all().order_by('-id')
-    # return render(request, 'qna.html', {'post_all':qna_list})
     
 def categoryView(request, c_slug=None):
     c_page = None
     post_list = None
+    # c_slug = Category.slug
     if c_slug != None:
         c_page = get_object_or_404(Category, slug=c_slug)
         post_list = Board.objects.filter(category=c_page)
     else:
         post_list = Board.objects.all()
-    return render(request, 'community/category.html', {'c_page':c_page, 'post_list':post_list})
+    return render(request, 'community/category.html', {'category':c_page, 'post_list':post_list})
 
 def detail(request, id):
     # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
