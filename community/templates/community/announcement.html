@@ -6,8 +6,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>자유게시판</title>
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <link rel="stylesheet" href="{% static 'css/main_center.css' %}">
+        <link rel="stylesheet" href="{% static 'community/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'community/css/main_center.css' %}">
         <style>
             #announcement {
                 font-weight: 900;
@@ -26,13 +26,14 @@
             <div class="main_center">
                 <div class="div_center">
                     <div class="side_center">   
-                        <div class="board_div" id="announcement"><a href="/community">- 공지사항</a></div>
-                        <div class="board_div" id="freeboard"><a href="./freeboard">- 자유게시판</a></div>
-                        <div class="board_div" id="qna"><a href="./qna">- 문의게시판</a></div>
+                        {% if category %}
+                            {{ category.description|truncatewords:155}} - category
+                        {% else %}
+                            공지사항
                     </div>
                     <div class="board_free_wrap">
                         <table class="board_list">
-                            <caption>게시판 목록</caption>
+                            <caption>목록</caption>
                             <thead>
                                 <th>번호</th>
                                 <th>제목</th>
@@ -40,14 +41,20 @@
                                 <th>작성일</th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    {% for list in post_all %}
-                                        <td>{{list.id}}</td>
-                                        <td>{{list.postname}}</td>
-                                        <td>{{list.writer}}</td>
-                                        <td>{{list.registerd_date}}</td>
-                                    {% endfor %}
-                                </tr>
+                                {% if post_all %}
+                                    {% for post in post_all %}
+                                    <tr class="{% cycle '' 'even_bgcolor' %}"></tr>
+                                        <td>{{post.id}}</td>
+                                        <td><a href="{% url 'community:post_by_category' post.id %}">{{post.postname}}</a></td>
+                                        <td>{{post.writer}}</td>
+                                        <td>{{post.registerd_date}}</td>
+                                    </tr>
+                                    {% endfor %}            
+                                {% else %}
+                                    <tr>
+                                        <td>작성된 게시글이 없습니다.</td>
+                                    </tr>
+                                {% endif %}
                             </tbody>
                         </table>
                         <div class="paging">
