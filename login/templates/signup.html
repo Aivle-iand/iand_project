@@ -25,19 +25,6 @@
             animation: myfirst 1s ;
         }
 
-        .google-signup-btn {
-            background-image: url('{% static "img/logo-google.png" %}');
-            background-size: cover;
-        }
-        .kakao-signup-btn {
-            background-image: url('{% static "img/logo-kakao.png" %}');
-            background-size: cover;
-        }
-        .naver-signup-btn {
-            background-image: url('{% static "img/logo-naver.png" %}');
-            background-size: cover;
-        }
-
         /* Chrome, Safari, Opera */
         @-webkit-keyframes myfirst {
             from {opacity: 0.2;}
@@ -62,10 +49,9 @@
         <main class="main">
             <div class="main_container"> <!-- main 중앙 정렬 속성 -->
                 <div class="signuppage">
-                <form method="post">
+                <form method="post" action="signup/submit">
                     {% csrf_token %}
-                    
-                        <h1 class="signuppage-title">I&_ 회원가입 {{ error }}</h1>
+                        <h1 class="signuppage-title">I&_ 회원가입</h1>
                         <div class="signupbox">
                             <div class="signup-id-pass">
                                 <div class="signup-id">
@@ -79,7 +65,7 @@
                                 <div class="signup-pass">
                                     <a>비밀번호</a>
                                     <input id="password" name="user_pw" type="password"
-                                           placeholder="· · · · · · · ·" oninput="validatePassword();" required>
+                                           placeholder="· · · · · · · ·" onblur="validatePassword()" required>
                                            <div id="passwordHelp" class="form-text"></div>
                                 </div>
                             
@@ -131,9 +117,20 @@
         </main>
 
         <footer class="footer">
-            <span>AIVLE 4기 빅프로젝트 1조 2023.12.11 ~ 2024.01.17 </span><br>
-            <span>경기도 성남시 분당구 불정로 90 (정자동)</span><br>
-            <span>Copyright© 2023 KT Corp. All rights reserved.</span>
+            <div class="footer_text">
+                <span>AIVLE 4기 빅프로젝트 1조 2023.12.11 ~ 2024.01.17 </span><br>
+                <span>경기도 성남시 분당구 불정로 90 (정자동)</span><br>
+                <span>Copyright© 2023 KT Corp. All rights reserved.</span>
+            </div>
         </footer>
     </body>
+
+    {% if messages %}
+        <script type="text/javascript">
+        {% for message in messages %}
+            alert("{{ message }}");
+        {% endfor %}
+        </script>
+    {% endif %}
+
 </html>

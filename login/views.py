@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import User
 from django.contrib.auth.hashers import make_password
+from django.contrib import messages
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 # Create your views here.
 # views.py
@@ -19,12 +23,6 @@ def signup(request):
         username = request.POST.get('username')
         nickname = request.POST.get('nickname')
 
-        # 아이디 중복 체크
-        if User.objects.filter(user_id=user_id).exists():
-            # 여기에 아이디 중복 시 처리 로직을 추가하세요.
-            # 예: 중복 메시지를 사용자에게 표시
-            return render(request, 'signup.html', {'error': '이미 사용중인 아이디입니다.'})
-
         # 유저 생성 및 저장
         user = User()
         user.user_id = user_id
@@ -33,8 +31,20 @@ def signup(request):
         user.nickname = nickname
         user.save()
 
-        # 성공 시 로그인 페이지 또는 다른 페이지로 리다이렉트
-        return redirect('/login/')  # 성공 시 리다이렉트 될 경로 지정
+        messages.success(request, '회원가입이 성공적으로 이루어졌습니다!')
+        return redirect('/accounts/')  # 성공 URL
     else:
         # GET 요청 시 회원가입 페이지 렌더링
         return render(request, 'signup.html')
+
+from .models import User  # User 모델을 임포트
+
+@csrf_exempt  # 개발 단계에서만 사용. 실제 배포시 CSRF 토큰을 적절히 처리해야 합니다.
+def check_user_id(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        user_id = data.get("user_id")
+        is_duplicate = User.objects.filter(user_id=user_id).exists()  # user_id 컬럼을 사용하여 중복 확인
+        return JsonResponse({'isDuplicate': is_duplicate})
+
+    return JsonResponse({'error': 'Invalid method'}, status=400)

@@ -237,8 +237,11 @@ body>* {
     background-color: rgba(0, 0, 0, 0.3);
     color: #F1F1F1;
     font-size: 12px;
+    height: 100px;
+    display: flex;
     text-align: center;
-    padding: 3%;
+    align-items: center;
+    justify-content: center;
     user-select: none;
 }
 

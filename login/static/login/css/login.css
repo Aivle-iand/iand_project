@@ -225,8 +225,11 @@ main {
 }
 
 .footer {
+    background-color: rgba(0, 0, 0, 0.3);
     color: #F1F1F1;
-    font-size: 10px;
+    font-size: 12px;
+    height: 100px;
+    display: flex;
     text-align: center;
     height: 100px;
     background: rgba(0,0,0,0.5);
