@@ -54,24 +54,25 @@
             <div class="login_main">
                 <div class="loginpage">
                     <form action="" method="POST">
+                        {% csrf_token %}
                         <h5 class="loginpage-title">로그인</h5>
 
                         <div class="loginbox">
                             <div class="login-id-pass">
                                 <div class="login-id">
-                                    <input class="username" id ="usernameInput" data-testid="input-username" autocapitalize="off" type="text" value="">
+                                    <input class="username" id ="usernameInput" data-testid="input-username" autocapitalize="off" type="text" value="" name="usernameInput">
                                     <label for="usernameInput" id="usernameLabel">계정이름</label>
                                     <span for="usernameLabel" id="usernameSpan">계정이름</span>
                                 </div>
                                 
                                 <div class="login-pass">
-                                    <input class="password" id="passwordInput" data-testid="input-password" type="password" autocomplete="off" value="">
+                                    <input class="password" id="passwordInput" data-testid="input-password" type="password" autocomplete="off" value="" name="passwordInput">
                                     <label for="passwordInput" id="passwordLabel">비밀번호</label>
                                     <span for ="passwordLabel" id="passwordSpan">비밀번호</span>
                                 </div>
                             </div>
 
-                            <div class="api-login">
+                            {% comment %} <div class="api-login">
                                 <div class="sns_line">
                                     <div class="line1"></div>
                                     <label>소셜 계정 로그인</label>
@@ -103,10 +104,9 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
-                                {% csrf_token %}
+                            </div> {% endcomment %}
                                 <div class="login_btn_div">
-                                    <input type="submit" class="login_btn"/>
+                                    <input type="submit" class="login_btn" value=""/>
                                 </div>
         
                             <div class="sign_up_div">
@@ -114,6 +114,8 @@
                             </div>
                     </div>
                 </form>
+
+
                 </div>  
             </div>
         </main>
