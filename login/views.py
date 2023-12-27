@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import User
 from django.contrib.auth.hashers import make_password
+from django.contrib import messages
 
 # Create your views here.
 # views.py
@@ -23,7 +24,8 @@ def signup(request):
         if User.objects.filter(user_id=user_id).exists():
             # 여기에 아이디 중복 시 처리 로직을 추가하세요.
             # 예: 중복 메시지를 사용자에게 표시
-            return render(request, 'signup.html', {'error': '이미 사용중인 아이디입니다.'})
+            messages.error(request, '회원가입에 실패했습니다!')
+            return redirect('/accounts/signup')
 
         # 유저 생성 및 저장
         user = User()
@@ -33,8 +35,8 @@ def signup(request):
         user.nickname = nickname
         user.save()
 
-        # 성공 시 로그인 페이지 또는 다른 페이지로 리다이렉트
-        return redirect('/login/')  # 성공 시 리다이렉트 될 경로 지정
+        messages.success(request, '회원가입이 성공적으로 이루어졌습니다!')
+        return redirect('/accounts/')  # 성공 URL
     else:
         # GET 요청 시 회원가입 페이지 렌더링
         return render(request, 'signup.html')

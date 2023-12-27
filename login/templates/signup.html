@@ -62,10 +62,9 @@
         <main class="main">
             <div class="main_container"> <!-- main 중앙 정렬 속성 -->
                 <div class="signuppage">
-                <form method="post">
+                <form method="post" action="signup/submit">
                     {% csrf_token %}
-                    
-                        <h1 class="signuppage-title">I&_ 회원가입 {{ error }}</h1>
+                        <h1 class="signuppage-title">I&_ 회원가입</h1>
                         <div class="signupbox">
                             <div class="signup-id-pass">
                                 <div class="signup-id">
@@ -136,4 +135,13 @@
             <span>Copyright© 2023 KT Corp. All rights reserved.</span>
         </footer>
     </body>
+
+    {% if messages %}
+        <script type="text/javascript">
+        {% for message in messages %}
+            alert("{{ message }}");
+        {% endfor %}
+        </script>
+    {% endif %}
+
 </html>
