@@ -6,7 +6,7 @@ app_name = 'main'
 
 urlpatterns = [
     path('', views.custom_main_view, name='main'),
-    path('accounts/', include('login.urls')),
+    path('accounts/', include('accounts.urls')),
     path('accounts/', include('allauth.urls')),
     path('accounts/logout/', views.custom_logout_view, name='logout_site'),
 ]
