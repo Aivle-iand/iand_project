@@ -61,10 +61,15 @@
     </button>
 </body>
 
+{% if messages %}
 <script type="text/javascript">
 document.getElementById('go_logout').addEventListener('click', function() {
         alert('로그아웃 되었습니다.');})
-</script>
 
+    {% for message in messages %}
+        console("{{ message }}");
+    {% endfor %}
+</script>
+{% endif %}
 
 </html>
