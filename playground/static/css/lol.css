@@ -299,7 +299,7 @@ header a {
     margin: 10px; 
     box-sizing: border-box;
     background-color: rgb(6,28,37);
-    border : 4px solid rgb(6,28,37);
+    border : 5px solid rgb(6,28,37);
     color: #fff;
     text-align: center;
     margin : 20px;
@@ -307,7 +307,7 @@ header a {
 
 .item:hover {
     background-color: rgb(19, 38, 91);
-    border : 4px solid rgb(19, 38, 91);
+    border : 5px solid rgb(19, 38, 91);
 }
 /* 검색 바 */
 
@@ -323,8 +323,6 @@ header a {
     height : 45px;
 
 }
-
-
 
 .function {
     display : flex;
@@ -392,10 +390,8 @@ header a {
     color : black;
     font-weight: 600;
 }
-
 #radioForm input:checked + label>div{
     border-bottom: 4px solid yellow;
-
 }
 
 #optionForm>select {
@@ -415,7 +411,7 @@ header a {
 
 
 
-.container input {
+.container .modal_check,.container .modal_radio {
     display : none;
 }
 
@@ -500,7 +496,7 @@ header a {
     top: 55%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 850px;
+    width: 1000px;
     height: 520px;
     background: #000603;
     z-index : 2;
@@ -535,7 +531,7 @@ header a {
     display : flex;
     flex-direction: column;
     border-right : 2px solid rgb(14,64,14);
-    width : 25%;
+    width : 250px;
     height : 100%;
     text-align: left;
 }
@@ -573,12 +569,217 @@ header a {
     align-items : center;
 }
 
+.profile_contents {
+    position : absolute;
+    height: 94%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items : center;
+}
+
+
+
 .profile_img {
-    height : 280px;
-    width : 500px;
+    height : 250px;
+    width : 450px;
     background-repeat: no-repeat;
     background-size: cover;
     margin : 0 auto;
+    top : 20px;
+    position : relative;
+    z-index: 10;
+}
+
+.profile_name {
+    top : -6px;
+    position : relative;
+    z-index: 11;
+}
+
+.profile_name_span {
+    font-size : 50px;
+    font-weight: 700;
+}
+
+.profile_life_span {
+    font-size : 20px;
+    font-weight: 600;
+}
+
+.profile_prologue {
+    padding : 0 30px;
+    font-size : 16px;
+    text-align: left;
+    position : relative;
+    top : -4px;
+}
+
+.change_voice_face {
+    display : flex;
+    flex-direction: row-reverse;
+    position : relative;
+    top : 450px;
+    margin : 20px;
+}
+
+.voice_label, .face_label {
+    display: flex;
+    align-items: center; 
+}
+
+.voice_face_form {
+    display : flex;
+    flex-direction: row-reverse;
+}
+
+.voice_face_form > * {
+    margin-right : 15px;
+}
+
+.voice_face_form input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    background-color: #12533700;
+    cursor: pointer;
+    position: relative; 
+}
+
+.voice_face_form input[type="checkbox"]:checked::before {
+    background-color: #00000000;
+    color: #ffffff; 
+    cursor: pointer;
+}
+
+.voice_face_form input[type="checkbox"]::before {
+    content: "✔︎";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #000000; 
+    font-size: 19px;
+}
+
+.button_voice_face {
+    background-color: #ff000000;
+    color: #fff;
+    font-size: 16px;
+    font-weight : 530;
+    border: 2px solid white;    
+    cursor: pointer;
+}
+
+.button_voice_face:hover {
+    background-color: #ffffff;
+    color: black;
+    font-weight : 600;
+}
+
+
+/* 에피소드  모달 */
+.scene_container {
+    width : 100%;
+    height : 100%;
+    position : relative;
+}
+
+.scene_container>div {
+    position : absolute;
+    width : 100%;
+    height : 100%;
+    top : 0%;
+    left : 0%;
+}
+.scene_1{
+    display : block;
+}
+
+.scene_2, .scene_3, .scene_4{
+    display : none;
+}
+.episode_image {
+    width : 100%;
+    height : 80%;
+    background-repeat: no-repeat;
+    position : relative;
+    left : 175px;
+}
+
+.btnLeft, .btnRight {
+    position : relative;
+    top : -50%;
+    background-color: #00000000;
+    border : 0px;
+    color : rgba(255, 255, 255, 0.486);
+    font-size : 30px;
+    font-weight : 600;
+}
+
+.btnLeft:hover, .btnRight:hover {
+    color : rgb(255, 255, 255);
+}
+
+.btnLeft {
+    left : -330px;
+}
+.btnRight{
+    right : -330px; 
+}
+
+
+/* Quiz 모달 */
+.quiz_wrap > form {
+    display : flex;
+    flex-direction: column;
+    margin : 0 40px;
+    margin-top : 60px;
+    
+}
+
+.quiz_wrap > form * {
+    text-align: left;
+    margin-bottom : 9px;
+}
+
+.quiz_input_wrap{
+    display :flex;
+    flex-direction: row-reverse;
+}
+
+
+.quiz_input_wrap>input[type="text"] {
+    background-color: #00000000;
+    border : 2px solid white;
+    color : white;
+    height : 25px;
+    text-align: right;
+}
+
+#quiz_button {
+    display : flex;
+    flex-direction: row-reverse;
+
+}
+
+#quiz_button>button {
+    background-color: #00000000;
+    border : 2px solid white;
+    color : white;
+    height : 25px;
+    font-size : 17px;
+}
+
+#quiz_button>button:hover {
+    background-color: #ffffff;
+    border : 2px solid white;
+    color : black;
+    font-weight: 600;
 }
 
 /* footer */
@@ -592,3 +793,4 @@ header a {
     color : rgb(30,30,30);
     font-weight : 400;
 }
+

@@ -45,93 +45,145 @@
     </head>
     
     <body>
-        <header class="header">
-            <a href="main"></a>
-            <img src="{% static 'login/img/iand_logo_w.png' %}" class="logo_img" id="logo_img">
-        </header>
-        <script>
-            document.getElementById("logo_img").addEventListener("click", function() {
-              window.location.href = "http://127.0.0.1:8000/";
-            });</script>
-
 
         <main class="main">
+            <a class="logo_class" href='{% url "main:main" %}'>
+                <img src="{% static 'login/img/iand_logo_w.png' %}" class="logo_img" id="logo_img">
+            </a>
             
             <div class="login_main">
                 <div class="loginpage">
-                    <h5 class="loginpage-title">로그인</h5>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <h5 class="loginpage-title">로그인</h5>
 
-                    <div class="loginbox">
-                        <div class="login-id-pass">
-                            <div class="login-id">
-                                <input class="username" data-testid="input-username" autocapitalize="off" type="text" value="">
-                                <label>계정이름</label>
-                                <span>계정이름</span>
-                            </div>
-                            
-                            <div class="login-pass">
-                                <input class="password" data-testid="input-password" type="password" autocomplete="off" value="">
-                                <label>비밀번호</label>
-                                <span>비밀번호</span>
-                            </div>
-                        </div>
-
-                        <div class="api-login">
-                            <div class="sns_line">
-                                <div class="line1"></div>
-                                <label>소셜 계정 로그인</label>
-                                <div class="line2"></div>
-                            </div>
-
-                            <div class="api-login-btn">
-                                <div class="google_login_div">
-                                    <form action="{% provider_login_url 'google' %}" method='POST'>
-                                        {% csrf_token %}
-                                        <button class="google-login-btn">
-                                        </button>
-                                    </form>
+                        <div class="loginbox">
+                            <div class="login-id-pass">
+                                <div class="login-id">
+                                    <input class="username" id ="usernameInput" data-testid="input-username" autocapitalize="off" type="text" value="" name="usernameInput">
+                                    <label for="usernameInput" id="usernameLabel">계정이름</label>
+                                    <span for="usernameLabel" id="usernameSpan">계정이름</span>
                                 </div>
                                 
-                                <div class="kakao_login_div">
-                                    <form action="{% provider_login_url 'kakao' %}" method='POST'>
-                                        {% csrf_token %}
-                                        <button class="kakao-login-btn">
-                                        </button>
-                                    </form>
-                                </div>
-  
-                                <div class="naver_login_div">
-                                    <form action="{% provider_login_url 'naver' %}" method="POST">
-                                        {% csrf_token %}
-                                        <button class="naver-login-btn">
-                                        </button>
-                                    </form>
+                                <div class="login-pass">
+                                    <input class="password" id="passwordInput" data-testid="input-password" type="password" autocomplete="off" value="" name="passwordInput">
+                                    <label for="passwordInput" id="passwordLabel">비밀번호</label>
+                                    <span for ="passwordLabel" id="passwordSpan">비밀번호</span>
                                 </div>
                             </div>
-                        </div>
-                        <form action="" method="POST">
-                            {% csrf_token %}
-                            <div class="login_btn_div">
-                                <button class="login_btn"></button>
-                            </div>
-                        </form>
-    
-                        <div class="sign_up_div">
-                            <a href="signup" class="sign_up_btn">회원 가입</a>
-                        </div>
 
+                            {% comment %} <div class="api-login">
+                                <div class="sns_line">
+                                    <div class="line1"></div>
+                                    <label>소셜 계정 로그인</label>
+                                    <div class="line2"></div>
+                                </div>
+
+                                <div class="api-login-btn">
+                                    <div class="google_login_div">
+                                        <form action="{% provider_login_url 'google' %}" method='POST'>
+                                            {% csrf_token %}
+                                            <button class="google-login-btn">
+                                            </button>
+                                        </form>
+                                    </div>
+                                    
+                                    <div class="kakao_login_div">
+                                        <form action="{% provider_login_url 'kakao' %}" method='POST'>
+                                            {% csrf_token %}
+                                            <button class="kakao-login-btn">
+                                            </button>
+                                        </form>
+                                    </div>
+    
+                                    <div class="naver_login_div">
+                                        <form action="{% provider_login_url 'naver' %}" method="POST">
+                                            {% csrf_token %}
+                                            <button class="naver-login-btn">
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> {% endcomment %}
+                                <div class="login_btn_div">
+                                    <input type="submit" class="login_btn" value=""/>
+                                </div>
+        
+                            <div class="sign_up_div">
+                                <a href="signup" class="sign_up_btn">회원 가입</a>
+                            </div>
                     </div>
+                </form>
+
+
                 </div>  
             </div>
         </main>
 
         <footer class="footer">
-            <span>AIVLE 4기 빅프로젝트 1조  2023.12.11 ~ 2024.01.17 </span><br>
-            <span>경기도 성남시 분당구 불정로 90 (정자동)</span><br>
-            <span>Copyright© 2023 KT Corp. All rights reserved.</span>
+            <div>
+                <span>AIVLE 4기 빅프로젝트 1조  2023.12.11 ~ 2024.01.17 </span><br>
+                <span>경기도 성남시 분당구 불정로 90 (정자동)</span><br>
+                <span>Copyright© 2023 KT Corp. All rights reserved.</span>
+            </div>
         </footer>
         
     </body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const usernameInput = document.getElementById('usernameInput');
+            const usernameLabel = document.getElementById('usernameLabel');
+            const usernameSpan = document.getElementById('usernameSpan');
+
+            const passwordInput = document.getElementById('passwordInput');
+            const passwordLabel = document.getElementById('passwordLabel');
+            const passwordSpan = document.getElementById('passwordSpan');
+
+            // 포커스 이벤트 리스너 추가
+            usernameInput.addEventListener('focus', function () {
+                hideLabelAndShowSpan(usernameLabel, usernameSpan);
+            });
+
+            passwordInput.addEventListener('focus', function () {
+                hideLabelAndShowSpan(passwordLabel, passwordSpan);
+            });
+
+            // 입력 이벤트 리스너 추가
+            usernameInput.addEventListener('input', function () {
+                toggleLabelAndSpan(usernameInput, usernameLabel, usernameSpan);
+            });
+
+            passwordInput.addEventListener('input', function () {
+                toggleLabelAndSpan(passwordInput, passwordLabel, passwordSpan);
+            });
+
+            function toggleLabelAndSpan(inputElement, labelElement, spanElement) {
+                if (inputElement.value.trim() !== '') {
+                    labelElement.style.display = 'none';
+                    spanElement.style.display = 'inline';
+                } else {
+                    labelElement.style.display = 'inline';
+                    spanElement.style.display = 'none';
+                }
+            }
+
+            function hideLabelAndShowSpan(labelElement, spanElement) {
+                labelElement.style.display = 'none';
+                spanElement.style.display = 'inline';
+            }
+        });
+    </script>
+
+    {% if messages %}
+    <script type="text/javascript">
+    {% for message in messages %}
+        alert("{{ message }}");
+    {% endfor %}
+    </script>
+    {% endif %}
+
+    
 </html>
 
 

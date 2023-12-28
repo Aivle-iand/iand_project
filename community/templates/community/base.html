@@ -1,0 +1,87 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'community/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'community/css/main_center.css' %}">
+        <style>
+            #announcement {
+                font-weight: 900;
+                font-size: 22px;
+            }
+        </style>
+
+    </head>
+    <body>
+        <header>{% include 'header.html'%}</header>
+        <main class="main">
+            <div class="main_top">
+                <div class="page_name">게시판 목록</div>
+            </div>
+            <div class="main_center">
+                <div class="div_center">
+                    <div class="side_center">   
+                        <div class="board_div" id="all">
+                            <a href="/community/">- 전체 게시글</a>
+                        </div>
+                        {% for cate in links %}
+                            <div class="board_div"><a href="{{ cate.get_url }}">- {{ cate.name }}</a></div>
+                        {% endfor %}
+                    </div>
+                    <div class="board_free_wrap">
+                        <table class="board_list">
+                            <caption>게시판 목록</caption>
+                            <thead>
+                                <th>번호</th>
+                                <th>제목</th>
+                                <th>글쓴이</th>
+                                <th>작성일</th>
+                            </thead>
+                            <tbody>
+                                {% if post_obj %}
+                                    {% for list in post_obj %}
+                                    <tr class="{% cycle '' 'even_bgcolor' %}"></tr>
+                                        <td>{{ list.id }}</td>
+                                        <td>{{ list.postname }}</td>
+                                        <td>{{ list.writer }}</td>
+                                        <td>{{ list.registerd_date }}</td>
+                                    </tr>
+                                    {% endfor %}            
+                                {% else %}
+                                    <tr>
+                                        <td>작성된 게시글이 없습니다.</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        <div class="paging">
+                            <ul style="display:flex;list-style: none;">
+                            {% if page_obj.has_previous %}
+                            <li style="margin:3px;"><a style="text-decoration:none; color:blue;" href="?page={{page_obj.previous_page_number}}">&#10094; Prev</a></li>
+                            {% endif %}
+                            
+                            {% for page in paginator.page_range %}
+                            {% if page == page_obj.number %}
+                                <li style="margin:3px;"><a style="text-decoration:none; color:#000;" href="?page={{page}}">{{page}}</a></li>
+                            {% else %}
+                                <li style="margin:3px;"><a style="text-decoration:none; color:blue;" href="?page={{page}}">{{page}}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="write_btn">
+                            <a href="writepage" class="bt">글쓰기</a>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            
+        </main>
+        <footer>
+            {% include 'footer.html' %}
+        </footer>
+    </body>
+</html> 
