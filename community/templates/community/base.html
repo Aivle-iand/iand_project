@@ -40,12 +40,12 @@
                                 <th>글쓴이</th>
                                 <th>작성일</th>
                             </thead>
-                            <tbody>
+                            <tbody class="board_list_body">
                                 {% if post_list %}
                                     {% for list in page_obj %}
-                                        <tr class="{% cycle '' 'even_bgcolor' %}"></tr>
+                                        <tr class="table_list">
                                             <td>{{ list.id }}</td>
-                                            <td>{{ list.postname }}</td>
+                                            <td><a href="{% url 'community:detail' list.id %}">{{ list.postname }}</a></td>
                                             <td>{{ list.writer }}</td>
                                             <td>{{ list.registerd_date }}</td>
                                         </tr>
@@ -58,9 +58,8 @@
                             </tbody>
                         </table>
                         <div class="paging">
-                            <ul>
                             {% if page_obj.has_other_pages %}
-                                <ul style="display:flex;list-style: none;">
+                            <ul style="display:flex;list-style: none;">
                                 {% if page_obj.has_previous %}
                                 <li style="margin:3px;"><a style="text-decoration:none; color:blue;" href="?page={{page_obj.previous_page_number}}">&#10094; Prev</a></li>
                                 {% endif %}
@@ -79,6 +78,17 @@
                             {% endif %}
                             </ul>
                         </div>
+                        <div>
+                            <form id="searchForm" method="get">
+                                <select name="search_field">
+                                    <option value="0" {% if filter_option == '0' %}selected{% endif %}>제목</option>
+                                    <option value="1" {% if filter_option == '1' %}selected{% endif %}>작성자</option>
+                                </select>
+                                <input type="text" id="search_Input" name="keyword" placeholder="검색어를 입력하세요." autocomplete='off' {% if keyword %} value="{{ keyword }}" {% endif %}>
+                                <button type="submit">검색</button>
+                            </form>
+                        </div>
+
                         <div class="write_btn">
                             <a href="writepage" class="bt">글쓰기</a>
                         </div>
@@ -87,8 +97,6 @@
             </div>
             
         </main>
-        <footer>
-            {% include 'footer.html' %}
-        </footer>
+        <footer>{% include 'footer.html' %}</footer>
     </body>
 </html> 
