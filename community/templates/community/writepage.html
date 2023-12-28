@@ -1,18 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>글쓰기 페이지</title>
-</head>
-<body>
-    <h1>글쓰기 페이지</h1>
-    <form method="POST">
-        {% csrf_token %}
-        제목<br>
-        <input type="text" name="postname"><br>
-        내용<br>
-        <textarea rows="10" cols="50" name="contents"></textarea><br>
-        <input type="submit" value="글쓰기">
-    </form>
-</body>
+{% load static %}
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'community/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'community/css/main_center.css' %}">
+        <style>
+            #announcement {
+                font-weight: 900;
+                font-size: 22px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>{% include 'header.html'%}</header>
+        <main class="main">
+            <h1>글쓰기 페이지</h1>
+            <form method="POST">
+                {% csrf_token %}
+                제목<br>
+                <input type="text" name="postname"><br>
+                내용<br>
+                <textarea rows="10" cols="50" name="contents"></textarea><br>
+                작성자<br><input type="text" value="작성자"><br>
+                <input type="submit" value="글쓰기">
+            </form>  
+        </main>
+        <footer>{% include 'footer.html' %}</footer>
+    </body>
 </html>

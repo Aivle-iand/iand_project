@@ -1,16 +1,41 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'community/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'community/css/main_center.css' %}">
     <title>Detail</title>
 </head>
-    <body>
-        <h1>제목: {{detail.postname}}</h1>
-        <p>작성자: {{detail.writer}}</p>
-        <p>작성일자: {{detail.registerd_date}}</p>
-        <p>{{detail.contents}}</p>
-        <a href="../">목록</a>
-    </body>
+<body>
+    <header>{% include 'header.html'%}</header>
+    <main class="main">
+        <div class="main_top">
+            <div class="page_name">게시판 목록</div>
+        </div>
+        <div class="main_center">
+            <div class="div_center">
+                <div class="side_center">   
+                    <div class="board_div" id="all">
+                        <a href="/community/">- 전체 게시글</a>
+                    </div>
+                    {% for cate in links %}
+                        <div class="board_div"><a href="{{ cate.get_url }}">- {{ cate.name }}</a></div>
+                    {% endfor %}
+                </div>
+                <div class="center_center">
+                    <caption>{{detail.postname}}</caption>
+                    <div class="detail_post">
+                        <p>작성자: {{detail.writer}}</p>
+                        <p>작성일자: {{detail.registerd_date}}</p>
+                        <p>{{detail.contents}}</p>
+                        <a href="/community/">목록</a>
+                    </div>
+                </div>
+            </div>
+        </div>     
+    </main>
+</body>
 </html>

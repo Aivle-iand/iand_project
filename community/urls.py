@@ -9,12 +9,9 @@ app_name = 'community'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.categoryView, name='community_board'),
-    # path("<str:category_name>/", views.categoryView, name="category",)
-    # path('freeboard', views.freeboard, name='freeboard'),
-    # path('qna', views.qna, name='qna'),
     path('writepage', views.writepage, name='writepage'),
-    # path('', views.announcement, name='announcement'),
     path('<slug:c_slug>/', views.categoryView, name='post_by_category'),
+    path('detail/<int:pk>/', views.detail, name='detail'),
 ]
 
 if settings.DEBUG:

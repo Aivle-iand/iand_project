@@ -1,0 +1,9 @@
+<form id="searchForm" method="get" action="{% url 'community_board' %}">
+    <select name="search_category">
+        <option value="0" {% if filter_option == '0' %}selected{% endif %}>제목</option>
+        <option value="1" {% if filter_option == '1' %}selected{% endif %}>내용</option>
+        <option value="2" {% if filter_option == '2' %}selected{% endif %}>작성자</option>
+    </select>
+    <input type="text" id="search_Input" name="search" placeholder="검색어를 입력하세요." autocomplete='off' {% if search %} value="{{ search }}" {% endif %}>
+    <button type="submit">검색</button>
+</form>
