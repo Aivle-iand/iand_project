@@ -82,7 +82,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'login',
+    'accounts',
     'main',
     'playground',
     'community',
@@ -238,7 +238,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'playground', 'static'),
     os.path.join(BASE_DIR, 'mypage', 'static'),
     os.path.join(BASE_DIR, 'main', 'static'),
-    os.path.join(BASE_DIR, 'login', 'static'),
+    os.path.join(BASE_DIR, 'accounts', 'static'),
     ]
 
 # Default primary key field type
@@ -248,3 +248,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+AUTH_USER_MODEL = 'accounts.User'
