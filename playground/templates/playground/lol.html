@@ -14,7 +14,7 @@
             <div class="div_header">
                 
                 <div class="header_left">
-                    <a href="../"><img src="{% static 'images/logoc_.png' %}" alt="logo"></a>
+                    <a href=""><img src="{% static 'images/logoc_.png' %}" alt="logo"></a>
                 </div>
 
                 <div class="header_center">
@@ -25,7 +25,7 @@
                         </a>
                     </div>
                     <div class="community_link">
-                        <a href="/community">
+                        <a href="">
                             <p>커뮤니티</p>
                             <div class="underbar"></div>
                         </a>
@@ -49,12 +49,12 @@
                         
                     </div>
                     <div class="login">
-                        <a class="a" href="/accounts">
+                        <a class="a" href="">
                             <p>로그인</p>
                         </a>
                     </div>
                     <div class="join">
-                        <a class="a" href="/accounts/signup">
+                        <a class="a" href="">
                             <p>회원가입</p>
                         </a>
                     </div>
@@ -182,9 +182,9 @@
                                                             <div class='scene_container'>
                                                                 {% for j in "1234" %}
                                                                     <div class="scene scene_{{book.id}}_{{i}} scene_{{j}}"  id="scene_{{book.id}}_{{i}}_{{j}}" >
-                                                                        <div class='episode_image' style="background-image: url('/static/images/episode_{{i}}/cut_0{{j}}.jpg');"></div>
+                                                                        <div class='episode_image' style="background-image: url('/static/images/episode_{{i}}/cut_0{{j}}.png');"></div>
                                                                         <div class='episode_description'>
-                                                                            {{book.name}}의 {{i}} 번째 에피소드 {{j}}번째 씬
+                    
                                                                         </div>
                                                                     </div>
                                                                 {% endfor %}
@@ -206,105 +206,29 @@
                                                                     }
                                                                     document.getElementById(`scene_{{book.id}}_{{i}}_${currentsceneIndex_{{book.id}}_{{i}}}`).style.display = 'block';
                                                                 }
+                                                                
                                                             </script>
                                                         </div>
                                                     {% endfor %}
 
-                                                    <!--
-                                                    <div class="episode_main episode_main_{{ book.id }}">
-                                                        {% if book.episodes %}
-                                                            {% for episode in book.episodes.all %}
-                                                                {% if episode.episode_number == 1 %}
-                                                                    <div class="episode_item" style="display: flex;">
-                                                                        <div class="episode_img" style="flex: 30%; background-image: url('{{ episode.book_image.url }}');"></div>
-                                                                        <div class="episode_content" style="flex: 50%;">
-                                                                            <h2>{{ episode.title }}</h2>
-                                                                            <p>{{ episode.content }}</p>
-                                                                        </div>
-                                                                    </div>
-                                                                {% endif %}
-                                                            {% endfor %}
-                                                        {% endif %}
-                                                    </div>                                                
-                                                    
-                                                    ep2
-                                                    <div class="episode_main episode_main_{{ book.id }}">
-                                                        {% if book.episodes %}
-                                                            {% for episode in book.episodes.all %}
-                                                                {% if episode.episode_number == 2 %}
-                                                                    <div class="episode_item" style="display: flex;">
-                                                                        <div class="episode_img" style="flex: 30%; background-image: url('{{ episode.book_image.url }}');"></div>
-                                                                        <div class="episode_content" style="flex: 50%;">
-                                                                            <h2>{{ episode.title }}</h2>
-                                                                            <p>{{ episode.content }}</p>
-                                                                        </div>
-                                                                    </div>
-                                                                {% endif %}
-                                                            {% endfor %}
-                                                        {% endif %}
-                                                    </div>
-                                                
-                                                    episode 3 
-                                                    <div class="episode_main episode_main_{{ book.id }}">
-                                                        {% if book.episodes %}
-                                                            {% for episode in book.episodes.all %}
-                                                                {% if episode.episode_number == 3 %}
-                                                                    <div class="episode_item" style="display: flex;">
-                                                                        <div class="episode_img" style="flex: 30%; background-image: url('{{ episode.book_image.url }}');"></div>
-                                                                        <div class="episode_content" style="flex: 50%;">
-                                                                            <h2>{{ episode.title }}</h2>
-                                                                            <p>{{ episode.content }}</p>
-                                                                        </div>
-                                                                    </div>
-                                                                {% endif %}
-                                                            {% endfor %}
-                                                        {% endif %}
-                                                    </div>
-                                                    -->
                                                     <div class="quiz_main_{{ book.id }}">
                                                         <div class="quiz_wrap">
                                                             <form>
-                                                                <div class="quiz_div" id="quiz_1">
-                                                                    <div class="quiz_text">Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1
-                                                                        Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1 Quiz1
-                                                                        Quiz1 Quiz1 Quiz1 Quiz1
+                                                                {% for k in "1234" %}
+                                                                    <div class="quiz_div" id="quiz_{{book.id}}_{{k}}">
+                                                                        <div class="quiz_text">
+                                                                            <span class="quiz_head">Q{{k}}.</span>
+                                                                            <span class="quiz_body">Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}
+                                                                            Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}</span>
+                                                                        </div>                                                                  
+                                                                        <div class="quiz_input_wrap">
+                                                                            <input type = "text" id="input_{{book.id}}_{{k}}">
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="quiz_input_wrap">
-                                                                        <input type = text>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="quiz_div" id="quiz_2">
-                                                                    <div class="quiz_text">
-                                                                        Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 
-                                                                        Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2 Quiz2
-                                                                        Quiz2 Quiz2
-                                                                    </div>
-                                                                    <div class="quiz_input_wrap">
-                                                                        <input type = text>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="quiz_div" id="quiz_3">
-                                                                    <div class="quiz_text">
-                                                                        Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 
-                                                                        Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3 Quiz3
-                                                                        Quiz3 Quiz3 
-                                                                    </div>
-                                                                    <div class="quiz_input_wrap">
-                                                                        <input type = text>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="quiz_div" id="quiz_4">
-                                                                    <div class="quiz_text">
-                                                                        Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 
-                                                                        Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4 Quiz4
-                                                                        Quiz4 Quiz4
-                                                                    </div>
-                                                                    <div class="quiz_input_wrap">
-                                                                        <input type = text>
-                                                                    </div>
-                                                                </div>
+                                                                {% endfor %}
+                                                            
                                                                 <div id="quiz_button">
-                                                                    <button type="submit">채점</button>
+                                                                    <button type="submit" name="quiz_button_{{book.id}}">채점</button>
                                                                 </div>
                                                             </form>
                                                         </div>
