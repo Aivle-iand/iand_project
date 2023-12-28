@@ -26,7 +26,7 @@ class Board(models.Model):
     contents = models.TextField()
     registered_date = models.DateField(auto_now_add=True)
     # writer = models.ForeignKey(User, verbose_name="글쓴이", on_delete=models.CASCADE)
-    writer = models.CharField(max_length=50, verbose_name='작성자')
+    # writer = models.CharField(max_length=50, verbose_name='작성자')
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE)
     # slug = models.SlugField(max_length=64, unique=True, null=True)
     
