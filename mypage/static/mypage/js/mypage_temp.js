@@ -1,3 +1,61 @@
+// -------------------------
+// li부분 색깔 변화를 위한 js
+document.addEventListener("DOMContentLoaded", function() {
+  const navigationLinks = document.querySelectorAll('.internal_navigation_list a');
+  const sections = document.querySelectorAll('.main_root > div');
+
+  function updateImagePath(img, addRed) {
+    let currentSrc = img.getAttribute('src');
+    
+    if (addRed && !currentSrc.includes('_red')) {
+      currentSrc = currentSrc.replace('.png', '_red.png');
+    } else if (!addRed && currentSrc.includes('_red')) {
+      currentSrc = currentSrc.replace('_red.png', '.png');
+    }
+    
+    img.setAttribute('src', currentSrc);
+  }
+
+  function getActiveSection() {
+    let closestSection = null;
+    let closestDistance = Infinity;
+
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      const sectionTop = rect.top + window.scrollY - parseFloat(150); // padding-top 반영
+      const distance = Math.abs(sectionTop - window.scrollY);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestSection = section;
+      }
+    });
+
+    return closestSection;
+  }
+
+  function updateLinkImages() {
+    const activeSection = getActiveSection() || sections[0];
+
+    navigationLinks.forEach(link => {
+      const img = link.querySelector('img');
+      const isActive = link.getAttribute('href') === `#${activeSection.id}`;
+      updateImagePath(img, isActive);
+    });
+  }
+
+  window.addEventListener('scroll', updateLinkImages);
+  navigationLinks.forEach(link => {
+    link.addEventListener('mouseenter', () => updateImagePath(link.querySelector('img'), true));
+    link.addEventListener('mouseleave', updateLinkImages);
+  });
+
+  updateLinkImages();
+});
+
+
+//-----------------------
+// 입력에 따라서 label, span의 변화를 위한 js
 document.querySelectorAll('.password_change input').forEach(input => {
     input.addEventListener('input', function() {
       updateButtonStates(); // 버튼 상태를 업데이트
@@ -31,6 +89,8 @@ function toggleLabelAndSpan(input) {
     }
   }
   
+//------------------------
+// cancel 버튼과 save 버튼 변화에 대한 js
 function updateButtonStates() {
     const inputs = document.querySelectorAll('.password_change input');
     const isAnyInputFilled = Array.from(inputs).some(input => input.value);
@@ -115,6 +175,7 @@ function updateSubmitButton() { // 모든 도움말 텍스트를 확인하여 �
 
 
 //-----------------------------
+//voice 파일 업로드 관련 js
 var uploadArea = document.querySelector('.voice_upload_area');
 var fileInput = document.getElementById('file_input');
 var fileNameDisplay = document.querySelector('.voice_file_name');
@@ -175,6 +236,40 @@ voiceCancelButton.addEventListener('click', function() {
   uploadVoiceButton.style.color = '';
   voiceCancelButton.style.visibility = 'hidden';
 });
+
+function setupModal() {
+  var modal = document.getElementById("deleteModal");
+  var btn = document.getElementById("delete_button");
+  var span = document.getElementById("close");
+  var confirmDelete = document.getElementById("confirmDelete");
+  var cancelDelete = document.getElementById("cancelDelete");
+
+  btn.onclick = function() {
+      modal.style.display = "block";
+  }
+
+  span.onclick = function() {
+      modal.style.display = "none";
+  }
+
+  cancelDelete.onclick = function() {
+      modal.style.display = "none";
+  }
+
+  confirmDelete.onclick = function() {
+      // 여기에 계정 삭제 로직을 추가하세요
+      console.log("계정 삭제 진행");
+      modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', setupModal);
 
 
   
