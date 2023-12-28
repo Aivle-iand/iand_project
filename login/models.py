@@ -15,7 +15,7 @@ class User(models.Model):
     profile_img_path = models.CharField(max_length=100, null=True)
     character_composite_img_path = models.CharField(max_length=100, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-
+    
     def set_password(self, raw_password):
         self.user_pw = make_password(raw_password)
 

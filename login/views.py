@@ -54,13 +54,16 @@ def signup(request):
         user.user_pw = user_pw
         user.username = username
         user.nickname = nickname
-        user.save()
+        
+        if User.objects.filter(user_id=user_id).values('user_pw').first():
+            user.save()
 
-        messages.success(request, '회원가입이 성공적으로 이루어졌습니다!')
-        return redirect('/accounts/')  # 성공 URL
-    else:
-        # GET 요청 시 회원가입 페이지 렌더링
-        return render(request, 'signup.html')
+            messages.success(request, '회원가입이 성공적으로 이루어졌습니다!')
+            return redirect('/accounts/')  # 성공 URL
+        
+        else:
+            messages.success(request, '아이디가 중복됩니다.')
+            return render(request, 'signup.html')
 
 from .models import User  # User 모델을 임포트
 
