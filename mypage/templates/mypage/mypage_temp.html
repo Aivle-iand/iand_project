@@ -124,12 +124,20 @@
                     </div>
                     <div class="delete_information_content">
                         <div class="delete_button_layout">
-                            <button class="delete_button" type="submit">Delete Account</button>
-                        </div>                        
+                            <button class="delete_button" id="delete_button" type="submit" onclick="setupModal()">Delete Account</button>
+                        </div>                      
                     </div>
                 </div>
-            </div>
+            </div>            
         </main> 
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="close">&times;</span>
+                <p id="delete_modal_text">정말 계정을 삭제하시겠습니까?</p>
+                <button id="confirmDelete">삭제 확인</button>
+                <button id="cancelDelete">취소</button>
+            </div>
+        </div>
         {% include 'footer.html' %}     
         <script src="{% static 'mypage/js/mypage_temp.js' %}"></script>
     </body>
