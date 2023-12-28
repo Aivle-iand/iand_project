@@ -144,28 +144,17 @@ uploadArea.addEventListener('drop', function(event) {
 });
 
 // 파일 처리 및 <p> 태그 숨김 처리 함수
-// 파일 처리 및 <p> 태그 숨김 처리 함수
 function handleFileUpload(file) {
   if (file) {
     if (file.type === "audio/mpeg" || file.type === "audio/x-m4a") {
-      var audioUrl = URL.createObjectURL(file);
-      var audio = new Audio(audioUrl);
-
-      audio.addEventListener('loadedmetadata', function() {
-        if (audio.duration < 60) { // 1분 미만인 경우
-          fileNameDisplay.textContent = "음성파일이 1분 미만입니다.";
-        } else {
-          fileNameDisplay.textContent = file.name; // 파일 이름 표시
-        }
-      });
-
+      fileNameDisplay.textContent = file.name; // 파일 이름 표시
       uploadInstruction.style.display = 'none'; // <p> 태그 숨김
       uploadVoiceButton.style.backgroundColor = 'red';
       uploadVoiceButton.style.color = 'white';
       voiceCancelButton.style.visibility = 'visible';
     } else {
       fileNameDisplay.textContent = "파일 형식이 .mp3, .m4a에 해당하지 않습니다.";
-      uploadInstruction.style.display = 'none';
+      uploadInstruction.style.display = 'none'; // <p> 태그 다시 표시
       voiceCancelButton.style.visibility = 'visible';
     }
   } else {
