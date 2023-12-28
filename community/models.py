@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-from login.models import User
+# from login.models import User
 
 # Create your models here.
 # 게시글(Post)엔 제목(postname), 내용(contents)이 존재합니다
