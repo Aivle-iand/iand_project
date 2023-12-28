@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="">
     <style>
         /* Previous CSS styles */
         body {
@@ -41,7 +41,7 @@
     {% else %}
         <br><a>안녕하세요. {{ user.username }}님</a><br>
         <button id="go_logout">
-            <a href="http://127.0.0.1:8000/accounts/logout">로그아웃</a>
+            <a href= "http://127.0.0.1:8000/accounts/logout/">로그아웃</a>
         </button>
     {% endif %}
 
@@ -59,9 +59,17 @@
     <button>
         <a href="/mypage">개인 정보 수정</a>
     </button>
-
-    <script>
-        // Existing JavaScript for navigation
-    </script>
 </body>
+
+{% if messages %}
+<script type="text/javascript">
+document.getElementById('go_logout').addEventListener('click', function() {
+        alert('로그아웃 되었습니다.');})
+
+    {% for message in messages %}
+        console("{{ message }}");
+    {% endfor %}
+</script>
+{% endif %}
+
 </html>

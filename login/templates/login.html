@@ -45,16 +45,19 @@
     </head>
     
     <body>
-
         <main class="main">
+
             <a class="logo_class" href='{% url "main:main" %}'>
                 <img src="{% static 'login/img/iand_logo_w.png' %}" class="logo_img" id="logo_img">
             </a>
             
             <div class="login_main">
                 <div class="loginpage">
+
                     <form action="" method="POST">
+
                         {% csrf_token %}
+
                         <h5 class="loginpage-title">로그인</h5>
 
                         <div class="loginbox">
@@ -72,50 +75,48 @@
                                 </div>
                             </div>
 
-                            {% comment %} <div class="api-login">
-                                <div class="sns_line">
-                                    <div class="line1"></div>
-                                    <label>소셜 계정 로그인</label>
-                                    <div class="line2"></div>
-                                </div>
-
-                                <div class="api-login-btn">
-                                    <div class="google_login_div">
-                                        <form action="{% provider_login_url 'google' %}" method='POST'>
-                                            {% csrf_token %}
-                                            <button class="google-login-btn">
-                                            </button>
-                                        </form>
-                                    </div>
-                                    
-                                    <div class="kakao_login_div">
-                                        <form action="{% provider_login_url 'kakao' %}" method='POST'>
-                                            {% csrf_token %}
-                                            <button class="kakao-login-btn">
-                                            </button>
-                                        </form>
-                                    </div>
-    
-                                    <div class="naver_login_div">
-                                        <form action="{% provider_login_url 'naver' %}" method="POST">
-                                            {% csrf_token %}
-                                            <button class="naver-login-btn">
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div> {% endcomment %}
-                                <div class="login_btn_div">
-                                    <input type="submit" class="login_btn" value=""/>
-                                </div>
-        
-                            <div class="sign_up_div">
-                                <a href="signup" class="sign_up_btn">회원 가입</a>
+                            <div class="login_btn_div">
+                                <input type="submit" class="login_btn" value=""/>
                             </div>
-                    </div>
-                </form>
+                        </div>
+                    </form>
 
+                        <div class="api-login">
+                            <div class="sns_line">
+                                <div class="line1"></div>
+                                <label>소셜 계정 로그인</label>
+                                <div class="line2"></div>
+                            </div>
+                            <div class="api-login-btn">
+                                <div class="google_login_div">
+                                    <form action="{% provider_login_url 'google' %}" method='POST'>
+                                        {% csrf_token %}
+                                        <button class="google-login-btn">
+                                        </button>
+                                    </form>
+                                </div>
+                                
+                                <div class="kakao_login_div">
+                                    <form action="{% provider_login_url 'kakao' %}" method='POST'>
+                                        {% csrf_token %}
+                                        <button class="kakao-login-btn">
+                                        </button>
+                                    </form>
+                                </div>
 
+                                <div class="naver_login_div">
+                                    <form action="{% provider_login_url 'naver' %}" method="POST">
+                                        {% csrf_token %}
+                                        <button class="naver-login-btn">
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div> 
+                                
+                        <div class="sign_up_div">
+                            <a href="signup" class="sign_up_btn">회원 가입</a>
+                        </div>
                 </div>  
             </div>
         </main>
@@ -183,44 +184,4 @@
     </script>
     {% endif %}
 
-    
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 팝업 관련코드  -->
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="lol.css">
-  <title>Popup Example</title>
-</head>
-<body>
-
-  <button id="showPopup">Show Popup</button>
-
-  <div id="popup" class="modal">
-    <div class="modal-content">
-      <span class="close" id="closePopup">&times;</span>
-      <p>This is a popup content!</p>
-    </div>
-  </div>
-
-  <script src="scripts.js"></script>
-</body>
-</html> -->
