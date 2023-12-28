@@ -37,18 +37,21 @@ def signup(request):
         nickname = request.POST.get('nickname')
 
         # 유저 생성 및 저장
-        custom_user = Custom_User()
-        custom_user.user_id = user_id
-        custom_user.user_pw = user_pw
-        custom_user.username = username
-        custom_user.nickname = nickname
-        custom_user.save()
+        user = User()
+        user.user_id = user_id
+        user.user_pw = user_pw
+        user.username = username
+        user.nickname = nickname
+        
+        if User.objects.filter(user_id=user_id).values('user_pw').first():
+            user.save()
 
-        messages.success(request, '회원가입이 성공적으로 이루어졌습니다!')
-        return redirect('/accounts/')  # 성공 URL
-    else:
-        # GET 요청 시 회원가입 페이지 렌더링
-        return render(request, 'signup.html')
+            messages.success(request, '회원가입이 성공적으로 이루어졌습니다!')
+            return redirect('/accounts/')  # 성공 URL
+        
+        else:
+            messages.success(request, '아이디가 중복됩니다.')
+            return render(request, 'signup.html')
 
 @csrf_exempt  # 개발 단계에서만 사용. 실제 배포시 CSRF 토큰을 적절히 처리해야 합니다.
 def check_user_id(request):
