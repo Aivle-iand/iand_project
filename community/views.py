@@ -3,6 +3,8 @@ from django.urls import path
 from .forms import PostForm
 from .models import *
 from django.http import HttpResponse
+from django.views.generic import ListView, DetailView
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def writepage(request):
     # if not request.session.get('user'):
@@ -23,24 +25,47 @@ def writepage(request):
             )
         new_article.save()
         
-        return redirect(f'community:posting', new_article.id)
-    return render(request, 'writepage.html')
+        return redirect(f'community:detail', new_article.id)
+    return render(request, 'community/writepage.html')
+    
+def categoryView(request, c_slug=None):
+    c_page = None
+    
+    if c_slug != None:
+        c_page = get_object_or_404(Category, slug=c_slug)
+        post_list = Board.objects.filter(category=c_page)
+    else:
+        post_list = Board.objects.all()
+    page = request.GET.get('page')
+    paginator = Paginator(post_list, 2)
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        page_obj = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        page_obj = paginator.page(page)
+        
+    leftindex = (int(page) - 2)
+    if leftindex < 1:
+        leftindex = 1
+    
+    rightindex = (int(page) + 2)
+    
+    if rightindex < paginator.num_pages:
+        rightindex - paginator.num_pages
+    
+    custom_range = range(leftindex, rightindex+1)
+    return render(request, 'community/category.html', 
+                  {
+                      'category':c_page, 
+                      'post_list':post_list,
+                      'page_obj':page_obj,
+                      'paginator':paginator,
+                      'custom_range':custom_range},)
 
-# Create your views here.
-def announcement(request):
-    post_list = Board.objects.all().order_by('-id')
-    return render(request, 'announcement.html', {'post_all':post_list})
-
-def freeboard(request):
-    post_list = Board.objects.all().order_by('-id')
-    return render(request, 'freeboard.html', {'post_all':post_list})
-
-def qna(request):
-    post_list = Board.objects.all().order_by('-id')
-    return render(request, 'qna.html', {'post_all':post_list})
-
-def posting(request, pk):
+def detail(request, id):
     # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
-    post = Board.objects.get(id=pk)
-    # posting.html 페이지를 열 때, 찾아낸 게시글(post)을 post라는 이름으로 가져옴
-    return render(request, 'posting.html', {'posting':post})
+    detail = Board.objects.get(id=id)
+    return render(request, 'community/detail.html', {'detail':detail})

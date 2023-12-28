@@ -6,7 +6,7 @@
 
 signup-id-pass * > a {
     background: transparent;
-    padding: 31px 8px 15px;
+    padding: 15px 8px 15px;
     box-sizing: border-box;
     height: 50px;
     display: block;
@@ -26,9 +26,9 @@ signup-id-pass * > a {
     font-size: 12px;
   }
   
-  input.error {
-    border: 1px solid red;
-  }
+input.error {
+border: 1px solid red;
+}
 
   
 .signup-pass .password {
@@ -60,8 +60,8 @@ body>* {
 .main_container {
     display: flex; /* Flexbox를 활성화 */
     justify-content: center; /* 수평 중앙 정렬 */
-    align-items: center; 수직 중앙 정렬
-    height: 100%; /* 전체 뷰포트 높이를 차지하도록 설정 */
+    align-items: center; /*수직 중앙 정렬*/
+    /* height: 100%; 전체 뷰포트 높이를 차지하도록 설정 */
 }
 
 .signuppage {
@@ -74,7 +74,7 @@ body>* {
 }
 
 .signuppage:hover {
-    opacity: 1; /* Full opacity on hover */
+    opacity: 0.95; /* Full opacity on hover */
 }
 
 .signup-id-pass *{
@@ -85,7 +85,8 @@ body>* {
 .signup-id-pass input {
     background: transparent;
     border: none;
-    padding: 31px 8px 15px;
+    padding: 15px 8px 15px;
+    margin-bottom: 20px;
     box-sizing: border-box;
     height: 50px;
     display: block;
@@ -145,34 +146,35 @@ body>* {
     position: relative;
 }
 
-/* General Button Styling */
-.signup-button {
-    padding: 10px 20px; 
-    background-color: #004494; 
-    border: none; 
-    border-radius: 5px; 
+/* Targeting the input type submit within the .signup-button class */
+.signup-button input[type=submit] {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-color: black;
+    border-radius: 5px;
     font-size: 14px;
     font-weight: bold;
-    color: white; 
-    cursor: pointer; 
-    transition: all 0.3s ease; 
-    display: inline-block; 
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    width: 100%; /* Make it fill the container */
 }
 
-/* Hover Effect */
-.signup-button:hover {
-    background-color: white; /* Darken background on hover */
-    color: black;
+/* Hover Effect specifically for the input */
+.signup-button input[type=submit]:hover {
+    background-color: #004494; /* Darken background on hover */
+    color: white;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* Add shadow effect on hover */
 }
 
-/* Active/Focus Effect */
-.signup-button:active, .signup-button:focus {
+/* Active/Focus Effect for the input */
+.signup-button input[type=submit]:active,
+.signup-button input[type=submit]:focus {
     outline: none; /* Removes the outline */
-    background-color: #004494; /* Even darker background for active state */
+    color: black;
+    background-color: #004494;
 }
-
-
 
 .signup-remember {
     position: relative;
@@ -199,11 +201,52 @@ body>* {
     display: none;
 }
 
+/* Basic styling for select */
+.custom-select {
+    display: block;
+    width: 100%; /* Responsive width */
+    padding: 8px 12px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #444; /* Text color */
+    background-color: #fff; /* Background color */
+    background-image: url('arrow-down-icon.svg'); /* Custom arrow icon */
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 4px; /* Rounded corners */
+    -webkit-appearance: none; /* Removes default chrome and safari style */
+    -moz-appearance: none; /* Removes default style Firefox */
+    appearance: none; /* Standard syntax */
+}
+
+/* Hover style */
+.custom-select:hover {
+    border-color: #888; /* Darker border on hover */
+}
+
+/* Focus style */
+.custom-select:focus {
+    outline: none;
+    border-color: #555; /* Even darker border on focus */
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+
+
 .footer {
     background-color: rgba(0, 0, 0, 0.3);
     color: #F1F1F1;
     font-size: 12px;
+    height: 100px;
+    display: flex;
     text-align: center;
-    padding: 3%;
+    align-items: center;
+    justify-content: center;
     user-select: none;
+}
+
+input[type=submit]:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed; /* 호버 시 금지 표시 커서로 변경 */
 }

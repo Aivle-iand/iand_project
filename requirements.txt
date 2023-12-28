@@ -12,3 +12,4 @@ opencv-python
 pillow
 pydub
 django-allauth
+django-environ

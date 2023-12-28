@@ -15,6 +15,7 @@ import pymysql
 import os
 import json
 from django.core.exceptions import ImproperlyConfigured
+import environ
 
 # django database 구성 변경
 pymysql.install_as_MySQLdb()
@@ -56,6 +57,14 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+
+environ.Env.read_env(
+    env_file=os.path.join(BASE_DIR, 'secrets.config')
+)
+
 SITE_ID = 5
 
 ACCOUNT_SIGNUP_REDIRECTION_URL = '/'
@@ -64,6 +73,7 @@ LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 물어보는 페이지 안나옴
 
 SESSION_COOKIE_AGE = 3600 # 로그인 세션 1시간 유지?
+ACCOUNT_SESSION_REMEMBER = True # 브라우저를 닫으면 유저 로그아웃
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -106,7 +116,7 @@ ROOT_URLCONF = 'iand_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [f'{BASE_DIR}/templates',],
+        'DIRS': [f'{BASE_DIR}/templates', f'{BASE_DIR}/main/templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,6 +124,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'community.context_processors.menu_links',
             ],
         },
     },
@@ -121,14 +132,44 @@ TEMPLATES = [
 
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
-        # These are provider-specific settings that can only be
-        # listed here:
         "SCOPE": [
             "profile",
             "email",
         ],
         "AUTH_PARAMS": {
             "access_type": "online",
+        },
+        "APP": {
+            "client_id": env('GOOGLE_OAUTH_CLIENT_ID'),
+            "secret": env('GOOGLE_OAUTH_SECRET'),
+            'key': '' 
+        },
+    },
+    
+    "kakao": {
+        "SCOPE": [
+            "profile",
+            "email",
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        },
+        "APP": {
+            "client_id": env('KAKAO_OAUTH_CLIENT_ID')
+        },
+    },
+    
+    "naver": {
+        "SCOPE": [
+            "profile",
+            "email",
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        },
+        "APP": {
+            "client_id": env('NAVER_OAUTH_CLIENT_ID'),
+             "secret": env('NAVER_OAUTH_SECRET')
         },
     },
 }
