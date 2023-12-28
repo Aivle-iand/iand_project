@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'mypage/css/main_center.css' %}">
-
+        <link rel="icon" href="{% static 'mypage/img/favicon.png' %}">
+        <link rel="apple-touch-icon" href="{% static 'mypage/img/favicon.png' %}">
     <title>1인칭 주인공 시점</title>
     </head>
 
@@ -19,35 +20,117 @@
                             <ul class="internal_navigation_list">
                                 <li><a class="personal_information_link" href="#personal_information_card"><span>PERSONAL INFORMATION</span></a></li>
                                 <li><a class="change_password_link" href="#change_password"><span>CHANGE PASSWORD</span></a></li>
+                                <li><a class="upload_img_link" href="#upload_img"><span>UPLOAD IMAGE</span></a></li>
+                                <li><a class="upload_voice_link" href="#upload_voice"><span>UPLOAD VOICE</span></a></li>
+                                <li><a class="login_history" href="#login_history"><span>LOGIN HISTORY</span></a></li>
+                                <li><a class="delete_account" href="#delete_account"><span>DELETE ACCOUNT</span></a></li>
                             </ul>
                         </div>
                     </div>
                 </nav>
             </div>
             <div class="main_root">
+                <div class="header_size"> </div>
                 <div class="personal_information_card" id="personal_information_card">
                     <div class="personal_information_explain">
                         <h1>Personal Information</h1>
                         <p>This information is private and will not be shared with other players. Read the Riot Privacy Notice anytime!</p>
                     </div>
-                    <div class="personal_information_content">test</div>
+                    <div class="personal_information_content">
+                            <div class="personal_information_username">
+                                <div class="personal_username">User ID로 변경</div>
+                                <span>USERNAME</span>
+                            </div>
+                            <div class="personal_information_nickname">
+                                <input class="personal_nickname" data-testid="input-username" autocapitalize="off" type="text" value="">
+                                <span>NICKNAME</span>
+                            </div>
+                            <div class="nickname_check_msg">여기는 닉네임 중복 여부에 대한 메시지를 표시할 부분입니다.</div>
+                            <div class="nickname_change">
+                                <button class="save_button" id="nickname_change_cancel_button">CANCEL</button>
+                                <button class="save_button" id="nickname_change_button">SAVE CHANGE</button>
+                            </div>
+                    </div>
                 </div>
                 <div class="personal_information_card" id="change_password">
                     <div class="personal_information_explain">
                         <h1>Change Password</h1>
                         <p>We recommend that you periodically update your password to help prevent unauthorized access to your account.</p>
                     </div>
-                    <div class="personal_information_content">test</div>
+                    <div class="personal_information_content">
+                        <p class="change_password_text">Change Password</p>
+                        <div class="password_change">
+                            <div class="current_password">
+                                <input class="cur_password" data-testid="input-cur-pw" autocapitalize="off" type="text" value="현재 패스워드를 DB로 부터 받아와서 일치하는지 체크하는 부분 javascript에 추가 필요" required>
+                                <label>CURRENT PASSWORD</label>
+                                <span>CURRENT PASSWORD</span>
+                            </div>
+                            <div class="new_password">
+                                <input id="password" data-testid="password" type="password" oninput="validatePassword();" required>
+                                <label>NEW PASSWORD</label>
+                                <span>NEW PASSWORD</span>
+                            </div>
+                            <div class="confirm_new_password">
+                                <input id="confirmPassword" data-testid="check_pw" type="password" oninput="validatePassword();" required>
+                                <label>CONFIRM NEW PASSWORD</label>
+                                <span>CONFIRM NEW PASSWORD</span>
+                            </div>
+                        </div>
+                        <div class="form-text" id="passwordHelp"></div>
+                        <div class="password_change_button_layout">
+                            <div class="password_change_none">
+                                <button class="save_button" id="pw_change_cancel_button">CANCEL</button>
+                                <button class="save_button" id="pw_change_button">SAVE CHANGE</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="personal_information_card" id="personal_information_card">
+                <div class="personal_information_card" id="upload_img">
                     <div class="personal_information_explain">
-                        <h1>test3</h1>
+                        <h1>Upload Image</h1>
                         <p>This information is private and will not be shared with other players. Read the Riot Privacy Notice anytime!</p>
                     </div>
                     <div class="personal_information_content">test</div>
                 </div>
+                <div class="personal_information_card" id="upload_voice">
+                    <div class="personal_information_explain">
+                        <h1>Upload Voice</h1>
+                        <p>This information is private and will not be shared with other players. Read the Riot Privacy Notice anytime!</p>
+                    </div>
+                    <div class="personal_information_content">
+                        <div class="voice_upload_area">
+                            <div class="voice_upload_msg">음성 파일을 드래그 앤 드롭 하거나 클릭하여 업로드하세요.</div>
+                            <input type="file" id="file_input" style="display: none;">
+                            <div class="voice_file_name"></div>
+                        </div>
+                        <div class="voice_upload_button_area">
+                            <button class="save_button" id="voice_upload_cancel_button">CANCEL</button>
+                            <button class="save_button" id="voice_upload_button">SAVE CHANGE</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="personal_information_card" id="login_history">
+                    <div class="personal_information_explain">
+                        <h1>Account Login History</h1>
+                        <p>0 logins from overseas
+
+                            Only the login history within the last 30 days is available here</p>
+                    </div>
+                    <div class="personal_information_content">test</div>
+                </div>
+                <div class="delete_card" id="delete_account">
+                    <div class="delete_information_explain">
+                        <h1>Account Deletion</h1>
+                    </div>
+                    <div class="delete_information_content">
+                        <div class="delete_button_layout">
+                            <button class="delete_button" type="submit">Delete Account</button>
+                        </div>                        
+                    </div>
+                </div>
             </div>
         </main> 
         {% include 'footer.html' %}     
+        <script src="{% static 'mypage/js/mypage_temp.js' %}"></script>
     </body>
 </html>

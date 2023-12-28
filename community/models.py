@@ -32,10 +32,6 @@ class Board(models.Model):
     # 게시글의 제목(postname)이 Post object 대신하기
     def __str__(self):
         return self.postname
-    
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.category)
-        super(Board, self).save(*args, **kwargs)
     class Meta:
         db_table = "community_board"
         verbose_name = "게시물"
