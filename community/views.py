@@ -30,7 +30,6 @@ def writepage(request):
     
 def categoryView(request, c_slug=None):
     c_page = None
-    post_list = None
     
     if c_slug != None:
         c_page = get_object_or_404(Category, slug=c_slug)
@@ -38,7 +37,7 @@ def categoryView(request, c_slug=None):
     else:
         post_list = Board.objects.all()
     page = request.GET.get('page')
-    paginator = Paginator(post_list, 10)
+    paginator = Paginator(post_list, 2)
     try:
         page_obj = paginator.page(page)
     except PageNotAnInteger:
@@ -47,12 +46,24 @@ def categoryView(request, c_slug=None):
     except EmptyPage:
         page = paginator.num_pages
         page_obj = paginator.page(page)
+        
+    leftindex = (int(page) - 2)
+    if leftindex < 1:
+        leftindex = 1
+    
+    rightindex = (int(page) + 2)
+    
+    if rightindex < paginator.num_pages:
+        rightindex - paginator.num_pages
+    
+    custom_range = range(leftindex, rightindex+1)
     return render(request, 'community/category.html', 
                   {
                       'category':c_page, 
                       'post_list':post_list,
                       'page_obj':page_obj,
-                      'paginator':paginator})
+                      'paginator':paginator,
+                      'custom_range':custom_range},)
 
 def detail(request, id):
     # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
