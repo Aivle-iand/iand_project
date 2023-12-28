@@ -299,7 +299,7 @@ header a {
     margin: 10px; 
     box-sizing: border-box;
     background-color: rgb(6,28,37);
-    border : 4px solid rgb(6,28,37);
+    border : 5px solid rgb(6,28,37);
     color: #fff;
     text-align: center;
     margin : 20px;
@@ -307,7 +307,7 @@ header a {
 
 .item:hover {
     background-color: rgb(19, 38, 91);
-    border : 4px solid rgb(19, 38, 91);
+    border : 5px solid rgb(19, 38, 91);
 }
 /* 검색 바 */
 
@@ -323,8 +323,6 @@ header a {
     height : 45px;
 
 }
-
-
 
 .function {
     display : flex;
@@ -392,10 +390,8 @@ header a {
     color : black;
     font-weight: 600;
 }
-
 #radioForm input:checked + label>div{
     border-bottom: 4px solid yellow;
-
 }
 
 #optionForm>select {
@@ -571,8 +567,17 @@ header a {
     flex-direction: column;
     justify-content: center;
     align-items : center;
-    position : absolute;
 }
+
+.profile_contents {
+    position : absolute;
+    height: 94%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items : center;
+}
+
 
 
 .profile_img {
@@ -614,7 +619,8 @@ header a {
     display : flex;
     flex-direction: row-reverse;
     position : relative;
-    bottom : 13px;
+    top : 450px;
+    margin : 20px;
 }
 
 .voice_label, .face_label {
@@ -675,11 +681,56 @@ header a {
     font-weight : 600;
 }
 
-.change_voice_face {
-    margin : 20px;
-}
 
 /* 에피소드  모달 */
+.scene_container {
+    width : 100%;
+    height : 100%;
+    position : relative;
+}
+
+.scene_container>div {
+    position : absolute;
+    width : 100%;
+    height : 100%;
+    top : 0%;
+    left : 0%;
+}
+.scene_1{
+    display : block;
+}
+
+.scene_2, .scene_3, .scene_4{
+    display : none;
+}
+.episode_image {
+    width : 100%;
+    height : 80%;
+    background-repeat: no-repeat;
+    position : relative;
+    left : 175px;
+}
+
+.btnLeft, .btnRight {
+    position : relative;
+    top : -50%;
+    background-color: #00000000;
+    border : 0px;
+    color : rgba(255, 255, 255, 0.486);
+    font-size : 30px;
+    font-weight : 600;
+}
+
+.btnLeft:hover, .btnRight:hover {
+    color : rgb(255, 255, 255);
+}
+
+.btnLeft {
+    left : -330px;
+}
+.btnRight{
+    right : -330px; 
+}
 
 
 /* Quiz 모달 */
@@ -743,22 +794,3 @@ header a {
     font-weight : 400;
 }
 
-
-/* episode */
-
-.episode_main {
-    display: flex;
-    flex-direction: column; /* 자식 요소를 세로로 배치 */
-    align-items: center;    /* 수직 방향에서 중앙 정렬 */
-    justify-content: center;/* 수평 방향에서 중앙 정렬 */
-    min-height: 100vh;      /* 뷰포트의 높이와 같게 설정 */
-    text-align: center;     /* 텍스트 중앙 정렬 */
-    margin-top: 30%;
-}
-
-.episode_img {
-    width: 70%;            /* 이미지의 너비를 컨테이너의 50%로 설정 */
-    max-width: 600px;      /* 이미지의 최대 너비를 600px로 제한 */
-    height: 200px;          /* 이미지의 높이를 비율에 맞게 자동 조절 */
-    margin-bottom: 20px;   /* 이미지 아래에 여백 추가 */
-}
