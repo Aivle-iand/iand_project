@@ -39,7 +39,7 @@
             <a href="http://127.0.0.1:8000/accounts">로그인</a>
         </button>
     {% else %}
-        <br><a>안녕하세요. {{ user }}님</a><br>
+        <br><a>안녕하세요. {{ user.username }}님</a><br>
         <button id="go_logout">
             <a href="http://127.0.0.1:8000/accounts/logout">로그아웃</a>
         </button>
