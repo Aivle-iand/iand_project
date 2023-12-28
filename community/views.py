@@ -5,7 +5,7 @@ from .models import *
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from login.models import User
+# from login.models import User
 
 def writepage(request):
     # if not request.session.get('user'):
