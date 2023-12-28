@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.text import slugify
+from login.models import User
 
 # Create your models here.
 # 게시글(Post)엔 제목(postname), 내용(contents)이 존재합니다
@@ -25,7 +25,8 @@ class Board(models.Model):
     postname = models.CharField(max_length=64, verbose_name="제목")
     contents = models.TextField()
     registered_date = models.DateField(auto_now_add=True)
-    # writer = models.ForeignKey('login_user.nickname', verbose_name="글쓴이", on_delete=models.CASCADE)
+    # writer = models.ForeignKey(User, verbose_name="글쓴이", on_delete=models.CASCADE)
+    writer = models.CharField(max_length=50, verbose_name='작성자')
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE)
     # slug = models.SlugField(max_length=64, unique=True, null=True)
     

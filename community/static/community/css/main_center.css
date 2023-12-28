@@ -56,7 +56,20 @@
 }
 
 /* 사이드 밑줄 없애기 */
+.board_list a,
 .board_div > a {
     text-decoration: none;
     color: inherit;
+}
+
+.paging ul {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form#searchForm {
+    width: 300px;
+    margin-left: auto;
+    margin-right: 200px;
 }
