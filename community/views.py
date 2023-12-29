@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import path
-from .forms import PostForm
+from .forms import PostForm, PostUpdate
 from .models import *
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
@@ -78,19 +78,19 @@ def detail(request, pk):
         return render(request, 'community/detail.html', {'detail':detail})
 
     
-def up_post(request, pk):
+def update(request, pk):
     detail = get_object_or_404(Board, pk=pk)
     # # if request.user_id != detail.writer:
     #     message.error(request, '수정 권한이 없습니다.')
     #     return redirect('community:detail', user_id=pk)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=detail)
+        form = PostUpdate(request.POST, instance=detail)
         if form.is_valid():
-            detail = form.save(commit=False)
-            detail.modify_date = timezone.now()
+            detail.postname = form.cleaned_data['postname']
+            detail.contents = form.cleaned_data['contents']
             detail.save()
-            return redirect('community/detail'+str(pk), {'detail':detail})
+            return redirect(str(detail.id))
     else:
-        form = PostForm(instance=detail)
+        form = PostUpdate(instance=detail)
     context = {'form':form}
-    return render(request, 'community/update.html', form)
+    return render(request, 'community/update.html', {'form':form})
