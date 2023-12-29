@@ -12,7 +12,7 @@ urlpatterns = [
     path('writepage/', views.writepage, name='writepage'),
     path('<slug:c_slug>/', views.categoryView, name='post_by_category'),
     path('detail/<int:pk>/', views.detail, name='detail'),
-    path('detail/<int:pk>/update', views.up_post, name='update'),
+    path('update/<int:pk>/', views.update, name='update'),
 ]
 
 if settings.DEBUG:
