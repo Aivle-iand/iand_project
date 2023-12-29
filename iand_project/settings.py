@@ -65,7 +65,7 @@ environ.Env.read_env(
     env_file=os.path.join(BASE_DIR, 'secrets.config')
 )
 
-SITE_ID = 5
+SITE_ID = 14
 
 ACCOUNT_SIGNUP_REDIRECTION_URL = '/'
 LOGIN_REDIRECT_URL = '/'
@@ -225,7 +225,7 @@ TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
