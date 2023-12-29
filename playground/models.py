@@ -5,39 +5,26 @@ class Book(models.Model):
     name = models.CharField(max_length=90)
     category = models.TextField(null=True, blank=True)
     card_image = models.ImageField(upload_to='books/')  # 'media/books/'에 이미지 저장
-    profile_image = models.ImageField(null=True, blank=True, upload_to='profiles/') # 후처리
-    prologue = models.TextField(null=True, blank=True) # 후처리
+    profile_image = models.ImageField(null=True, blank=True, upload_to='profiles/')
+    prologue = models.TextField(null=True, blank=True)
     year_of_life = models.TextField(null=True, blank=True)
-    quiz = models.IntegerField(default=0) # 후처리
+    quiz = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
     
 
 
-# Episode table 추가
-class Episode(models.Model):
+class Episodes(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='episodes')
-    title = models.CharField(max_length=200)
-    content = models.TextField(null=True, blank=True)
-    episode_number = models.PositiveIntegerField(default=1, help_text="에피소드 번호") #양수만 받는 필드
-    book_image = models.ImageField(upload_to='contents/')  # Image for each episode
-
+    episode_number = models.PositiveIntegerField(default=1, help_text="에피소드 번호")
+    scene_number = models.PositiveIntegerField(default=1, help_text="장면 번호")
+    title = models.CharField(max_length=30 , default=None,help_text="에피소드 이름")
+    image = models.ImageField(upload_to='contents/', default=None, help_text="에피소드 장면 이미지")
+    voice = models.FileField(upload_to='voices/',default=None, help_text="기본음성")
+    voice_text = models.CharField(max_length=30,default=None, help_text="음성 대사 텍스트")
+    quiz_text = models.CharField(max_length=100,default=None, help_text="퀴즈 문제 내용")
+    quiz_answer =models.CharField(max_length=30,default=None, help_text="퀴즈 문제 정답")
+        
     def __str__(self):
-        return f"{self.book.name} - {self.title}"
-    
-    
-    '''
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='episodes')
-    title = models.CharField(max_length=20)
-    describe = models.TextField(null=True, blank=True)
-    image = 
-    voice = 
-    voice_text = 
-    episode_number =
-    scene_number =
-    quiz_text =
-    quiz_answer =
-
-  
-    '''
+        return f"{self.book.name}_{self.episode_number}_{self.scene_number}"
