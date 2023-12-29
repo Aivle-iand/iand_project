@@ -31,8 +31,10 @@ def index(request):
         # 여기서 얼굴 합성 api 써야 합니다. 
         # ex) reading_book = books.filter(id=face)
         # ex) api 코드 
+    
+    index_info = [[1,463,407,60,218],[2,613,468,44,161],[3,463,507,4,190],[4,463,488,21,198]]
 
-    return render(request, 'playground/lol.html', {'books': books, "search_query": search_query, "filter_option" : filter_option, "categoryOption":categoryOption, "voice":voice, "face":face})
+    return render(request, 'playground/lol.html', {'books': books, "search_query": search_query, "filter_option" : filter_option, "categoryOption":categoryOption, "voice":voice, "face":face, "index_info":index_info})
 
 
 
