@@ -4,6 +4,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
         <link rel="stylesheet" href="{% static 'login/css/signup.css' %}">
         <title>I&_ 회원가입</title>
 
@@ -37,6 +41,9 @@
             to {opacity: 1;}
         }
     </style>
+
+    
+
     </head>
 
     <body>
@@ -52,7 +59,7 @@
                 <div class="signuppage">
                     <form method="post" action="signup/submit">
                         {% csrf_token %}
-                        <h1 class="signuppage-title">I&_ 회원가입</h1>
+                        <h1 class="signuppage-title" style="font-family: 'Do Hyeon', sans-serif; font-size:60px; border-bottom: 2px solid #f9bc28;">I&_ 회원가입</h1>
                         <div class="signupbox">
                             <div class="signup-id-pass">
                                 <div class="signup-id">
@@ -302,11 +309,8 @@
                                 <p style="background-color: #ffffff; color:
                                     #000000; text-align: start;"
                                     data-ke-size="size16">▶ 개인정보 보호책임자<br />성명 :
-                                    손수정<br />직책 : 대표<br />직급 : CEO<br />연락처 :
-                                    1577-8725, contact@jpinnovation.kr<br />※
-                                    개인정보 보호 담당부서로 연결됩니다.<br /><br />▶ 개인정보 보호
-                                    담당부서<br />부서명 : 마케팅팀<br />담당자 : 곽은미<br />연락처
-                                    : 1577-8725, amykwak@jpinnovation.kr</p>
+                                    고성지<br />직책 : 대표<br />직급 : CEO<br />연락처 :
+                                    010-9778-6482, soc06202@kakao.com<br />
                                 <p style="background-color: #ffffff; color:
                                     #000000; text-align: start;"
                                     data-ke-size="size16"><br />②
