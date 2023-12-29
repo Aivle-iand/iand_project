@@ -1,9 +1,14 @@
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
 
 :lang(ko-kr) {
     word-break: keep-all;
     letter-spacing: normal !important;
 }
-
+html {
+    background-color: black;
+}
 signup-id-pass * > a {
     background: transparent;
     padding: 15px 8px 15px;
@@ -25,20 +30,18 @@ signup-id-pass * > a {
     color: red;
     font-size: 12px;
   }
-  
+
 input.error {
 border: 1px solid red;
 }
 
-  
+
 .signup-pass .password {
     font-size: 12px;
 }
 
 .signup-id-pass .already_signup{
-    display: flex;
-    justify-content: flex-end; /* 오른쪽 정렬 */
-    font-size: 10px;
+    font-size: 12px;
     color:#004494;
     text-decoration-line: none;
 }
@@ -46,17 +49,17 @@ border: 1px solid red;
 body>* {
     box-sizing: border-box;
 }
- 
+
 .header {
     height: 80px;
 }
- 
+
 .logo_img {
     height: 15vw;
     padding: 10px;
     cursor: pointer;
 }
- 
+
 .main_container {
     display: flex; /* Flexbox를 활성화 */
     justify-content: center; /* 수평 중앙 정렬 */
@@ -69,20 +72,21 @@ body>* {
     border-radius: 10px;
     padding: 20px;
     min-width: 40%;
-    opacity: 0.5; /* Start with a lower opacity */
+    opacity: 0.7; /* Start with a lower opacity */
     transition: opacity 0.5s ease;
 }
 
 .signuppage:hover {
-    opacity: 0.95; /* Full opacity on hover */
+    opacity: 0.97; /* Full opacity on hover */
 }
 
 .signup-id-pass *{
     padding-bottom: 10px;
 }
- 
 
-.signup-id-pass input {
+.signup-id-pass input[type="password"],
+
+.signup-id-pass input[type="text"]  {
     background: transparent;
     border: none;
     padding: 15px 8px 15px;
@@ -99,16 +103,16 @@ body>* {
     font-family: "FF Mark W05", sans-serif;
     border-radius:5px;
 }
- 
+
 .signup-id-pass input:not(:focus):hover {
     background:#F1F1F1;
     border: #ECECEC;
 }
- 
+
 .api-signup {
     padding: 10px 0px;
 }
- 
+
 .api-signup button {
     -webkit-box-flex: 1;
     flex-grow: 1;
@@ -124,7 +128,7 @@ body>* {
     display: inline-block;
     margin: 0 5px;
 }
- 
+
 .signup-id-pass label {
     color: rgb(102, 102, 102);
     font-family: "FF Mark W05", sans-serif;
@@ -140,7 +144,7 @@ body>* {
     pointer-events: none;
     transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s, opacity;
 }
- 
+
 
 .signup-id-pass div {
     position: relative;
@@ -179,24 +183,24 @@ body>* {
 .signup-remember {
     position: relative;
 }
- 
+
 .signup-remember label {
     cursor: pointer;
 }
- 
+
 .signup-id-pass input:not(:focus) {
     background: #F8F8F8;
 }
- 
+
 .signup-id-pass input:focus {
     background: none;
     outline: auto;
 }
- 
+
 .signup-id-pass input:focus ~label {
     display: none;
 }
- 
+
 .signup-id-pass input:not(:focus) ~span {
     display: none;
 }
@@ -230,6 +234,25 @@ body>* {
     outline: none;
     border-color: #555; /* Even darker border on focus */
     box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+
+/* Base container styling */
+.agree_privacy {
+    background-color: #f7f7f7; /* Light gray background */
+    padding: 20px; /* Spacing around the content */
+    border-radius: 8px; /* Rounded corners */
+    display: inline-block; /* Keeps the content aligned together */
+    /* margin: 10px; Outer spacing */
+    width: 100%;
+}
+
+.agree_privacy a {
+    margin-right: 10%;
+}
+/* Styling specific to the radio buttons */
+.agree_privacy input[type="radio"] {
+    cursor: pointer; /* Changes cursor to a pointer when hovering over the radio */
+    margin-right: 20px; /* Space between the agree and disagree options */
 }
 
 
