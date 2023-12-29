@@ -51,10 +51,25 @@ def signup(request):
 
 @csrf_exempt  # 개발 단계에서만 사용. 실제 배포시 CSRF 토큰을 적절히 처리해야 합니다.
 def check_user_id(request):
-    if request.method == "POST":
-        data = json.loads(request.body)
-        user_id = data.get("user_id")
-        is_duplicate = Custom_User.objects.filter(user_id=user_id).exists()  # user_id 컬럼을 사용하여 중복 확인
-        return JsonResponse({'isDuplicate': is_duplicate})
+    # 클라이언트로부터 AJAX 요청을 통해 전달받은 user_id 값
+    data = json.loads(request.body)
+    user_id = data.get('user_id')
 
-    return JsonResponse({'error': 'Invalid method'}, status=400)
+    # User 모델을 사용하여 해당 user_id가 이미 존재하는지 확인
+    isDuplicate = Custom_User.objects.filter(user_id=user_id).exists()
+
+    # is_taken 값을 JSON 형태로 클라이언트에 반환
+    return JsonResponse({'isDuplicate': isDuplicate})
+
+@csrf_exempt
+def check_nickname(request):
+    # 클라이언트로부터 AJAX 요청을 통해 전달받은 user_id 값
+    data = json.loads(request.body)
+    nickname = data.get('nickname')
+
+    # User 모델을 사용하여 해당 nickname 이미 존재하는지 확인
+    isDuplicate = Custom_User.objects.filter(nickname=nickname).exists()
+
+    # is_taken 값을 JSON 형태로 클라이언트에 반환
+    return JsonResponse({'isDuplicate': isDuplicate})
+
