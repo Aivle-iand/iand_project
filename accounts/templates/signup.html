@@ -4,6 +4,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
         <link rel="stylesheet" href="{% static 'login/css/signup.css' %}">
         <title>I&_ 회원가입</title>
 
@@ -37,6 +41,9 @@
             to {opacity: 1;}
         }
     </style>
+
+    
+
     </head>
 
     <body>
@@ -52,7 +59,7 @@
                 <div class="signuppage">
                     <form method="post" action="signup/submit">
                         {% csrf_token %}
-                        <h1 class="signuppage-title">I&_ 회원가입</h1>
+                        <h1 class="signuppage-title" style="font-family: 'Do Hyeon', sans-serif; font-size:60px; border-bottom: 2px solid #f9bc28;">I&_ 회원가입</h1>
                         <div class="signupbox">
                             <div class="signup-id-pass">
                                 <div class="signup-id">
