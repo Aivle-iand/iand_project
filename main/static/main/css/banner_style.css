@@ -1,9 +1,14 @@
 .carousel-inner {
     height: 100%;
+    width: 100vw;
     object-fit: contain!important;
 }
 
 .d-block .w-100{
     object-fit: cover!important;
     height: 100%;
+}
+
+.carousel-inner img {
+    width: 100vw;
 }
