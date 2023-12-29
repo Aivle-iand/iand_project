@@ -1,0 +1,52 @@
+body {
+    background-color: #fbfbfd;
+}
+
+.main_container {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    /* align-items: center;
+    justify-content: center; */
+}
+  
+.monthly_best, .notice_list {
+    flex: 1;
+    text-align: center;
+    
+}
+
+.monthly_best {
+    /* border-radius: 20px; */
+    /* border-style:solid;
+    border-color: lightgray; */
+    /* background-color: white; */
+    margin-top: 20px;
+    margin-right: 5%;
+    margin-left: 5%;
+    display: flex; /* 추가로 flex 레이아웃을 적용 */
+    flex-direction: column;
+}
+
+.notice_list{
+    margin-top: 20px;
+    margin-right: 5%;
+    margin-left: 5%;
+    display: flex; /* 추가로 flex 레이아웃을 적용 */
+    flex-direction: column;
+}
+.sections {
+    display: flex; /* 내부 섹션들을 가로로 나열 */
+    width: 100%; /* 부모 컨테이너의 전체 너비 사용 */
+}
+
+.best_section1, .best_section2 {
+    flex: 1; /* 각 섹션이 monthly_best의 절반을 차지하도록 설정 */
+    text-align: center;
+}
+
+.notice_list {
+    margin-right: 5%;
+    margin-left: 5%;
+}
+ 
