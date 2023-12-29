@@ -8,23 +8,17 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 # from login.models import User
 
 def writepage(request):
-    # if not request.session.get('user'):
-    #     return redirect('../login')
     if request.method == 'POST':
         form = PostForm(request.POST)
-        # if form.is_valid():
-            # user_id = request.session.get('login_user')
-            # user = User.objects.get(pk=user_id)
-        new_article=Board.objects.create(
-            postname=request.POST['postname'],
-            contents=request.POST['contents'],
-            )
-        new_article=Board.objects.create(
-                postname=request.POST['postname'],
-                contents=request.POST['contents'],
-            )
-        return redirect('/comunity/')
-    return render(request, 'community/writepage.html')
+        if form.is_valid():
+            post = form.save()
+            return redirect('/community/', post.id)
+        else:
+            form = PostForm()
+        return render(request, 'community/writepage.html', {'form':form})
+    else:
+        form = PostForm()
+        return render(request, 'community/writepage.html', {'form':form})
     
 def categoryView(request, c_slug=None):
     c_page = None
@@ -77,4 +71,26 @@ def categoryView(request, c_slug=None):
 def detail(request, pk):
     # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
     detail = get_object_or_404(Board, pk=pk)
-    return render(request, 'community/detail.html', {'detail':detail})
+    if request.method == 'POST':
+        detail.delete()
+        return redirect('/community/')
+    else:
+        return render(request, 'community/detail.html', {'detail':detail})
+
+    
+def up_post(request, pk):
+    detail = get_object_or_404(Board, pk=pk)
+    # # if request.user_id != detail.writer:
+    #     message.error(request, '수정 권한이 없습니다.')
+    #     return redirect('community:detail', user_id=pk)
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=detail)
+        if form.is_valid():
+            detail = form.save(commit=False)
+            detail.modify_date = timezone.now()
+            detail.save()
+            return redirect('community/detail'+str(pk), {'detail':detail})
+    else:
+        form = PostForm(instance=detail)
+    context = {'form':form}
+    return render(request, 'community/update.html', form)
