@@ -92,3 +92,47 @@ caption {
 .board_cate {
     text-decoration: none;
 }
+
+/* detail */
+.detail_wrap {
+    max-width: 60rem;
+    margin: auto;
+}
+
+.detail_wrap .title {
+    margin-bottom: 2rem;
+}
+
+.detail_wrap .detail_post {
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    margin: auto;
+    width: 500px;
+    padding-top: 10px;
+    padding-bottom: 10px; 
+}
+
+.detail_wrap .detail_post dl {
+    display: inline-block;
+}
+
+.detail_wrap .detail_post dl dt, dd{
+    display: inline-block;
+    font-size: 1rem;
+}
+
+.detail_wrap .detail_post dl dt{
+    margin-left: 5px;
+    color: #999;
+}
+
+.detail_wrap .detail_post dl dd{
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.detail_wrap .detail_contents {
+    margin-top: 10px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #999;
+}
