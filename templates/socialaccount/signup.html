@@ -1,0 +1,137 @@
+{% load static %}
+{% load i18n %}
+{% load socialaccount %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+        <title>I&_ 회원가입</title>
+
+        <style>
+        body {
+            margin : 0;
+            padding : 0;
+            background-image: url("{% static 'img/back_img_signup.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+
+            -webkit-animation: myfirst 1s ; /* Chrome, Safari, Opera */
+            animation: myfirst 1s ;
+        }
+
+        /* Chrome, Safari, Opera */
+        @-webkit-keyframes myfirst {
+            from {opacity: 0.2;}
+            to {opacity: 1;}
+        }
+
+        /* Standard syntax */
+        @keyframes myfirst {
+            from {opacity: 0.2;}
+            to {opacity: 1;}
+        }
+    </style>
+
+    
+
+    </head>
+
+    {% if not user.nickname or user.first_name or user.second_name %}
+    <body>
+        <header class="header">
+            <a href="{% url 'login' %}">
+                <img src="{% static 'img/iand_logo_w.png' %}"
+                    class="logo_img">
+            </a>
+        </header>
+
+        <main class="main">
+            <div class="main_container">
+                <div class="social_signuppage">
+                    <form method="POST" action="{% url 'social_signup' %}">
+                        {% csrf_token %}
+                        <h1 class="social_signuppage-title" style="font-family"style="font-family: 'Do Hyeon', sans-serif; font-size:60px; border-bottom: 2px solid #f9bc28;">I&_ 회원가입</h1>
+                        <div class="social_signupbox">
+                            
+                            <a>이름</a>
+                            <div class="social_signup-name">
+                                <div class="first_div">
+                                <a>성</a>
+                                </div>
+                                <div class="first_name_div">
+                                    <input name="first_name" id="first_name"
+                                    type="text" placeholder="ex) 이"
+                                    required oninput='validatefirstName()' required>
+                                </div>
+                                
+                                <div class="last_div">
+                                <a>이름</a>
+                                </div>                                    
+                                <div class="last_name_div">
+                                    <input name="last_name" id="last_name"
+                                    type="text" placeholder="ex) 교진"
+                                    required oninput='validatelastName()' required>
+                                </div>
+                            </div>
+                            <div class='nameHelp'></div>
+
+                            <div class="social_signup-nickname">
+                                <a>닉네임</a>
+                                <input name="nickname" id="nickname"
+                                    type="text" placeholder="ex) 뉴턴광팬"
+                                    required oninput='validateNickName()' required>
+                                    <div id="nicknameHelp"></div>    
+                            </div>
+                            
+                            <div class="signup-button">
+                                <input type="submit" id="submitBtn"
+                                    value="회원가입" disabled>
+                            </div>
+                            <div id='info_text'></div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+                 <!-- Bootstrap CSS -->
+                 <link rel="stylesheet"
+                 href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+             <!-- jQuery, Popper.js, Bootstrap JS -->
+             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+             <script
+                 src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+             <script
+                 src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+         </main>
+         <footer class="footer">
+             <div class="footer_text">
+                 <span>AIVLE 4기 빅프로젝트 1조 2023.12.11 ~ 2024.01.17 </span><br>
+                 <span>경기도 성남시 분당구 불정로 90 (정자동)</span><br>
+                 <span>Copyright© 2023 KT Corp. All rights reserved.</span>
+             </div>
+         </footer>
+         <script src="{% static 'js/social_signup.js' %}"></script>
+     </body>
+     {% endif %}
+
+     {% if messages %}
+     <script type="text/javascript">
+     {% for message in messages %}
+         alert("{{ message }}");
+     {% endfor %}
+     </script>
+     {% endif %}
+
+ </html>
