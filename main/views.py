@@ -6,10 +6,4 @@ from django.contrib import messages
 def custom_main_view(request):
     return render(request, "main.html")
 
-@login_required
-def custom_logout_view(request):
-    request.session.flush()
-    return render(request, "main.html")
-
-
 from django.contrib.auth import get_user

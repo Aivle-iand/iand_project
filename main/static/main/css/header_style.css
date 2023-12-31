@@ -154,7 +154,7 @@ header a p {
     display: block;
 }
 
-.header_right .join p:hover, .header_right .login p:hover {
+.header_right .join p:hover, .header_right .login p:hover, .header_right .logout p:hover {
     padding: 7.5px 16px;
     background: rgb(236,232,44);
     border-radius: 6.4px;
@@ -174,7 +174,7 @@ header a {
     margin : 0 3px; 
 }
 
-.join p,.login p {
+.join p,.login p, .logout p{
     background: rgba(128,128,128,.3);
     border-radius: 6.4px;
 }
