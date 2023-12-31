@@ -74,6 +74,19 @@ ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 물어보는 페이지 안나옴
 SESSION_COOKIE_AGE = 3600 # 로그인 세션 1시간 유지?
 ACCOUNT_SESSION_REMEMBER = True # 브라우저를 닫으면 유저 로그아웃
 
+# 회원가입 폼
+# ACCOUNT_FORMS = {
+#     'signup': 'accounts.forms.CustomSignupForm',
+# }
+
+# 소셜 계정으로 로그인 시 자동으로 사용자 계정을 생성할지
+SOCIALACCOUNT_AUTO_SIGNUP = False
+SOCIALACCOUNT_SIGNUP_REDIRECTION_URL = 'login'
+SOCIALACCOUNT_FORMS = {
+    # 소셜계정 가입 후 추가 폼
+    'signup': 'accounts.forms.CustomSocialSignupForm',
+}
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -159,10 +172,10 @@ SOCIALACCOUNT_PROVIDERS = {
     },
     
     "naver": {
-        "SCOPE": [
-            "profile",
-            "email",
-        ],
+        # "SCOPE": [
+        #     "profile",
+        #     "email",
+        # ],
         "AUTH_PARAMS": {
             "access_type": "online",
         },
