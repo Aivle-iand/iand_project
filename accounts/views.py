@@ -2,15 +2,14 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .models import User as Custom_User
-from allauth.socialaccount import views as social_view
 from .forms import CustomSocialSignupForm
 from django.shortcuts import redirect
 from django.contrib import messages
 from allauth.socialaccount.views import SignupView as SocialSignupView
 from django.contrib import messages  # Import messages module
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from .forms import CustomSocialSignupForm  # Import your CustomSocialSignupForm here
-from django.urls import reverse
+from django.urls import reverse_lazy
 
 class CustomSocialSignupView(SocialSignupView):
     form_class = CustomSocialSignupForm
@@ -21,9 +20,23 @@ class CustomSocialSignupView(SocialSignupView):
         return super().get(request, *args, **kwargs)
 
     def get_success_url(self):
+        print("get_success_url is called")
         messages.success(self.request, "회원가입이 성공적으로 이루어졌습니다!")  # Add a success message        
-        return reverse('login')
+        return reverse_lazy('login')
     
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            # 폼이 유효하면 여기에 원하는 동작을 추가하세요
+            # 예를 들어, 데이터를 저장하고 리다이렉션할 수 있습니다.
+            print(form.cleaned_data)
+            form.save(request)
+            return redirect('login/')  # 여기에 여러분이 원하는 성공 URL을 넣어주세요
+        else:
+            # 폼이 유효하지 않을 때 필요한 작업을 추가하세요
+            print(form.errors)
+            return render(request, self.template_name, {'form': form})
+        
 @csrf_exempt  # 개발 단계에서만 사용. 실제 배포시 CSRF 토큰을 적절히 처리해야 합니다.
 def check_username(request):
     # 클라이언트로부터 AJAX 요청을 통해 전달받은 username 값

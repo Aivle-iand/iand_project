@@ -86,6 +86,9 @@ SOCIALACCOUNT_FORMS = {
     # 소셜계정 가입 후 추가 폼
     'signup': 'accounts.forms.CustomSocialSignupForm',
 }
+# 이메일을 아이디로
+# ACCOUNT_AUTHENTICATION_METHOD='email'
+ACCOUNT_EMAIL_REQUIRED = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
