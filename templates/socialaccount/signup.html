@@ -10,7 +10,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+        <link rel="stylesheet" href="{% static 'css/social_signup.css' %}">
         <title>I&_ 회원가입</title>
 
         <style>
@@ -64,8 +64,25 @@
                         {% csrf_token %}
                         <h1 class="social_signuppage-title" style="font-family"style="font-family: 'Do Hyeon', sans-serif; font-size:60px; border-bottom: 2px solid #f9bc28;">I&_ 회원가입</h1>
                         <div class="social_signupbox">
-                            
-                            <a>이름</a>
+
+                        {% for field in form %}
+                            <tr>
+                                <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+                                <td>
+                                    <div class="{{ field.name }}-wrapper">
+                                        {{ field }}
+                                    </div>
+                                    <div id="{{ field.name }}Help">
+                                        <!-- 여기에 도움말 내용 추가 -->
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        
+
+
+                        
+                            {% comment %} <a>이름</a>
                             <div class="social_signup-name">
                                 <div class="first_div">
                                 <a>성</a>
@@ -93,7 +110,7 @@
                                     type="text" placeholder="ex) 뉴턴광팬"
                                     required oninput='validateNickName()' required>
                                     <div id="nicknameHelp"></div>    
-                            </div>
+                            </div> {% endcomment %}
                             
                             <div class="signup-button">
                                 <input type="submit" id="submitBtn"
@@ -101,7 +118,7 @@
                             </div>
                             <div id='info_text'></div>
 
-                        </div>
+                        </div> 
                     </form>
                 </div>
             </div>
