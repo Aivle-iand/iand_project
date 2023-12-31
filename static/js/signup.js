@@ -121,6 +121,13 @@ function validateAgreement() {
     updateSubmitButton();
 }
 
+function validateNickName() {
+    var nickname = document.getElementById("nickname").value;
+    var isEmpty = nickname.trim() === "";
+    errors.nickname = isEmpty; // 비어있으면 true
+    updateSubmitButton();
+}
+
 function validatefirstName() {
     var first_name = document.getElementById("first_name").value;
     var isEmpty = first_name.trim() === "";
