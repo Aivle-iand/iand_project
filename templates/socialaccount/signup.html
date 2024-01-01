@@ -94,12 +94,12 @@
 {% endif %}
 <script src="{% static 'js/social_signup.js' %}"></script>
 
-{% if messages %}
+{% comment %} {% if messages %}
 <script type="text/javascript">
     {% for message in messages %}
     alert("{{ message }}");
     {% endfor %}
 </script>
-{% endif %}
+{% endif %} {% endcomment %}
 
 </html>

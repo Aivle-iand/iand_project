@@ -6,11 +6,17 @@ from .forms import CustomSocialSignupForm
 from django.shortcuts import redirect
 from django.contrib import messages
 from allauth.socialaccount.views import SignupView as SocialSignupView
-from django.contrib import messages  # Import messages module
 from django.shortcuts import redirect, render
 from .forms import CustomSocialSignupForm  # Import your CustomSocialSignupForm here
 from django.urls import reverse_lazy
+from allauth.account.views import LoginView
 
+class CustomLoginView(LoginView):
+    success_url = reverse_lazy('main')
+    # def form_invalid(self, form):
+    #     messages.error(self.request, '아이디 혹은 비밀번호가 틀렸습니다.')
+    #     return super().form_invalid(form)
+    
 class CustomSocialSignupView(SocialSignupView):
     form_class = CustomSocialSignupForm
     
@@ -20,8 +26,6 @@ class CustomSocialSignupView(SocialSignupView):
         return super().get(request, *args, **kwargs)
 
     def get_success_url(self):
-        print("get_success_url is called")
-        messages.success(self.request, "회원가입이 성공적으로 이루어졌습니다!")  # Add a success message        
         return reverse_lazy('login')
     
     def post(self, request, *args, **kwargs):

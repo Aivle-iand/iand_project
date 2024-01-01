@@ -48,7 +48,7 @@
 
     <body>
         <header class="header">
-            <a href="{% url 'login' %}">
+            <a href="{% url 'account_login' %}">
                 <img src="{% static 'img/iand_logo_w.png' %}"
                     class="logo_img">
             </a>
@@ -445,12 +445,12 @@
         </body>
         <script src="{% static 'js/signup.js' %}"></script>
 
-        {% if messages %}
+        {% comment %} {% if messages %}
         <script type="text/javascript">
         {% for message in messages %}
             alert("{{ message }}");
         {% endfor %}
         </script>
-        {% endif %}
+        {% endif %} {% endcomment %}
 
     </html>
