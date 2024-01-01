@@ -5,6 +5,7 @@ from .models import *
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.views.decorators.http import require_POST
 # from login.models import User
 
 def writepage(request):
