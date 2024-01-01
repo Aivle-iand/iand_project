@@ -11,21 +11,11 @@ html {
     background-color: black;
 }
 
-/* signup-id-pass * > a {
-    background: transparent;
-    padding: 15px 8px 15px;
-    box-sizing: border-box;
-    height: 50px;
-    display: block;
-    outline: none;
-    width: 100%;
-    color: rgb(31, 31, 31);
-    line-height: 10px;
-    font-size: 16px;
-    font-weight: 700;
-    font-family: "FF Mark W05", sans-serif;
-    border-radius:5px;
-} */
+.social_signuppage-title {
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 60px;
+    border-bottom: 2px solid #f9bc28;
+}
 
 .error-message {
     display: none;
@@ -36,11 +26,6 @@ html {
 input.error {
 border: 1px solid red;
 }
-
-
-/* .signup-pass .password {
-    font-size: 12px;
-} */
 
 .signup-id-pass .already_signup{
     font-size: 12px;
@@ -86,7 +71,27 @@ body>* {
     padding-bottom: 10px;
 }
 
-.social_signuppage input[type="text"]  {
+input#id_email {
+    background: transparent;
+    border: none;
+    padding: 15px 8px 15px;
+    /* margin-bottom: 20px; */
+    box-sizing: border-box;
+    height: 50px;
+    display: block;
+    outline: none;
+    width: 100%;
+    color: rgb(0, 0, 0);
+    line-height: 18px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: "FF Mark W05", sans-serif;
+    border-radius:5px;
+    pointer-events: none;
+}
+
+
+.social_signuppage input[type="text"] {
     background: transparent;
     border: none;
     padding: 15px 8px 15px;
@@ -104,53 +109,29 @@ body>* {
     border-radius:5px;
 }
 
+.social_signuppage input:not(:focus) {
+    background: #F8F8F8;
+}
+
+input#id_email:not(:focus) {
+    background: #F8F8F8;
+}
+
 .social_signuppage input:not(:focus):hover {
     background:#F1F1F1;
     border: #ECECEC;
 }
 
-/* .api-signup {
-    padding: 10px 0px;
-} */
-/* 
-.api-signup button {
-    -webkit-box-flex: 1;
-    flex-grow: 1;
-    border-radius: 12.8px;
-    height: auto;
-    border-radius: 9.6px;
-    padding: 0px 16px;
-    color: black;
-    border: 2px solid rgba(0, 0, 0, 0.05);
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    display: inline-block;
-    margin: 0 5px;
-} */
 
-/* .signup-id-pass label {
-    color: rgb(102, 102, 102);
-    font-family: "FF Mark W05", sans-serif;
-    position: absolute;
-    text-transform: uppercase;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    font-size: 12px;
-    left: 14px;
-    top: 20px;
-    opacity: 1;
-    height: 17.33px;
-    pointer-events: none;
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s, opacity;
-} */
-
+input#id_email:not(:focus):hover {
+    background:#F1F1F1;
+    border: #ECECEC;
+}
 
 .social_signuppage div {
     position: relative;
 }
 
-/* Targeting the input type submit within the .signup-button class */
 .signup-button input[type=submit] {
     margin-top: 10px;
     padding: 10px 20px;
@@ -162,98 +143,21 @@ body>* {
     cursor: pointer;
     transition: all 0.3s ease;
     display: inline-block;
-    width: 100%; /* Make it fill the container */
+    width: 100%;
 }
 
-/* Hover Effect specifically for the input */
 .signup-button input[type=submit]:hover {
     background-color: #004494; /* Darken background on hover */
     color: white;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* Add shadow effect on hover */
 }
 
-/* Active/Focus Effect for the input */
 .signup-button input[type=submit]:active,
 .signup-button input[type=submit]:focus {
     outline: none; /* Removes the outline */
     color: black;
     background-color: #004494;
 }
-
-/* .signup-remember {
-    position: relative;
-}
-
-.signup-remember label {
-    cursor: pointer;
-} */
-
-/* .signup-id-pass input:not(:focus) {
-    background: #F8F8F8;
-} */
-/* 
-.signup-id-pass input:focus {
-    background: none;
-    outline: auto;
-} */
-
-/* .signup-id-pass input:focus ~label {
-    display: none;
-} */
-
-/* .signup-id-pass input:not(:focus) ~span {
-    display: none;
-} */
-
-/* Basic styling for select */
-/* .custom-select {
-    display: block;
-    width: 100%; 
-    padding: 8px 12px;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #444;     
-    background-color: #fff; 
-    background-image: url('arrow-down-icon.svg');
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-} */
-
-/* Hover style */
-/* .custom-select:hover {
-    border-color: #888;
-} */
-
-/* Focus style */
-/* .custom-select:focus {
-    outline: none;
-    border-color: #555;
-    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-} */
-
-/* Base container styling */
-/* .agree_privacy {
-    background-color: #f7f7f7;
-    padding: 20px; 
-    border-radius: 8px; 
-    display: inline-block;
-    width: 100%;
-} */
-
-/* .agree_privacy a {
-    margin-right: 10%;
-} */
-/* Styling specific to the radio buttons */
-/* .agree_privacy input[type="radio"] {
-    cursor: pointer; 
-    margin-right: 20px; 
-} */
-
 
 .footer {
     background-color: rgba(0, 0, 0, 0.3);
@@ -283,8 +187,6 @@ input[type=submit]:disabled {
     font-size: 13px;
 }
 
-/* .social_signupbox */
-
 .signup-name div {
     box-sizing: border-box;
 }
@@ -295,4 +197,8 @@ input[type=submit]:disabled {
 
 .last_name_div {
     width: 100%;
+}
+
+.social_signuppage label {
+    font-size: 16px;
 }
