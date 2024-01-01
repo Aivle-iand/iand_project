@@ -9,3 +9,9 @@ class PostUpdate(forms.ModelForm):
     class Meta:
         model = Board
         fields = ['postname', 'contents']
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['post', 'user']
+             
