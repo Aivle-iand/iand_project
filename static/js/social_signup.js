@@ -1,5 +1,4 @@
 var errors = {
-    email: true,
     username: false,
     first_name: false,
     last_name: false,
@@ -11,7 +10,7 @@ var errors = {
  function checkusernameDuplication(username) {
     // AJAX 요청 설정
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "check_username_dup", true); // '/check-user-id'는 서버의 중복 확인 API 경로
+    xhr.open("POST", "social_check_username_dup", true); // '/check-user-id'는 서버의 중복 확인 API 경로
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -110,7 +109,6 @@ function updateSubmitButton() { // 모든 도움말 텍스트를 확인하여 �
 }
     
 // 사용자의 입력에 따라 updateSubmitButton 함수를 지속적으로 호출
-document.getElementById('id_email').addEventListener('input', updateSubmitButton);
 document.getElementById('id_username').addEventListener('input', updateSubmitButton);
 document.getElementById('id_last_name').addEventListener('input', updateSubmitButton);
 document.getElementById('id_first_name').addEventListener('input', updateSubmitButton);
