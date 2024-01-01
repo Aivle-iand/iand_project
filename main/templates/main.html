@@ -114,7 +114,8 @@
             <div class="language_setting">
                 <a class="a" href="">
                     <p>
-                        {{user.username}}
+                        {% comment %} {{user.username}} {% endcomment %}
+                        {{user.first_name}}
                         <svg class="language_arrow" viewBox="0 0 8 5">
                             <path
                                 d="M.707 1.707l2.586 2.586a1 1 0 001.414
