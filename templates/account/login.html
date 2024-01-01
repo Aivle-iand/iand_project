@@ -54,14 +54,6 @@
             
             <div class="login_main">
                 <div class="loginpage">
-                    {% comment %} <form action="{% url 'account_login' %}" method="POST">
-                        {% csrf_token %}
-                        {{ form }}
-                    <div class="login_btn_div">
-                        <input type="submit" class="login_btn" id="id_login_btn" value=""/>
-                    </div>
-                </form> {% endcomment %}
-
                     <form action="{% url 'account_login' %}" method="POST">
 
                         {% csrf_token %}
