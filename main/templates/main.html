@@ -105,6 +105,11 @@
                     <p>로그인</p>
                 </a>
             </div>
+            <div class="join">
+                <a class="a" href="/accounts/signup">
+                    <p>회원가입</p>
+                </a>
+            </div>
             {% else %}
             <div class="logout">
                 <a class="logouttxt" style="color:white;">{{user.username}}</a>
@@ -113,11 +118,6 @@
                 </a>
             </div>
             {% endif %}
-            <div class="join">
-                <a class="a" href="/accounts/signup">
-                    <p>회원가입</p>
-                </a>
-            </div>
         </div>
     </header>
 
