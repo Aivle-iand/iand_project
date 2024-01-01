@@ -245,21 +245,10 @@
     </body>
 
     <script type="text/javascript">
-
-        document.addEventListener('DOMContentLoaded', function () {
-            {% if messages %}
-                {% for message in messages %}
-                    // 메시지를 숨기거나 삭제하는 코드를 여기에 추가
-                {% endfor %}
-            {% endif %}
-        });
-    
         document.getElementById("logoutbtn").addEventListener("click", function(event) {
             alert("로그아웃 되었습니다.");
         });
-        
     </script>
-
 
     <link rel="stylesheet" href="{% static 'main/css/footer_style.css' %}">
     <footer class="footer">

@@ -66,7 +66,6 @@ environ.Env.read_env(
 
 SITE_ID = 14
 
-ACCOUNT_SIGNUP_REDIRECTION_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 물어보는 페이지 안나옴

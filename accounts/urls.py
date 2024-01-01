@@ -2,10 +2,11 @@ from allauth.account.views import LoginView, LogoutView
 from django.urls import path, include
 from . import views
 from allauth.socialaccount.views import SignupView
-from .views import CustomSocialSignupView
+from .views import CustomSocialSignupView, CustomLoginView
 
 urlpatterns = [
-    path('login/', LoginView.as_view(), name="login"),
+    # path('login/', LoginView.as_view(), name="login"),
+    path('login/', CustomLoginView.as_view(), name="account_login"),
     path('logout/', LogoutView.as_view(), name="logout"),
     path("social/signup/", CustomSocialSignupView.as_view(), name="social_signup"),
     path('signup/', SignupView.as_view(), name="account_signup"),

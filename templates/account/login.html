@@ -2,6 +2,7 @@
 {% load socialaccount %}
 {% providers_media_js %}
 
+<!DOCTYPE html>
 <html lang="en">
     <head>
     <meta charset="UTF-8">
@@ -53,8 +54,15 @@
             
             <div class="login_main">
                 <div class="loginpage">
+                    {% comment %} <form action="{% url 'account_login' %}" method="POST">
+                        {% csrf_token %}
+                        {{ form }}
+                    <div class="login_btn_div">
+                        <input type="submit" class="login_btn" id="id_login_btn" value=""/>
+                    </div>
+                </form> {% endcomment %}
 
-                    <form action="" method="POST">
+                    <form action="{% url 'account_login' %}" method="POST">
 
                         {% csrf_token %}
 
@@ -63,20 +71,20 @@
                         <div class="loginbox">
                             <div class="login-id-pass">
                                 <div class="login-id">
-                                    <input class="username" id ="usernameInput" data-testid="input-username" autocapitalize="off" type="text" value="" name="usernameInput">
+                                    <input class="username" name="login" id ="usernameInput" data-testid="input-username" autocapitalize="off" type="text" value="" name="usernameInput">
                                     <label for="usernameInput" id="usernameLabel">계정이름</label>
                                     <span for="usernameLabel" id="usernameSpan">계정이름</span>
                                 </div>
                                 
                                 <div class="login-pass">
-                                    <input class="password" id="passwordInput" data-testid="input-password" type="password" autocomplete="off" value="" name="passwordInput">
+                                    <input class="password" name="password" id="passwordInput" data-testid="input-password" type="password" autocomplete="off" value="" name="passwordInput">
                                     <label for="passwordInput" id="passwordLabel">비밀번호</label>
                                     <span for ="passwordLabel" id="passwordSpan">비밀번호</span>
                                 </div>
                             </div>
 
                             <div class="login_btn_div">
-                                <input type="submit" class="login_btn" value=""/>
+                                <input type="submit" class="login_btn" id="id_login_btn" value=""/>
                             </div>
                         </div>
                     </form>
@@ -176,12 +184,12 @@
         });
     </script>
 
-    {% if messages %}
-    <script type="text/javascript">
-    {% for message in messages %}
-        alert("{{ message }}");
-    {% endfor %}
-    </script>
-    {% endif %}
+    {% comment %} {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %} {% endcomment %}
 
 </html>
