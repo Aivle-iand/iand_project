@@ -1,66 +1,67 @@
 {% comment %} {% load static %}
-<html lang="ko">
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/header_style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/global_style.css' %}">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/header_style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/global_style.css' %}" />
 
     <title>1인칭 주인공 시점</title>
-    </head>
-    <body>
-        <header id="header" class="header">
-            <div id="div_header" class="div_header">
-                
-                <div class="header_left">
-                    <a href=""><img src="{% static 'img/logo.png' %}" alt="logo"></a>
-                </div>
-
-                <div class="header_center">
-                    <div class="experience_link">
-                        <a href="">
-                            <p>위인체험</p>
-                            <div class="underbar"></div>
-                        </a>
-                    </div>
-                    <div class="community_link">
-                        <a href="">
-                            <p>커뮤니티</p>
-                            <div class="underbar"></div>
-                        </a>
-                    </div> 
-                </div>
-
-                <div class="header_right">
-                    <div class="language_setting">
-                        <a class="a" href="">
-                            <p>언어설정
-                                <svg  class="language_arrow" viewBox="0 0 8 5">
-                                    <title>mainNavArrowDownHover</title>
-                                    <path d="M.707 1.707l2.586 2.586a1 1 0 001.414 0l2.586-2.586C7.923 1.077 7.477 0 6.586 0H1.414C.524 0 .077 1.077.707 1.707z" fill="#fff"></path>
-                                </svg> 
-                            </p>
-                        </a>
-                        <ul class="language_chart">
-                            <li><a href="">한국어</a></li>
-                            <li><a href="">English</a></li>
-                        </ul>
-                        
-                    </div>
-                    <div class="login">
-                        <a class="a" href="">
-                            <p>로그인</p>
-                        </a>
-                    </div>
-                    <div class="join">
-                        <a class="a" href="">
-                            <p>회원가입</p>
-                        </a>
-                    </div>
-                </div>
-
+</head>
+<body>
+    <header id="header" class="header">
+        <div id="div_header" class="div_header">
+            <div class="header_left">
+                <a href=""
+                    ><img src="{% static 'img/logo.png' %}" alt="logo"
+                /></a>
             </div>
-        </header>        
-    </body>
-</html> {% endcomment %}
 
+            <div class="header_center">
+                <div class="experience_link">
+                    <a href="">
+                        <p>위인체험</p>
+                        <div class="underbar"></div>
+                    </a>
+                </div>
+                <div class="community_link">
+                    <a href="">
+                        <p>커뮤니티</p>
+                        <div class="underbar"></div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="header_right">
+                <div class="language_setting">
+                    <a class="a" href="">
+                        <p>
+                            언어설정
+                            <svg class="language_arrow" viewBox="0 0 8 5">
+                                <title>mainNavArrowDownHover</title>
+                                <path
+                                    d="M.707 1.707l2.586 2.586a1 1 0 001.414 0l2.586-2.586C7.923 1.077 7.477 0 6.586 0H1.414C.524 0 .077 1.077.707 1.707z"
+                                    fill="#fff"
+                                ></path>
+                            </svg>
+                        </p>
+                    </a>
+                    <ul class="language_chart">
+                        <li><a href="">한국어</a></li>
+                        <li><a href="">English</a></li>
+                    </ul>
+                </div>
+                <div class="login">
+                    <a class="a" href="">
+                        <p>로그인</p>
+                    </a>
+                </div>
+                <div class="join">
+                    <a class="a" href="">
+                        <p>회원가입</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+{% endcomment %}

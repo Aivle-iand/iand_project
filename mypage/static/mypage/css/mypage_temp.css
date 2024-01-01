@@ -24,8 +24,8 @@ body * {
     margin-top : 80px;
     min-height : 800px;
     min-width: 800px;
-    margin-left: 3%;
-    margin-right: 3%;
+    padding: 0 3%;
+    background-color: black;
 }
 
 
@@ -396,6 +396,7 @@ body * {
 
 .upload_area {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     border: rgba(138,138,138,0.1) 3px solid ;
@@ -412,6 +413,7 @@ body * {
 .upload_area:hover {
     /* background:rgba(71, 69, 69, 0.8); */
     border-color: #B8B8B8;
+    cursor: pointer;
 }
 
 .upload_button_area {
@@ -421,6 +423,13 @@ body * {
     width: 100%;
     margin-top: 35px;
 }
+
+#playIcon {
+    width: 100%;
+    margin-top: 20px;
+    filter: invert(12%) sepia(97%) saturate(31%) hue-rotate(29deg) brightness(96%) contrast(95%);
+}
+
 
 .voice_file_name {
     margin-top: 90px;
