@@ -1,7 +1,9 @@
 var errors = {
+    email: true,
+    username: false,
     first_name: false,
     last_name: false,
-    nickname: false, 
+    nickname: false,
 };
 
 
@@ -51,19 +53,16 @@ function validateUsername() {
     }
 }
 
-
-
-
-
 // 폼 제출 이벤트 또는 username 필드의 다른 이벤트에 validateUsername 함수를 연결합니다.
-document.getElementById("username").onchange = validateUsername;
+document.getElementById("id_username").onchange = validateUsername;
 
 
-function validatefirstName() {
-    var first_name = document.getElementById("id_first_name").value;
-    var isEmpty = first_name.trim() === "";
-    errors.first_name = isEmpty; // 비어있으면 true
-    console.log("First Name Error:", errors.first_name);
+
+function validateemail() {
+    var email = document.getElementById("id_email").value;
+    var isEmpty = email.trim() === "";
+    errors.email = isEmpty; // 비어있으면 true
+    console.log("Last Name Error:", errors.email);
     updateSubmitButton();
 }
 
@@ -72,6 +71,14 @@ function validatelastName() {
     var isEmpty = last_name.trim() === "";
     errors.last_name = isEmpty; // 비어있으면 true
     console.log("Last Name Error:", errors.last_name);
+    updateSubmitButton();
+}
+
+function validatefirstName() {
+    var first_name = document.getElementById("id_first_name").value;
+    var isEmpty = first_name.trim() === "";
+    errors.first_name = isEmpty; // 비어있으면 true
+    console.log("First Name Error:", errors.first_name);
     updateSubmitButton();
 }
 
@@ -103,6 +110,8 @@ function updateSubmitButton() { // 모든 도움말 텍스트를 확인하여 �
 }
     
 // 사용자의 입력에 따라 updateSubmitButton 함수를 지속적으로 호출
-document.getElementById('id_first_name').addEventListener('input', updateSubmitButton);
+document.getElementById('id_email').addEventListener('input', updateSubmitButton);
+document.getElementById('id_username').addEventListener('input', updateSubmitButton);
 document.getElementById('id_last_name').addEventListener('input', updateSubmitButton);
+document.getElementById('id_first_name').addEventListener('input', updateSubmitButton);
 document.getElementById('id_nickname').addEventListener('input', updateSubmitButton);
