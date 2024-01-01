@@ -111,13 +111,31 @@
                 </a>
             </div>
             {% else %}
+            <div class="language_setting">
+                <a class="a" href="">
+                    <p>
+                        {{user.username}}
+                        <svg class="language_arrow" viewBox="0 0 8 5">
+                            <path
+                                d="M.707 1.707l2.586 2.586a1 1 0 001.414
+                                0l2.586-2.586C7.923 1.077 7.477 0 6.586
+                                0H1.414C.524 0 .077 1.077.707 1.707z"
+                                fill="#fff"
+                            ></path>
+                        </svg>
+                    </p>
+                </a>
+                <ul class="language_chart">
+                    <li><a href="">마이페이지</a></li>
+                </ul>
+            </div>
             <div class="logout">
-                <a class="logouttxt" style="color:white;">{{user.username}}</a>
                 <a class="a" id="logoutbtn" href="{% url 'logout' %}">
                     <p>로그아웃</p>
                 </a>
             </div>
             {% endif %}
+
         </div>
     </header>
 
@@ -249,6 +267,8 @@
             alert("로그아웃 되었습니다.");
         });
     </script>
+
+
 
     <link rel="stylesheet" href="{% static 'main/css/footer_style.css' %}">
     <footer class="footer">
