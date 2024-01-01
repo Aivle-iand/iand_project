@@ -190,12 +190,13 @@ main {
     border: none;
     position: relative;
     margin: auto;
-    margin-top: 10px;
+    margin-top: 5%;
     width: 40px;
     height: 40px;
     cursor: pointer;
     padding: 5%;
     background: none;
+    margin-bottom: 5%;
 }
 
 .sign_up_div {
