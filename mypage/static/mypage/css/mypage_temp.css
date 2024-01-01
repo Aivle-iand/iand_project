@@ -82,8 +82,12 @@ body * {
 .personal_information_card {
     display: flex;
     width: 100%;
-    height: 420px;
     padding-top: 80px;
+}
+
+#face_img {
+    width: 100%;
+    margin-top: 20px;
 }
 
 #change_password {
@@ -125,7 +129,6 @@ body * {
 
 .personal_information_explain {
     width: 40%;
-    height: 100%;
     background-color: #211e1f;
     padding: 30px 40px 30px 40px;
 }
@@ -143,7 +146,6 @@ body * {
 
 .personal_information_content {
     width: 60%;
-    height: 100%;
     background-color: #292727;
     padding: 30px 40px 30px 40px;
 }
@@ -157,7 +159,7 @@ body * {
     outline: none;
 }
 
-.personal_information_content div {
+/* .personal_information_content div {
     position: relative;
     border: none;
     box-sizing: border-box;
@@ -165,7 +167,7 @@ body * {
     display: block;
     width: 100%;
     padding: 8px 6px 40px;
-}
+} */
 
 .personal_information_content input {
     position: relative;
@@ -240,14 +242,18 @@ body * {
 }
 
 .save_button {
+    min-height: 65px;
     background-color: transparent;
     border: none;
     outline: rgba(138,138,138,0.1) 2px solid;
     text-align: center;
     padding: 10px 20px 10px 20px;
-    color: #525252;
+    color: #B8B8B8;
     font-weight: 700;
     border-radius: 3px;
+}
+.save_button:hover {
+    outline-color: #B8B8B8;
 }
 
 .password_change {
@@ -388,44 +394,53 @@ body * {
 }
   
 
-.personal_information_content div.voice_upload_area {
-    border: 2px dashed #ccc;
+.upload_area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: rgba(138,138,138,0.1) 3px solid ;
+    border-style: dashed;
     width: 100%;
-    height: 80%;
+    height: 150px;
+    color: #B8B8B8;
     text-align: center;
     padding: 10px;
     margin: 10px auto;
     transition: background-color 0.3s ease-in-out;
     vertical-align: center;
 }
-
-.voice_upload_area:hover {
-    background:rgba(71, 69, 69, 0.8);
+.upload_area:hover {
+    /* background:rgba(71, 69, 69, 0.8); */
+    border-color: #B8B8B8;
 }
 
-.voice_upload_msg {
-    margin-top: 90px;
+.upload_button_area {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-top: 35px;
 }
 
 .voice_file_name {
     margin-top: 90px;
 }
 
-#voice_upload_cancel_button {
+/* #voice_upload_cancel_button {
     margin-left: 15%;
     width: 25%;
     margin-right: 10%;
     height: 50px;
     visibility: hidden;
     background-color: white;
-}
+} */
 
-#voice_upload_button {
+/* #voice_upload_button {
     margin-right: 10%;
     width: 25%;
     margin-left: 10%;
     height: 50px;
-}
+} */
 
 .delete_button_layout {
     width: 100%;
