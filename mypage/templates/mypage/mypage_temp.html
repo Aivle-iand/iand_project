@@ -88,9 +88,18 @@
                 <div class="personal_information_card" id="upload_img">
                     <div class="personal_information_explain">
                         <h1>Upload Image</h1>
-                        <p>This information is private and will not be shared with other players. Read the Riot Privacy Notice anytime!</p>
+                        <img id="face_img" src="{{face}}" />
                     </div>
-                    <div class="personal_information_content">test</div>
+                    <div class="personal_information_content">
+                        <div class="upload_area" id="image">
+                            <p class="upload_msg">이미지지파일을 드래그 앤 드롭 하거나 <br> 클릭하여 업로드하세요.</p>
+                            <input type="file" id="file_input" style="display: none;">
+                        </div>
+                        <div class="upload_button_area">
+                            <button class="save_button" id="voice_upload_cancel_button">CANCEL</button>
+                            <button class="save_button" id="voice_upload_button">SAVE <br> CHANGE</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="personal_information_card" id="upload_voice">
                     <div class="personal_information_explain">
@@ -98,14 +107,14 @@
                         <p>This information is private and will not be shared with other players. Read the Riot Privacy Notice anytime!</p>
                     </div>
                     <div class="personal_information_content">
-                        <div class="voice_upload_area">
-                            <div class="voice_upload_msg">음성 파일을 드래그 앤 드롭 하거나 클릭하여 업로드하세요.</div>
+                        <div class="upload_area" id="voice">
+                            <p class="upload_msg">음성 파일을 드래그 앤 드롭 하거나 <br> 클릭하여 업로드하세요.</p>
                             <input type="file" id="file_input" style="display: none;">
                             <div class="voice_file_name"></div>
                         </div>
-                        <div class="voice_upload_button_area">
+                        <div class="upload_button_area">
                             <button class="save_button" id="voice_upload_cancel_button">CANCEL</button>
-                            <button class="save_button" id="voice_upload_button">SAVE CHANGE</button>
+                            <button class="save_button" id="voice_upload_button">SAVE <br> CHANGE</button>
                         </div>
                     </div>
                 </div>
