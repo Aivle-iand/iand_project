@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from django.conf import settings
 # from login.models import User
 
 # Create your models here.
