@@ -1,16 +1,22 @@
 {% load static %}
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{% static 'mypage/css/mypage_temp.css' %}">
-        <link rel="icon" href="{% static 'mypage/img/favicon.png' %}">
-        <link rel="apple-touch-icon" href="{% static 'mypage/img/favicon.png' %}">
-    <title>1인칭 주인공 시점</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="{% static 'mypage/css/mypage_temp.css' %}"
+        />
+        <link rel="icon" href="{% static 'mypage/img/favicon.png' %}" />
+        <link
+            rel="apple-touch-icon"
+            href="{% static 'mypage/img/favicon.png' %}"
+        />
+        <title>1인칭 주인공 시점</title>
     </head>
 
     <body>
-        {% include 'header.html' %}
+        {% include 'header.html' %} {% block content %}
         <main class="main">
             <div class="nav_root">
                 <nav class="internal_navigation">
@@ -18,60 +24,163 @@
                         <h1>Account Management</h1>
                         <div class="internal_navigation_content">
                             <ul class="internal_navigation_list">
-                                <li><a class="personal_information_link" href="#personal_information_card"><img src="{% static 'mypage/img/pi_icon.png' %}" alt="pi_icon"><span>PERSONAL INFORMATION</span></a></li>
-                                <li><a class="change_password_link" href="#change_password"><img src="{% static 'mypage/img/pw_icon.png' %}" alt="pw_icon"><span>CHANGE PASSWORD</span></a></li>
-                                <li><a class="upload_img_link" href="#upload_img"><img src="{% static 'mypage/img/img_icon.png' %}" alt="img_icon"><span>UPLOAD IMAGE</span></a></li>
-                                <li><a class="upload_voice_link" href="#upload_voice"><img src="{% static 'mypage/img/voice_icon.png' %}" alt="voice_icon"><span>UPLOAD VOICE</span></a></li>
-                                <li><a class="login_history" href="#login_history"><img src="{% static 'mypage/img/history_icon.png' %}" alt="history_icon"><span>LOGIN HISTORY</span></a></li>
-                                <li><a class="delete_account" href="#delete_account"><img src="{% static 'mypage/img/delete_icon.png' %}" alt="delete_icon"><span>DELETE ACCOUNT</span></a></li>
+                                <li>
+                                    <a
+                                        class="personal_information_link"
+                                        href="#personal_information_card"
+                                        ><img
+                                            src="{% static 'mypage/img/pi_icon.png' %}"
+                                            alt="pi_icon"
+                                        /><span>PERSONAL INFORMATION</span></a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        class="change_password_link"
+                                        href="#change_password"
+                                        ><img
+                                            src="{% static 'mypage/img/pw_icon.png' %}"
+                                            alt="pw_icon"
+                                        /><span>CHANGE PASSWORD</span></a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        class="upload_img_link"
+                                        href="#upload_img"
+                                        ><img
+                                            src="{% static 'mypage/img/img_icon.png' %}"
+                                            alt="img_icon"
+                                        /><span>UPLOAD IMAGE</span></a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        class="upload_voice_link"
+                                        href="#upload_voice"
+                                        ><img
+                                            src="{% static 'mypage/img/voice_icon.png' %}"
+                                            alt="voice_icon"
+                                        /><span>UPLOAD VOICE</span></a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        class="login_history"
+                                        href="#login_history"
+                                        ><img
+                                            src="{% static 'mypage/img/history_icon.png' %}"
+                                            alt="history_icon"
+                                        /><span>LOGIN HISTORY</span></a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        class="delete_account"
+                                        href="#delete_account"
+                                        ><img
+                                            src="{% static 'mypage/img/delete_icon.png' %}"
+                                            alt="delete_icon"
+                                        /><span>DELETE ACCOUNT</span></a
+                                    >
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </nav>
             </div>
             <div class="main_root">
-                <div class="header_size"> </div>
-                <div class="personal_information_card" id="personal_information_card">
+                <div class="header_size"></div>
+                <div
+                    class="personal_information_card"
+                    id="personal_information_card"
+                >
                     <div class="personal_information_explain">
                         <h1>Personal Information</h1>
-                        <p>This information is private and will not be shared with other players. Read the Riot Privacy Notice anytime!</p>
+                        <p>
+                            This information is private and will not be shared
+                            with other players. Read the Riot Privacy Notice
+                            anytime!
+                        </p>
                     </div>
                     <div class="personal_information_content">
-                            <div class="personal_information_username">
-                                <div class="personal_username">User ID로 변경</div>
-                                <span>USERNAME</span>
-                            </div>
-                            <div class="personal_information_nickname">
-                                <input class="personal_nickname" data-testid="input-username" autocapitalize="off" type="text" value="">
-                                <span>NICKNAME</span>
-                            </div>
-                            <div class="nickname_check_msg">여기는 닉네임 중복 여부에 대한 메시지를 표시할 부분입니다.</div>
-                            <div class="nickname_change">
-                                <button class="save_button" id="nickname_change_cancel_button">CANCEL</button>
-                                <button class="save_button" id="nickname_change_button">SAVE CHANGE</button>
-                            </div>
+                        <div class="personal_information_username">
+                            <div class="personal_username">User ID로 변경</div>
+                            <span>USERNAME</span>
+                        </div>
+                        <div class="personal_information_nickname">
+                            <input
+                                class="personal_nickname"
+                                data-testid="input-username"
+                                autocapitalize="off"
+                                type="text"
+                                value=""
+                            />
+                            <span>NICKNAME</span>
+                        </div>
+                        <div class="nickname_check_msg">
+                            여기는 닉네임 중복 여부에 대한 메시지를 표시할
+                            부분입니다.
+                        </div>
+                        <div class="nickname_change">
+                            <button
+                                class="save_button"
+                                id="nickname_change_cancel_button"
+                            >
+                                CANCEL
+                            </button>
+                            <button
+                                class="save_button"
+                                id="nickname_change_button"
+                            >
+                                SAVE CHANGE
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="personal_information_card" id="change_password">
                     <div class="personal_information_explain">
                         <h1>Change Password</h1>
-                        <p>We recommend that you periodically update your password to help prevent unauthorized access to your account.</p>
+                        <p>
+                            We recommend that you periodically update your
+                            password to help prevent unauthorized access to your
+                            account.
+                        </p>
                     </div>
                     <div class="personal_information_content">
                         <p class="change_password_text">Change Password</p>
                         <div class="password_change">
                             <div class="current_password">
-                                <input class="cur_password" data-testid="input-cur-pw" autocapitalize="off" type="text" value="현재 패스워드를 DB로 부터 받아와서 일치하는지 체크하는 부분 javascript에 추가 필요" required>
+                                <input
+                                    class="cur_password"
+                                    data-testid="input-cur-pw"
+                                    autocapitalize="off"
+                                    type="text"
+                                    value="현재 패스워드를 DB로 부터 받아와서 일치하는지 체크하는 부분 javascript에 추가 필요"
+                                    required
+                                />
                                 <label>CURRENT PASSWORD</label>
                                 <span>CURRENT PASSWORD</span>
                             </div>
                             <div class="new_password">
-                                <input id="password" data-testid="password" type="password" oninput="validatePassword();" required>
+                                <input
+                                    id="password"
+                                    data-testid="password"
+                                    type="password"
+                                    oninput="validatePassword();"
+                                    required
+                                />
                                 <label>NEW PASSWORD</label>
                                 <span>NEW PASSWORD</span>
                             </div>
                             <div class="confirm_new_password">
-                                <input id="confirmPassword" data-testid="check_pw" type="password" oninput="validatePassword();" required>
+                                <input
+                                    id="confirmPassword"
+                                    data-testid="check_pw"
+                                    type="password"
+                                    oninput="validatePassword();"
+                                    required
+                                />
                                 <label>CONFIRM NEW PASSWORD</label>
                                 <span>CONFIRM NEW PASSWORD</span>
                             </div>
@@ -79,8 +188,18 @@
                         <div class="form-text" id="passwordHelp"></div>
                         <div class="password_change_button_layout">
                             <div class="password_change_none">
-                                <button class="save_button" id="pw_change_cancel_button">CANCEL</button>
-                                <button class="save_button" id="pw_change_button">SAVE CHANGE</button>
+                                <button
+                                    class="save_button"
+                                    id="pw_change_cancel_button"
+                                >
+                                    CANCEL
+                                </button>
+                                <button
+                                    class="save_button"
+                                    id="pw_change_button"
+                                >
+                                    SAVE CHANGE
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -91,39 +210,96 @@
                         <img id="face_img" src="{{face}}" />
                     </div>
                     <div class="personal_information_content">
-                        <div class="upload_area" id="image">
-                            <p class="upload_msg">이미지지파일을 드래그 앤 드롭 하거나 <br> 클릭하여 업로드하세요.</p>
-                            <input type="file" id="file_input" style="display: none;">
+                        <div
+                            class="upload_area"
+                            id="image"
+                            onclick="uploadClick(event)"
+                            ondragover="onDragOverUpload(event)"
+                            ondrop="onDropUpload(event)"
+                        >
+                            <p id="image_name"></p>
+                            <p class="upload_msg" id="image_msg">
+                                클릭하여 이미지를 업로드하거나
+                            </p>
+                            <p class="upload_msg">끌어다 놓아주세요.</p>
+                            <input
+                                type="file"
+                                id="image_input"
+                                style="display: none"
+                                onchange="inputOnchange(event)"
+                            />
                         </div>
                         <div class="upload_button_area">
-                            <button class="save_button" id="voice_upload_cancel_button">CANCEL</button>
-                            <button class="save_button" id="voice_upload_button">SAVE <br> CHANGE</button>
+                            <button
+                                class="save_button"
+                                id="voice_upload_cancel_button"
+                            >
+                                CAPTURE
+                            </button>
+                            <button
+                                class="save_button"
+                                id="voice_upload_button"
+                            >
+                                SAVE <br />
+                                CHANGE
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div class="personal_information_card" id="upload_voice">
                     <div class="personal_information_explain">
                         <h1>Upload Voice</h1>
-                        <p>This information is private and will not be shared with other players. Read the Riot Privacy Notice anytime!</p>
+                        <audio id="audioPreview" style="display: none"></audio>
+                        <img
+                            src="{% static 'mypage/img/play-circle.svg' %}"
+                            id="playIcon"
+                            onclick="onclickPlayIcon()"
+                        />
                     </div>
                     <div class="personal_information_content">
-                        <div class="upload_area" id="voice">
-                            <p class="upload_msg">음성 파일을 드래그 앤 드롭 하거나 <br> 클릭하여 업로드하세요.</p>
-                            <input type="file" id="file_input" style="display: none;">
-                            <div class="voice_file_name"></div>
+                        <div
+                            class="upload_area"
+                            id="voice"
+                            onclick="uploadClick(event)"
+                            ondragover="onDragOverUpload(event)"
+                            ondrop="onDropUpload(event)"
+                        >
+                            <p id="voice_name"></p>
+                            <p class="upload_msg" id="voice_msg">
+                                클릭하여 음성파일을 업로드하거나
+                            </p>
+                            <p class="upload_msg">끌어다 놓아주세요.</p>
+                            <input
+                                type="file"
+                                id="voice_input"
+                                style="display: none"
+                                onchange="inputOnchange(event)"
+                            />
                         </div>
                         <div class="upload_button_area">
-                            <button class="save_button" id="voice_upload_cancel_button">CANCEL</button>
-                            <button class="save_button" id="voice_upload_button">SAVE <br> CHANGE</button>
+                            <button
+                                class="save_button"
+                                id="voice_upload_cancel_button"
+                            >
+                                RECORD
+                            </button>
+                            <button
+                                class="save_button"
+                                id="voice_upload_button"
+                            >
+                                SAVE <br />
+                                CHANGE
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div class="personal_information_card" id="login_history">
                     <div class="personal_information_explain">
                         <h1>Account Login History</h1>
-                        <p>0 logins from overseas
-
-                            Only the login history within the last 30 days is available here</p>
+                        <p>
+                            0 logins from overseas Only the login history within
+                            the last 30 days is available here
+                        </p>
                     </div>
                     <div class="personal_information_content">test</div>
                 </div>
@@ -133,12 +309,19 @@
                     </div>
                     <div class="delete_information_content">
                         <div class="delete_button_layout">
-                            <button class="delete_button" id="delete_button" type="submit" onclick="setupModal()">Delete Account</button>
-                        </div>                      
+                            <button
+                                class="delete_button"
+                                id="delete_button"
+                                type="submit"
+                                onclick="setupModal()"
+                            >
+                                Delete Account
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>            
-        </main> 
+            </div>
+        </main>
         <div id="deleteModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="close">&times;</span>
@@ -147,7 +330,7 @@
                 <button id="cancelDelete">취소</button>
             </div>
         </div>
-        {% include 'footer.html' %}     
-        <script src="{% static 'mypage/js/mypage_temp.js' %}"></script>
+        {% endblock %} {% include 'footer.html' %}
+        <script src="{% static 'mypage/js/mypage_temp.js' %}" defer></script>
     </body>
 </html>

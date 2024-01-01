@@ -169,25 +169,94 @@ function updateSubmitButton() { // 모든 도움말 텍스트를 확인하여 �
       pwChangeButton.style.color = '#FFF'; // 텍스트 색상 변경 (예: 흰색으로 설정)
       pwChangeButton.style.cursor = 'pointer';
   }
-  
-  
 }
 
 
 //-----------------------------
 //voice 파일 업로드 관련 js
-var uploadArea = document.querySelector('.voice_upload_area');
-var fileInput = document.getElementById('file_input');
-var fileNameDisplay = document.querySelector('.voice_file_name');
-var uploadInstruction = uploadArea.querySelector('.voice_upload_msg'); // 업로드 지시문 <p> 태그
-var uploadVoiceButton = document.getElementById('voice_upload_button');
-var voiceCancelButton = document.getElementById('voice_upload_cancel_button');
+let fileInput = document.getElementById('file_input');
+let fileNameDisplay = document.querySelector('.voice_file_name');
+// let uploadInstruction = uploadArea.querySelector('.voice_upload_msg'); // 업로드 지시문 <p> 태그
+let uploadVoiceButton = document.getElementById('voice_upload_button');
+let voiceCancelButton = document.getElementById('voice_upload_cancel_button');
 
+let uploadArea = document.querySelector('.upload_area');
+let uploadImage = null;
+let uploadVoice = null;
 
 // 클릭으로 파일 업로드 창 열기
-uploadArea.addEventListener('click', function() {
-  fileInput.click();
-});
+const uploadClick = (event) => {
+  const id = event.currentTarget.id;
+  const input = document.getElementById(id + "_input");
+  input.click();
+}
+
+const image_input = (file) => {
+  uploadImage = file;
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    const img_url = reader.result;
+    const img = document.getElementById('face_img');
+    img.src = img_url;
+  }
+
+  reader.readAsDataURL(file);
+
+  document.getElementById('image_name').textContent = `File Name : ${file.name}`;
+  document.getElementById('image_msg').textContent = '클릭하여 이미지를 변경하거나';
+}
+
+const voice_input = (file) => {
+  if (!file) {
+    return 
+  }
+  uploadVoice = file;
+  const audioPreview = document.getElementById('audioPreview');
+  audioPreview.src = URL.createObjectURL(file);
+
+  document.getElementById('voice_name').textContent = `File Name : ${file.name}`;
+  document.getElementById('voice_msg').textContent = '클릭하여 음을파일을 변경하거나';
+  document.getElementById('playIcon').style = 'filter: invert(86%) sepia(0%) saturate(0%) hue-rotate(275deg) brightness(86%) contrast(91%); cursor: pointer;'
+}
+
+const inputOnchange = (event) => {
+  const id = event.currentTarget.id;
+  const file = event.target.files[0];
+  if (id == 'image_input') {
+    image_input(file)
+  } else if (id == 'voice_input') {
+    voice_input(file)
+  }
+}
+
+const onclickPlayIcon = () => {
+  const audioPreview = document.getElementById('audioPreview');
+  if (audioPreview.src) {
+      console.log('in if')
+      audioPreview.play();
+  }
+}
+
+const onDragOverUpload = (event) => {
+  event.stopPropagation();
+  event.preventDefault();
+  event.dataTransfer.dropEffect = 'copy';
+}
+
+const onDropUpload = (event) => {
+  console.log(event)
+  event.stopPropagation();
+  event.preventDefault();
+  const files = event.dataTransfer.files;
+  if ((event.target.id).includes('image')) {
+    document.getElementById('image_input').files = files
+    image_input(files[0])
+  } else {
+    document.getElementById('voice_input').files = files
+    voice_input(files[0])
+  }
+}
 
 // 파일 선택 시 파일 이름 표시 및 <p> 태그 숨김
 fileInput.addEventListener('change', function(event) {
