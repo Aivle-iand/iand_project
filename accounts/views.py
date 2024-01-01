@@ -13,9 +13,9 @@ from allauth.account.views import LoginView
 
 class CustomLoginView(LoginView):
     success_url = reverse_lazy('main')
-    # def form_invalid(self, form):
-    #     messages.error(self.request, '아이디 혹은 비밀번호가 틀렸습니다.')
-    #     return super().form_invalid(form)
+    def form_invalid(self, form):
+        messages.error(self.request, '아이디 혹은 비밀번호가 틀렸습니다.')
+        return super().form_invalid(form)
     
 class CustomSocialSignupView(SocialSignupView):
     form_class = CustomSocialSignupForm
@@ -70,7 +70,7 @@ def check_nickname(request):
 def social_check_username(request):
     # 클라이언트로부터 AJAX 요청을 통해 전달받은 username 값
     data = json.loads(request.body)
-    username = data.get('id_username')
+    username = data.get('username')
 
     # User 모델을 사용하여 해당 username이 이미 존재하는지 확인
     isDuplicate = Custom_User.objects.filter(username=username).exists()
