@@ -36,11 +36,17 @@
                     </div>       
                     <div class="detail_btn">
                         <dl><dt><a href="/community/" class="to_board">목록</a></dt></dl><br>
-                        <dl><dt><a href="/community/" class="update_btn">수정</a></dt></dl>
-                        <dl><dt><form action="{% url 'community:detail' detail.id %}" method="POST">
-                            {% csrf_token %}
-                            <input type="submit" value="삭제">
-                        </form></dt></dl>
+                        <div class="update_btn">
+                            <a href="{% url 'community:update' detail.id%}" class="bt">수정</a>
+                        </div>
+                        <div class="delete_btn">
+                            <form action="{% url 'community:detail' detail.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="submit" value="삭제">
+                            </form>
+                        </div>
+                        <dl><dt></dt></dl>
+                        
                     </div>
                 </div>
             </div>

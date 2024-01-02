@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import path
-from .forms import PostForm
+from .forms import *
 from .models import *
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.views.decorators.http import require_POST
 # from login.models import User
 
 def writepage(request):
@@ -78,19 +79,41 @@ def detail(request, pk):
         return render(request, 'community/detail.html', {'detail':detail})
 
     
-def up_post(request, pk):
+def update(request, pk):
     detail = get_object_or_404(Board, pk=pk)
     # # if request.user_id != detail.writer:
     #     message.error(request, '수정 권한이 없습니다.')
     #     return redirect('community:detail', user_id=pk)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=detail)
+        form = PostUpdate(request.POST, instance=detail)
         if form.is_valid():
-            detail = form.save(commit=False)
-            detail.modify_date = timezone.now()
+            detail.postname = form.cleaned_data['postname']
+            detail.contents = form.cleaned_data['contents']
             detail.save()
-            return redirect('community/detail'+str(pk), {'detail':detail})
+            return redirect(str(detail.id))
     else:
-        form = PostForm(instance=detail)
+        form = PostUpdate(instance=detail)
     context = {'form':form}
-    return render(request, 'community/update.html', form)
+    return render(request, 'community/update.html', {'form':form})
+
+@require_POST
+def comments_create(request, pk):
+    if request.user.is_authenticated:
+        article = get_object_or_404(Board, pk=pk)
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.article = article
+            comment.user = request.user
+            comment.save()
+        return redirect('articles:detail', article.pk)
+    return redirect('accounts:login')
+
+
+@require_POST
+def comments_delete(request, article_pk, comment_pk):
+    if request.user.is_authenticated:
+        comment = get_object_or_404(Comment, pk=comment_pk)
+        if request.user == comment.user:
+            comment.delete()
+    return redirect('articles:detail', article_pk)
