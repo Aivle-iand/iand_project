@@ -195,25 +195,26 @@ WSGI_APPLICATION = 'iand_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "NAME": 'iandDB1', 
-#         "USER" : 'admin',
-#         "PASSWORD" : 'aivle202304',
-#         "HOST" : 'iand-db-1.cwr76q1tgyva.ap-northeast-2.rds.amazonaws.com',
-#         "PORT" : '3306',
-#         "OPTIONS" : {
-#             'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
-#         }
-#     }
-# }
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",  # 경로는 프로젝트 디렉토리에 db.sqlite3 파일을 생성하도록 수정하세요.
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": 'iandDB1', 
+        "USER" : 'admin',
+        "PASSWORD" : 'aivle202304',
+        "HOST" : 'iand-db-1.cwr76q1tgyva.ap-northeast-2.rds.amazonaws.com',
+        "PORT" : '3306',
+        "OPTIONS" : {
+            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",  # 경로는 프로젝트 디렉토리에 db.sqlite3 파일을 생성하도록 수정하세요.
+#     }
+# }
 
 
 # Password validation

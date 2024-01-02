@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from django.conf import settings
 # from login.models import User
 
 # Create your models here.
@@ -38,12 +39,15 @@ class Board(models.Model):
         verbose_name = "게시물"
         verbose_name_plural = "게시물"
         
-# class Comment(models.Model):
-#     post = models.ForeignKey(Board, on_delete=models.CASCADE)
-#     author = models.CharField(max_length=20)
-#     message = models.TextField()
-#     created = models.DateField(auto_now_add=True)
-#     updated = models.DateTimeField(auto_now=True)
+class Comment(models.Model):
+    post = models.ForeignKey(Board, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    message = models.TextField()
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.content
 
 # class Users(models.Model):
     

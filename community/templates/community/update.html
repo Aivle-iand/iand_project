@@ -1,0 +1,29 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'community/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'community/css/main_center.css' %}">
+        <style>
+            #announcement {
+                font-weight: 900;
+                font-size: 22px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>{% include 'header.html'%}</header>
+        <main class="main">
+            <h1>글쓰기 수정 페이지</h1>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p}}
+                <input class="update_btn_dark" type="submit" value="수정 완료">
+            </form>  
+        </main>
+        <footer>{% include 'footer.html' %}</footer>
+    </body>
+</html>
