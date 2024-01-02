@@ -57,13 +57,13 @@ document.getElementById("id_username").onchange = validateUsername;
 
 
 
-function validateemail() {
-    var email = document.getElementById("id_email").value;
-    var isEmpty = email.trim() === "";
-    errors.email = isEmpty; // 비어있으면 true
-    console.log("Last Name Error:", errors.email);
-    updateSubmitButton();
-}
+// function validateemail() {
+//     var email = document.getElementById("id_email").value;
+//     var isEmpty = email.trim() === "";
+//     errors.email = isEmpty; // 비어있으면 true
+//     console.log("Last Name Error:", errors.email);
+//     updateSubmitButton();
+// }
 
 function validatelastName() {
     var last_name = document.getElementById("id_last_name").value;

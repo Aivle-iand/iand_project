@@ -71,31 +71,10 @@ body>* {
     padding-bottom: 10px;
 }
 
-input#id_email {
+.social_signuppage input {
     background: transparent;
     border: none;
     padding: 15px 8px 15px;
-    /* margin-bottom: 20px; */
-    box-sizing: border-box;
-    height: 50px;
-    display: block;
-    outline: none;
-    width: 100%;
-    color: rgb(0, 0, 0);
-    line-height: 18px;
-    font-size: 12px;
-    font-weight: 700;
-    font-family: "FF Mark W05", sans-serif;
-    border-radius:5px;
-    pointer-events: none;
-}
-
-
-.social_signuppage input[type="text"] {
-    background: transparent;
-    border: none;
-    padding: 15px 8px 15px;
-    /* margin-bottom: 20px; */
     box-sizing: border-box;
     height: 50px;
     display: block;
@@ -113,26 +92,12 @@ input#id_email {
     background: #F8F8F8;
 }
 
-input#id_email:not(:focus) {
-    background: #F8F8F8;
-}
-
 .social_signuppage input:not(:focus):hover {
     background:#F1F1F1;
     border: #ECECEC;
 }
 
-
-input#id_email:not(:focus):hover {
-    background:#F1F1F1;
-    border: #ECECEC;
-}
-
-.social_signuppage div {
-    position: relative;
-}
-
-.signup-button input[type=submit] {
+.signup-button input {
     margin-top: 10px;
     padding: 10px 20px;
     border-color: black;
@@ -147,14 +112,42 @@ input#id_email:not(:focus):hover {
 }
 
 .signup-button input[type=submit]:hover {
-    background-color: #004494; /* Darken background on hover */
+    background-color: #004494; 
     color: white;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* Add shadow effect on hover */
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
+
+input[type=submit]:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed; 
+}
+
+.footer {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #F1F1F1;
+    font-size: 12px;
+    height: 100px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+/* 
+
+
+.social_signuppage div {
+    position: relative;
+}
+
+
+
 
 .signup-button input[type=submit]:active,
 .signup-button input[type=submit]:focus {
-    outline: none; /* Removes the outline */
+    outline: none;
     color: black;
     background-color: #004494;
 }
@@ -174,7 +167,7 @@ input#id_email:not(:focus):hover {
 input[type=submit]:disabled {
     background-color: #cccccc;
     color: #666666;
-    cursor: not-allowed; /* 호버 시 금지 표시 커서로 변경 */
+    cursor: not-allowed; 
 }
 
 .signup-name {
@@ -201,4 +194,4 @@ input[type=submit]:disabled {
 
 .social_signuppage label {
     font-size: 16px;
-}
+} */
