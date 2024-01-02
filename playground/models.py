@@ -23,6 +23,11 @@ class Episodes(models.Model):
     image = models.ImageField(upload_to='contents/', default=None, help_text="에피소드 장면 이미지")
     voice = models.FileField(upload_to='voices/',default=None, help_text="기본음성")
     voice_text = models.CharField(max_length=100,default=None, help_text="음성 대사 텍스트")
+    image_segment = models.ImageField(upload_to='contents/', default=None, help_text="인물 테두리 이미지")
+    x_index = models.IntegerField(default=0, help_text="css right 에 들어갈 x 값")
+    y_index = models.IntegerField(default=0,help_text="css top 에 들어갈 y 값")
+    height = models.IntegerField(default=0, help_text="css height에 들어갈 높이값")
+    width = models.IntegerField(default=0, help_text="css width에 들어갈 넓이값")
     
         
     def __str__(self):
