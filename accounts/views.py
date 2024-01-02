@@ -1,69 +1,61 @@
-from django.shortcuts import render, redirect
-from .models import User as Custom_User
-from django.contrib.auth.hashers import check_password
-from django.contrib import messages, auth
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 import json
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from .models import User as Custom_User
+from .forms import CustomSocialSignupForm
+from django.shortcuts import redirect
+from django.contrib import messages
+from allauth.socialaccount.views import SignupView as SocialSignupView
+from django.shortcuts import redirect, render
+from .forms import CustomSocialSignupForm  # Import your CustomSocialSignupForm here
+from django.urls import reverse_lazy
+from allauth.account.views import LoginView
 
-def custom_signin_view(request):
-    if request.method == 'POST':
-        success = True
-        input_id = request.POST.get('usernameInput')
-        input_pw = request.POST.get('passwordInput')
-        
-        is_success_login = check_password(input_pw, Custom_User.objects.filter(user_id=input_id).values('password').first()['password'])
-        if is_success_login:
-            found_user = Custom_User.objects.filter(user_id=input_id)[0]
-            found_user_db = {'user': found_user.__dict__}
-            found_user_db['user']['is_authenticated'] = True
-            return render(request, 'main.html', context=found_user_db)
-        
-        else:
-            messages.error(request, '아이디 또는 비밀번호가 일치하지 않습니다.')
-            return redirect('/accounts')
+class CustomLoginView(LoginView):
+    success_url = reverse_lazy('main')
+    def form_invalid(self, form):
+        messages.error(self.request, '아이디 혹은 비밀번호가 틀렸습니다.')
+        return super().form_invalid(form)
     
-    return render(request, "login.html")
+class CustomSocialSignupView(SocialSignupView):
+    form_class = CustomSocialSignupForm
+    
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect("login/")  # Redirect to home or any other URL if the user is already authenticated
+        return super().get(request, *args, **kwargs)
 
-def custom_signup_view(request):
-    return render(request, "signup.html")
-
-def signup(request):
-    if request.method == 'POST':
-        user_id = request.POST.get('user_id')
-        user_pw = request.POST.get('user_pw')
-        username = request.POST.get('username')
-        nickname = request.POST.get('nickname')
-
-        # 유저 생성 및 저장
-        custom_user = Custom_User()
-        custom_user.user_id = user_id
-        custom_user.password = custom_user.set_password(user_pw)
-        custom_user.username = username
-        custom_user.nickname = nickname
-        custom_user.save()
-
-        messages.success(request, '회원가입이 성공적으로 이루어졌습니다!')
-        return redirect('/accounts/')  # 성공 URL
-    else:
-        # GET 요청 시 회원가입 페이지 렌더링
-        return render(request, 'signup.html')
-
+    def get_success_url(self):
+        return reverse_lazy('login')
+    
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            # 폼이 유효하면 여기에 원하는 동작을 추가하세요
+            # 예를 들어, 데이터를 저장하고 리다이렉션할 수 있습니다.
+            print(form.cleaned_data)
+            form.save(request)
+            return redirect('login/')  # 여기에 여러분이 원하는 성공 URL을 넣어주세요
+        else:
+            # 폼이 유효하지 않을 때 필요한 작업을 추가하세요
+            print(form.errors)
+            return render(request, self.template_name, {'form': form})
+        
 @csrf_exempt  # 개발 단계에서만 사용. 실제 배포시 CSRF 토큰을 적절히 처리해야 합니다.
-def check_user_id(request):
-    # 클라이언트로부터 AJAX 요청을 통해 전달받은 user_id 값
+def check_username(request):
+    # 클라이언트로부터 AJAX 요청을 통해 전달받은 username 값
     data = json.loads(request.body)
-    user_id = data.get('user_id')
+    username = data.get('username')
 
-    # User 모델을 사용하여 해당 user_id가 이미 존재하는지 확인
-    isDuplicate = Custom_User.objects.filter(user_id=user_id).exists()
+    # User 모델을 사용하여 해당 username이 이미 존재하는지 확인
+    isDuplicate = Custom_User.objects.filter(username=username).exists()
 
     # is_taken 값을 JSON 형태로 클라이언트에 반환
     return JsonResponse({'isDuplicate': isDuplicate})
 
 @csrf_exempt
 def check_nickname(request):
-    # 클라이언트로부터 AJAX 요청을 통해 전달받은 user_id 값
+    # 클라이언트로부터 AJAX 요청을 통해 전달받은 nickname 값
     data = json.loads(request.body)
     nickname = data.get('nickname')
 
@@ -73,3 +65,15 @@ def check_nickname(request):
     # is_taken 값을 JSON 형태로 클라이언트에 반환
     return JsonResponse({'isDuplicate': isDuplicate})
 
+# 소셜 회원가입용 아이디 체크
+@csrf_exempt  # 개발 단계에서만 사용. 실제 배포시 CSRF 토큰을 적절히 처리해야 합니다.
+def social_check_username(request):
+    # 클라이언트로부터 AJAX 요청을 통해 전달받은 username 값
+    data = json.loads(request.body)
+    username = data.get('username')
+
+    # User 모델을 사용하여 해당 username이 이미 존재하는지 확인
+    isDuplicate = Custom_User.objects.filter(username=username).exists()
+
+    # is_taken 값을 JSON 형태로 클라이언트에 반환
+    return JsonResponse({'isDuplicate': isDuplicate})

@@ -6,9 +6,11 @@
     word-break: keep-all;
     letter-spacing: normal !important;
 }
+
 html {
     background-color: black;
 }
+
 signup-id-pass * > a {
     background: transparent;
     padding: 15px 8px 15px;
@@ -90,7 +92,7 @@ body>* {
     background: transparent;
     border: none;
     padding: 15px 8px 15px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     box-sizing: border-box;
     height: 50px;
     display: block;
@@ -273,3 +275,32 @@ input[type=submit]:disabled {
     color: #666666;
     cursor: not-allowed; /* 호버 시 금지 표시 커서로 변경 */
 }
+
+
+.signup-name {
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+/* .signup-name > * {
+    font-size: 13px;
+} */
+
+/* .signup-name a {
+    justify-content: center;
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+.signup-name div {
+    box-sizing: border-box;
+}
+
+.id_first_name div {
+    margin-right: 10px;
+}
+
+.id_first_name div {
+    width: 100%;
+} */

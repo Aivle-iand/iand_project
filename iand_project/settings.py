@@ -47,7 +47,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-@ff*bv71why14^4c7qm+!n0&j9n(ev3njd#^*)-%ix_g(v(cvd"
 
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) # i-and_project_final/iand
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -67,13 +66,27 @@ environ.Env.read_env(
 
 SITE_ID = 14
 
-ACCOUNT_SIGNUP_REDIRECTION_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 물어보는 페이지 안나옴
 
 SESSION_COOKIE_AGE = 3600 # 로그인 세션 1시간 유지?
 ACCOUNT_SESSION_REMEMBER = True # 브라우저를 닫으면 유저 로그아웃
+
+# 회원가입 폼
+# ACCOUNT_FORMS = {
+#     'signup': 'accounts.forms.CustomSignupForm',
+# }
+
+# 소셜 계정으로 로그인 시 자동으로 사용자 계정을 생성할지
+SOCIALACCOUNT_AUTO_SIGNUP = False
+SOCIALACCOUNT_SIGNUP_REDIRECTION_URL = 'login'
+SOCIALACCOUNT_FORMS = {
+    # 소셜계정 가입 후 추가 폼
+    'signup': 'accounts.forms.CustomSocialSignupForm',
+}
+
+SOCIALACCOUNT_EMAIL_REQUIRED = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -147,10 +160,10 @@ SOCIALACCOUNT_PROVIDERS = {
     },
     
     "kakao": {
-        "SCOPE": [
-            "profile",
-            "email",
-        ],
+        # "SCOPE": [
+        #     "profile",
+        #     "email",
+        # ],
         "AUTH_PARAMS": {
             "access_type": "online",
         },
@@ -160,10 +173,10 @@ SOCIALACCOUNT_PROVIDERS = {
     },
     
     "naver": {
-        "SCOPE": [
-            "profile",
-            "email",
-        ],
+        # "SCOPE": [
+        #     "profile",
+        #     "email",
+        # ],
         "AUTH_PARAMS": {
             "access_type": "online",
         },
@@ -195,6 +208,13 @@ DATABASES = {
         }
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",  # 경로는 프로젝트 디렉토리에 db.sqlite3 파일을 생성하도록 수정하세요.
+#     }
+# }
 
 
 # Password validation
@@ -238,7 +258,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'playground', 'static'),
     os.path.join(BASE_DIR, 'mypage', 'static'),
     os.path.join(BASE_DIR, 'main', 'static'),
-    os.path.join(BASE_DIR, 'accounts', 'static'),
+    # os.path.join(BASE_DIR, 'accounts', 'static'),
     ]
 
 # Default primary key field type
