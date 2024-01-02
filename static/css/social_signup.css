@@ -135,8 +135,11 @@ input[type=submit]:disabled {
     user-select: none;
 }
 
-/* 
+.email_class {
+    
+}
 
+/* 
 
 .social_signuppage div {
     position: relative;
