@@ -2,17 +2,18 @@
 {% load socialaccount %}
 {% providers_media_js %}
 
+<!DOCTYPE html>
 <html lang="en">
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'login\css\login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <title>로그인페이지</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-image: url('{% static "login/img/back_img1.png" %}');
+            background-image: url('{% static "img/back_img1.png" %}');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -22,22 +23,22 @@
             min-height: 100vh; /* 최소 높이를 화면의 높이로 설정 */
         }
         .google-login-btn {
-            background-image: url('{% static "login/img/logo-google.png" %}');
+            background-image: url('{% static "img/logo-google.png" %}');
             background-size: cover;
         }
         
         .kakao-login-btn {
-            background-image: url('{% static "login/img/logo-kakao.png" %}');
+            background-image: url('{% static "img/logo-kakao.png" %}');
             background-size: cover;
         }
 
         .naver-login-btn {
-            background-image: url('{% static "login/img/logo-naver.png" %}');
+            background-image: url('{% static "img/logo-naver.png" %}');
             background-size: cover;
         }
 
         .login_btn {
-            background-image: url('{% static "login/img/login_img.png" %}');
+            background-image: url('{% static "img/login_img.png" %}');
             background-size: cover;
         }
         
@@ -48,13 +49,12 @@
         <main class="main">
 
             <a class="logo_class" href='{% url "main:main" %}'>
-                <img src="{% static 'login/img/iand_logo_w.png' %}" class="logo_img" id="logo_img">
+                <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img" id="logo_img">
             </a>
             
             <div class="login_main">
                 <div class="loginpage">
-
-                    <form action="" method="POST">
+                    <form action="{% url 'account_login' %}" method="POST">
 
                         {% csrf_token %}
 
@@ -63,20 +63,20 @@
                         <div class="loginbox">
                             <div class="login-id-pass">
                                 <div class="login-id">
-                                    <input class="username" id ="usernameInput" data-testid="input-username" autocapitalize="off" type="text" value="" name="usernameInput">
+                                    <input class="username" name="login" id ="usernameInput" data-testid="input-username" autocapitalize="off" type="text" value="" name="usernameInput">
                                     <label for="usernameInput" id="usernameLabel">계정이름</label>
                                     <span for="usernameLabel" id="usernameSpan">계정이름</span>
                                 </div>
                                 
                                 <div class="login-pass">
-                                    <input class="password" id="passwordInput" data-testid="input-password" type="password" autocomplete="off" value="" name="passwordInput">
+                                    <input class="password" name="password" id="passwordInput" data-testid="input-password" type="password" autocomplete="off" value="" name="passwordInput">
                                     <label for="passwordInput" id="passwordLabel">비밀번호</label>
                                     <span for ="passwordLabel" id="passwordSpan">비밀번호</span>
                                 </div>
                             </div>
 
                             <div class="login_btn_div">
-                                <input type="submit" class="login_btn" value=""/>
+                                <input type="submit" class="login_btn" id="id_login_btn" value=""/>
                             </div>
                         </div>
                     </form>
@@ -115,7 +115,7 @@
                         </div> 
                                 
                         <div class="sign_up_div">
-                            <a href="signup" class="sign_up_btn">회원 가입</a>
+                            <a href="{% url 'account_signup' %}" class="sign_up_btn">회원 가입</a>
                         </div>
                 </div>  
             </div>
@@ -176,12 +176,12 @@
         });
     </script>
 
-    {% if messages %}
-    <script type="text/javascript">
-    {% for message in messages %}
-        alert("{{ message }}");
-    {% endfor %}
-    </script>
-    {% endif %}
+    {% comment %} {% if messages %}
+        <script type="text/javascript">
+        {% for message in messages %}
+            alert("{{ message }}");
+        {% endfor %}
+        </script>
+    {% endif %} {% endcomment %}
 
 </html>

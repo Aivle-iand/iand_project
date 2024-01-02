@@ -1,0 +1,200 @@
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+:lang(ko-kr) {
+    word-break: keep-all;
+    letter-spacing: normal !important;
+}
+
+html {
+    background-color: black;
+}
+
+.social_signuppage-title {
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 60px;
+    border-bottom: 2px solid #f9bc28;
+}
+
+.error-message {
+    display: none;
+    color: red;
+    font-size: 12px;
+  }
+
+input.error {
+border: 1px solid red;
+}
+
+.signup-id-pass .already_signup{
+    font-size: 12px;
+    color:#004494;
+    text-decoration-line: none;
+}
+
+body>* {
+    box-sizing: border-box;
+}
+
+.header {
+    height: 80px;
+}
+
+.logo_img {
+    height: 15vw;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.main_container {
+    display: flex; /* Flexbox를 활성화 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /*수직 중앙 정렬*/
+    /* height: 100%; 전체 뷰포트 높이를 차지하도록 설정 */
+}
+
+.social_signuppage {
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 40%;
+    opacity: 0.7; 
+    transition: opacity 0.5s ease;
+}
+
+.social_signuppage:hover {
+    opacity: 0.98;
+}
+
+.social_signuppage *{
+    padding-bottom: 10px;
+}
+
+.social_signuppage input {
+    background: transparent;
+    border: none;
+    padding: 15px 8px 15px;
+    box-sizing: border-box;
+    height: 50px;
+    display: block;
+    outline: none;
+    width: 100%;
+    color: rgb(0, 0, 0);
+    line-height: 18px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: "FF Mark W05", sans-serif;
+    border-radius:5px;
+}
+
+.social_signuppage input:not(:focus) {
+    background: #F8F8F8;
+}
+
+.social_signuppage input:not(:focus):hover {
+    background:#F1F1F1;
+    border: #ECECEC;
+}
+
+.signup-button input {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-color: black;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    width: 100%;
+}
+
+.signup-button input[type=submit]:hover {
+    background-color: #004494; 
+    color: white;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+input[type=submit]:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed; 
+}
+
+.footer {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #F1F1F1;
+    font-size: 12px;
+    height: 100px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.email_class {
+    
+}
+
+/* 
+
+.social_signuppage div {
+    position: relative;
+}
+
+
+
+
+.signup-button input[type=submit]:active,
+.signup-button input[type=submit]:focus {
+    outline: none;
+    color: black;
+    background-color: #004494;
+}
+
+.footer {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #F1F1F1;
+    font-size: 12px;
+    height: 100px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+input[type=submit]:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed; 
+}
+
+.signup-name {
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.social_signupbox > * {
+    font-size: 13px;
+}
+
+.signup-name div {
+    box-sizing: border-box;
+}
+
+.first_name_div {
+    margin-right: 10px;
+}
+
+.last_name_div {
+    width: 100%;
+}
+
+.social_signuppage label {
+    font-size: 16px;
+} */
