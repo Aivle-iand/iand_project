@@ -57,8 +57,47 @@
                 <form method="POST" action="{% url 'social_signup' %}">
                     {% csrf_token %}
                     <h1 class="social_signuppage-title" style="font-family: 'Do Hyeon', sans-serif; font-size:60px; border-bottom: 2px solid #f9bc28;">I&_ 회원가입</h1>
+                    {% if form.errors.email %}
+                        <p style="color:red;">이미 존재하는 이메일입니다.</p>
+                    {% endif %}
                     <div class="social_signupbox">
-                        {% for field in form %}
+                        <a>이메일</a>
+                        <label for="id_email">{{ field.email }}</label>
+                        <div class="email-wrapper">
+                            <input type="email" name="email" value="{{ form.email.value }}" />
+                            <div id="emailHelp"></div>
+                        </div>
+
+                        <a>아이디</a>
+                        <label for="id_username">{{ field.username }}</label>
+                        <div class="username-wrapper">
+                            <input type="username" name="username" value="{{ form.email.value }}"/>
+                            <div id="usernameHelp"></div>
+                        </div>
+
+                        <a>성</a>
+                        <label for="id_last_name">{{ field.last_name }}</label>
+                        <div class="last_name-wrapper">
+                            <input type="last_name" name="last_name" value="{{ form.last_name.value }}"/>
+                            <div id="last_nameHelp"></div>
+                        </div>
+
+                        <a>이름</a>
+                        <label for="id_first_name">{{ field.first_name }}</label>
+                        <div class="first_name-wrapper">
+                            <input type="first_name" name="first_name" value="{{ form.first_name.value }}"/>
+                            <div id="fisrt_nameHelp"></div>
+                        </div>
+
+                        <a>닉네임</a>
+                        <label for="id_first_name">{{ field.first_name }}</label>
+                        <div class="first_name-wrapper">
+                            <input type="first_name" name="first_name" value="{{ form.first_name.value }}"/>
+                            <div id="fisrt_nameHelp"></div>
+                        </div>
+
+
+                        {% comment %} {% for field in form %}
                             <div>
                                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                                 <div class="{{ field.name }}-wrapper">
@@ -66,7 +105,10 @@
                                     <div id="{{ field.name }}Help"></div>
                                 </div>
                             </div>
-                        {% endfor %}
+                        {% endfor %} {% endcomment %}
+
+
+
                         <div class="signup-button">
                             <input type="submit" id="submitBtn" value="회원가입" disabled>
                         </div>

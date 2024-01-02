@@ -9,5 +9,4 @@ def populate_profile(request, user, **kwargs):
     user.last_name = request.POST.get('last_name', '')
     user.nickname = request.POST.get('nickname', '')
     user.save()
-        
-    messages.success(request, '회원가입이 성공적으로 이루어졌습니다!')
+    
