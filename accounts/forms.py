@@ -13,11 +13,9 @@ class CustomSocialSignupForm(SocialSignup):
         self.fields['nickname'].label = '닉네임'
         self.fields['last_name'].label = '성'
         self.fields['first_name'].label = '이름'
-        self.fields['username'].widget.attrs['placeholder'] = 'ex)iam123'
-        self.fields['last_name'].widget.attrs['placeholder'] = '성'
-        self.fields['first_name'].widget.attrs['placeholder'] = '이름'
-        self.fields['nickname'].widget.attrs['placeholder'] = 'ex)뉴턴광팬'
         
+        self.fields['username'].widget = forms.HiddenInput()
+        self.fields['email'].widget = forms.HiddenInput()
     def save(self, request):
         # user.additional_field = self.cleaned_data['additional_field']
         user = super(CustomSocialSignupForm, self).save(request)

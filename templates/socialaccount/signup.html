@@ -62,37 +62,36 @@
                     {% endif %}
                     <div class="social_signupbox">
                         <a>이메일</a>
-                        <label for="id_email">{{ field.email }}</label>
+                        <label for="email">{{ field.email }}</label>
                         <div class="email-wrapper">
-                            <input type="email" name="email" value="{{ form.email.value }}" />
+                            <input type="email" class="email_class" name="email" value="{{ form.email.value }}" readonly/>
                             <div id="emailHelp"></div>
                         </div>
 
-                        <a>아이디</a>
+                        {% comment %} <a>아이디</a>
                         <label for="id_username">{{ field.username }}</label>
-                        <div class="username-wrapper">
-                            <input type="username" name="username" value="{{ form.email.value }}"/>
-                            <div id="usernameHelp"></div>
-                        </div>
+                        <div class="username-wrapper"> {% endcomment %}
+                            <input type="username" class="username_class" name="username" value="{{ form.email.value }}"
+                            style="display:none"/>
 
                         <a>성</a>
-                        <label for="id_last_name">{{ field.last_name }}</label>
+                        <label for="last_name">{{ field.last_name }}</label>
                         <div class="last_name-wrapper">
-                            <input type="last_name" name="last_name" value="{{ form.last_name.value }}"/>
+                            <input id="id_last_name" type="last_name" name="last_name" value="{{ form.last_name.value }}"/>
                             <div id="last_nameHelp"></div>
                         </div>
 
                         <a>이름</a>
-                        <label for="id_first_name">{{ field.first_name }}</label>
+                        <label for="first_name">{{ field.first_name }}</label>
                         <div class="first_name-wrapper">
-                            <input type="first_name" name="first_name" value="{{ form.first_name.value }}"/>
+                            <input id="id_first_name" type="first_name" name="first_name" value="{{ form.first_name.value }}"/>
                             <div id="fisrt_nameHelp"></div>
                         </div>
 
                         <a>닉네임</a>
                         <label for="id_first_name">{{ field.first_name }}</label>
                         <div class="first_name-wrapper">
-                            <input type="first_name" name="first_name" value="{{ form.first_name.value }}"/>
+                            <input type="first_name" name="first_name" value="{{ form.first_name.value }}" placeholder="ex)뉴턴광팬"/>
                             <div id="fisrt_nameHelp"></div>
                         </div>
 
