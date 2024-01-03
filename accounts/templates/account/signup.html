@@ -8,7 +8,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+        <link rel="stylesheet" href="{% static 'accounts/css/signup.css' %}">
         <title>I&_ 회원가입</title>
 
         <style>
@@ -103,7 +103,7 @@
                                     <a>이름</a>
                                     </div>                                    
                                     <div class="first_name_div">
-                                        <input name="first_name" id="first_name"
+                                        <input class="first_name_input" name="first_name" id="first_name"
                                         type="text" placeholder="ex) 교진"
                                         required oninput='validatefirstName()' required>
                                     </div>
