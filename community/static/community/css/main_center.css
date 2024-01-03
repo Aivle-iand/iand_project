@@ -38,6 +38,7 @@
     width : 250px;
     height : 100%;
     border-right : 3px solid rgb(242, 242, 242);
+    min-width: 300px;
 }
 
 .side_center div {
@@ -69,7 +70,25 @@
 }
 
 form#searchForm {
-    width: 300px;
+    width: 400px;
     margin-left: auto;
     margin-right: auto;
+}
+
+thead {
+    text-align: center;
+}
+
+/* 글쓰기 페이지 css */
+.board_write_wrap {
+    margin-left: 50px;
+}
+
+textarea {
+    width: 800px;
+    height: 600px;
+}
+
+.write_title {
+    font-size: xx-large;
 }
