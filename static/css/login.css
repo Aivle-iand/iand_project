@@ -1,0 +1,234 @@
+:lang(ko-kr) {
+    word-break: keep-all;
+    letter-spacing: normal !important;
+}
+
+body>* {
+    box-sizing: border-box;
+}
+
+main {
+    position: relative;
+}
+
+.logo_class {
+    cursor : pointer;
+    position: absolute;
+}
+
+.logo_img {
+    height: 15vw;
+    padding: 10px;
+}
+
+.login_main {
+    height: calc( 100vh - 100px );
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-right: 10%;
+}
+
+.loginpage {
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 350px;
+}
+
+.loginpage h5 {
+    margin-top: auto;
+    font-size: 25px;
+    text-align: center;
+}
+
+.login-id-pass div {
+    margin: 0.5vh;
+    position: relative;
+    display: flex;
+}
+
+.login-id-pass input {
+    position: relative;
+    background: transparent;
+    border: none;
+    padding: 35px 8px 15px;
+    box-sizing: border-box;
+    height: 3.5vw;
+    display: block;
+    outline: none;
+    width: 100%;
+    color: rgb(31, 31, 31);
+    line-height: 18px;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: "FF Mark W05", sans-serif;
+    border-radius:5px;
+    padding-left: 20px;
+}
+
+.login-id-pass input:not(:focus):hover {
+    background:#F1F1F1;
+    border: #ECECEC;
+}
+
+.login-id-pass label {
+    color: rgb(102, 102, 102);
+    font-family: "FF Mark W05", sans-serif;
+    position: absolute;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    font-size: 12px;
+    margin-left: 15px;
+    top: 17px;
+    opacity: 1;
+    pointer-events: none;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s, opacity;
+}
+
+.login-id-pass span {
+    color: rgb(102, 102, 102);
+    font-family: "FF Mark W05", sans-serif;
+    position: absolute;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 100%;
+    font-size: 10px;
+    left: 8px;
+    top: 15px;
+    pointer-events: none;
+    transform-origin: left top;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    transform: translateY(-50%);
+}
+
+.login-id-pass div {
+    position: relative;
+}
+
+.sns_line {
+    margin: auto;
+    padding: 0px 0px 10px 0px;
+    position: relative;
+    display: flex;
+}
+
+.sns_line div {
+    width: 40px;
+    height: 0.5px;
+    background-color: #D1D1D1;
+}
+
+.sns_line label {
+    font-size: 15px;
+    color: #D1D1D1;
+    font-family: "FF Mark W05", sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    padding: 0px 30px 0px 30px;
+}
+
+
+.api-login-btn {
+    position: absolute;
+    display: flex;
+    margin-top: 10px;
+}
+
+.api-login div {
+    margin: auto;
+    position: relative;
+}
+
+.api-login button {
+    border-radius: 100%;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+
+.google-login-btn {
+    background-color: white;
+    border: 2px solid #ECECEC;
+}
+
+.kakao-login-btn {
+    background-color: #371D1E;
+    border: 2px solid #371D1E;
+}
+
+.naver-login-btn {
+    /* background-color: #00C300; */
+    border: 2px solid #00C300;
+}
+
+.login-id-pass input:not(:focus) {
+    background: #F8F8F8;
+}
+
+.login-id-pass input:focus {
+    background: none;
+    outline: auto;
+}
+
+.login-id-pass input:focus ~label {
+    display: none;
+}
+
+.login-id-pass input:not(:focus) ~span {
+    display: none;
+}
+
+.login_btn_div {
+    display: flex;
+}
+
+.login_btn {
+    border: none;
+    position: relative;
+    margin: auto;
+    margin-top: 5%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    padding: 5%;
+    background: none;
+    margin-bottom: 5%;
+}
+
+.sign_up_div {
+    position: relative;
+    margin-top: 5%;
+    font-size: 14px;
+    color: #D1D1D1;
+    font-family: "FF Mark W05", sans-serif;
+    font-weight: 800;
+    text-align: center;
+    padding: 0 0 10px 0;
+}
+
+.sign_up_btn {
+    text-decoration: none;
+    color: #7F7F7F;
+}
+
+.sign_up_btn:hover {
+    color: rgb(71, 69, 68);
+}
+
+.footer {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #F1F1F1;
+    font-size: 12px;
+    height: 100px;
+    display: flex;
+    text-align: center;
+    height: 100px;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
