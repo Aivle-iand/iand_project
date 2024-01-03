@@ -1,55 +1,56 @@
 var errors = {
-    userId: true,
+    username: true, // username = ID
     password: true,
     agreement: true,
-    username: true,
+    first_name: true,
+    last_name: true,
     nickname: true, 
     securityAnswer: true 
 };
 
  // ID 중복체크
-function checkUserIdDuplication(userId) {
+function checkusernameDuplication(username) {
     // AJAX 요청 설정
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "signup/check_id_dup", true); // '/check-user-id'는 서버의 중복 확인 API 경로
+    xhr.open("POST", "check_username_dup", true); // '/check-user-id'는 서버의 중복 확인 API 경로
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
             if (response.isDuplicate) {
-                userIdHelp.style.color = 'red';
-                userIdHelp.innerHTML = "이미 사용 중인 아이디입니다.";
-                errors.userId = true;
+                usernameHelp.style.color = 'red';
+                usernameHelp.innerHTML = "이미 사용 중인 아이디입니다.";
+                errors.username = true;
             } else {
-                userIdHelp.style.color = 'green';
-                userIdHelp.innerHTML = "사용 가능한 아이디입니다.";
-                errors.userId = false;
+                usernameHelp.style.color = 'green';
+                usernameHelp.innerHTML = "사용 가능한 아이디입니다.";
+                errors.username = false;
             }
         }
         updateSubmitButton();
     };
 
     // 서버에 요청 보내기
-    xhr.send(JSON.stringify({ user_id: userId }));
+    xhr.send(JSON.stringify({ username: username }));
 }
 
 // ID 입력 양식 체크
-function validateUserId() {
-    var userId = document.getElementById("user_id").value;
-    var userIdHelp = document.getElementById("userIdHelp");
+function validateUsername() {
+    var username = document.getElementById("username").value;
+    var usernameHelp = document.getElementById("usernameHelp");
     var lengthCheck = /^.{6,18}$/;
     var validRegex = /^[a-zA-Z0-9]+$/;
 
-    errors.userId = false;
+    errors.username = false;
 
-    if (!validRegex.test(userId) || !lengthCheck.test(userId)) {
-        userIdHelp.style.color = 'red';
-        userIdHelp.innerHTML = "아이디는 6~18자, 영문자와 숫자만 사용 가능합니다.";
-        errors.userId = true;
+    if (!validRegex.test(username) || !lengthCheck.test(username)) {
+        usernameHelp.style.color = 'red';
+        usernameHelp.innerHTML = "아이디는 6~18자, 영문자와 숫자만 사용 가능합니다.";
+        errors.username = true;
     } else {
-        userIdHelp.innerHTML = ""; // or any other success message or action
-        errors.userId = false;
-        checkUserIdDuplication(userId);
+        usernameHelp.innerHTML = ""; // or any other success message or action
+        errors.username = false;
+        checkusernameDuplication(username);
     }
 }
 
@@ -57,8 +58,8 @@ function validateUserId() {
 
 
 
-// 폼 제출 이벤트 또는 user_id 필드의 다른 이벤트에 validateUserId 함수를 연결합니다.
-document.getElementById("user_id").onchange = validateUserId;
+// 폼 제출 이벤트 또는 username 필드의 다른 이벤트에 validateUsername 함수를 연결합니다.
+document.getElementById("username").onchange = validateUsername;
 
 /*=========================================================================*/
 
@@ -119,46 +120,61 @@ function validateAgreement() {
     }
     updateSubmitButton();
 }
-function validateUsername() {
-    var username = document.getElementById("username").value;
-    var isEmpty = username.trim() === "";
-    errors.username = isEmpty; // 비어있으면 true
-    updateSubmitButton();
-}
 
-function checkNicknameDuplication(nickname) {
-    // AJAX 요청 설정
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "signup/check_nickname_dup", true); // '/check-user-id'는 서버의 중복 확인 API 경로
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var response = JSON.parse(this.responseText);
-            if (response.isDuplicate) {
-                nicknameHelp.style.color = 'red';
-                nicknameHelp.innerHTML = "이미 사용 중인 닉네임입니다.";
-                errors.nickname = true;
-            } else {
-                nicknameHelp.style.color = 'green';
-                nicknameHelp.innerHTML = "사용 가능한 닉네임입니다.";
-                errors.nickname = false;
-            }
-        }
-        updateSubmitButton();
-    };
-
-    // 서버에 요청 보내기
-    xhr.send(JSON.stringify({ nickname: nickname }));
-}
-
-function validateNickname() {
+function validateNickName() {
     var nickname = document.getElementById("nickname").value;
-    var nicknameHelp = document.getElementById("nicknameHelp");
     var isEmpty = nickname.trim() === "";
     errors.nickname = isEmpty; // 비어있으면 true
-    checkNicknameDuplication(nickname)
     updateSubmitButton();
 }
+
+function validatefirstName() {
+    var first_name = document.getElementById("first_name").value;
+    var isEmpty = first_name.trim() === "";
+    errors.first_name = isEmpty; // 비어있으면 true
+    updateSubmitButton();
+}
+
+function validatelastName() {
+    var last_name = document.getElementById("last_name").value;
+    var isEmpty = last_name.trim() === "";
+    errors.last_name = isEmpty; // 비어있으면 true
+    updateSubmitButton();
+}
+
+// function checkNicknameDuplication(nickname) {
+//     // AJAX 요청 설정
+//     var xhr = new XMLHttpRequest();
+//     xhr.open("POST", "signup/check_nickname_dup", true); // '/check-user-id'는 서버의 중복 확인 API 경로
+//     xhr.setRequestHeader("Content-Type", "application/json");
+//     xhr.onreadystatechange = function() {
+//         if (this.readyState == 4 && this.status == 200) {
+//             var response = JSON.parse(this.responseText);
+//             if (response.isDuplicate) {
+//                 nicknameHelp.style.color = 'red';
+//                 nicknameHelp.innerHTML = "이미 사용 중인 닉네임입니다.";
+//                 errors.nickname = true;
+//             } else {
+//                 nicknameHelp.style.color = 'green';
+//                 nicknameHelp.innerHTML = "사용 가능한 닉네임입니다.";
+//                 errors.nickname = false;
+//             }
+//         }
+//         updateSubmitButton();
+//     };
+
+//     // 서버에 요청 보내기
+//     xhr.send(JSON.stringify({ nickname: nickname }));
+// }
+
+// function validateNickname() {
+//     var nickname = document.getElementById("nickname").value;
+//     var nicknameHelp = document.getElementById("nicknameHelp");
+//     var isEmpty = nickname.trim() === "";
+//     errors.nickname = isEmpty; // 비어있으면 true
+//     checkNicknameDuplication(nickname)
+//     updateSubmitButton();
+// }
 
 function validateSecurityAnswer() {
     var securityAnswer = document.getElementById("security-answer").value;
@@ -186,10 +202,11 @@ function updateSubmitButton() { // 모든 도움말 텍스트를 확인하여 �
 }
     
 // 사용자의 입력에 따라 updateSubmitButton 함수를 지속적으로 호출
-document.getElementById('user_id').addEventListener('input', updateSubmitButton);
+document.getElementById('username').addEventListener('input', updateSubmitButton);
 document.getElementById('password').addEventListener('input', updateSubmitButton);
 document.getElementById('confirmPassword').addEventListener('input', updateSubmitButton);
-document.getElementById('username').addEventListener('input', updateSubmitButton);
+document.getElementById('first_name').addEventListener('input', updateSubmitButton);
+document.getElementById('last_name').addEventListener('input', updateSubmitButton);
 document.getElementById('nickname').addEventListener('input', updateSubmitButton);
 document.getElementById('security-answer').addEventListener('input', updateSubmitButton);
 document.getElementById('agree').onchange = validateAgreement;

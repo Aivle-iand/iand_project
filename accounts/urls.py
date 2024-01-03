@@ -1,12 +1,17 @@
-# urls.py
-
+from allauth.account.views import LoginView, LogoutView
 from django.urls import path, include
 from . import views
+from allauth.socialaccount.views import SignupView
+from .views import CustomSocialSignupView, CustomLoginView
 
 urlpatterns = [
-    path('', views.custom_signin_view, name='signin'),
-    path('signup', views.custom_signup_view, name='signup'),
-    path('signup/submit', views.signup, name='submig_sighup'),
-    path('signup/check_id_dup', views.check_user_id, name='check_id_dup'),
-    path('signup/check_nickname_dup', views.check_nickname, name='check_nickname_dup'),
+    # path('login/', LoginView.as_view(), name="login"),
+    path('login/', CustomLoginView.as_view(), name="account_login"),
+    path('logout/', LogoutView.as_view(), name="logout"),
+    path("social/signup/", CustomSocialSignupView.as_view(), name="social_signup"),
+    path('signup/', SignupView.as_view(), name="account_signup"),
+    path('signup/check_username_dup', views.check_username, name="check_username_dup"),
+    path('social/signup/social_check_username_dup', views.social_check_username, name="social_check_username_dup"),
+    # path('signup/check_nickname_dup', views.check_nickname, name="check_nickname_dup"),
+    path('', include('allauth.urls')),
 ]
