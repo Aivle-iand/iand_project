@@ -8,14 +8,14 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="{% static 'login/css/signup.css' %}">
+        <link rel="stylesheet" href="{% static 'css/signup.css' %}">
         <title>I&_ 회원가입</title>
 
         <style>
         body {
             margin : 0;
             padding : 0;
-            background-image: url("{% static 'login/img/back_img_signup.png' %}");
+            background-image: url("{% static 'img/back_img_signup.png' %}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -48,8 +48,8 @@
 
     <body>
         <header class="header">
-            <a href="../">
-                <img src="{% static 'login/img/iand_logo_w.png' %}"
+            <a href="{% url 'account_login' %}">
+                <img src="{% static 'img/iand_logo_w.png' %}"
                     class="logo_img">
             </a>
         </header>
@@ -57,22 +57,22 @@
         <main class="main">
             <div class="main_container"> <!-- main 중앙 정렬 속성 -->
                 <div class="signuppage">
-                    <form method="post" action="signup/submit">
+                    <form method="post" action="{% url 'account_signup' %}">
                         {% csrf_token %}
                         <h1 class="signuppage-title" style="font-family: 'Do Hyeon', sans-serif; font-size:60px; border-bottom: 2px solid #f9bc28;">I&_ 회원가입</h1>
                         <div class="signupbox">
                             <div class="signup-id-pass">
                                 <div class="signup-id">
                                     <a>아이디</a>
-                                    <input id="user_id" name="user_id"
+                                    <input id="username" name="username"
                                         autocapitalize="off" type="text"
                                         placeholder="ex) iam123" required>
-                                    <div id="userIdHelp"></div>
+                                    <div id="usernameHelp"></div>
                                 </div>
 
                                 <div class="signup-pass">
                                     <a>비밀번호</a>
-                                    <input id="password" name="user_pw"
+                                    <input id="password" name="password1"
                                         type="password"
                                         placeholder="· · · · · · · ·"
                                         onblur="validatePassword()" required>
@@ -81,26 +81,41 @@
 
                                 <div class="signup-pass-check">
                                     <a>비밀번호 재확인</a>
-                                    <input id="confirmPassword" name="check_pw"
+                                    <input id="confirmPassword" name="password2"
                                         type="password"
                                         placeholder="비밀번호 재입력"
                                         oninput="validatePassword()" required>
                                     <div id="passwordHelp" class="form-text"></div>
                                 </div>
 
+                                <a>이름</a>
                                 <div class="signup-name">
+                                    <div class="first_div">
+                                    <a>성</a>
+                                    </div>
+                                    <div class="last_name_div">
+                                        <input name="last_name" id="last_name"
+                                        type="text" placeholder="ex) 이"
+                                        required oninput='validatelastName()' required>
+                                    </div>
+                                    
+                                    <div class="first_div">
                                     <a>이름</a>
-                                    <input name="username" id="username"
-                                        type="text" placeholder="ex) 아이앤"
-                                        required oninput='validateUsername()' required>
+                                    </div>                                    
+                                    <div class="first_name_div">
+                                        <input name="first_name" id="first_name"
+                                        type="text" placeholder="ex) 교진"
+                                        required oninput='validatefirstName()' required>
+                                    </div>
                                 </div>
-                                <div class='usernameHelp'></div>
+                                <div class='nameHelp'></div>
 
                                 <div class="signup-nickname">
                                     <a>닉네임</a>
                                     <input name="nickname" id="nickname"
                                         type="text" placeholder="ex) 뉴턴광팬"
-                                        required oninput='validateNickname()' required>
+                                        required oninput='validateNickName()' required>
+
                                 </div>
                                 <div id="nicknameHelp"></div>
 
@@ -419,15 +434,15 @@
                     <span>Copyright© 2023 KT Corp. All rights reserved.</span>
                 </div>
             </footer>
-            <script src="{% static 'login/js/signup.js' %}"></script>
         </body>
+        <script src="{% static 'js/signup.js' %}"></script>
 
-        {% if messages %}
+        {% comment %} {% if messages %}
         <script type="text/javascript">
         {% for message in messages %}
             alert("{{ message }}");
         {% endfor %}
         </script>
-        {% endif %}
+        {% endif %} {% endcomment %}
 
     </html>
