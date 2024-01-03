@@ -47,7 +47,7 @@
                                             <td>{{ list.id }}</td>
                                             <td><a href="{% url 'community:detail' list.id %}">{{ list.postname }}</a></td>
                                             <td>{{ list.writer }}</td>
-                                            <td>{{ list.registerd_date }}</td>
+                                            <td>{{ list.registered_date }}</td>
                                         </tr>
                                     {% endfor %}            
                                 {% else %}
@@ -85,11 +85,11 @@
                                     <option value="1" {% if filter_option == '1' %}selected{% endif %}>작성자</option>
                                 </select>
                                 <input type="text" id="search_Input" name="keyword" placeholder="검색어를 입력하세요." autocomplete='off' {% if keyword %} value="{{ keyword }}" {% endif %}>
-                                <button type="submit">검색</button>
+                                <button type="submit" class="search_btn">검색</button>
                             </form>
                         </div>
                         <div class="write_btn">
-                            <a href="writepage" class="bt">글쓰기</a>
+                            <a href="{% url 'community:writepage' %}" class="bt">글쓰기</a>
                         </div>
                     </div>
                 </div>                

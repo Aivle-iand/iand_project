@@ -3,7 +3,6 @@ from django.urls import path
 from .forms import *
 from .models import *
 from django.http import HttpResponse
-from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.decorators.http import require_POST
 # from login.models import User
@@ -38,7 +37,7 @@ def categoryView(request, c_slug=None):
         #page_obj = page_obj.filter(writer__icontains = keyword)
         
     page = request.GET.get('page')
-    paginator = Paginator(post_list, 2)
+    paginator = Paginator(post_list, 10)
     try:
         page_obj = paginator.page(page)
     except PageNotAnInteger:
@@ -90,7 +89,7 @@ def update(request, pk):
             detail.postname = form.cleaned_data['postname']
             detail.contents = form.cleaned_data['contents']
             detail.save()
-            return redirect(str(detail.id))
+            return redirect('/community/detail/'+str(detail.id))
     else:
         form = PostUpdate(instance=detail)
     context = {'form':form}
