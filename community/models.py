@@ -7,7 +7,7 @@ from django.conf import settings
 # Create your models here.
 # 게시글(Post)엔 제목(postname), 내용(contents)이 존재합니다
 class Category(models.Model):
-    name = models.CharField(max_length=250, unique=True)
+    name = models.CharField(max_length=250, unique=True, verbose_name='category')
     slug = models.SlugField(max_length=250, unique=True)
     description = models.TextField(blank=True)
     
@@ -23,12 +23,12 @@ class Category(models.Model):
         return reverse('community:post_by_category', args=[self.slug])
 
 class Board(models.Model):
-    postname = models.CharField(max_length=64, verbose_name="제목")
-    contents = models.TextField()
+    postname = models.CharField(max_length=64, verbose_name='')
+    contents = models.TextField(verbose_name='')
     registered_date = models.DateField(auto_now_add=True)
     # writer = models.ForeignKey(User, verbose_name="글쓴이", on_delete=models.CASCADE)
     writer = models.CharField(max_length=50, verbose_name='작성자')
-    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE, verbose_name='게시판 목록')
     # slug = models.SlugField(max_length=64, unique=True, null=True)
     
     # 게시글의 제목(postname)이 Post object 대신하기
