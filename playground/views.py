@@ -8,27 +8,28 @@ from PIL import Image
 from io import BytesIO
 
 
-master_key = "2179074882679a424c4b817fd744275b"
-master_id = "TMuD9dkOkEfHZCUjLoPo"
-master_face_key = "SG_6abbbc640db94e2c"
+master_key = ...
+master_id = ...
+master_face_key = ...
 
-def toB64(imgUrl):
-    return str(b64encode(requests.get(imgUrl).content))[2:-1] 
+def toB64(image_path):
+    with open(image_path, "rb") as image_file:
+        return b64encode(image_file.read()).decode('utf-8')
 
 def face_swap(api_key, bg_image_path, face_image_path, save_path):
     url = "https://api.segmind.com/v1/sd2.1-faceswapper"
-
     data = {
-    "input_face_image": toB64(face_image_path),
-    "target_face_image": toB64(bg_image_path),
-    "file_type": "png",
-    "face_restore": True
+        "input_face_image": toB64(face_image_path), # 입힐 얼굴
+        "target_face_image": toB64(bg_image_path), # 백그라운드
+        "file_type": "png",
+        "face_restore": True
     }
-    
+
     response = requests.post(url, json=data, headers={'x-api-key': api_key}) # 0.05달러 소요
 
     image = Image.open(BytesIO(response.content))
     image.save(save_path)
+
 
 
 def text_to_speach(text_for_sound, unique_voice_id ,api_key ,voice_path ,file_name):
@@ -56,7 +57,7 @@ def text_to_speach(text_for_sound, unique_voice_id ,api_key ,voice_path ,file_na
     file_path = voice_path
     name = file_name
     os.makedirs(file_path,exist_ok=True)
-    with open( file_path+name, 'wb') as f:
+    with open(file_path+name, 'wb') as f:
         for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
             if chunk:
                 f.write(chunk)
@@ -97,38 +98,38 @@ def index(request):
     
     if voice:
         voice_path = os.path.abspath(__file__)
-        voice_path = ('\\').join(voice_path.split('\\')[:-1]) + 'static\\playground\\user\\' + master_id + '\\' + voice + '\\voice'
+        voice_path = ('/').join(voice_path.split('/')[:-1]) + '/static/playground/user/' + master_id + '/' + str(voice) + '/voice'
         if not os.path.exists(voice_path): 
-            os.makedirs(voice_path)
-        for epi in range(1,4): 
-            for sce in range(1,5):
-                file_name = voice+'_'+epi+'_'+ sce +'.mp3'
-                mp3_file = os.path.join(voice_path+file_name)
-                if os.path.exists(mp3_file):
-                    continue
-                else:
-                    scene_ = episodes[epi-1].get(scene_number=sce)
-                    tfs = scene_.voice_text
-                    text_to_speach(tfs, master_id ,master_key,voice_path,file_name)
+            for epi in '123': 
+                for sce in '1234':
+                    file_name = '/'+str(voice)+'_'+epi+'_'+ sce +'.mp3'
+                    mp3_file = os.path.join(voice_path+file_name)
+                    if os.path.exists(mp3_file):
+                        continue
+                    else:
+                        scene_ = episodes[int(epi)-1].get(scene_number=sce)
+                        tfs = scene_.voice_text
+                        text_to_speach(tfs, master_id ,master_key,voice_path,file_name)
         voice_change = 1   
         
     if face:
         face_path = os.path.abspath(__file__)
-        face_path = ('\\').join(face_path.split('\\')[:-1]) + 'user\\' + master_id + '\\' + face + '\\face'
+        face_path = ('/').join(face_path.split('/')[:-1]) + '/static/playground/user/' + master_id + '/' + str(face) + '/face'
         if not os.path.exists(face_path): 
             os.makedirs(face_path)
-        for epi in range(1,4): 
-            for sce in range(1,5):
-                file_name = face +'_'+epi+'_'+ sce +'.png'
+        for epi in '123': 
+            for sce in '1234':
+                file_name = '/' + str(face) +'_'+epi+'_'+ sce +'.png'
                 
                 img_file = os.path.join(face_path+file_name)
                 if os.path.exists(img_file):
                     continue
                 else:
-                    scene_ = episodes[epi-1].get(scene_number=sce)
-                    image_bg =  'media\\'+scene_.image
+                    scene_ = episodes[int(epi)-1].get(scene_number=sce)
+                    # image_bg =  'media\\'+scene_.image
+                    image_bg = f'/Users/seongjiko/AIVLE_BIG/iand_project/media/contents/{face}_{epi}_{sce}.png'
+                    image_face = f'/Users/seongjiko/AIVLE_BIG/iand_project/temp_target.png'
                     # image_face  =  유저 얼굴
-                    
                     face_swap(master_face_key, image_bg, image_face, img_file)
         face_change = 1   
         
