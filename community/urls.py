@@ -9,7 +9,7 @@ app_name = 'community'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.categoryView, name='community_board'),
-    path('/writepage/', views.writepage, name='writepage'),
+    path('writepage/', views.writepage, name='writepage'),
     path('<slug:c_slug>/', views.categoryView, name='post_by_category'),
     path('detail/<int:pk>/', views.detail, name='detail'),
     path('update/<int:pk>/', views.update, name='update'),
