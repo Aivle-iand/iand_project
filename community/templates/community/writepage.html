@@ -32,16 +32,13 @@
                     </div>
                     <div class="board_write_wrap">
                         <p class="write_title">새 글 작성</p>
-                        <form method="POST" id="write_box" action="{% url 'community:writepage' %}" enctype="multipart/form-data">
+                        <form method="POST" id="write_box" class="wb_form" action="{% url 'community:writepage' %}">
                             {% csrf_token %}
-                            <!-- 제목<br>
-                            <input type="text" name="postname"><br>
-                            내용<br>
-                            <textarea rows="10" cols="50" name="contents"></textarea><br>
-                            작성자<br><input type="text" value="작성자"><br> -->
-                            <!-- {{ form.media }} -->
                             {{ form }}
-                            <input type="submit" value="완료">
+                            
+                            <div class="submit_btn">
+                                <input type="submit" value="완료">
+                            </div>
                         </form>
                     </div>
                 </div>
