@@ -121,12 +121,7 @@ function validateAgreement() {
     updateSubmitButton();
 }
 
-function validateNickName() {
-    var nickname = document.getElementById("nickname").value;
-    var isEmpty = nickname.trim() === "";
-    errors.nickname = isEmpty; // 비어있으면 true
-    updateSubmitButton();
-}
+
 
 function validatefirstName() {
     var first_name = document.getElementById("first_name").value;
@@ -142,40 +137,42 @@ function validatelastName() {
     updateSubmitButton();
 }
 
-// function checkNicknameDuplication(nickname) {
-//     // AJAX 요청 설정
-//     var xhr = new XMLHttpRequest();
-//     xhr.open("POST", "signup/check_nickname_dup", true); // '/check-user-id'는 서버의 중복 확인 API 경로
-//     xhr.setRequestHeader("Content-Type", "application/json");
-//     xhr.onreadystatechange = function() {
-//         if (this.readyState == 4 && this.status == 200) {
-//             var response = JSON.parse(this.responseText);
-//             if (response.isDuplicate) {
-//                 nicknameHelp.style.color = 'red';
-//                 nicknameHelp.innerHTML = "이미 사용 중인 닉네임입니다.";
-//                 errors.nickname = true;
-//             } else {
-//                 nicknameHelp.style.color = 'green';
-//                 nicknameHelp.innerHTML = "사용 가능한 닉네임입니다.";
-//                 errors.nickname = false;
-//             }
-//         }
-//         updateSubmitButton();
-//     };
+function checkNicknameDuplication(nickname) {
+    // AJAX 요청 설정
+    // console.log("닉네임 테스트");
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "check_nickname_dup", true); // '/check-user-id'는 서버의 중복 확인 API 경로
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var response = JSON.parse(this.responseText);
+            if (response.isDuplicate) {
+                nicknameHelp.style.color = 'red';
+                nicknameHelp.innerHTML = "이미 사용 중인 닉네임입니다.";
+                errors.nickname = true;
+            } else {
+                nicknameHelp.style.color = 'green';
+                nicknameHelp.innerHTML = "사용 가능한 닉네임입니다.";
+                errors.nickname = false;
+            }
+        }
+        updateSubmitButton();
+    };
 
-//     // 서버에 요청 보내기
-//     xhr.send(JSON.stringify({ nickname: nickname }));
-// }
+    // 서버에 요청 보내기
+    xhr.send(JSON.stringify({ nickname: nickname }));
+}
 
-// function validateNickname() {
-//     var nickname = document.getElementById("nickname").value;
-//     var nicknameHelp = document.getElementById("nicknameHelp");
-//     var isEmpty = nickname.trim() === "";
-//     errors.nickname = isEmpty; // 비어있으면 true
-//     checkNicknameDuplication(nickname)
-//     updateSubmitButton();
-// }
 
+function validateNickName() {
+    var nickname = document.getElementById("nickname").value;
+    var nicknameHelp = document.getElementById("nicknameHelp");
+    var isEmpty = nickname.trim() === "";
+    errors.nickname = isEmpty; // 비어있으면 true
+    checkNicknameDuplication(nickname)
+    updateSubmitButton();
+
+}
 function validateSecurityAnswer() {
     var securityAnswer = document.getElementById("security-answer").value;
     var isEmpty = securityAnswer.trim() === "";
