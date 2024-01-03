@@ -283,11 +283,11 @@ input[type=submit]:disabled {
     align-items: center;
 }
 
-/* .signup-name > * {
+.signup-name > * {
     font-size: 13px;
-} */
+}
 
-/* .signup-name a {
+.signup-name a {
     justify-content: center;
     margin-right: 10px;
     white-space: nowrap;
@@ -295,12 +295,13 @@ input[type=submit]:disabled {
 
 .signup-name div {
     box-sizing: border-box;
+    margin-right: 1%;
 }
 
 .id_first_name div {
     margin-right: 10px;
 }
 
-.id_first_name div {
+.first_name_div {
     width: 100%;
-} */
+}

@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/social_signup.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/social_signup.css' %}">
     <title>I&_ 회원가입</title>
 
     <style>
@@ -89,10 +89,10 @@
                         </div>
 
                         <a>닉네임</a>
-                        <label for="id_first_name">{{ field.first_name }}</label>
-                        <div class="first_name-wrapper">
-                            <input type="first_name" name="first_name" value="{{ form.first_name.value }}" placeholder="ex)뉴턴광팬"/>
-                            <div id="fisrt_nameHelp"></div>
+                        <label for="id_nickname">{{ field.nickname }}</label>
+                        <div class="nickname-wrapper">
+                            <input id="id_nickname" type="nickname" name="nickname" placeholder="ex)뉴턴광팬"/>
+                            <div id="nicknameHelp"></div>
                         </div>
 
 
