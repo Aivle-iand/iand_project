@@ -10,10 +10,13 @@ body {
 
 .monthly_best, .notice_list {
     flex: 1;
+    
+}
+.notice_list h1 {
     text-align: center;
 }
-
 .monthly_best {
+    text-align: center;
     margin-top: 20px;
     margin-left: 5%;
     margin-bottom: 30px;
@@ -22,32 +25,67 @@ body {
 }
 
 .notice_list{
+    margin-right: 5%;
+    margin-left: 5%;
     margin-top: 20px;
     margin-bottom: 20px;
-    /* margin-right: 5%; */
-    /* margin-left: 5%; */
     display: flex; /* 추가로 flex 레이아웃을 적용 */
     flex-direction: column;
     border-left: 2px solid #ecf0f1; 
 }
+
+.notice_sections ul {
+    list-style-type: none; /* removes default bullets */
+    padding-left: 0; /* Aligns with the parent container */
+    width: 100%; /* Ensures full width */
+}
+
+.notice_sections li {
+    border-bottom: 1px solid #eee; /* Adds a light underline to each item */
+}
+
+.notice_sections a {
+    padding: 10px;
+    border-radius: 20px;
+    text-decoration: none; /* Removes underline from links */
+    color: black; /* Sets text color */
+    display: block; /* Makes the entire list item area clickable */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.notice_sections a:hover {
+    background-color:aliceblue; /* Slight background on hover */
+}
+
+/* Responsive typography */
+.notice_sections span {
+    font-size: 1rem; /* Sets a base font size */
+    line-height: 1.5; /* Improves readability */
+}
+
 .sections {
     display: flex; /* 내부 섹션들을 가로로 나열 */
     width: 100%; /* 부모 컨테이너의 전체 너비 사용 */
+    /* background-color: #fbfbfd; */
 }
 .sections a {
     text-decoration: none;
 }
 
+.sections .underline {
+    height: 2px; 
+    background-color: #ecf0f1; 
+    width: 100%;
+}
+
 .best_section1, .best_section2 {
+    padding: 10px;
     flex: 1; /* 각 섹션이 monthly_best의 절반을 차지하도록 설정 */
     display: flex;
     flex-direction: column;
     align-items: center; /* Center children horizontally */
 }
-.notice_list {
-    margin-right: 5%;
-    margin-left: 5%;
-}
+
 
 
 .image-placeholder {
