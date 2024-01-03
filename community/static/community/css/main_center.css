@@ -92,3 +92,12 @@ textarea {
 .write_title {
     font-size: xx-large;
 }
+
+div:has(.form_control) {
+    width: 500px;
+}
+
+div:has(.form_control) {
+    width: 300px;
+    position: right;
+}
