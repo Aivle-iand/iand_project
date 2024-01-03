@@ -1,11 +1,76 @@
 from django.shortcuts import render
 from .models import Book
+import requests
+from pydub import AudioSegment
+import os
+from base64 import b64encode
+from PIL import Image
+from io import BytesIO
+
+
+master_key = "2179074882679a424c4b817fd744275b"
+master_id = "TMuD9dkOkEfHZCUjLoPo"
+master_face_key = "SG_6abbbc640db94e2c"
+
+def toB64(imgUrl):
+    return str(b64encode(requests.get(imgUrl).content))[2:-1] 
+
+def face_swap(api_key, bg_image_path, face_image_path, save_path):
+    url = "https://api.segmind.com/v1/sd2.1-faceswapper"
+
+    data = {
+    "input_face_image": toB64(face_image_path),
+    "target_face_image": toB64(bg_image_path),
+    "file_type": "png",
+    "face_restore": True
+    }
+    
+    response = requests.post(url, json=data, headers={'x-api-key': api_key}) # 0.05달러 소요
+
+    image = Image.open(BytesIO(response.content))
+    image.save(save_path)
+
+
+def text_to_speach(text_for_sound, unique_voice_id ,api_key ,voice_path ,file_name):
+    CHUNK_SIZE = 1024
+    url = "https://api.elevenlabs.io/v1/text-to-speech/" + unique_voice_id
+
+    headers = {
+    "Accept": "audio/mpeg",
+    "Content-Type": "application/json",
+    "xi-api-key": api_key
+    }
+    
+    data = {
+    "text": text_for_sound,
+    "model_id": "eleven_multilingual_v2",
+    "voice_settings": {
+        "stability": 1,
+        "similarity_boost": 1,
+        "use_speaker_boost": True
+        }
+    }
+    
+    response = requests.post(url, json=data, headers=headers)
+    
+    file_path = voice_path
+    name = file_name
+    os.makedirs(file_path,exist_ok=True)
+    with open( file_path+name, 'wb') as f:
+        for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
+            if chunk:
+                f.write(chunk)
+
+    audio = AudioSegment.from_file(file_path+name)
+    louder_audio = audio + 20 # 20dB 증가시키기
+    louder_audio.export(file_path+name, format='mp3')
 
 
 def index(request):
-    search_query, filter_option, categoryOption = request.GET.get('search', ''), request.GET.get('filter', ''), request.GET.get('categoryOption', '')
+    search_query, filter_option, categoryOption = request.GET.get('search', ''), request.GET.get('filter_option', ''), request.GET.get('categoryOption', '')
     voice, face = request.GET.get('voice', ''), request.GET.get('face', '')
-    
+    checked_card = request.GET.get('checked_card', '')
+    voice_change, face_change = 0, 0
     books = Book.objects.all()
 
     if filter_option == '1':
@@ -17,44 +82,77 @@ def index(request):
         books = books.filter(name__icontains=search_query)
                 
     if categoryOption:
-        if categoryOption == '0':  # '전체' 선택 시 모든 책 보여주기
-            pass  # 모든 책을 이미 불러왔으므로 추가 조건 없음
+        if categoryOption == '0':
+            pass  
         else:
             cate = {'1':'과학자', '2':'수학자', '3': '철학자', '4':'음악가'}
             books = books.filter(category=cate[categoryOption])
-
-    if voice:
-        pass
-        # 여기서 음성 api 써야 합니다. 
-    if face:
-        pass
-        # 여기서 얼굴 합성 api 써야 합니다. 
-        # ex) reading_book = books.filter(id=face)
-        # ex) api 코드 
     
-    index_info = [[1,463,407,60,218],[2,613,468,44,161],[3,463,507,4,190],[4,463,488,21,198]]
-
-    return render(request, 'playground/lol.html', {'books': books, "search_query": search_query, "filter_option" : filter_option, "categoryOption":categoryOption, "voice":voice, "face":face, "index_info":index_info})
-
-
-
-
-
-def profile_view(request):
-    profiles = Book.objects.all()
-    return render(request, 'playground/lol.html', {'profiles': profiles})
-
-
-
-
-# episode 불러오는 view 함수 추가
-from django.shortcuts import render, get_object_or_404
-
-def book_detail(request, book_id, episode_number=None):
-    book = get_object_or_404(Book, pk=book_id)
-    if episode_number:
-        episodes = book.episodes.filter(episode_number=episode_number)
+    if checked_card:
+        human = books.get(id=int(checked_card))
+        hu = human.episodes.all()
+        episodes = [hu.filter(episode_number=1), hu.filter(episode_number=2), hu.filter(episode_number=3)]
     else:
-        episodes = book.episodes.all()
+        episodes = []
+    
+    if voice:
+        voice_path = os.path.abspath(__file__)
+        voice_path = ('\\').join(voice_path.split('\\')[:-1]) + 'static\\playground\\user\\' + master_id + '\\' + voice + '\\voice'
+        if not os.path.exists(voice_path): 
+            os.makedirs(voice_path)
+        for epi in range(1,4): 
+            for sce in range(1,5):
+                file_name = voice+'_'+epi+'_'+ sce +'.mp3'
+                mp3_file = os.path.join(voice_path+file_name)
+                if os.path.exists(mp3_file):
+                    continue
+                else:
+                    scene_ = episodes[epi-1].get(scene_number=sce)
+                    tfs = scene_.voice_text
+                    text_to_speach(tfs, master_id ,master_key,voice_path,file_name)
+        voice_change = 1   
+        
+    if face:
+        face_path = os.path.abspath(__file__)
+        face_path = ('\\').join(face_path.split('\\')[:-1]) + 'user\\' + master_id + '\\' + face + '\\face'
+        if not os.path.exists(face_path): 
+            os.makedirs(face_path)
+        for epi in range(1,4): 
+            for sce in range(1,5):
+                file_name = face +'_'+epi+'_'+ sce +'.png'
+                
+                img_file = os.path.join(face_path+file_name)
+                if os.path.exists(img_file):
+                    continue
+                else:
+                    scene_ = episodes[epi-1].get(scene_number=sce)
+                    image_bg =  'media\\'+scene_.image
+                    # image_face  =  유저 얼굴
+                    
+                    face_swap(master_face_key, image_bg, image_face, img_file)
+        face_change = 1   
+        
+        
+    context = { 'books': books,
+                "search_query": search_query,
+                "filter_option" : filter_option,
+                "categoryOption":categoryOption,    
+                "voice":voice,
+                "face":face,
+                "checked_card" : checked_card,
+                 }  
+    if episodes:
+        context['episodes'] = episodes
+    
+    if voice_change == 1:
+        context['voice_change'] = voice_change
+        
+    if face_change == 1:
+        context['face_change'] = face_change
+   
+    return render(request, 'playground/lol.html', context)
 
-    return render(request, 'playground/lol.html', {'book': book, 'episodes': episodes})
+
+
+
+
