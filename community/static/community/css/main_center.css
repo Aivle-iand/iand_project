@@ -86,18 +86,28 @@ thead {
 
 textarea {
     width: 800px;
-    height: 600px;
+    height: 500px;
 }
 
 .write_title {
     font-size: xx-large;
 }
 
-div:has(.form_control) {
-    width: 500px;
+div:has(> .form_control) {
+    width: 300px;
 }
 
-div:has(.form_control) {
+div:has(> .select_category_box) {
     width: 300px;
-    position: right;
+    margin-left: 20px;
+}
+
+form#write_box {
+    display: flex;
+    flex-wrap: wrap;
+    width: 1000px;
+}
+
+form > div {
+    width: 100%;
 }

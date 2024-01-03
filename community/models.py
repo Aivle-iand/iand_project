@@ -27,7 +27,7 @@ class Board(models.Model):
     contents = models.TextField(verbose_name='')
     registered_date = models.DateField(auto_now_add=True)
     # writer = models.ForeignKey(User, verbose_name="글쓴이", on_delete=models.CASCADE)
-    writer = models.CharField(max_length=50, verbose_name='작성자')
+    writer = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE, verbose_name='작성자')
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE, verbose_name='게시판 목록')
     # slug = models.SlugField(max_length=64, unique=True, null=True)
     
@@ -48,7 +48,3 @@ class Comment(models.Model):
     
     def __str__(self):
         return self.content
-
-# class Users(models.Model):
-    
-    
