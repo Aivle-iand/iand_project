@@ -47,8 +47,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-@ff*bv71why14^4c7qm+!n0&j9n(ev3njd#^*)-%ix_g(v(cvd"
 
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) # i-and_project_final/iand
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -233,12 +231,12 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'community', 'static'),
-    os.path.join(BASE_DIR, 'playground', 'static'),
-    os.path.join(BASE_DIR, 'mypage', 'static'),
-    os.path.join(BASE_DIR, 'main', 'static'),
-    os.path.join(BASE_DIR, 'accounts', 'static'),
+    BASE_DIR / 'static',
+    BASE_DIR / 'community' / 'static',
+    BASE_DIR / 'playground' / 'static', 
+    BASE_DIR / 'mypage' / 'static',
+    BASE_DIR / 'main' / 'static',
+    BASE_DIR / 'accounts' / 'static',
     ]
 
 # Default primary key field type
@@ -247,6 +245,6 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = BASE_DIR / "media"
 
 AUTH_USER_MODEL = 'accounts.User'
