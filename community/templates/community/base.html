@@ -46,7 +46,7 @@
                                         <tr class="table_list">
                                             <td>{{ list.id }}</td>
                                             <td><a href="{% url 'community:detail' list.id %}">{{ list.postname }}</a></td>
-                                            <td>{{ list.writer }}</td>
+                                            <td>{{ user.username }}</td>
                                             <td>{{ list.registered_date }}</td>
                                         </tr>
                                     {% endfor %}            
