@@ -240,11 +240,11 @@
                         <h4>구독자가 가장 많이 공부한 인물</h4>
                         <a href="playground/?search=%EC%95%84%EC%9D%B4%EC%9E%91+%EB%89%B4%ED%84%B4&filter_option=&categoryOption=">
                             <div class="image-placeholder"> 
-                                <img src="{% static 'playground/images/newton.png' %}" style="width:100%; height: 80%; border-radius: 20px;" class="image">
+                                <img src="{% static 'main/images/main_newton.png' %}" style="width:100%; height: 80%; border-radius: 20px;" class="image">
                                 <div class="middle">
                                     <div class="text">보러가기</div>
                                   </div>
-                                <h1 style="padding-top: 10px; text-decoration-line: none; color:black;">아이작 뉴턴</h1>
+                                <h2 style="padding-top: 10px; text-decoration-line: none; color:black;">아이작 뉴턴</h2>
                             </div>
                         </a>
                     </div>
@@ -253,13 +253,12 @@
                         <h4>이번 달 출시된 인물</h4>
                         <a href="playground/?search=%EC%95%84%EC%9D%B8%EC%8A%88%ED%83%80%EC%9D%B8&filter_option=&categoryOption=">
                             <div class="image-placeholder">
-                                <img src="media\profiles\아인슈타인_profile_wMoIOM1.png" style="width:100%; height: 80%; border-radius: 20px;" class="image">
+                                <img src="{% static 'main/images/main_아인슈타인.png' %}" style="width:100%; height: 80%; border-radius: 20px;" class="image">
                                 <div class="middle">
                                     <div class="text">보러가기</div>
                                   </div>
-                                <h1 style="padding-top: 10px; text-decoration-line: none; color:black;">아인슈타인</h1>
+                                <h2 style="padding-top: 10px; text-decoration-line: none; color:black;">아인슈타인</h2>
                             </div>
-                            
                         </a>
                     </div>
                 </div>
@@ -273,21 +272,36 @@
                         height="48"
                     />
                     공지사항
+                    <div style="height: 2px; background-color: black; margin-top: 30px; margin-left: 50px;"></div>
                 </h1>
-                <div class="sections"></div>
+                
+                <div class="notice_sections">
+                    <!-- Unordered list for notices -->
+                    
+                    <ul style="list-style-type: disc; padding-left: 10%;">
+                        {% for notice in "123456789" %}
+                            <li>
+                                <a href="{{ notice.link }}" style="text-decoration: none; color: black;;">
+                                    <span>공지사항 {{notice}} - 글쓴이</span>
+                                </a>
+                            </li>
+                            <div class="underline"></div>
+                        {% endfor %}
+
+                        <!-- Add more notices as needed -->
+                    </ul>
+                </div>
+            </div>
             </div>
         </div>
     </body>
 
-<<<<<<< Updated upstream
-=======
     <script type="text/javascript">
         document.getElementById("logoutbtn").addEventListener("click", function(event) {
             alert("로그아웃 되었습니다.");
         });
     </script>
-    
->>>>>>> Stashed changes
+
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted">
     <!-- Section: Social media -->
