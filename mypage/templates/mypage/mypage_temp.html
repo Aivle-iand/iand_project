@@ -16,12 +16,12 @@
     </head>
 
     <body>
-        {% include 'header.html' %} {% block content %}
+        {% include 'header.html' %}
         <main class="main">
             <div class="nav_root">
                 <nav class="internal_navigation">
                     <div class="internal_navigation_positional">
-                        <h1>Account Management</h1>
+                        <p>계정 관리</p>
                         <div class="internal_navigation_content">
                             <ul class="internal_navigation_list">
                                 <li>
@@ -31,57 +31,57 @@
                                         ><img
                                             src="{% static 'mypage/img/pi_icon.png' %}"
                                             alt="pi_icon"
-                                        /><span>PERSONAL INFORMATION</span></a
+                                        /><span>계정 정보</span></a
                                     >
                                 </li>
                                 <li>
                                     <a
-                                        class="change_password_link"
+                                        class="personal_information_link"
                                         href="#change_password"
                                         ><img
                                             src="{% static 'mypage/img/pw_icon.png' %}"
                                             alt="pw_icon"
-                                        /><span>CHANGE PASSWORD</span></a
+                                        /><span>비밀번호 변경</span></a
                                     >
                                 </li>
                                 <li>
                                     <a
-                                        class="upload_img_link"
+                                        class="personal_information_link"
                                         href="#upload_img"
                                         ><img
                                             src="{% static 'mypage/img/img_icon.png' %}"
                                             alt="img_icon"
-                                        /><span>UPLOAD IMAGE</span></a
+                                        /><span>이미지 업로드</span></a
                                     >
                                 </li>
                                 <li>
                                     <a
-                                        class="upload_voice_link"
+                                        class="personal_information_link"
                                         href="#upload_voice"
                                         ><img
                                             src="{% static 'mypage/img/voice_icon.png' %}"
                                             alt="voice_icon"
-                                        /><span>UPLOAD VOICE</span></a
+                                        /><span>음성 업로드</span></a
                                     >
                                 </li>
                                 <li>
                                     <a
-                                        class="login_history"
+                                        class="personal_information_link"
                                         href="#login_history"
                                         ><img
                                             src="{% static 'mypage/img/history_icon.png' %}"
                                             alt="history_icon"
-                                        /><span>LOGIN HISTORY</span></a
+                                        /><span>계정 로그인 기록</span></a
                                     >
                                 </li>
                                 <li>
                                     <a
-                                        class="delete_account"
+                                        class="personal_information_link"
                                         href="#delete_account"
                                         ><img
                                             src="{% static 'mypage/img/delete_icon.png' %}"
                                             alt="delete_icon"
-                                        /><span>DELETE ACCOUNT</span></a
+                                        /><span>계정 삭제</span></a
                                     >
                                 </li>
                             </ul>
@@ -96,11 +96,10 @@
                     id="personal_information_card"
                 >
                     <div class="personal_information_explain">
-                        <h1>Personal Information</h1>
+                        <h1>계정 정보</h1>
                         <p>
-                            This information is private and will not be shared
-                            with other players. Read the Riot Privacy Notice
-                            anytime!
+                           닉네임 변경을 원하시면 닉네임 변경 후 중복 체크를 해주세요.
+                           중복 닉네임이 없을 경우 변경이 가능합니다.
                         </p>
                     </div>
                     <div class="personal_information_content">
@@ -140,73 +139,36 @@
                 </div>
                 <div class="personal_information_card" id="change_password">
                     <div class="personal_information_explain">
-                        <h1>Change Password</h1>
+                        <h1>비밀번호 변경</h1>
                         <p>
-                            We recommend that you periodically update your
-                            password to help prevent unauthorized access to your
-                            account.
+                            주기적으로 비밀번호를 변경하면 계정 무단 로그인을 방지할 수 있습니다.
                         </p>
                     </div>
                     <div class="personal_information_content">
-                        <p class="change_password_text">Change Password</p>
-                        <div class="password_change">
-                            <div class="current_password">
-                                <input
-                                    class="cur_password"
-                                    data-testid="input-cur-pw"
-                                    autocapitalize="off"
-                                    type="text"
-                                    value="현재 패스워드를 DB로 부터 받아와서 일치하는지 체크하는 부분 javascript에 추가 필요"
-                                    required
-                                />
-                                <label>CURRENT PASSWORD</label>
-                                <span>CURRENT PASSWORD</span>
+                        <p class="change_password_text">비밀번호 변경</p>
+                        <div class="input_container" onclick="onClickInputWrapper(event)">
+                            <div class="input_wrapper">
+                                <span class="input-label" id="cur-pwd">현재 비밀번호</span>
+                                <input type="password" class="type-input" placeholder="현재 비밀번호">
                             </div>
-                            <div class="new_password">
-                                <input
-                                    id="password"
-                                    data-testid="password"
-                                    type="password"
-                                    oninput="validatePassword();"
-                                    required
-                                />
-                                <label>NEW PASSWORD</label>
-                                <span>NEW PASSWORD</span>
-                            </div>
-                            <div class="confirm_new_password">
-                                <input
-                                    id="confirmPassword"
-                                    data-testid="check_pw"
-                                    type="password"
-                                    oninput="validatePassword();"
-                                    required
-                                />
-                                <label>CONFIRM NEW PASSWORD</label>
-                                <span>CONFIRM NEW PASSWORD</span>
-                            </div>
+                            <div class="view_pwd" onclick="onClickView(event)"><img src="{% static 'mypage/img/icon-eye.png' %}"></div>
                         </div>
-                        <div class="form-text" id="passwordHelp"></div>
-                        <div class="password_change_button_layout">
-                            <div class="password_change_none">
-                                <button
-                                    class="save_button"
-                                    id="pw_change_cancel_button"
-                                >
-                                    CANCEL
-                                </button>
-                                <button
-                                    class="save_button"
-                                    id="pw_change_button"
-                                >
-                                    SAVE CHANGE
-                                </button>
-                            </div>
+                        <div class="type-input_wrapper">
+                            <span class="input-label" id="new-pwd"></span>
+                            <input type="password" class="type-input" placeholder="새 비밀번호">
+                        </div>
+                        <div class="type-input_wrapper">
+                            <span class="input-label" id="chk-new-pwd"></span>
+                            <input type="password" class="type-input" placeholder="새 비밀번호 확인">
+                        </div>
+                        <div class="button-area">
+                            <button>변경사항 저장</button>
                         </div>
                     </div>
                 </div>
                 <div class="personal_information_card" id="upload_img">
                     <div class="personal_information_explain">
-                        <h1>Upload Image</h1>
+                        <h1>이미지 업로드</h1>
                         <img id="face_img" src="{{face}}" />
                     </div>
                     <div class="personal_information_content">
@@ -248,7 +210,7 @@
                 </div>
                 <div class="personal_information_card" id="upload_voice">
                     <div class="personal_information_explain">
-                        <h1>Upload Voice</h1>
+                        <h1>음성 업로드</h1>
                         <audio id="audioPreview" style="display: none"></audio>
                         <img
                             src="{% static 'mypage/img/play-circle.svg' %}"
@@ -295,17 +257,16 @@
                 </div>
                 <div class="personal_information_card" id="login_history">
                     <div class="personal_information_explain">
-                        <h1>Account Login History</h1>
+                        <h1>계정 로그인 기록</h1>
                         <p>
-                            0 logins from overseas Only the login history within
-                            the last 30 days is available here
+                            최근 30일까지의 기록만 제공됩니다
                         </p>
                     </div>
                     <div class="personal_information_content">test</div>
                 </div>
                 <div class="delete_card" id="delete_account">
                     <div class="delete_information_explain">
-                        <h1>Account Deletion</h1>
+                        <h1>회원 탈퇴</h1>
                     </div>
                     <div class="delete_information_content">
                         <div class="delete_button_layout">
@@ -315,22 +276,98 @@
                                 type="submit"
                                 onclick="setupModal()"
                             >
-                                Delete Account
+                                탈퇴 진행
                             </button>
                         </div>
                     </div>
                 </div>
+                <footer>
+                    <div class="footer-wrapper">
+                        <h5>
+                            [I&_아이앤]은 KT AIVLE SCHOOL에서 진행한 프로젝트
+                            작품으로 관련 모든 저작권은 KT에 있습니다.
+                        </h5>
+                    </div>
+                    <div class="footer-wrapper">
+                        <h5>Developer :</h5>
+                        <p>
+                            <a
+                                href="https://github.com/seongjiko"
+                                class="footer-link"
+                                >고성지</a
+                            >
+                        </p>
+                        <p>
+                            <a
+                                href="https://github.com/arang125"
+                                class="footer-link"
+                                >김아랑</a
+                            >
+                        </p>
+                        <p>
+                            <a
+                                href="https://github.com/junvely-y"
+                                class="footer-link"
+                                >김준우</a
+                            >
+                        </p>
+                        <p>
+                            <a
+                                href="https://github.com/gichang404"
+                                class="footer-link"
+                                >성기창</a
+                            >
+                        </p>
+                        <p>
+                            <a
+                                href="https://github.com/Opened-water"
+                                class="footer-link"
+                                >신연수</a
+                            >
+                        </p>
+                        <p>
+                            <a
+                                href="https://github.com/skagh2556"
+                                class="footer-link"
+                                >이남호</a
+                            >
+                        </p>
+                        <p>
+                            <a
+                                href="https://github.com/xhaktm00"
+                                class="footer-link"
+                                >이수정</a
+                            >
+                        </p>
+                    </div>
+                    <div class="footer-wrapper">
+                        <h5>Contact</h5>
+                        <p>
+                            <i class="fas fa-home me-3"></i> 경기도 성남시
+                            분당구 불정로90 (정자동)
+                        </p>
+                        <p><i class="fas fa-phone me-3"></i> 담당자: 고성지</p>
+                        <p>
+                            <i class="fas fa-envelope me-3"></i>
+                            soc06202@kakao.com
+                        </p>
+                        <p>
+                            <i class="fas fa-phone me-3"></i> +82 10 9778 6482
+                        </p>
+                    </div>
+                    <div class="footer-wrapper">
+                        <h5>
+                            © 2024 Copyright:
+                            <a
+                                class="footer-link"
+                                href="https://aivle.kt.co.kr/"
+                                >KT corp. All rights resevered.</a
+                            >
+                        </h5>
+                    </div>
+                </footer>
             </div>
         </main>
-        <div id="deleteModal" class="modal">
-            <div class="modal-content">
-                <span class="close" id="close">&times;</span>
-                <p id="delete_modal_text">정말 계정을 삭제하시겠습니까?</p>
-                <button id="confirmDelete">삭제 확인</button>
-                <button id="cancelDelete">취소</button>
-            </div>
-        </div>
-        {% endblock %} {% include 'footer.html' %}
         <script src="{% static 'mypage/js/mypage_temp.js' %}" defer></script>
     </body>
 </html>

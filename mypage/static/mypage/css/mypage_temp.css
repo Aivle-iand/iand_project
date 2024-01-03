@@ -23,8 +23,8 @@ body * {
     display: flex;
     margin-top : 80px;
     min-height : 800px;
-    min-width: 800px;
-    padding: 0 3%;
+    min-width: 1200px;
+    padding: 0 10%;
     background-color: black;
 }
 
@@ -90,14 +90,6 @@ body * {
     margin-top: 20px;
 }
 
-#change_password {
-    height: 650px;
-}
-
-#login_history {
-    height: 600px;
-}
-
 .delete_card {
     display: flex;
     width: 100%;
@@ -142,6 +134,7 @@ body * {
 .personal_information_explain p {
     color: #e8e8e8;
     font-size: 12px;
+    line-height: 20px;
 }
 
 .personal_information_content {
@@ -159,39 +152,28 @@ body * {
     outline: none;
 }
 
-/* .personal_information_content div {
-    position: relative;
-    border: none;
-    box-sizing: border-box;
-    height: 3vw;
-    display: block;
-    width: 100%;
-    padding: 8px 6px 40px;
-} */
+.internal_navigation_positional > p {
+    font-size: 2em;
+    font-weight: 600;
+}
 
-.personal_information_content input {
-    position: relative;
-    background: transparent;
-    border: none;
-    box-sizing: border-box;
-    height: 3vw;
-    display: block;
-    padding: none;
-    outline: none;
-    width: 100%;
-    color: white;
-    line-height: 18px;
-    font-size: 18px;
-    font-family: "FF Mark W05", sans-serif;
+.personal_information_link {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.personal_information_link > img {
+    width: 9%;
+}
+
+.personal_information_link > span {
+    font-size: 0.85em;
 }
 
 .personal_information_content input:not(:focus):hover {
     border: rgb(102, 102, 102);
 }
-
-/* .personal_information_content input:focus {
-    border: #ffffff 2px solid
-} */
 
 
 .personal_information_username {
@@ -205,7 +187,7 @@ body * {
     background-color: rgb(51, 49, 49);
 }
 
-.personal_information_content span {
+/* .personal_information_content span {
     color: rgb(142, 141, 141);
     font-family: "FF Mark W05", sans-serif;
     position: absolute;
@@ -220,6 +202,76 @@ body * {
     transform-origin: left top;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s;
     transform: translateY(-50%);
+} */
+
+.input_container {
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    border-radius: 10px;
+}
+
+.input_wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    animation-delay: 0.1s;
+    background: #383636;
+    margin-bottom: 15px;
+    border-radius: 8px 0px 0px 8px;
+}
+
+.view_pwd {
+    padding: 10px;
+    height: 60px;
+    background: #383636;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0px 8px 8px 0px;
+}
+
+.view_pwd > img {
+    background: #383636;
+    color: #ccc;
+    width: 25px;
+}
+
+.type-input_wrapper:hover {
+    background: rgba(71, 69, 69, 0.8);
+}
+
+.input-label {
+    display: none;
+    font-size: 0.5rem;
+    padding: 2px;
+}
+
+.type-input {
+    width: 80%;
+    border-radius: 5px;
+    background: transparent;
+    margin-top: 5px;
+    border: none;
+    box-sizing: border-box;
+    display: block;
+    outline: none;
+    width: 100%;
+    color: #ccc;
+    line-height: 18px;
+    font-size: 18px;
+    font-family: "FF Mark W05", sans-serif;
+}
+.type-input:active {
+    outline: 1 px solid #ccc;
+}
+
+.type-input::placeholder {
+    color: #9E9E9E;
+    text-justify: center;
+    margin-left: 15px;
+    font-size: 0.5em;
+    font-weight: 600;
 }
 
 .nickname_check_msg {
@@ -256,100 +308,10 @@ body * {
     outline-color: #B8B8B8;
 }
 
-.password_change {
-    height: 80%;
-}
-
-#passwordHelp {
-    margin-top: calc(570px * 0.41);
-    margin-left: 40px;
-}
-
-.password_change div {
-    margin: 1.3vw;
-    position: relative;
-}
-
-.password_change input {
-    position: relative;
-    background: #111111;
-    border: none;
-    padding: 31px 8px 15px;
-    box-sizing: border-box;
-    height: 3vw;
-    display: block;
-    outline: none;
-    width: 100%;
-    color: white;
-    line-height: 18px;
-    font-size: 18px;
-    font-weight: 700;
-    font-family: "FF Mark W05", sans-serif;
-    border-radius:5px;
-}
-
-.password_change input:not(:focus):hover {
-    background:rgba(71, 69, 69, 0.8);
-}
-
 .form_text {
     margin-top: 10px;
 }
 
-.password_change label {
-    color: rgb(102, 102, 102);
-    font-family: "FF Mark W05", sans-serif;
-    position: absolute;
-    text-transform: uppercase;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    font-size: 12px;
-    left: 14px;
-    top: 53%;
-    opacity: 1;
-    pointer-events: none;
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s, opacity;
-}
-
-.password_change span {
-    color: rgb(102, 102, 102);
-    font-family: "FF Mark W05", sans-serif;
-    position: absolute;
-    text-transform: uppercase;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    line-height: 100%;
-    font-size: 10px;
-    left: 8px;
-    top: 20px;
-    pointer-events: none;
-    transform-origin: left top;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s;
-    transform: translateY(-50%);
-}
-
-.password_alert_msg {
-    margin-top: 200px;
-    margin-left: 40px;
-}
-
-
-#change_password .password_change_button_layout {
-    text-align: right;
-    display: flex;
-    text-align: center;
-    justify-content: space-between;
-}
-
-#pw_change_cancel_button {
-    margin-left: 15%;
-    width: 25%;
-    margin-right: 10%;
-    height: 50px;
-    visibility: hidden;
-    background-color: white;
-    cursor: pointer;
-}
 
 #nickname_change_cancel_button {
     width: 30%;
@@ -357,40 +319,6 @@ body * {
     visibility: hidden;
     cursor: pointer;
     height: 50px;
-}
-
-#pw_change_button {
-    margin-right: 10%;
-    width: 25%;
-    margin-left: 10%;
-    height: 50px;
-    cursor: none;
-}
-
-.password_change input:not(:focus) {
-    background: rgba(61, 59, 59, 0.8);
-}
-
-.password_change input:focus {
-    background: none;
-    outline: auto;
-    display: block;
-}
-
-.password_change input:focus ~label {
-    display: none;
-}
-
-.password_change input:not(:focus) ~span {
-    display: none;
-}
-
-.password_change input:not(:focus) ~label{
-    display: block;
-}
-
-.change_password_text {
-    font-size: 18px;
 }
   
 
@@ -574,4 +502,28 @@ body * {
 .board_div > a {
     text-decoration: none;
     color: inherit;
+}
+
+.footer-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-wrapper > p {
+    max-height: 15px;
+    padding: 0px 5px;
+    font-size: 0.7em;
+    border-left: 1px solid rgb(102, 102, 102);
+    color: rgb(102, 102, 102);
+}
+
+.footer-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+h5 {
+    margin-right: 10px;
+    color: rgb(102, 102, 102);
 }

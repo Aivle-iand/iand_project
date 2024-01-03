@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import pymysql
 import os
-import json
-from django.core.exceptions import ImproperlyConfigured
 import environ
 
 # django database 구성 변경
@@ -23,30 +21,15 @@ pymysql.install_as_MySQLdb()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env(
+    DEBUG=(bool, False)
+)
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+environ.Env.read_env(
+    env_file=os.path.join(BASE_DIR, 'secrets.config')
+)
 
-# SECURITY WARNING: keep the secret key used in production secret!
-
-# !! 배포하기 전 secret key 다 정리하기 !! 
-# secret_file = os.path.join(BASE_DIR, 'secrets.json')
-
-# with open(secret_file) as f:
-#     secrets = json.loads(f.read())
-
-# def get_secret(setting, secrets=secrets):
-#     try:
-#         return secrets[setting]
-#     except KeyError:
-#         error_msg = "Set the {} environment variable".format(setting)
-#         raise ImproperlyConfigured(error_msg)
-
-# SECRET_KEY = get_secret('SECRET_KEY')
-
-SECRET_KEY = "django-insecure-@ff*bv71why14^4c7qm+!n0&j9n(ev3njd#^*)-%ix_g(v(cvd"
-
-
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -55,14 +38,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
-env = environ.Env(
-    DEBUG=(bool, False)
-)
-
-environ.Env.read_env(
-    env_file=os.path.join(BASE_DIR, 'secrets.config')
-)
 
 SITE_ID = 14
 
@@ -95,6 +70,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'iand_project',
     'accounts',
     'main',
     'playground',
@@ -203,25 +179,17 @@ WSGI_APPLICATION = 'iand_project.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": 'iandDB1', 
-        "USER" : 'admin',
-        "PASSWORD" : 'aivle202304',
-        "HOST" : 'iand-db-1.cwr76q1tgyva.ap-northeast-2.rds.amazonaws.com',
-        "PORT" : '3306',
+        "ENGINE": env('DATABASE_ENGINE'),
+        "NAME": env('DATABASE_NAME'), 
+        "USER" : env('DATABASE_USER'),
+        "PASSWORD" : env('DATABASE_PASSWORD'),
+        "HOST" : env('DATABASE_HOST'),
+        "PORT" : env('DATABASE_PORT'),
         "OPTIONS" : {
-            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
+            'init_command' : env('DATABASE_INIT_COMMAND')
         }
     }
 }
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",  # 경로는 프로젝트 디렉토리에 db.sqlite3 파일을 생성하도록 수정하세요.
-#     }
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -259,12 +227,12 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'community', 'static'),
-    os.path.join(BASE_DIR, 'playground', 'static'),
-    os.path.join(BASE_DIR, 'mypage', 'static'),
-    os.path.join(BASE_DIR, 'main', 'static'),
-    # os.path.join(BASE_DIR, 'accounts', 'static'),
+    BASE_DIR / 'static',
+    BASE_DIR / 'community' / 'static',
+    BASE_DIR / 'playground' / 'static', 
+    BASE_DIR / 'mypage' / 'static',
+    BASE_DIR / 'main' / 'static',
+    BASE_DIR / 'accounts' / 'static',
     ]
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
@@ -274,6 +242,6 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = BASE_DIR / "media"
 
 AUTH_USER_MODEL = 'accounts.User'
