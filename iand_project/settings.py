@@ -100,6 +100,9 @@ INSTALLED_APPS = [
     'playground',
     'community',
     'mypage',
+    # community
+    # 'ckeditor',
+    # 'ckeditor_uploader',
     
     # allauth
     'django.contrib.sites',
@@ -111,6 +114,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.kakao',
     'allauth.socialaccount.providers.naver',
+    
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -261,6 +267,7 @@ STATICFILES_DIRS = [
     # os.path.join(BASE_DIR, 'accounts', 'static'),
     ]
 
+CKEDITOR_UPLOAD_PATH = "uploads/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
