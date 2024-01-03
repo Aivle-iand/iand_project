@@ -17,17 +17,35 @@
     <body>
         <header>{% include 'header.html'%}</header>
         <main class="main">
-            <h1>글쓰기 페이지</h1>
-            <form method="POST" action="{% url 'community:writepage' %}">
-                {% csrf_token %}
-                <!-- 제목<br>
-                <input type="text" name="postname"><br>
-                내용<br>
-                <textarea rows="10" cols="50" name="contents"></textarea><br>
-                작성자<br><input type="text" value="작성자"><br> -->
-                {{ form.as_p}}
-                <input type="submit" value="완료">
-            </form>  
+            <div class="main_top">
+                <div class="page_name">게시판 목록</div>
+            </div>
+            <div class="main_center">
+                <div class="div_center">
+                    <div class="side_center">   
+                        <div class="board_div" id="all">
+                            <a href="/community/">- 전체 게시글</a>
+                        </div>
+                        {% for cate in links %}
+                            <div class="board_div"><a href="{{ cate.get_url }}">- {{ cate.name }}</a></div>
+                        {% endfor %}
+                    </div>
+                    <div class="board_write_wrap">
+                        <p class="write_title">새 글 작성</p>
+                        <form method="POST" id="write_box" action="{% url 'community:writepage' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- 제목<br>
+                            <input type="text" name="postname"><br>
+                            내용<br>
+                            <textarea rows="10" cols="50" name="contents"></textarea><br>
+                            작성자<br><input type="text" value="작성자"><br> -->
+                            <!-- {{ form.media }} -->
+                            {{ form }}
+                            <input type="submit" value="완료">
+                        </form>
+                    </div>
+                </div>
+            </div>
         </main>
         <footer>{% include 'footer.html' %}</footer>
     </body>
