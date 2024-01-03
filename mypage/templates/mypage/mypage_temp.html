@@ -115,25 +115,9 @@
                                 type="text"
                                 value=""
                             />
-                            <span>NICKNAME</span>
                         </div>
-                        <div class="nickname_check_msg">
-                            여기는 닉네임 중복 여부에 대한 메시지를 표시할
-                            부분입니다.
-                        </div>
-                        <div class="nickname_change">
-                            <button
-                                class="save_button"
-                                id="nickname_change_cancel_button"
-                            >
-                                CANCEL
-                            </button>
-                            <button
-                                class="save_button"
-                                id="nickname_change_button"
-                            >
-                                SAVE CHANGE
-                            </button>
+                        <div class="button-area">
+                            <button class="save_button">변경사항 저장</button>
                         </div>
                     </div>
                 </div>
@@ -147,22 +131,31 @@
                     <div class="personal_information_content">
                         <p class="change_password_text">비밀번호 변경</p>
                         <div class="input_container" onclick="onClickInputWrapper(event)">
-                            <div class="input_wrapper">
+                            <div class="input_wrapper" id="cur-pwd">
                                 <span class="input-label" id="cur-pwd">현재 비밀번호</span>
-                                <input type="password" class="type-input" placeholder="현재 비밀번호">
+                                <input type="password" class="type-input" id="cur-pwd">
+                                <label id="cur-pwd">현재 비밀번호</label>
                             </div>
-                            <div class="view_pwd" onclick="onClickView(event)"><img src="{% static 'mypage/img/icon-eye.png' %}"></div>
+                            <button class="view_pwd" id="cur-pwd" onclick="onClickViewPwd(event)"></button>
                         </div>
-                        <div class="type-input_wrapper">
-                            <span class="input-label" id="new-pwd"></span>
-                            <input type="password" class="type-input" placeholder="새 비밀번호">
+                        <div class="input_container" id="new-pwd" onclick="onClickInputWrapper(event)">
+                            <div class="input_wrapper" id="new-pwd">
+                                <span class="input-label" id="new-pwd">새 비밀번호</span>
+                                <input type="password" class="type-input" id="new-pwd">
+                                <label id="new-pwd">새 비밀번호</label>
+                            </div>
+                            <button class="view_pwd" id="new-pwd" onclick="onClickViewPwd(event)"></button>
                         </div>
-                        <div class="type-input_wrapper">
-                            <span class="input-label" id="chk-new-pwd"></span>
-                            <input type="password" class="type-input" placeholder="새 비밀번호 확인">
+                        <div class="input_container" id="chk-pwd" onclick="onClickInputWrapper(event)">
+                            <div class="input_wrapper" id="chk-pwd">
+                                <span class="input-label" id="chk-pwd">새 비밀번호 확인</span>
+                                <input type="password" class="type-input" id="chk-pwd">
+                                <label id="chk-pwd">새 비밀번호 확인</label>
+                            </div>
+                            <button class="view_pwd" id="chk-pwd" onclick="onClickViewPwd(event)"></button>
                         </div>
                         <div class="button-area">
-                            <button>변경사항 저장</button>
+                            <button class="save_button">변경사항 저장</button>
                         </div>
                     </div>
                 </div>
