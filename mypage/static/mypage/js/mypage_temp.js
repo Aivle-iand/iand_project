@@ -57,23 +57,43 @@ document.addEventListener("DOMContentLoaded", function() {
 // 입력에 따라서 label, span의 변화를 위한 js
 
 const onClickInputWrapper = (e) => {
-  if (e.target.className == 'input_container') {
-    const container = e.target.parentElement;
-    const div = e.target;
-    const span = e.currentTarget.children[0];
-    const input = e.currentTarget.children[1];
-    
-    container.style.padding = '10px'
+    const id = e.target.id;
+    const label = document.querySelector(`label#${id}`); 
+    const span = document.querySelector(`span.input-label#${id}`);
+    const input = document.querySelector(`input.type-input#${id}`);
+
+    label.style.display = 'none';
     span.style.display = 'block';
-    input.style.marginTop = '2px';
-    input.style.fontSize = '1em';
-    input.placeholder = "";
+    input.style.position = 'relative';
+    input.style.bottom = '13px';
     input.focus();
-  }
+    input.addEventListener('focusout', () => {
+      if (!input.value) {
+        label.style.display = 'block';
+        span.style.display = 'none';
+        input.style.bottom = '0px';
+      }
+    })
 }
 
-const test = (e) => {
-  console.log(e)
+const onClickViewPwd = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const id = e.target.id;
+  const input = document.querySelector(`input.type-input#${id}`);
+  if (! input.value) {
+    return;
+  }
+
+  const button = document.querySelector(`button.view_pwd#${id}`);
+
+  if (input.attributes[0].value == 'password') {
+    input.setAttribute('type', 'text');
+    button.style.backgroundImage = "url('https://iand-bucket.s3.ap-northeast-2.amazonaws.com/media/common/eye-open.png')";
+  } else {
+    input.setAttribute('type', 'password');
+    button.style.backgroundImage = "url('https://iand-bucket.s3.ap-northeast-2.amazonaws.com/media/common/eye-close.png')";
+  }
 }
 
 //------------------------
