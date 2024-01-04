@@ -45,19 +45,38 @@
                                 <input type="submit" value="삭제">
                             </form>
                         </div>
-                        <ul>
-                            {% for comment in comments %}
-                                <li>
-                                {{ comment.user }} - {{comment.content}}
-                                <form action="{% url 'detail:comments_delete' detail.pk comment.pk%}" method="POST">
-                                    {% csrf_token %}
-                                    <input type="submit" value="삭제">
-                                </form>
-                                </li>
-                            {% empty %}
-                                <li>댓글이 없습니다 :(</li>
-                            {% endfor %}
+                        <div>
+                            <h4>댓글 목록</h4>
+                            <!--read-->
+                            <ul>
+                                {% for comment in comments %}
+                                    <li>
+                                        {{ comment.user }} - {{ comment.content }}
+                                        <!--delete-->
+                                        {% if user == comment.user %}
+                                            <form action="{% url 'community:comments_delete' detail.pk comment.pk %}" method="POST" class="d-inline">
+                                            {% csrf_token %}
+                                            <input type="submit" value="댓글 삭제">
+                                            </form>
+                                        {% endif %}
+                                    </li>
+                                {% empty %}
+                                    <p>댓글이 없어요..</p>
+                                {% endfor %}
                             </ul>
+                            <hr>
+
+                            <!--create-->
+                            {% if request.user.is_authenticated %}
+                                <form action="{% url 'community:comments_create' detail.id %}" method="POST">
+                                    {% csrf_token %}
+                                    {{ comment_form }}
+                                    <input type="submit" value="댓글 작성">
+                                </form>
+                            {% else %}
+                                <a href="/accounts/login/">[댓글을 작성하려면 로그인하세요.]</a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
