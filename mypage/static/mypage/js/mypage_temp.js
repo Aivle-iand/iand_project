@@ -76,15 +76,167 @@ const closeModal = (event) => {
   modal.classList.add('hidden');
 }
 
-const drawCapture = (content) => {
+const drawCapture = async (content) => {
   console.log('in drawCapture');
-  console.log(content);
+  const videoElement = document.getElementById("videoElement");
+  const canvas = document.getElementById("canvas");
+  const button = document.getElementById("capture");
+  const directions = document.getElementById("directions");
+  const ctx = canvas.getContext("2d");
+  const modelPromise = ort.InferenceSession.create("https://raw.githubusercontent.com/Gichang404/models/master/yolov8n_onnx/face_detect.onnx");
+
+  await navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((stream) => {
+          videoElement.srcObject = stream;
+      });
+
+  detectFrame();
+
+  async function detectFrame() {
+      ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+      const input = await prepare_input();
+
+      const output = await run_model(input);
+      const boxes = process_output(
+          output,
+          canvas.width,
+          canvas.height
+      );
+      
+      draw_image_and_boxes(boxes);
+
+      requestAnimationFrame(detectFrame);
+  }
+
+  async function prepare_input() {
+      const targetWidth = 224;
+      const targetHeight = 224;
+      const resizeCanvas = document.createElement('canvas');
+      resizeCanvas.width = targetWidth;
+      resizeCanvas.height = targetHeight;
+      const resizeCtx = resizeCanvas.getContext('2d');
+  
+      // videoElement에서 이미지를 추출하여 리사이징
+      resizeCtx.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight, 0, 0, targetWidth, targetHeight);
+      const pixels = resizeCtx.getImageData(0, 0, targetWidth, targetHeight).data;
+  
+      // ONNX Runtime에서 사용할 수 있는 텐서로 변환
+      const red = [], green = [], blue = [];
+        for (let index = 0; index < pixels.length; index += 4) {
+            red.push(pixels[index]/255.0);
+            green.push(pixels[index+1]/255.0);
+            blue.push(pixels[index+2]/255.0);
+        }
+        const input = [...red, ...green, ...blue];
+
+      return new ort.Tensor(Float32Array.from(input),[1, 3, 224, 224]);
+  }
+  
+
+  async function run_model(input) {
+      const model = await modelPromise;
+      const outputs = await model.run({ images: input });
+
+      return outputs["output0"].data;
+  }
+
+  function draw_image_and_boxes(boxes) {
+      // 인식 여부에 따른 테두리, 버튼 제어
+      canvas.style.borderWidth = "5px";
+      if (boxes.length == 1 && boxes[0][4] == 'normal') {
+          directions.textContent = "캡쳐 버튼을 눌러주세요."
+          canvas.style.borderColor = "#00FF00";
+          button.disabled = false;
+      } else {
+          canvas.style.borderColor = "red";
+          button.disabled = true;
+      }
+      // directions
+      if (boxes.length == 0) {
+          directions.textContent = "얼굴이 인식되지 않았습니다."
+      } else if (boxes.length == 1 && boxes[0][4] == 'abnormal') {
+          directions.textContent = "정면을 바라봐 주세요."
+      } else if (boxes.length > 1) {
+          directions.textContent = "얼굴이 여러개 인식되었습니다."
+      }
+  }
+
+  function process_output(output, img_width, img_height) {
+      let boxes = [];
+      for (let index = 0; index < 1029; index++) {
+          // 최대 확률을 가진 클래스와 그 확률을 찾습니다.
+          const [class_id, prob] = [...Array(80).keys()]
+              .map(col => [col, output[1029 * (col + 4) + index]])
+              .reduce((max, item) => (item[1] > max[1] ? item : max), [0, 0]);
+  
+          // 확률이 낮은 경우 건너뜁니다.
+          if (prob < 0.5) {
+              continue;
+          }
+  
+          // 레이블과 경계 상자 좌표를 추출합니다.
+          const label = yolo_classes[class_id];
+          const xc = output[index];
+          const yc = output[1029 + index];
+          const w = output[2 * 1029 + index];
+          const h = output[3 * 1029 + index];
+  
+          // 좌표를 원본 이미지 크기에 맞게 스케일링합니다.
+          const x1 = ((xc - w / 2) / 224) * img_width;
+          const y1 = ((yc - h / 2) / 224) * img_height;
+          const x2 = ((xc + w / 2) / 224) * img_width;
+          const y2 = ((yc + h / 2) / 224) * img_height;
+  
+          // 추출된 정보를 boxes 배열에 추가합니다.
+          boxes.push([x1, y1, x2, y2, label, prob]);
+      }
+  
+      // 확률에 따라 boxes 배열을 정렬합니다.
+      boxes.sort((box1, box2) => box2[5] - box1[5]);
+  
+      // Non-Maximum Suppression (NMS)을 적용하여 중복을 제거합니다.
+      const result = [];
+      while (boxes.length > 0) {
+          const current = boxes.shift();
+          result.push(current);
+          boxes = boxes.filter(box => iou(current, box) < 0.7);
+      }
+  
+      return result;
+  }
+  
+  function iou(box1, box2) {
+      return intersection(box1, box2) / union(box1, box2);
+  }
+
+  function union(box1, box2) {
+      const [box1_x1, box1_y1, box1_x2, box1_y2] = box1;
+      const [box2_x1, box2_y1, box2_x2, box2_y2] = box2;
+      const box1_area = (box1_x2 - box1_x1) * (box1_y2 - box1_y1);
+      const box2_area = (box2_x2 - box2_x1) * (box2_y2 - box2_y1);
+      return box1_area + box2_area - intersection(box1, box2);
+  }
+
+  function intersection(box1, box2) {
+      const [box1_x1, box1_y1, box1_x2, box1_y2] = box1;
+      const [box2_x1, box2_y1, box2_x2, box2_y2] = box2;
+      const x1 = Math.max(box1_x1, box2_x1);
+      const y1 = Math.max(box1_y1, box2_y1);
+      const x2 = Math.min(box1_x2, box2_x2);
+      const y2 = Math.min(box1_y2, box2_y2);
+      return (x2 - x1) * (y2 - y1);
+  }
+
+  // class label
+  const yolo_classes = ["normal", "abnormal"];
 }
 
 const drawRecord = (content) => {
   console.log('in drawRecord');
   console.log(content);
 }
+
 //-----------------------
 // 입력에 따라서 label, span의 변화를 위한 js
 
@@ -196,7 +348,6 @@ const inputOnchange = (event) => {
 const onclickPlayIcon = () => {
   const audioPreview = document.getElementById('audioPreview');
   if (audioPreview.src) {
-      console.log('in if')
       audioPreview.play();
   }
 }
@@ -208,7 +359,6 @@ const onDragOverUpload = (event) => {
 }
 
 const onDropUpload = (event) => {
-  console.log(event)
   event.stopPropagation();
   event.preventDefault();
   const files = event.dataTransfer.files;
@@ -220,22 +370,3 @@ const onDropUpload = (event) => {
     voice_input(files[0])
   }
 }
-
-// 파일 처리 및 <p> 태그 숨김 처리 함수
-// function handleFileUpload(file) {
-//   if (file) {
-//     if (file.type === "audio/mpeg" || file.type === "audio/x-m4a") {
-//       fileNameDisplay.textContent = file.name; // 파일 이름 표시
-//       uploadInstruction.style.display = 'none'; // <p> 태그 숨김
-//       uploadVoiceButton.style.backgroundColor = 'red';
-//       uploadVoiceButton.style.color = 'white';
-//       voiceCancelButton.style.visibility = 'visible';
-//     } else {
-//       fileNameDisplay.textContent = "파일 형식이 .mp3, .m4a에 해당하지 않습니다.";
-//       uploadInstruction.style.display = 'none'; // <p> 태그 다시 표시
-//       voiceCancelButton.style.visibility = 'visible';
-//     }
-//   } else {
-//     uploadInstruction.style.display = 'block'; // 파일이 없을 때 <p> 태그 다시 표시
-//   }
-// }
