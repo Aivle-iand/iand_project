@@ -1,7 +1,7 @@
-from allauth.account.signals import user_signed_up
+from allauth.account.signals import user_signed_up, user_logged_in
 from django.dispatch import receiver
-from django.contrib import messages
-from django.contrib.auth.models import User  # Django의 기본 User 모델을 사용
+from .models import LoginHistory
+from django.utils import timezone
 
 @receiver(user_signed_up)
 def populate_profile(request, user, **kwargs):
@@ -9,4 +9,7 @@ def populate_profile(request, user, **kwargs):
     user.last_name = request.POST.get('last_name', '')
     user.nickname = request.POST.get('nickname', '')
     user.save()
-    
+
+@receiver(user_logged_in)
+def log_user_login(sender, request, user, **kwargs):
+    LoginHistory.objects.create(user=user, username=user.username, timestamp=timezone.now())
