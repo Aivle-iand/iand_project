@@ -45,8 +45,19 @@
                                 <input type="submit" value="삭제">
                             </form>
                         </div>
-                        <dl><dt></dt></dl>
-                        
+                        <ul>
+                            {% for comment in comments %}
+                                <li>
+                                {{ comment.user }} - {{comment.content}}
+                                <form action="{% url 'detail:comments_delete' detail.pk comment.pk%}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" value="삭제">
+                                </form>
+                                </li>
+                            {% empty %}
+                                <li>댓글이 없습니다 :(</li>
+                            {% endfor %}
+                            </ul>
                     </div>
                 </div>
             </div>
