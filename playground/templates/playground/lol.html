@@ -65,17 +65,27 @@
 
         <main class="main">
             <div class="main_top">
-                <p class="main_top_12">
-                    <span class="main_top_1">위인을</span><br>
-                    <span class="main_top_2">
-                    <strong>선택하세요</strong>
-                    </span>
-                </p>
-                <p class="main_top_3"> 
-                    검색 혹은 카테고리를 통해 과학자와 수학자 중<br>
-                    경험해보고 싶은 위인을 찾아 주인공이 되어 봅시다!
-                </p>
+                <div class="main_top_wrap">
+                    <video id="video_background" autoplay muted loop>    
+                        <source src="{% static '/playground/images/background_top.mp4' %}" type="video/mp4">
+                    </video>
+                    <div class="main_top_text">
+                        <p class="main_top_12">
+                            <span class="main_top_1">위인을</span><br>
+                            <span class="main_top_2">
+                            <strong>선택하세요</strong>
+                            </span>
+                        </p>
+                        <p class="main_top_3"> 
+                            검색 혹은 카테고리를 통해 과학자와 수학자 중<br>
+                            경험해보고 싶은 위인을 찾아 주인공이 되어 봅시다!
+                        </p>
+                    </div>
+
+                </div>
             </div>
+
+
             <div class="main_center">
                 
                 <section class="nav_section">
@@ -159,11 +169,11 @@
                                                         <input type="radio" name="side_option_{{ book.id }}" id="profile_side_{{ book.id }}" class="modal_radio" checked>
                                                         <label for="profile_side_{{ book.id }}">프로필</label>
                                                         <input type="radio" name="side_option_{{ book.id }}" id="episode1_side_{{ book.id }}" class="modal_radio">
-                                                        <label for="episode1_side_{{ book.id }}">왜 사과는 땅으로 떨어질까?</label>
+                                                        <label for="episode1_side_{{ book.id }}">{{book.Ep_title_1}}</label>
                                                         <input type="radio" name="side_option_{{ book.id }}" id="episode2_side_{{ book.id }}" class="modal_radio">
-                                                        <label for="episode2_side_{{ book.id }}">달은 왜 지구로 떨어질까?</label>
+                                                        <label for="episode2_side_{{ book.id }}">{{book.Ep_title_2}}</label>
                                                         <input type="radio" name="side_option_{{ book.id }}" id="episode3_side_{{ book.id }}" class="modal_radio">
-                                                        <label for="episode3_side_{{ book.id }}">사과가 왜 떨어지냐고 ㅜㅜ</label>
+                                                        <label for="episode3_side_{{ book.id }}">{{book.Ep_title_3}}</label>
                                                         <input type="radio" name="side_option_{{ book.id }}" id="quiz_side_{{ book.id }}" class="modal_radio">
                                                         <label for="quiz_side_{{ book.id }}">Quiz</label>
                                                     </div>
@@ -245,15 +255,14 @@
                                                         <div class="quiz_main_{{ book.id }}">
                                                             <div class="quiz_wrap">
                                                                 <form>
-                                                                    {% for k in "1234" %}
-                                                                        <div class="quiz_div" id="quiz_{{book.id}}_{{k}}">
+                                                                    {% for quiz in book.quizzes.all %}
+                                                                        <div class="quiz_div" id="quiz_{{book.id}}_{{quiz.quiz_index}}">
                                                                             <div class="quiz_text">
-                                                                                <span class="quiz_head">Q{{k}}.</span>
-                                                                                <span class="quiz_body">Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}
-                                                                                Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}_Quiz{{k}}</span>
+                                                                                <span class="quiz_head">Q{{quiz.quiz_index}}.</span>
+                                                                                <span class="quiz_body">{{quiz.quiz_text}}</span>
                                                                             </div>                                                                  
                                                                             <div class="quiz_input_wrap">
-                                                                                <input type = "text" id="input_{{book.id}}_{{k}}">
+                                                                                <input type = "text" name="input_{{quiz.quiz_index}}" id="input_{{book.id}}_{{quiz.quiz_index}}">
                                                                             </div>
                                                                         </div>
                                                                     {% endfor %}
