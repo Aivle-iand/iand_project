@@ -149,6 +149,15 @@
     </header>
 
     <body>
+        <div class="video-background">
+            <iframe src="https://www.youtube.com/embed/rePrpKIXtyo?autoplay=1&showinfo=0&mute=1&loop=1&playlist=rePrpKIXtyo"
+                title="Plexus Numbers Free White Background Videos, Motion Graphics, No Copyright  | All Background Videos" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+            </iframe>
+        </div>
+        
         <div class="Bootstrab_div">
             <div
                 id="carouselExampleIndicators"
@@ -227,11 +236,6 @@
             </div>
         </div>
 
-        <div
-            class="grayline"
-            style="height: 20px; background-color: #ecf0f1; width: 100%;"
-        ></div>
-
         <div class="main_container">
             <div class="monthly_best">
                 <h1 style="margin-bottom: 30px; font-family: 'Do Hyeon', sans-serif; font-size: 60px">
@@ -288,20 +292,24 @@
                     <!-- Unordered list for notices -->
                     
                     <ul style="list-style-type: disc; padding-left: 10%;">
-                        {% for notice in "123455555" %}
+                        {% for postname, id, writer, date in notices %}
                             <li>
-                                <a href="{{ notice.link }}" style="text-decoration: none; color: black;"
-                                class = 'animate__animated animate__backInUp animate__delay-{{notice}}s'>
-                                    <span>I&_ 개인정보보호동의 내용 변경 안내</span>
-                                </a>
+                                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                                    <a href="community/detail/{{id}}" style="text-decoration: none; color: black; flex-grow: 1;" class='animate__animated animate__backInUp'>
+                                        <span class="postname" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">{{ postname }}</span>
+                                    </a>
+                                    <div style="display: flex; gap: 10px; align-items: center;">
+                                        <span class="date" style="font-size: 0.8em; color: grey;">{{ date }}</span>
+                                        <span class="writer" style="color: grey;">{{ writer }}</span>
+                                    </div>
+                                </div>
+                                <div class="underline"></div>
                             </li>
-                            <div class="underline"></div>
                         {% endfor %}
 
                         <!-- Add more notices as needed -->
                     </ul>
                 </div>
-            </div>
             </div>
         </div>
     </body>
