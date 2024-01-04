@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from accounts.models import User as Custom_User
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -7,11 +7,14 @@ from django.contrib.auth.hashers import make_password
 import json
 
 
+
 # Create your views here.
 def index(request):
     return render(request, 'mypage/mypage_certify.html')
 
 def mypage_temp(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts/login')
     context = {
         'face' : "https://iand-bucket.s3.ap-northeast-2.amazonaws.com/media/common/noimage.jpg",
     }
@@ -52,7 +55,13 @@ def change_password(request):
         user = Custom_User.objects.get(username = username)
         user.password = make_password(new_password)
         user.save()
-        return JsonResponse({'message' : '성공적으로 패스워드를 변경하였습니다.'})
+        return JsonResponse({'message' : '성공적으로 패스워드를 변경하였습니다. 다시 로그인 해주세요.'})
     else:
         return JsonResponse({ 'status' : 'error'})
+          
+def delete_account(request):
+    if request.method == 'POST':
+        user = request.user
+        user.delete()  # 현재 로그인된 사용자 삭제
+        return JsonResponse({'message': '계정이 성공적으로 삭제되었습니다. 로그인 페이지로 이동합니다.'})
         
