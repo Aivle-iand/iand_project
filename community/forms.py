@@ -24,8 +24,8 @@ class PostUpdate(forms.ModelForm):
         model = Board
         fields = ['postname', 'contents']
 
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ['post', 'user']
+# class CommentForm(forms.ModelForm):
+#     class Meta:
+#         model = Comment
+#         fields = ['post', 'user']
              
