@@ -1,5 +1,5 @@
 # blog/urls.py
-from django.urls import path
+from django.urls import path, include
 from . import views
 from django.contrib import admin
 from django.conf import settings
@@ -14,7 +14,8 @@ urlpatterns = [
     path('detail/<int:pk>/', views.detail, name='detail'),
     path('update/<int:pk>/', views.update, name='update'),
     path('detail/<int:pk>/comments/', views.comments_create, name='comments_create'),
-    path('detail/<int:article_pk>/comments/<int:comment_pk>/delete/', views.comments_delete, name='comments_delete'),
+    path('detail/<int:detail_pk>/comments/<int:comment_pk>/delete/', views.comments_delete, name='comments_delete'),
+    path('accounts/', include('accounts.urls'))
 ]
 
 if settings.DEBUG:
