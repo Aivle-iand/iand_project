@@ -53,6 +53,38 @@ document.addEventListener("DOMContentLoaded", function() {
   updateLinkImages();
 });
 
+// modal js
+const openModal = (event) => {
+  if (!event) {
+    return;
+  }
+  const drawTool = {
+    'image-capture-btn': drawCapture,
+    'voice-record-btn': drawRecord,
+  }
+
+  const modal = document.querySelector('div.modal');
+  const modal_content = document.querySelector('div.modal_content');
+  modal.classList.remove('hidden');
+
+  const id = event.target.id;
+  drawTool[id](modal_content);
+}
+
+const closeModal = (event) => {
+  const modal = document.querySelector('div.modal');
+  modal.classList.add('hidden');
+}
+
+const drawCapture = (content) => {
+  console.log('in drawCapture');
+  console.log(content);
+}
+
+const drawRecord = (content) => {
+  console.log('in drawRecord');
+  console.log(content);
+}
 //-----------------------
 // 입력에 따라서 label, span의 변화를 위한 js
 

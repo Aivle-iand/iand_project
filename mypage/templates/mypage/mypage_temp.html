@@ -13,6 +13,12 @@
 <body>
     {% include 'header.html' %}
     <main class="main">
+        <div class="modal hidden">
+            <div class="modal_overlay" onclick="closeModal()"></div>
+            <div class="modal_content">
+                <h1 style="color: #CCC;">모달이시다</h1>
+            </div>
+        </div>
         <div class="nav_root">
             <nav class="internal_navigation">
                 <div class="internal_navigation_positional">

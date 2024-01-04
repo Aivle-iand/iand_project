@@ -2,16 +2,25 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import path
 from .forms import *
 from .models import *
+from accounts.models import User
 from django.http import HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.decorators.http import require_POST
+from django.conf import settings
 # from login.models import User
 
 def writepage(request):
+    # if not request.session.get('accounts_user'):
+    #     return redirect('/accounts/login')
+    
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
+            user_id = request.session.get('accounts_user')
+            user = User.objects.get(pk = user_id)
             post = form.save()
+            post.writer = user
+            post.save()
             return redirect('/community/', post.id)
         else:
             form = PostForm()
@@ -105,14 +114,14 @@ def comments_create(request, pk):
             comment.article = article
             comment.user = request.user
             comment.save()
-        return redirect('articles:detail', article.pk)
+        return redirect('community:detail', detail.pk)
     return redirect('accounts:login')
 
 
 @require_POST
-def comments_delete(request, article_pk, comment_pk):
+def comments_delete(request, detail_pk, comment_pk):
     if request.user.is_authenticated:
         comment = get_object_or_404(Comment, pk=comment_pk)
         if request.user == comment.user:
             comment.delete()
-    return redirect('articles:detail', article_pk)
+    return redirect('community:detail', detail_pk)
