@@ -12,6 +12,7 @@
             rel="apple-touch-icon"
             href="{% static 'mypage/img/favicon.png' %}"
         />
+        <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
         <title>1인칭 주인공 시점</title>
     </head>
 
@@ -21,7 +22,10 @@
             <div class="modal hidden">
                 <div class="modal_overlay" onclick="closeModal()"></div>
                 <div class="modal_content">
-                    <h1 style="color: #CCC;">모달이시다</h1>
+                    <video id="videoElement" width="640" height="480" autoplay></video>
+                    <canvas id="canvas" width="640" height="480"></canvas>
+                    <p id="directions"></p>
+                    <button id="capture"> 캡쳐 </button>
                 </div>
             </div>
             <div class="nav_root">
