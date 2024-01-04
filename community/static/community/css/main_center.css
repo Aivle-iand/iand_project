@@ -84,7 +84,7 @@ thead {
     margin-left: 50px;
 }
 
-textarea {
+div:has(#id_contents) {
     width: 800px;
     height: 500px;
 }
