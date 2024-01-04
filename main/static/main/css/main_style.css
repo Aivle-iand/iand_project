@@ -1,11 +1,8 @@
-body {
-    background-color: #fbfbfd;
-}
-
 :root {
     --animate-delay: 0.1s;
-  }
-  
+}
+
+
   .video-background {
     position: fixed; 
     top: 50%; 
@@ -79,7 +76,7 @@ body {
 }
 
 .notice_sections a:hover {
-    background-color:lightgray; /* Slight background on hover */
+    background-color:white; /* Slight background on hover */
 }
 
 /* Responsive typography */
@@ -115,16 +112,19 @@ body {
 
 .image-placeholder {
     position: relative;
-    background-color: rgba(255, 255, 255, 0.2); /* Gray background */
+    background-color: rgba(255, 255, 255, 0.5); /* Gray background */
     width: 300px; /* Width of the image area */
     height: 400px; /* Height of the image area */
-    border-radius: 15px; /* Rounded corners */
+    border-radius: 0px; /* Rounded corners */
     margin: 10px auto;
-
+    transition: .5s ease;
+}
+.image-placeholder:hover{
+    scale: 1.05;
 }
 
 .image-placeholder h2 {
-    align-items: center; /* Center children horizontally */
+    margin-top: 5px;
     color: black!important;
 }
 
@@ -147,7 +147,7 @@ body {
     -ms-transform: translate(-50%, -80%);
     text-align: center;
   }
-
+/* align-items: center; Center children horizontally */
   .image-placeholder:hover .image {
     opacity: 0.3;
   }
