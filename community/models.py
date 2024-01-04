@@ -15,6 +15,7 @@ class Category(models.Model):
         db_table = 'community_category'
         verbose_name = 'category'
         verbose_name_plural = 'categories'
+
     
     def __str__(self):
         return '{}'.format(self.name)
@@ -26,10 +27,8 @@ class Board(models.Model):
     postname = models.CharField(max_length=64, verbose_name='')
     contents = models.TextField(verbose_name='')
     registered_date = models.DateField(auto_now_add=True)
-    # writer = models.ForeignKey(User, verbose_name="글쓴이", on_delete=models.CASCADE)
     writer = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE, verbose_name='작성자')
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE, verbose_name='게시판 목록')
-    # slug = models.SlugField(max_length=64, unique=True, null=True)
     
     # 게시글의 제목(postname)이 Post object 대신하기
     def __str__(self):
@@ -38,13 +37,21 @@ class Board(models.Model):
         db_table = "community_board"
         verbose_name = "게시물"
         verbose_name_plural = "게시물"
+
         
 class Comment(models.Model):
     post = models.ForeignKey(Board, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
     message = models.TextField()
     created = models.DateField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return self.content
+    
+    class Meta:
+        db_table = 'comment'
+        verbose_name = "댓글"
+        verbose_name_plural = "댓글"
+
+        
