@@ -5,10 +5,10 @@ var errors = {
 };
 
 
-function checkNicknameDuplication(nickname) {
+function checkNicknameDuplication(nickname, nicknameHelp) {
     // AJAX 요청 설정
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "social/signup/social_check_nickname_dup", true); // '/check-user-id'는 서버의 중복 확인 API 경로
+    xhr.open("POST", "social_check_nickname_dup", true); // '/check-user-id'는 서버의 중복 확인 API 경로
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -35,7 +35,7 @@ function validateNickname() {
     var nicknameHelp = document.getElementById("nicknameHelp");
     var isEmpty = nickname.trim() === "";
     errors.nickname = isEmpty; // 비어있으면 true
-    checkNicknameDuplication(nickname)
+    checkNicknameDuplication(nickname, nicknameHelp)
     updateSubmitButton();
 }
 
