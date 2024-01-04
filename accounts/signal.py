@@ -8,6 +8,7 @@ def populate_profile(request, user, **kwargs):
     user.first_name = request.POST.get('first_name', '')
     user.last_name = request.POST.get('last_name', '')
     user.nickname = request.POST.get('nickname', '')
+    user.nickname = request.POST.get('id_nickname', '')
     user.save()
 
 @receiver(user_logged_in)
