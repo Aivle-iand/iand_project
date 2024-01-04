@@ -220,9 +220,24 @@ header a {
     min-height : 800px;
 }
 
+.main_top_wrap {
+    position : absolute;
+    width : 100%;
+    height : 100%;
+}
+
+#video_background {
+    height: 100%;
+    width: 100%;
+    object-position: top;
+    object-fit: none;
+    opacity : 0.95;
+    z-index: 0;
+}
+
 .main_top {
     position: relative; 
-    height: 240px;
+    height: 350px;
     width: 100%;
     text-align: center;
     background-repeat: no-repeat;
@@ -237,15 +252,20 @@ header a {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('/static/playground/images/top.png');
+    /* background-image: url('/static/playground/images/top.png'); */
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 0.5; 
     z-index: -1; 
 }
 
+.main_top_text {
+    position : relative;
+    color : white;
+    top : -240px;
+}
+
 .main_top_12 {
-    padding-top : 45px;
     margin : 0px;
     min-width : 300px;
 }
@@ -289,26 +309,27 @@ header a {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: left;
+    justify-content: center;
 }
 
 .item {
-    height : 330px;
-    flex: 0 0 22%; 
-    min-width : 0px;
+    height : 372px;
+    width : 239px;
+    background-image: url('/static/playground/images/card.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* flex: 0 0 239px;  */
     margin: 10px; 
     box-sizing: border-box;
-    background-color: rgb(6,28,37);
-    border : 5px solid rgb(6,28,37);
     color: #fff;
     text-align: center;
     margin : 20px;
 }
 
-.item:hover {
+/* .item:hover {
     background-color: rgb(19, 38, 91);
     border : 5px solid rgb(19, 38, 91);
-}
+} */
 /* 검색 바 */
 
 .classification_bar {
@@ -428,16 +449,30 @@ header a {
     height : 100%;
 }
 
-.modal_check_form + label>.human{
+/* .modal_check_form + label>.human{
         height : 85%;
         background-size: cover;
-}
+} */
 
 .human {
+    height: 300px;
     position: relative;
+    margin: 0 7px;
+    width: 224px;
+    border: 3px solid rgb(224,159,89);
+    margin-top: 6px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    transition: background-size 0.3s ease-in-out;
+
 }
 
-.human::before {
+label:hover>.human {
+    background-size: 110% 110%;
+}
+
+/* .human::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -468,7 +503,7 @@ header a {
         height: 200%;
         opacity: 0;
     }
-}
+} */
 
 
 .item {
@@ -476,10 +511,11 @@ header a {
 }
 
 .modal_check_form + label>.name{
-        height : 15%;
-        font-size : 25px;
-        font-weight : 600;
-        padding-top : 7px;
+    height: 15%;
+    font-size: 28px;
+    font-weight: 600;
+    padding-top: 9px;
+    color: rgb(224,159,89);
 }
 
 
