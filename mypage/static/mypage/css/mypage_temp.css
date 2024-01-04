@@ -28,6 +28,39 @@ body * {
     background-color: black;
 }
 
+/* modal csss*/
+.modal {
+    z-index: 4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal_overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.modal_content {
+    background-color: white;
+    padding: 50px 100px;
+    text-align: center;
+    position: relative;
+    top: 0px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.hidden {
+    display: none;
+}
 
 /* nav_root */
 .nav_root {
@@ -371,6 +404,7 @@ body * {
 }
 
 #playIcon {
+    z-index: 1;
     width: 100%;
     margin-top: 20px;
     filter: invert(12%) sepia(97%) saturate(31%) hue-rotate(29deg) brightness(96%) contrast(95%);
@@ -416,28 +450,6 @@ body * {
     background-color: rgba(138,138,138,0.15);
 }
 
-.modal {
-    display: none; 
-    position: fixed;
-    z-index: 1; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(109,107,107.0.7); 
-}
-
-.modal-content {
-    background-color: rgb(71, 69, 69);
-    margin: 10% auto; 
-    padding: 10px;
-    border: 1px solid #888;
-    width: 50%; 
-    height: 50%;
-    text-align: center;
-}
-
 .close {
     color: #aaa;
     float: right;
@@ -463,12 +475,6 @@ body * {
     background-color: red;
     color: white;
 }
-
-#delete_modal_text {
-    color: red;
-    padding-top: 15%;
-}
-
 
 /* MAIN-TOP 구간 */
 
