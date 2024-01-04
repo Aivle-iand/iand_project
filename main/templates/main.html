@@ -32,13 +32,19 @@
             rel="stylesheet"
             href="{% static 'main\css\banner_style.css' %}"
         />
-        <link rel="stylesheet" href="{% static 'main\css\main_style.css' %}" />
-
+        <link rel="stylesheet" 
+        href="{% static 'main\css\main_style.css' %}" 
+        />
+        
         <link
             rel="stylesheet"
             href="../../animation/animate.css"
         />
 
+        <link rel="stylesheet" 
+        href="{% static 'main\css\cursor.css' %}" 
+        />
+        
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -64,98 +70,100 @@
         <title>메인페이지</title>
     </head>
 
-    <header>
-        <div class="header_left">
-            <a href="../"
-                ><img src="{% static 'playground/images/logoc_.png' %}" alt="logo"
-            /></a>
-        </div>
-
-        <div class="header_center">
-            <div class="experience_link">
-                <a href="/playground">
-                    <p>위인체험</p>
-                    <div class="underbar"></div>
-                </a>
-            </div>
-            <div class="community_link">
-                <a href="/community">
-                    <p>커뮤니티</p>
-                    <div class="underbar"></div>
-                </a>
-            </div>
-        </div>
-
-        <div class="header_right">
-            <div class="language_setting">
-                <a class="a" href="">
-                    <p>
-                        언어설정
-                        <svg class="language_arrow" viewBox="0 0 8 5">
-                            <title>mainNavArrowDownHover</title>
-                            <path
-                                d="M.707 1.707l2.586 2.586a1 1 0 001.414
-                                0l2.586-2.586C7.923 1.077 7.477 0 6.586
-                                0H1.414C.524 0 .077 1.077.707 1.707z"
-                                fill="#fff"
-                            ></path>
-                        </svg>
-                    </p>
-                </a>
-                <ul class="language_chart">
-                    <li><a href="">한국어</a></li>
-                    <li><a href="">English</a></li>
-                </ul>
-            </div>
-            {% if not user.is_authenticated %}
-            <div class="login">
-                <a class="a" href="/accounts/login">
-                    <p>로그인</p>
-                </a>
-            </div>
-            <div class="join">
-                <a class="a" href="/accounts/signup">
-                    <p>회원가입</p>
-                </a>
-            </div>
-            {% else %}
-            <div class="language_setting">
-                <a class="a" href="">
-                    <p>
-                        {% comment %} {{user.username}} {% endcomment %}
-                        {{user.first_name}}
-                        <svg class="language_arrow" viewBox="0 0 8 5">
-                            <path
-                                d="M.707 1.707l2.586 2.586a1 1 0 001.414
-                                0l2.586-2.586C7.923 1.077 7.477 0 6.586
-                                0H1.414C.524 0 .077 1.077.707 1.707z"
-                                fill="#fff"
-                            ></path>
-                        </svg>
-                    </p>
-                </a>
-                <ul class="language_chart">
-                    <li><a href="">마이페이지</a></li>
-                </ul>
-            </div>
-            <div class="logout">
-                <a class="a" id="logoutbtn" href="{% url 'logout' %}">
-                    <p>로그아웃</p>
-                </a>
-            </div>
-            {% endif %}
-
-        </div>
-    </header>
+    
 
     <body>
+        <div id="cursor-dot"></div>
+        <div id="cursor-dot-outline"></div>
+        
+        <header>
+            <div class="header_left">
+                <a href="../"
+                    ><img src="{% static 'playground/images/logoc_.png' %}" alt="logo"
+                /></a>
+            </div>
+    
+            <div class="header_center">
+                <div class="experience_link">
+                    <a href="/playground">
+                        <p>위인체험</p>
+                        <div class="underbar"></div>
+                    </a>
+                </div>
+                <div class="community_link">
+                    <a href="/community">
+                        <p>커뮤니티</p>
+                        <div class="underbar"></div>
+                    </a>
+                </div>
+            </div>
+    
+            <div class="header_right">
+                <!-- <div class="language_setting">
+                    <a class="a" href="">
+                        <p>
+                            언어설정
+                            <svg class="language_arrow" viewBox="0 0 8 5">
+                                <title>mainNavArrowDownHover</title>
+                                <path
+                                    d="M.707 1.707l2.586 2.586a1 1 0 001.414
+                                    0l2.586-2.586C7.923 1.077 7.477 0 6.586
+                                    0H1.414C.524 0 .077 1.077.707 1.707z"
+                                    fill="#fff"
+                                ></path>
+                            </svg>
+                        </p>
+                    </a>
+                    <ul class="language_chart">
+                        <li><a href="">한국어</a></li>
+                        <li><a href="">English</a></li>
+                    </ul>
+                </div> -->
+                {% if not user.is_authenticated %}
+                <div class="login">
+                    <a class="a" href="/accounts/login">
+                        <p>로그인</p>
+                    </a>
+                </div>
+                <div class="join">
+                    <a class="a" href="/accounts/signup">
+                        <p>회원가입</p>
+                    </a>
+                </div>
+                {% else %}
+                <div class="language_setting">
+                    <a class="a" href="">
+                        <p>
+                            {% comment %} {{user.username}} {% endcomment %}
+                            {{user.first_name}}
+                            <svg class="language_arrow" viewBox="0 0 8 5">
+                                <path
+                                    d="M.707 1.707l2.586 2.586a1 1 0 001.414
+                                    0l2.586-2.586C7.923 1.077 7.477 0 6.586
+                                    0H1.414C.524 0 .077 1.077.707 1.707z"
+                                    fill="#fff"
+                                ></path>
+                            </svg>
+                        </p>
+                    </a>
+                    <ul class="language_chart">
+                        <li><a href="">마이페이지</a></li>
+                    </ul>
+                </div>
+                <div class="logout">
+                    <a class="a" id="logoutbtn" href="{% url 'logout' %}">
+                        <p>로그아웃</p>
+                    </a>
+                </div>
+                {% endif %}
+    
+            </div>
+        </header>
+
         <div class="video-background">
-            <iframe src="https://www.youtube.com/embed/rePrpKIXtyo?autoplay=1&showinfo=0&mute=1&loop=1&playlist=rePrpKIXtyo"
-                title="Plexus Numbers Free White Background Videos, Motion Graphics, No Copyright  | All Background Videos" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowfullscreen>
-            </iframe>
+            <video autoplay muted loop id="myVideo">
+                <source src="{% static 'main/images/main_background_video.mp4' %}" type="video/mp4">
+              </video>
         </div>
         
         <div class="Bootstrab_div">
@@ -412,5 +420,6 @@
     </div>
     <!-- Copyright -->
   </footer>
+  <script src="{% static 'main/js/cursor.js' %}"></script>
   <!-- Footer -->
 </html>
