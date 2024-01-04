@@ -11,6 +11,8 @@ from .forms import CustomSocialSignupForm  # Import your CustomSocialSignupForm 
 from django.urls import reverse_lazy
 from allauth.account.views import LoginView
 
+
+
 class CustomLoginView(LoginView):
     template_name = 'accounts/login.html'
     success_url = reverse_lazy('main')
