@@ -177,14 +177,23 @@ body * {
 
 
 .personal_information_username {
-    outline: rgba(138,138,138,0.1) 2px solid;
     margin-bottom: 40px;
+    text-align: center;
+    padding: 17px 5px 6px;
 }
 
 .personal_information_nickname {
     outline: rgba(138,138,138,0.1) 2px solid;
     margin-bottom: 10px;
     background-color: rgb(51, 49, 49);
+}
+
+.personal_username {
+    height: 30px;
+}
+
+#nickname_check {
+    margin-right: 60px;
 }
 
 .input_container {
@@ -209,6 +218,14 @@ body * {
     bottom: 32px;
     font-size: 0.6rem;
     color: #9E9E9E;
+}
+
+.input_wrapper > label#nickname {
+    display: none;
+}
+
+.input_wrapper > span#nickname {
+    display: block;
 }
 
 .view_pwd {
@@ -263,8 +280,20 @@ body * {
     outline: 1 px solid #ccc;
 }
 
+.type-input#nickname-input {
+    position: relative;
+    bottom: 13px;
+}
+
 .nickname_check_msg {
     margin-top : 20px;
+}
+
+.pass-help {
+    display: none;
+    font-size:10px;
+    margin-left: 25px;
+    color: #d953e5;
 }
 
 .nickname_change {
