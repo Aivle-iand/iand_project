@@ -27,5 +27,6 @@ class PostUpdate(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['post', 'user']
+        fields = ['content']
+        exclude = ('post', 'writer')
              

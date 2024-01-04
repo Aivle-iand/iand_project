@@ -16,10 +16,8 @@ def writepage(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            user_id = request.session.get('accounts_user')
-            user = User.objects.get(pk = user_id)
             post = form.save()
-            post.writer = user
+            post.writer = request.user
             post.save()
             return redirect('/community/', post.id)
         else:
@@ -80,11 +78,18 @@ def categoryView(request, c_slug=None):
 def detail(request, pk):
     # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
     detail = get_object_or_404(Board, pk=pk)
+    comment_form = CommentForm()
+    comments = detail.comments.all()
+    context = {
+        'detail':detail,
+        'comment_form':comment_form,
+        'comments':comments,
+    }
     if request.method == 'POST':
         detail.delete()
         return redirect('/community/')
     else:
-        return render(request, 'community/detail.html', {'detail':detail})
+        return render(request, 'community/detail.html', context)
 
     
 def update(request, pk):
@@ -104,21 +109,20 @@ def update(request, pk):
     context = {'form':form}
     return render(request, 'community/update.html', {'form':form})
 
-@require_POST
+
 def comments_create(request, pk):
     if request.user.is_authenticated:
-        article = get_object_or_404(Board, pk=pk)
+        detail = get_object_or_404(Board, pk=pk)
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
-            comment.article = article
+            comment.post= detail
             comment.user = request.user
             comment.save()
         return redirect('community:detail', detail.pk)
     return redirect('accounts:login')
 
 
-@require_POST
 def comments_delete(request, detail_pk, comment_pk):
     if request.user.is_authenticated:
         comment = get_object_or_404(Comment, pk=comment_pk)
