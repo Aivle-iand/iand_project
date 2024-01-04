@@ -134,6 +134,7 @@ def index(request):
                     image_face = f'/Users/seongjiko/AIVLE_BIG/iand_project/temp_target.png'
                     # image_face  =  유저 얼굴
                     face_swap(master_face_key, image_bg, image_face, img_file)
+
         face_change = 1  
         
         

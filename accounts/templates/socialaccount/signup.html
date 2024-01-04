@@ -91,7 +91,9 @@
                         <a>닉네임</a>
                         <label for="id_nickname">{{ field.nickname }}</label>
                         <div class="nickname-wrapper">
-                            <input id="id_nickname" type="nickname" name="nickname" placeholder="ex)뉴턴광팬"/>
+                            <input name="id_nickname" id="id_nickname"
+                            type="nickname" placeholder="ex) 뉴턴광팬"
+                            required oninput='validateNickname()' required>
                             <div id="nicknameHelp"></div>
                         </div>
 
@@ -133,7 +135,7 @@
     </footer>
 </body>
 {% endif %}
-<script src="{% static 'js/social_signup.js' %}"></script>
+<script src="{% static 'accounts/js/social_signup.js' %}"></script>
 
 {% comment %} {% if messages %}
 <script type="text/javascript">
