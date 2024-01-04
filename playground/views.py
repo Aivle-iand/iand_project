@@ -8,9 +8,9 @@ from PIL import Image
 from io import BytesIO
 
 
-master_key = ...
-master_id = ...
-master_face_key = ...
+master_key = "2179074882679a424c4b817fd744275b"
+master_id = "TMuD9dkOkEfHZCUjLoPo"
+master_face_key = "SG_6abbbc640db94e2c"
 
 def toB64(image_path):
     with open(image_path, "rb") as image_file:
@@ -98,23 +98,26 @@ def index(request):
     
     if voice:
         voice_path = os.path.abspath(__file__)
-        voice_path = ('/').join(voice_path.split('/')[:-1]) + '/static/playground/user/' + master_id + '/' + str(voice) + '/voice'
+        voice_path, _ = os.path.split(voice_path)
+        voice_path +=  '/static/playground/user/' + master_id + '/' + str(voice) + '/voice'
         if not os.path.exists(voice_path): 
-            for epi in '123': 
-                for sce in '1234':
-                    file_name = '/'+str(voice)+'_'+epi+'_'+ sce +'.mp3'
-                    mp3_file = os.path.join(voice_path+file_name)
-                    if os.path.exists(mp3_file):
-                        continue
-                    else:
-                        scene_ = episodes[int(epi)-1].get(scene_number=sce)
-                        tfs = scene_.voice_text
-                        text_to_speach(tfs, master_id ,master_key,voice_path,file_name)
+            os.makedirs(voice_path)
+        for epi in '123': 
+            for sce in '1234':
+                file_name = '/'+str(voice)+'_'+epi+'_'+ sce +'.mp3'
+                mp3_file = os.path.join(voice_path+file_name)
+                if os.path.exists(mp3_file):
+                    continue
+                else:
+                    scene_ = episodes[int(epi)-1].get(scene_number=sce)
+                    tfs = scene_.voice_text
+                    text_to_speach(tfs, master_id ,master_key,voice_path,file_name)
         voice_change = 1   
         
     if face:
         face_path = os.path.abspath(__file__)
-        face_path = ('/').join(face_path.split('/')[:-1]) + '/static/playground/user/' + master_id + '/' + str(face) + '/face'
+        face_path, _ = os.path.split(face_path)
+        face_path +=  '/static/playground/user/' + master_id + '/' + str(face) + '/face'
         if not os.path.exists(face_path): 
             os.makedirs(face_path)
         for epi in '123': 
@@ -131,7 +134,8 @@ def index(request):
                     image_face = f'/Users/seongjiko/AIVLE_BIG/iand_project/temp_target.png'
                     # image_face  =  유저 얼굴
                     face_swap(master_face_key, image_bg, image_face, img_file)
-        face_change = 1   
+
+        face_change = 1  
         
         
     context = { 'books': books,
