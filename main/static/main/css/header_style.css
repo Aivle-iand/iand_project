@@ -5,7 +5,7 @@ header {
     right: 0;
     margin: 0;
     border: 0;
-    z-index: 200000;
+    z-index: 800;
     height: 80px;
     background-color: black;
     border-bottom: 2px solid rgba(51, 51, 51, .25);
@@ -147,65 +147,10 @@ header a {
     margin: 0 3px;
 }
 
-.join p,
-.login p, .logout p {
-    background: rgba(128, 128, 128, .3);
-    border-radius: 6.4px;
-}
-
 .language_chart li {
     padding-bottom: 2px;
     text-align: center;
 }
-
-
-/* a {
-    text-decoration: none;
-    letter-spacing: 0;
-    transition: 0.35s;
-    color: white!important;
-}
-
-a:hover,
-a:active {
-    letter-spacing: 5px;
-    transition: 0.35s;
-    color: yellow;
-}
-
-a:after {
-    bottom: -10px;
-}
-
-a:before {
-    top: -10px;
-}
-
-a:after,
-a:before {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    border: 1px solid rgba(255, 255, 255, 0);
-    content: " ";
-    display: block;
-    margin: 0 auto;
-    position: relative;
-    transition: all 280ms ease-in-out;
-    width: 0;
-}
-
-a:hover:after,
-a:hover:before {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    border-color: #fff;
-    transition: width 350ms ease-in-out;
-    width: 100%;
-}
-
-a:hover:before {
-    width: 100%;
-} */
 
 
 header p {
