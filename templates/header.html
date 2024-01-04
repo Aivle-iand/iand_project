@@ -1,66 +1,94 @@
-{% load static %}
+<!-- {% load static %} -->
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/header_style.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/global_style.css' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
-    <title>1인칭 주인공 시점</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/header_style.css' %}" />
 </head>
 <body>
-    <header id="header" class="header">
-        <div id="div_header" class="div_header">
-            <div class="header_left">
-                <a href=""
-                    ><img src="{% static 'img/logo.png' %}" alt="logo"
-                /></a>
-            </div>
+    <header>
+        <div class="header_left">
+            <a href="/"><img src="{% static 'playground/images/logoc_.png' %}" alt="logo" /></a>
+        </div>
 
-            <div class="header_center">
-                <div class="experience_link">
-                    <a href="">
-                        <p>위인체험</p>
-                        <div class="underbar"></div>
-                    </a>
-                </div>
-                <div class="community_link">
-                    <a href="">
-                        <p>커뮤니티</p>
-                        <div class="underbar"></div>
-                    </a>
-                </div>
+        <div class="header_center">
+            <div class="experience_link">
+                <a href="/playground">
+                    <p>위인체험</p>
+                    <div class="underbar"></div>
+                </a>
             </div>
+            <div class="community_link">
+                <a href="/community">
+                    <p>커뮤니티</p>
+                    <div class="underbar"></div>
+                </a>
+            </div>
+        </div>
 
-            <div class="header_right">
-                <div class="language_setting">
-                    <a class="a" href="">
-                        <p>
-                            언어설정
-                            <svg class="language_arrow" viewBox="0 0 8 5">
-                                <title>mainNavArrowDownHover</title>
-                                <path
-                                    d="M.707 1.707l2.586 2.586a1 1 0 001.414 0l2.586-2.586C7.923 1.077 7.477 0 6.586 0H1.414C.524 0 .077 1.077.707 1.707z"
-                                    fill="#fff"
-                                ></path>
-                            </svg>
-                        </p>
-                    </a>
-                    <ul class="language_chart">
-                        <li><a href="">한국어</a></li>
-                        <li><a href="">English</a></li>
-                    </ul>
-                </div>
-                <div class="login">
-                    <a class="a" href="">
-                        <p>로그인</p>
-                    </a>
-                </div>
-                <div class="join">
-                    <a class="a" href="">
-                        <p>회원가입</p>
-                    </a>
-                </div>
+        <div class="header_right">
+            <div class="language_setting">
+                <a class="a" href="">
+                    <p>
+                        언어설정
+                        <svg class="language_arrow" viewBox="0 0 8 5">
+                            <title>mainNavArrowDownHover</title>
+                            <path d="M.707 1.707l2.586 2.586a1 1 0 001.414
+                                    0l2.586-2.586C7.923 1.077 7.477 0 6.586
+                                    0H1.414C.524 0 .077 1.077.707 1.707z" fill="#fff"></path>
+                        </svg>
+                    </p>
+                </a>
+                <ul class="language_chart">
+                    <li><a href="">한국어</a></li>
+                    <li><a href="">English</a></li>
+                </ul>
             </div>
+            {% if not user.is_authenticated %}
+            <div class="login">
+                <a class="a" href="/accounts/login">
+                    <p>로그인</p>
+                </a>
+            </div>
+            <div class="join">
+                <a class="a" href="/accounts/signup">
+                    <p>회원가입</p>
+                </a>
+            </div>
+            {% else %}
+            <div class="language_setting">
+                <a class="a" href="">
+                    <p>
+                        {% comment %} {{user.username}} {% endcomment %}
+                        {{user.first_name}}
+                        <svg class="language_arrow" viewBox="0 0 8 5">
+                            <path d="M.707 1.707l2.586 2.586a1 1 0 001.414
+                                    0l2.586-2.586C7.923 1.077 7.477 0 6.586
+                                    0H1.414C.524 0 .077 1.077.707 1.707z" fill="#fff"></path>
+                        </svg>
+                    </p>
+                </a>
+                <ul class="language_chart">
+                    <li><a href="">마이페이지</a></li>
+                </ul>
+            </div>
+            <div class="logout">
+                <a class="a" id="logoutbtn" href="{% url 'logout' %}">
+                    <p>로그아웃</p>
+                </a>
+            </div>
+            {% endif %}
+
         </div>
     </header>
 </body>
