@@ -8,9 +8,9 @@ from PIL import Image
 from io import BytesIO
 
 
-master_key = ...
-master_id = ...
-master_face_key = ...
+master_key = "2179074882679a424c4b817fd744275b"
+master_id = "TMuD9dkOkEfHZCUjLoPo"
+master_face_key = "SG_6abbbc640db94e2c"
 
 def toB64(image_path):
     with open(image_path, "rb") as image_file:
@@ -134,7 +134,8 @@ def index(request):
                     image_face = f'/Users/seongjiko/AIVLE_BIG/iand_project/temp_target.png'
                     # image_face  =  유저 얼굴
                     face_swap(master_face_key, image_bg, image_face, img_file)
-        face_change = 1 
+
+        face_change = 1  
         
         
     context = { 'books': books,
