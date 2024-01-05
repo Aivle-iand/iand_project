@@ -43,15 +43,11 @@
                     <img src="{% static 'img/coin.png' %}", height="24", width="24">100
                 </div>
                 <div class="mypage">
-                    <a class="a" id="mypagebtn" href="/mypage">
-                        <p>마이페이지</p>
-                    </a>
+                    <a id="mypagebtn" href="/mypage">마이페이지 </a>
                 </div>
                 
                 <div class="logout">
-                    <a class="a" id="logoutbtn" href="{% url 'logout' %}">
-                        <p>로그아웃</p>
-                    </a>
+                    <a id="logoutbtn" href="{% url 'logout' %}"> 로그인 </a>
                 </div>
             {% endif %}
         </div>
