@@ -38,8 +38,7 @@ def categoryView(request, c_slug=None):
         post_list = post_list.filter(postname__icontains = keyword)
     else:
         pass
-        #page_obj = page_obj.filter(writer__icontains = keyword)
-        
+             
     page = request.GET.get('page')
     paginator = Paginator(post_list, 10)
     try:
@@ -107,8 +106,7 @@ def update(request, pk):
         context = {'form':form}
         return render(request, 'community/update.html', {'form':form})
     else:
-        return redirect('community:detail')
-    
+        return redirect('community:detail')   
 
 def comments_create(request, pk):
     if request.user.is_authenticated:
@@ -121,7 +119,6 @@ def comments_create(request, pk):
             comment.save()
         return redirect('community:detail', detail.pk)
     return redirect('accounts:login')
-
 
 def comments_delete(request, detail_pk, comment_pk):
     if request.user.is_authenticated:
