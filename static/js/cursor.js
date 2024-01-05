@@ -67,13 +67,13 @@ function updateCursorPosition(x, y) {
 }
 
 document.addEventListener('mouseover', function(event) {
-    if (event.target.closest('label, a, span, button')) {
+    if (event.target.closest('label, a, button')) {
         scaleCursor(5);  // 커서를 1.2배 늘립니다.
     }
 });
 
 document.addEventListener('mouseout', function(event) {
-    if (event.target.closest('label, a, span, button')) {
+    if (event.target.closest('label, a, button')) {
         scaleCursor(1.0);  // 커서를 원래 크기로 복원합니다.
     }
 });
@@ -84,4 +84,9 @@ function scaleCursor(scale) {
 
     dot.style.transform = `translate(-50%, -50%) scale(${scale})`;
     dotOutline.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}
+
+function red_dot(scale) {
+    const dotOutline = document.getElementById('cursor-dot-outline');
+    dotOutline.style.transform = `background(#0000FF)`
 }
