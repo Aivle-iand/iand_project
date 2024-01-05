@@ -1,5 +1,8 @@
 // -------------------------
 // li부분 색깔 변화를 위한 js
+const app = () => {};
+window.onload = app;
+
 document.addEventListener("DOMContentLoaded", function () {
   const navigationLinks = document.querySelectorAll(
     ".internal_navigation_list a"
@@ -281,13 +284,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   nicknameChange.addEventListener("click", function () {
     let nickname_now = nicknameInput.value;
-    const csrfToken = document.getElementById("csrfToken").value;
     if (nickname_input == nickname_now) {
       fetch("/mypage/mypage_temp/change_nickname", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRFToken": csrfToken,
         },
         body: JSON.stringify({ new_nickname: nickname_now }),
       })
@@ -312,7 +313,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let chkpassHelp = document.getElementById("chk-pass-help");
   let passLen = document.querySelector(".passlen");
   let passInit = document.querySelector(".passinit");
-  const csrfToken = document.getElementById("csrfToken").value;
   let curpassError = true;
   let chkpassError = true;
   let newpassError = true;
@@ -328,7 +328,6 @@ document.addEventListener("DOMContentLoaded", function () {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRFToken": csrfToken,
       },
       body: JSON.stringify({ cur_password: curPassword }),
     })
@@ -337,11 +336,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (data.match) {
           curpassError = false;
           password_cur_container.style.border = "1px solid #4df4d3";
-          console.log("현재 비밀번호 일치");
+          // console.log("현재 비밀번호 일치");
         } else {
           curpassError = true;
           password_cur_container.style.border = "1px solid #d953e5";
-          console.log("현재 비밀번호 불일치");
+          // console.log("현재 비밀번호 불일치");
         }
       });
   });
@@ -437,7 +436,6 @@ document.addEventListener("DOMContentLoaded", function () {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRFToken": csrfToken,
         },
         body: JSON.stringify({ cur_password: curPassword }),
       })
@@ -453,13 +451,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function confirmDeletion() {
-  const csrfToken = document.getElementById("csrfToken").value;
   let result = confirm("정말로 계정을 삭제하시겠습니까?");
   if (result) {
     fetch("/mypage/mypage_temp/delete_account", {
       method: "POST",
       headers: {
-        "X-CSRFToken": csrfToken,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ action: "delete" }),

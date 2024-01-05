@@ -34,6 +34,7 @@
                     /><span>계정 정보</span></a
                   >
                 </li>
+                {% if user.email == '' %}
                 <li>
                   <a class="personal_information_link" href="#change_password"
                     ><img
@@ -42,6 +43,7 @@
                     /><span>비밀번호 변경</span></a
                   >
                 </li>
+                {% endif %}
                 <li>
                   <a class="personal_information_link" href="#upload_img"
                     ><img
@@ -90,8 +92,19 @@
             </p>
           </div>
           <div class="personal_information_content">
-            <div class="personal_information_username">
-              <div class="personal_username">사용자 ID : {{user.username}}</div>
+            <div class="input_container" id="username-container">
+              <div class="input_wrapper">
+                <span class="input-label" id="nickname">사용자 ID</span>
+                <input
+                  class="type-input"
+                  id="username-input"
+                  data-testid="input-username"
+                  autocapitalize="off"
+                  type="text"
+                  value="{{user.username}}"
+                  disabled
+                />
+              </div>
             </div>
             <div class="input_container" onclick="onClickInputWrapper(event)">
               <div class="input_wrapper">
@@ -115,6 +128,7 @@
             </div>
           </div>
         </div>
+        {% if user.email == '' %}
         <div class="personal_information_card" id="change_password">
           <div class="personal_information_explain">
             <h1>비밀번호 변경</h1>
@@ -123,8 +137,7 @@
               있습니다.
             </p>
           </div>
-          <input type="hidden" id="csrfToken" value="{{ csrf_token }}" />
-          <div class="personal_information_content">
+          <div class="personal_information_content" id="pwd-content">
             <p class="change_password_text">비밀번호 변경</p>
             <div
               class="input_container"
@@ -192,6 +205,7 @@
             </div>
           </div>
         </div>
+        {% endif %}
         <div class="personal_information_card" id="upload_img">
           <div class="personal_information_explain">
             <h1>이미지 업로드</h1>
@@ -215,6 +229,7 @@
                 id="image_input"
                 style="display: none"
                 onchange="inputOnchange(event)"
+                accept=".jpg, .jpeg, .png"
               />
             </div>
             <div class="upload_button_area">
@@ -260,6 +275,7 @@
                 id="voice_input"
                 style="display: none"
                 onchange="inputOnchange(event)"
+                accept=".mp3, .m4a"
               />
             </div>
             <div class="upload_button_area">
