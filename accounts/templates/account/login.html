@@ -176,6 +176,10 @@
         });
     </script>
 
+    {% if request.method == 'POST' %}
+    <script src="{% static 'accounts/js/ip.js' %}"></script>
+    {% endif %}
+
     {% comment %} {% if messages %}
         <script type="text/javascript">
         {% for message in messages %}
