@@ -1,3 +1,13 @@
+@font-face {
+    font-family: AppleSDGothicNeo;
+    font-weight: 400;
+    src: url("{% static 'fonts/AppleSDGothicNeoEB.ttf' %}") format("ttf");
+}
+
+* {
+    font-family: AppleSDGothicNeo;
+}
+
 html, body {
     margin: 0px; 
     padding: 0px;
