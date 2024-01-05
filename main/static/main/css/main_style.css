@@ -8,13 +8,16 @@
     left: 50%;
     min-width: 100%; 
     min-height: 100%;
-    width: auto; 
-    height: auto;
+    /* width: auto; 
+    height: auto; */
     z-index: -100;
     transform: translate(-50%, -50%);
-    overflow: hidden; /* Hide the overflowing of video */
+    overflow: hidden;
 }
-
+.front img {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.25);
+    border-radius: 10px;
+}
 .main_container {
     width: 100%;
     /* height: 400px; */
@@ -153,5 +156,3 @@
     font-size: 16px;
     padding: 16px 32px;
   }
-
- 
