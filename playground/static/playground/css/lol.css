@@ -786,6 +786,7 @@ label:hover>.human {
     position : relative;
 }
 
+
 /* Quiz 모달 */
 .quiz_main {
     display: flex;
@@ -800,13 +801,15 @@ display: grid;
 grid-gap: 20px;  
 margin-top: 50px;  
 margin-left: 100px;
+grid-template-columns: repeat(3, 1fr); 
+grid-template-rows: auto auto auto;
 }
 
 
 .card {
 cursor: pointer;
 overflow: hidden;
-border-radius: 60px;
+border-radius: 70%;
 background-color: rgb(26, 39, 98);
 grid-column: span 3;
 height: 190px;
@@ -816,41 +819,32 @@ position: relative;
 border : 0px!important;
 }
 
-div#quiz_1 {
-grid-area: 1/1;
-}
-
-div#quiz_2 {
-grid-area: 1/2;
-}
-
-div#quiz_3 {
-grid-area: 2/1;
-}
-
-div#quiz_4 {
-grid-area: 2/2;
-}
 
 .card__text {
 height: 80px;
-width: 100%;
 border-radius: 4px;
-background-color: rgb(69, 87, 129);
-align-items: center;
-display: flex;
+background-color: #B88851;
 opacity: 0.8;
-margin-top: 10px;
-}
+margin: 10px;
+padding: 0 20px;
+text-align: center;
+display: flex; 
+justify-content: center; 
+align-items: center; 
+  }
+  
 
 .card__heading {
-opacity: 0.6;
+opacity: 0.9;
 width: 100%;
-color: rgb(140, 189, 246);
-background-color: rgb(46, 61, 96);
+color: #E1CDB7;
+background-color: rgb(146, 106, 59);
 margin: 0 ;
 height: 50px;
-padding-top: 10px;
+text-align: center; 
+justify-content: center; 
+align-items: center; 
+display: flex;
 }
 
 
@@ -875,36 +869,54 @@ grid-column: span 2;
     display :flex;
     flex-direction: row-reverse;
     justify-content: center;
-    margin-top: 20px;
+    
 }
 
 /* button */
-.quiz_input_wrap>input[type="text"]:focus {
+/* .quiz_input_wrap>input[type="text"]:focus {
     background-color: rgb(249, 249, 249); 
     border: 2px solid rgb(248, 248, 246); 
     color: black; 
-}
+} */
 
-#quiz_button {
+/* #quiz_button {
     display : flex;
     flex-direction: row-reverse;
-    grid-area: 3/2;
-}
+    
+} */
 
-#quiz_button>button {
+/* #quiz_button>button {
     background-color: rgb(255, 255, 255);
     border : 2px solid rgb(0, 0, 0);
     color : rgb(0, 0, 0);
     height : 25px;
     font-size : 17px;
 }
+*/
 
-#quiz_button>button:hover {
-    background-color: #ffffff;
-    border : 2px solid rgb(0, 0, 0);
-    color : rgb(0, 0, 0);
-    font-weight: 600;
+
+#quiz_button_container {
+    position: absolute; 
+    bottom: 20px; 
+    right: 20px;     
+    font-size: 16px;
+    font-weight: 530;       
 }
+
+#quiz_buttonn {
+    background-color: #ff000000;
+    color: white;
+    border: 1px solid white;
+    margin-bottom: 37;
+
+}
+
+/* quiz 결과 폼*/
+#resultForm {
+    display: none;
+  }
+  
+
 
 .main_bottom {
     height : 200px;
