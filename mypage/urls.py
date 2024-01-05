@@ -10,5 +10,6 @@ urlpatterns = [
     path('mypage_temp/change_nickname', views.change_nickname, name='change_nickname'),
     path('mypage_temp/change_password', views.change_password, name='change_password'),
     path('mypage_temp/delete_account', views.delete_account, name='delete_account'),
+    path('mypage_temp/check_api_user', views.check_api_user, name='check_api_user'),
     path('accounts/', include('allauth.urls')),
 ]
