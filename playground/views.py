@@ -70,15 +70,10 @@ def text_to_speach(text_for_sound, unique_voice_id ,api_key ,voice_path ,file_na
 
 def index(request):
     search_query, filter_option, categoryOption = request.GET.get('search', ''), request.GET.get('filter_option', ''), request.GET.get('categoryOption', '')
-    voice, face = request.GET.get('voice', ''), request.GET.get('face', '')
     checked_card = request.GET.get('checked_card', '')
     voice_change, face_change = 0, 0
+    
     books = Book.objects.all()
-
-    if filter_option == '1':
-        books = books.filter(quiz=1)
-    elif filter_option == '0':
-        books = books.filter(quiz=0)
         
     if search_query:
         books = books.filter(name__icontains=search_query)
@@ -90,6 +85,8 @@ def index(request):
             cate = {'1':'과학자', '2':'수학자', '3': '철학자', '4':'음악가'}
             books = books.filter(category=cate[categoryOption])
     
+    
+    
     if checked_card:
         human = books.get(id=int(checked_card))
         hu = human.episodes.all()
@@ -97,63 +94,71 @@ def index(request):
     else:
         episodes = []
     
-    if voice:
-        voice_path = os.path.abspath(__file__)
-        voice_path, _ = os.path.split(voice_path)
-        voice_path +=  '/static/playground/user/' + master_id + '/' + str(voice) + '/voice'
-        if not os.path.exists(voice_path): 
-            os.makedirs(voice_path)
-        for epi in '123': 
-            for sce in '1234':
-                file_name = '/'+str(voice)+'_'+epi+'_'+ sce +'.mp3'
-                mp3_file = os.path.join(voice_path+file_name)
-                if os.path.exists(mp3_file):
-                    continue
-                else:
-                    scene_ = episodes[int(epi)-1].get(scene_number=sce)
-                    tfs = scene_.voice_text
-                    text_to_speach(tfs, master_id ,master_key,voice_path,file_name)
-        voice_change = 1   
+    
+    if request.session.get('user'):
+        #user_id = request.session.get('user')
+        voice, face = request.GET.get('voice', ''), request.GET.get('face', '')
+        if filter_option == '1':
+            books = books.filter(quiz=1) # user  테이블로 변경해야함. 테이블 만들고 나서. 
+            
+        elif filter_option == '0':
+            books = books.filter(quiz=0)
+            
+        if voice:
+            voice_path = os.path.abspath(__file__)
+            voice_path, _ = os.path.split(voice_path)
+            voice_path +=  '/static/playground/user/' + str(request.user.username) + '/' + str(voice) + '/voice'
+            if not os.path.exists(voice_path): 
+                os.makedirs(voice_path)
+            for epi in '123': 
+                for sce in '1234':
+                    file_name = '/'+str(voice)+'_'+epi+'_'+ sce +'.mp3'
+                    mp3_file = os.path.join(voice_path+file_name)
+                    if os.path.exists(mp3_file):
+                        continue
+                    else:
+                        scene_ = episodes[int(epi)-1].get(scene_number=sce)
+                        tfs = scene_.voice_text
+                        text_to_speach(tfs, request.user.profile.voice_url , master_key, voice_path, file_name)
+            voice_change = 1   
         
-    if face:
-        face_path = os.path.abspath(__file__)
-        face_path, _ = os.path.split(face_path)
-        face_path +=  '/static/playground/user/' + master_id + '/' + str(face) + '/face'
-        if not os.path.exists(face_path): 
-            os.makedirs(face_path)
-        for epi in '123': 
-            for sce in '1234':
-                file_name = '/' + str(face) +'_'+epi+'_'+ sce +'.png'
-                
-                img_file = os.path.join(face_path+file_name)
-                if os.path.exists(img_file):
-                    continue
-                else:
-                    scene_ = episodes[int(epi)-1].get(scene_number=sce)
-                    # image_bg =  'media\\'+scene_.image
-                    image_bg = f'/Users/seongjiko/AIVLE_BIG/iand_project/media/contents/{face}_{epi}_{sce}.png'
-                    image_face = f'/Users/seongjiko/AIVLE_BIG/iand_project/temp_target.png'
-                    # image_face  =  유저 얼굴
-                    face_swap(master_face_key, image_bg, image_face, img_file)
-
-        face_change = 1  
-        
-        
+        if face:
+            face_path = os.path.abspath(__file__)
+            face_path, _ = os.path.split(face_path)
+            face_path +=  '/static/playground/user/' + str(request.user.username) + '/' + str(face) + '/face'
+            if not os.path.exists(face_path): 
+                os.makedirs(face_path)
+            for epi in '123': 
+                for sce in '1234':
+                    file_name = '/' + str(face) +'_'+epi+'_'+ sce +'.png'
+                    
+                    img_file = os.path.join(face_path+file_name)
+                    if os.path.exists(img_file):
+                        continue
+                    else:
+                        scene_ = episodes[int(epi)-1].get(scene_number=sce)
+                        image_bg =  face_path.split('iand_project')[0] + 'iand_project/media/contents' + file_name
+                        image_face = request.user.profile.voice_url
+                        face_swap(master_face_key, image_bg, image_face, img_file)
+            face_change = 1  
+    else:
+        filter_option = ''
+            
     context = { 'books': books,
                 "search_query": search_query,
                 "filter_option" : filter_option,
                 "categoryOption":categoryOption,    
-                "voice":voice,
-                "face":face,
                 "checked_card" : checked_card,
                  }  
     if episodes:
         context['episodes'] = episodes
     
-    if voice_change == 1:
+    if request.session.get('user') and voice_change == 1:
+        context['voice'] = voice
         context['voice_change'] = voice_change
         
-    if face_change == 1:
+    if request.session.get('user') and face_change == 1:
+        context['face'] = face
         context['face_change'] = face_change
    
     return render(request, 'playground/lol.html', context)
@@ -173,16 +178,18 @@ def score_quiz(request, book_id):
             user_answer = request.POST.get(f'input_{quiz.quiz_index}') 
             if user_answer == quiz.quiz_answer:
                 score += 1
-        return JsonResponse({'score': score, 'total': total})
-    
-       # 모든 퀴즈의 정답을 맞힌 경우
+        
         if score == total:
-            quiz_history, created = QuizHistory.objects.get_or_create(
-                user=request.user,  # 현재 로그인한 사용자
-                book=book           # 현재 퀴즈의 책
-            )
+            # QuizHistory 객체를 가져오거나 새로 생성
+            quiz_history, created = QuizHistory.objects.get_or_create()
+
+            # 사용자와 책을 QuizHistory 객체에 추가
             quiz_history.correct_users.add(request.user)
             quiz_history.read_book.add(book)
 
         return JsonResponse({'score': score, 'total': total})
+
+   
+    
+
 
