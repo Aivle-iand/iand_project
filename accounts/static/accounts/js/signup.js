@@ -5,7 +5,7 @@ var errors = {
     first_name: true,
     last_name: true,
     nickname: true, 
-    securityAnswer: true 
+    pin: true 
 };
 
  // ID 중복체크
@@ -137,7 +137,7 @@ function validatelastName() {
     updateSubmitButton();
 }
 
-function checkNicknameDuplication(nickname) {
+function checkNicknameDuplication(nickname, nicknameHelp) {
     // AJAX 요청 설정
     // console.log("닉네임 테스트");
     var xhr = new XMLHttpRequest();
@@ -169,14 +169,32 @@ function validateNickName() {
     var nicknameHelp = document.getElementById("nicknameHelp");
     var isEmpty = nickname.trim() === "";
     errors.nickname = isEmpty; // 비어있으면 true
-    checkNicknameDuplication(nickname)
+    checkNicknameDuplication(nickname, nicknameHelp)
     updateSubmitButton();
 
 }
 function validateSecurityAnswer() {
-    var securityAnswer = document.getElementById("security-answer").value;
-    var isEmpty = securityAnswer.trim() === "";
-    errors.securityAnswer = isEmpty; // 비어있으면 true
+    var pin = document.getElementById("pin").value;
+    var isEmpty = pin.trim() === "";
+    var lengthCheck = /^.{4,4}$/;
+    var specialCharCheck = /^[0-9]+$/;
+    var helpText = document.getElementById("pinHelp");
+    errors.pin = false;
+
+    if (!lengthCheck.test(pin) || !specialCharCheck.test(pin)) {
+        helpText.style.color = 'red';
+        helpText.innerHTML = "PIN 번호는 4자리의 숫자입니다.";
+        errors.pin = true;
+        return;
+    }
+
+    else {
+        helpText.style.color = 'green';
+        helpText.innerHTML = "사용 가능한 PIN 번호입니다.";
+        errors.pin = false;
+    }
+
+    errors.pin = isEmpty; // 비어있으면 true
     updateSubmitButton();
 }
 
@@ -205,6 +223,6 @@ document.getElementById('confirmPassword').addEventListener('input', updateSubmi
 document.getElementById('first_name').addEventListener('input', updateSubmitButton);
 document.getElementById('last_name').addEventListener('input', updateSubmitButton);
 document.getElementById('nickname').addEventListener('input', updateSubmitButton);
-document.getElementById('security-answer').addEventListener('input', updateSubmitButton);
+document.getElementById('pin').addEventListener('input', updateSubmitButton);
 document.getElementById('agree').onchange = validateAgreement;
 document.getElementById('disagree').onchange = validateAgreement;
