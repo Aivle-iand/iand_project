@@ -26,10 +26,6 @@
 
         <link
             rel="stylesheet"
-            href="{% static 'main\css\header_style.css' %}"
-        />
-        <link
-            rel="stylesheet"
             href="{% static 'main\css\banner_style.css' %}"
         />
         <link rel="stylesheet" 
@@ -39,10 +35,6 @@
         <link
             rel="stylesheet"
             href="../../animation/animate.css"
-        />
-
-        <link rel="stylesheet" 
-        href="{% static 'main\css\cursor.css' %}" 
         />
         
         <style>
@@ -73,95 +65,11 @@
     
 
     <body>
-        <div id="cursor-dot"></div>
-        <div id="cursor-dot-outline"></div>
         
-        <header>
-            <div class="header_left">
-                <a href="../"
-                    ><img src="{% static 'playground/images/logoc_.png' %}" alt="logo"
-                /></a>
-            </div>
-    
-            <div class="header_center">
-                <div class="experience_link">
-                    <a href="/playground">
-                        <p>위인체험</p>
-                        <div class="underbar"></div>
-                    </a>
-                </div>
-                <div class="community_link">
-                    <a href="/community">
-                        <p>커뮤니티</p>
-                        <div class="underbar"></div>
-                    </a>
-                </div>
-            </div>
-    
-            <div class="header_right">
-                <!-- <div class="language_setting">
-                    <a class="a" href="">
-                        <p>
-                            언어설정
-                            <svg class="language_arrow" viewBox="0 0 8 5">
-                                <title>mainNavArrowDownHover</title>
-                                <path
-                                    d="M.707 1.707l2.586 2.586a1 1 0 001.414
-                                    0l2.586-2.586C7.923 1.077 7.477 0 6.586
-                                    0H1.414C.524 0 .077 1.077.707 1.707z"
-                                    fill="#fff"
-                                ></path>
-                            </svg>
-                        </p>
-                    </a>
-                    <ul class="language_chart">
-                        <li><a href="">한국어</a></li>
-                        <li><a href="">English</a></li>
-                    </ul>
-                </div> -->
-                {% if not user.is_authenticated %}
-                <div class="login">
-                    <a class="a" href="/accounts/login">
-                        <p>로그인</p>
-                    </a>
-                </div>
-                <div class="join">
-                    <a class="a" href="/accounts/signup">
-                        <p>회원가입</p>
-                    </a>
-                </div>
-                {% else %}
-                <div class="language_setting">
-                    <a class="a" href="">
-                        <p>
-                            {% comment %} {{user.username}} {% endcomment %}
-                            {{user.first_name}}
-                            <svg class="language_arrow" viewBox="0 0 8 5">
-                                <path
-                                    d="M.707 1.707l2.586 2.586a1 1 0 001.414
-                                    0l2.586-2.586C7.923 1.077 7.477 0 6.586
-                                    0H1.414C.524 0 .077 1.077.707 1.707z"
-                                    fill="#fff"
-                                ></path>
-                            </svg>
-                        </p>
-                    </a>
-                    <ul class="language_chart">
-                        <li><a href="">마이페이지</a></li>
-                    </ul>
-                </div>
-                <div class="logout">
-                    <a class="a" id="logoutbtn" href="{% url 'logout' %}">
-                        <p>로그아웃</p>
-                    </a>
-                </div>
-                {% endif %}
-    
-            </div>
-        </header>
-
+        <header>{% include 'header.html' %}</header>
+        {% include 'cursor.html' %}
         <div class="video-background">
-            <video autoplay muted loop id="myVideo">
+            <video autoplay muted loop id="myVideo" style="width: 100%; height: 100%;">
                 <source src="{% static 'main/images/main_background_video.mp4' %}" type="video/mp4">
               </video>
         </div>
@@ -170,8 +78,7 @@
             <div
                 id="carouselExampleIndicators"
                 class="carousel slide"
-                data-bs-ride="carousel"
-            >
+                data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     <button
                         type="button"
@@ -257,7 +164,7 @@
                 <div class="sections">
                     
                     <div class="best_section1">
-                        <h4>구독자가 가장 많이 공부한 인물</h4>
+                        <h5>구독자가 가장 많이 공부한 인물</h5>
                         <a href="playground/?search=%EC%95%84%EC%9D%B4%EC%9E%91+%EB%89%B4%ED%84%B4&filter_option=&categoryOption=">
                             <div class="animate__animated animate__backInUp image-placeholder"> 
                                 <img src="{% static 'main/images/main_newton.png' %}" style="width:100%; height: 80%;" class="image">
@@ -328,98 +235,7 @@
         });
     </script>
     
-<!-- Footer -->
-<footer class="text-center text-lg-start bg-body-tertiary text-muted">
-    <!-- Section: Social media -->
-    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom" style="width: 100vw;">
-      <!-- Left -->
- 
-      <!-- Right -->
-    </section>
-    <!-- Section: Social media -->
-  
-    <!-- Section: Links  -->
-    <section class="">
-      <div class="container text-center text-md-start mt-5">
-        <!-- Grid row -->
-        <div class="row mt-3">
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-            <!-- Content -->
-            <h6 class="text-uppercase fw-bold mb-4">
-              <i class="fas fa-gem me-3"></i>I&_아이앤
-            </h6>
-            
-              [I&_아이앤]은 KT AIVLE SCHOOL에서 진행한 프로젝트 작품으로 관련 모든 저작권은 KT에 있습니다.
-            
-          </div>
-          <!-- Grid column -->
-  
-          <!-- Grid column -->
-          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4">
-              Developer
-            </h6>
-            <p>
-              <a href="https://github.com/seongjiko" class="text-reset">고성지</a>
-            </p>
-            <p>
-              <a href="https://github.com/arang125" class="text-reset">김아랑</a>
-            </p>
-            <p>
-              <a href="https://github.com/junvely-y" class="text-reset">김준우</a>
-            </p>
-            <p>
-              <a href="https://github.com/gichang404" class="text-reset">성기창</a>
-            </p>
-          </div>
-          <!-- Grid column -->
-  
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4">
-                　
-            </h6>
-            <p>
-              <a href="https://github.com/Opened-water" class="text-reset">신연수</a>
-            </p>
-            <p>
-              <a href="https://github.com/skagh2556" class="text-reset">이남호</a>
-            </p>
-            <p>
-              <a href="https://github.com/xhaktm00" class="text-reset">이수정</a>
-            </p>
-          </div>
-          <!-- Grid column -->
-  
-          <!-- Grid column -->
-          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-            <p><i class="fas fa-home me-3"></i> 경기도 성남시 분당구 불정로90 (정자동)</p>
-            <p><i class="fas fa-phone me-3"></i> 담당자: 고성지</p>
-            <p>
-              <i class="fas fa-envelope me-3"></i>
-              soc06202@kakao.com
-            </p>
-            <p><i class="fas fa-phone me-3"></i> +82 10 9778 6482</p>
-          </div>
-          <!-- Grid column -->
-        </div>
-        <!-- Grid row -->
-      </div>
-    </section>
-    <!-- Section: Links  -->
-  
-    <!-- Copyright -->
-    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-      © 2024 Copyright: 
-      <a class="text-reset fw-bold" href="https://aivle.kt.co.kr/">KT corp. All rights resevered.</a>
-    </div>
-    <!-- Copyright -->
-  </footer>
-  <script src="{% static 'main/js/cursor.js' %}"></script>
+
   <!-- Footer -->
+  {% include 'footer.html' %}
 </html>
