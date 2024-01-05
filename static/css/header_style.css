@@ -9,7 +9,7 @@ header {
     height: 80px;
     background-color: black;
     border-bottom: 2px solid rgba(51, 51, 51, .25);
-    font-size: 14px !important;
+    font-size: 19px !important;
     font-weight: bold;
     line-height: normal;
     text-align: left;
@@ -36,7 +36,7 @@ header {
 .header_center div {
     display: inline-flex;
     position: relative;
-    height: 80px;
+    /* height: 80px; */
     cursor: pointer;
     min-width: 115px;
 }
@@ -47,7 +47,7 @@ header {
     padding: 0;
     flex-direction: column;
     justify-content: center;
-    height: 66px;
+    /* height: 66px; */
     font-size: 19px;
     font-weight: 600;
     line-height: 120%;
@@ -63,8 +63,9 @@ header {
 .header_right div {
     display: inline-flex;
     position: relative;
-    height: 80px;
-    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    /* height: 80px; */
     min-width: 90px;
 }
 
@@ -75,8 +76,8 @@ header {
     width: 100%;
     flex-direction: column;
     justify-content: center;
-    height: 66px;
-    font-size: 16px;
+    /* height: 66px; */
+    font-size: 19px;
     font-weight: 600;
     line-height: 120%;
     letter-spacing: .08em;
@@ -93,12 +94,14 @@ header a p {
 
 .header_right .a:hover .language_chart {
     transition: opacity .5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s, visibility 0s;
+    color: whitesmoke;
     opacity: 1;
     visibility: visible;
     display: block;
 }
 
 */ .header_right .language_chart:hover {
+    color: whitesmoke;
     transition: opacity .5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s, visibility 0s;
     opacity: 1;
     visibility: visible;
@@ -114,6 +117,9 @@ header a p {
 
 header a {
     text-decoration: none;
+    letter-spacing: 0;
+    transition: 0.35s;
+    color:white;
 }
 
 .header_right a p {
@@ -129,30 +135,24 @@ header a {
     text-align: center;
 }
 
-
-header p {
-    letter-spacing: 0;
-    transition: 0.35s;
-    color:white;
-}
-
-header p:hover,
-header p:active {
+header a:hover,
+header a:active {
+    color: whitesmoke;
     /* color: yellow; */
     letter-spacing: 5px;
     transition: 0.35s;
 }
 
-header p:after {
+header a:after {
     bottom: -10px;
 }
 
-header p:before {
+header a:before {
     top: -10px;
 }
 
-header p:after,
-header p:before {
+header a:after,
+header a:before {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     border: 1px solid rgba(255, 255, 255, 0);
@@ -164,8 +164,8 @@ header p:before {
     width: 0;
 }
 
-header p:hover:after,
-header p:hover:before {
+header a:hover:after,
+header a:hover:before {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     border-color: #fff;
@@ -173,13 +173,14 @@ header p:hover:before {
     width: 100%;
 }
 
-header p:hover:before {
+header a:hover:before {
     width: 100%;
 }
 
 .header_right .non_login{
     color: white;
     font-size: 12px;
+    margin-right: 10px;
 }
 
 .header_right .success_login{
