@@ -454,7 +454,7 @@ header a {
     height: 300px;
     width: 224px;
     top : 6px;
-    right : 112px;
+    right : -7px;
     border: 3px solid rgb(224,159,89);
     background-size: 100% 100%;
     background-position : center center;
@@ -469,7 +469,7 @@ header a {
     width : 220px;
     height : 296px;
     top : -292px;
-    right : 110px;
+    right : -8px;
     opacity : 0.8;
     background-image : url('/static/playground/images/자물쇠.png');
     background-repeat : no-repeat;
@@ -480,11 +480,16 @@ label:hover>.human {
     background-size: 110% 110%;
 }
 
+.name_img_wrap>label {
+    width : 239px;
+    height : 372px;
+}
+
 .item {
     overflow: hidden;
 }
 
-.modal_check_form + label>.name{
+.modal_check_form + div>label>.name{
     position : relative;
     height: 15%;
     width : 224px;
@@ -492,16 +497,15 @@ label:hover>.human {
     font-weight: 600;
     padding-top: 9px;
     color: rgb(224,159,89);
-    right : 110px;
-    top : 5px;
+    right : -7px;
 }
 
 .lock_image + .name {
-    top : -295px!important;
+    top : -296px!important;
 }
 
 
-.modal_check_form +label +div {
+.modal_check_form +div.name_img_wrap +div {
     /* display : none; */
     position: fixed;
     top: 0;
@@ -511,7 +515,7 @@ label:hover>.human {
     z-index: 100;
 }
 
-.modal_check_form + label + div > div {
+.modal_check_form + div.name_img_wrap + div > div {
     position : absolute;
     top: 55%;
     left: 50%;
@@ -523,7 +527,7 @@ label:hover>.human {
     border : 3px solid rgb(224, 159, 89);
 }
 
-.modal_check_form + label + div > div > label {
+.modal_check_form + div.name_img_wrap + div > div > label {
     position : absolute;
     top: 3%;
     right: 2%;
@@ -534,11 +538,11 @@ label:hover>.human {
     opacity : 0.4;
 }
 
-.modal_check_form + label + div > div > label:hover {
+.modal_check_form + div.name_img_wrap + div > div > label:hover {
     opacity : 1;
 }
 
-.modal_check_form + label + div > label {
+.modal_check_form + div.name_img_wrap + div > label {
     position :absolute;
     top: 0;
     left: 0;
