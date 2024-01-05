@@ -10,8 +10,17 @@ from django.shortcuts import redirect, render
 from .forms import CustomSocialSignupForm  # Import your CustomSocialSignupForm here
 from django.urls import reverse_lazy
 from allauth.account.views import LoginView
+import requests
 
-
+def get_client_ip(request):
+    try:
+        response = requests.get('https://ipinfo.io/json')
+        data = response.json()
+        ip = data.get('ip', '')
+        country = data.get('country', '')
+        return JsonResponse({'ip': ip, 'country': country})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 class CustomLoginView(LoginView):
     template_name = 'accounts/login.html'
