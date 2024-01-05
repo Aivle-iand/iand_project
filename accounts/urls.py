@@ -2,7 +2,7 @@ from allauth.account.views import LoginView, LogoutView
 from django.urls import path, include
 from . import views
 from allauth.socialaccount.views import SignupView
-from .views import CustomSocialSignupView, CustomLoginView
+from .views import CustomSocialSignupView, CustomLoginView, get_client_ip
 
 urlpatterns = [
     # path('login/', LoginView.as_view(), name="login"),
@@ -14,4 +14,5 @@ urlpatterns = [
     path('signup/check_nickname_dup', views.check_nickname, name="check_nickname_dup"),
     path('social/signup/social_check_nickname_dup', views.social_check_nickname, name="social_check_nickname_dup"),
     path('', include('allauth.urls')),
+    path('get_client_ip/', get_client_ip, name='get_client_ip'),
 ]

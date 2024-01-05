@@ -436,6 +436,9 @@
             </footer>
         </body>
         <script src="{% static 'accounts/js/signup.js' %}"></script>
+        {% if request.method == 'POST' or user_signed_up %}
+            <script src="{% static 'accounts/js/ip.js' %}"></script>
+        {% endif %}
 
         {% comment %} {% if messages %}
         <script type="text/javascript">

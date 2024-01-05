@@ -14,5 +14,5 @@ class LoginHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     username = models.CharField(max_length=150)
-    # ip = models.CharField(max_length=20)
-    # country = models.CharField(max_length=20)
+    ip = models.CharField(max_length=20, default='')
+    country = models.CharField(max_length=20, default='')
