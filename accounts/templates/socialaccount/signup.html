@@ -96,11 +96,21 @@
                             required oninput='validateNickname()' required>
                             <div id="nicknameHelp"></div>
                         </div>
+                        
+                        <div class="signup-security">
+                            <a>PIN 번호 4자리 입력</a>
+
+                            <input name="pin_number" id="pin_number" type="password"
+                                placeholder="· · · ·" required oninput="validateSecurityAnswer()">
+                        </div>
+                    <div id="pinHelp"></div><div class="signup-security">
 
                         <div class="signup-button">
                             <input type="submit" id="submitBtn" value="회원가입" disabled>
                         </div>
                         <div id='info_text'></div>
+
+                        
                     </div> 
                 </form>
             </div>

@@ -174,7 +174,7 @@ function validateNickName() {
 
 }
 function validateSecurityAnswer() {
-    var pin = document.getElementById("pin").value;
+    var pin = document.getElementById("pin_number").value;
     var isEmpty = pin.trim() === "";
     var lengthCheck = /^.{4,4}$/;
     var specialCharCheck = /^[0-9]+$/;
