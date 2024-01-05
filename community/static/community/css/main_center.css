@@ -9,7 +9,7 @@
 /* MAIN-TOP 구간 */
 
 .main_top {
-    height : 240px;
+    height : 350px;
     width : 100%;
     background-color: rgba(242, 242, 242, 0.999);
 
@@ -18,7 +18,7 @@
 .page_name {
     font-size : 35px;
     font-weight : 600;
-    padding-top : 185px;
+    padding-top : 295px;
     padding-left : 40px;
 }
 
