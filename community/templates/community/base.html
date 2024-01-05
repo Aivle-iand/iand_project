@@ -7,13 +7,24 @@
         <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'community/css/style.css' %}">
         <link rel="stylesheet" href="{% static 'community/css/main_center.css' %}">
+        <!-- <link rel="stylesheet" href="{% static 'css/global_style.css' %}"> -->
         <style>
+            @font-face {
+                font-family: AppleSDGothicNeo;
+                font-weight: 800;
+                src: url("/static/fonts/AppleSDGothicNeoEB.ttf") format("truetype");
+            }
+            
+            body {
+                font-family: AppleSDGothicNeo;
+                background-color: white;
+            }
             #announcement {
                 font-weight: 900;
                 font-size: 22px;
             }
         </style>
-
+        
     </head>
     <body>
         {% include 'header.html'%}
@@ -95,8 +106,7 @@
                     </div>
                 </div>                
             </div>
-            
         </main>
-        <footer>{% include 'footer.html' %}</footer>
+        {% include 'footer.html' %}
     </body>
 </html> 
