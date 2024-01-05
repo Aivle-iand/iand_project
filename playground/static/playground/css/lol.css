@@ -3,6 +3,9 @@
     letter-spacing: normal !important;
 }
 
+/* html *, body * {
+    font-family: 'Dongle', sans-serif;
+} */
 
 body {
     margin : 0;
@@ -233,6 +236,7 @@ header a {
     object-fit: none;
     opacity : 0.95;
     z-index: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
 }
 
 .main_top {
@@ -252,7 +256,6 @@ header a {
     left: 0;
     right: 0;
     bottom: 0;
-    /* background-image: url('/static/playground/images/top.png'); */
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 0.5; 
@@ -326,10 +329,6 @@ header a {
     margin : 20px;
 }
 
-/* .item:hover {
-    background-color: rgb(19, 38, 91);
-    border : 5px solid rgb(19, 38, 91);
-} */
 /* 검색 바 */
 
 .classification_bar {
@@ -412,7 +411,7 @@ header a {
     font-weight: 600;
 }
 #radioForm input:checked + label>div{
-    border-bottom: 4px solid yellow;
+    border-bottom: 4px solid rgb(235, 168, 96);
 }
 
 #optionForm>select {
@@ -447,75 +446,58 @@ header a {
     color : #fff;
     width : 100%;
     height : 100%;
+    position : absolute;
 }
 
-/* .modal_check_form + label>.human{
-        height : 85%;
-        background-size: cover;
-} */
-
 .human {
-    height: 300px;
     position: relative;
-    margin: 0 7px;
+    height: 300px;
     width: 224px;
+    top : 6px;
+    right : 112px;
     border: 3px solid rgb(224,159,89);
-    margin-top: 6px;
     background-size: 100% 100%;
+    background-position : center center;
     background-repeat: no-repeat;
     overflow: hidden;
     transition: background-size 0.3s ease-in-out;
 
 }
 
+.lock_image {
+    position : relative;
+    width : 220px;
+    height : 296px;
+    top : -292px;
+    right : 110px;
+    opacity : 0.8;
+    background-image : url('/static/playground/images/자물쇠.png');
+    background-repeat : no-repeat;
+    background-size : cover;
+}
+
 label:hover>.human {
     background-size: 110% 110%;
 }
-
-/* .human::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 2;
-    display: block;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 100%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-}
-
-.item>label:hover .human::before {
-    animation: circle .75s;
-}
-
-@keyframes circle {
-    0% {
-        opacity: 1;
-    }
-    40% {
-        opacity: 1;
-    }
-    100% {
-        width: 200%;
-        height: 200%;
-        opacity: 0;
-    }
-} */
-
 
 .item {
     overflow: hidden;
 }
 
 .modal_check_form + label>.name{
+    position : relative;
     height: 15%;
+    width : 224px;
     font-size: 28px;
     font-weight: 600;
     padding-top: 9px;
     color: rgb(224,159,89);
+    right : 110px;
+    top : 5px;
+}
+
+.lock_image + .name {
+    top : -295px!important;
 }
 
 
@@ -534,11 +516,11 @@ label:hover>.human {
     top: 55%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 1110px;
+    width: 1160px;
     height: 514px;
     background: #000603;
     z-index : 2;
-    border : 2px solid rgb(14, 64, 14);
+    border : 3px solid rgb(224, 159, 89);
 }
 
 .modal_check_form + label + div > div > label {
@@ -568,13 +550,14 @@ label:hover>.human {
 
 .modal_window{
     display : flex;
+    background-color : rgb(24,16,31);
 }
 
 .modal_side {
     display : flex;
     flex-direction: column;
-    border-right : 2px solid rgb(14,64,14);
-    width : 250px;
+    border-right : 3px solid rgb(224,159,89);
+    width : 327px;
     height : 100%;
     text-align: left;
 }
@@ -585,7 +568,7 @@ label:hover>.human {
 }
 
 .modal_side input:checked + label {
-    background-color: rgba(14, 46, 14,0.7);
+    background-color: rgba(224, 159, 89,0.65);
 }
 
 .modal_main {
@@ -690,6 +673,7 @@ label:hover>.human {
     background-color: #12533700;
     cursor: pointer;
     position: relative; 
+    font-family : sans-serif!important;
 }
 
 .voice_face_form input[type="checkbox"]:checked::before {
@@ -799,68 +783,125 @@ label:hover>.human {
 }
 
 /* Quiz 모달 */
-.quiz_head {
-    font-size : 25px;
-    font-weight : 600;
+.quiz_main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.quiz_wrap > form {
-    display : flex;
-    flex-direction: column;
-    margin : 0 15px;
-    margin-top : 20px;
-    
+.wrapper {
+width: 100%;
+max-width: 700px; 
+display: grid;  
+grid-gap: 20px;  
+margin-top: 50px;  
+margin-left: 100px;
 }
 
-.quiz_wrap > form * {
-    text-align: left;
-    margin-bottom : 9px;
+
+.card {
+cursor: pointer;
+overflow: hidden;
+border-radius: 60px;
+background-color: rgb(26, 39, 98);
+grid-column: span 3;
+height: 190px;
+display: flex;
+flex-direction: column;
+position: relative;
+border : 0px!important;
 }
+
+div#quiz_1 {
+grid-area: 1/1;
+}
+
+div#quiz_2 {
+grid-area: 1/2;
+}
+
+div#quiz_3 {
+grid-area: 2/1;
+}
+
+div#quiz_4 {
+grid-area: 2/2;
+}
+
+.card__text {
+height: 80px;
+width: 100%;
+border-radius: 4px;
+background-color: rgb(69, 87, 129);
+align-items: center;
+display: flex;
+opacity: 0.8;
+margin-top: 10px;
+}
+
+.card__heading {
+opacity: 0.6;
+width: 100%;
+color: rgb(140, 189, 246);
+background-color: rgb(46, 61, 96);
+margin: 0 ;
+height: 50px;
+padding-top: 10px;
+}
+
+
+.card.is-active {
+grid-row: 1;
+grid-column: 1 / span 6;
+height: 200px;
+order: 0;
+}
+
+.card.is-active:after {
+opacity: 1;
+transform: translateY(0);
+}
+
+.card.is-inactive {
+grid-column: span 2;
+}
+
 
 .quiz_input_wrap{
     display :flex;
     flex-direction: row-reverse;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-
-.quiz_input_wrap>input[type="text"] {
-    background-color: #00000000;
-    border : 2px solid white;
-    color : white;
-    height : 25px;
-    text-align: right;
+/* button */
+.quiz_input_wrap>input[type="text"]:focus {
+    background-color: rgb(249, 249, 249); 
+    border: 2px solid rgb(248, 248, 246); 
+    color: black; 
 }
 
 #quiz_button {
     display : flex;
     flex-direction: row-reverse;
-
+    grid-area: 3/2;
 }
 
 #quiz_button>button {
-    background-color: #00000000;
-    border : 2px solid white;
-    color : white;
+    background-color: rgb(255, 255, 255);
+    border : 2px solid rgb(0, 0, 0);
+    color : rgb(0, 0, 0);
     height : 25px;
     font-size : 17px;
 }
 
 #quiz_button>button:hover {
     background-color: #ffffff;
-    border : 2px solid white;
-    color : black;
+    border : 2px solid rgb(0, 0, 0);
+    color : rgb(0, 0, 0);
     font-weight: 600;
 }
 
-/* footer */
-
-.footer{
-    padding-top :20px;
-    height : 180px;
-    background-color : rgb(116, 115, 115);
-    text-align : center;
-    font-size : 18px;
-    color : rgb(30,30,30);
-    font-weight : 400;
+.main_bottom {
+    height : 200px;
 }
-
