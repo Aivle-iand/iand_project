@@ -68,7 +68,7 @@ function updateCursorPosition(x, y) {
 
 document.addEventListener('mouseover', function(event) {
     if (event.target.tagName === 'P' || event.target.tagName === 'A' | event.target.tagName === 'SPAN') {
-        scaleCursor(2);  // 커서를 1.2배 늘립니다.
+        scaleCursor(5);  // 커서를 1.2배 늘립니다.
     }
 });
 

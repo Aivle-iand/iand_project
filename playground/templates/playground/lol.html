@@ -1,67 +1,29 @@
 {% load static %}
 <html lang="en">
     <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet">    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type='text/css' href="{% static '/playground/css/lol.css' %}">
-    
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous"/>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous">
+</script>
+
 
     <title>1인칭 주인공 시점</title>
     </head>
-
+    
     <body>
-        <header class="header">
-            <div class="div_header">
-                
-                <div class="header_left">
-                    <a href="../"><img src="{% static '/playground/images/logoc_.png' %}" alt="logo"></a>
-                </div>
-
-                <div class="header_center">
-                    <div class="experience_link">
-                        <a href="">
-                            <p>위인체험</p>
-                            <div class="underbar"></div>
-                        </a>
-                    </div>
-                    <div class="community_link">
-                        <a href="../community">
-                            <p>커뮤니티</p>
-                            <div class="underbar"></div>
-                        </a>
-                    </div> 
-                </div>
-
-                <div class="header_right">
-                    <div class="language_setting">
-                        <a class="a" href="">
-                            <p>언어설정
-                                <svg  class="language_arrow" viewBox="0 0 8 5">
-                                    <title>mainNavArrowDownHover</title>
-                                    <path d="M.707 1.707l2.586 2.586a1 1 0 001.414 0l2.586-2.586C7.923 1.077 7.477 0 6.586 0H1.414C.524 0 .077 1.077.707 1.707z" fill="#fff"></path>
-                                </svg> 
-                            </p>
-                        </a>
-                        <ul class="language_chart">
-                            <li><a href="">한국어</a></li>
-                            <li><a href="">English</a></li>
-                        </ul>
-                        
-                    </div>
-                    <div class="login">
-                        <a class="a" href="../accounts">
-                            <p>로그인</p>
-                        </a>
-                    </div>
-                    <div class="join">
-                        <a class="a" href="../accounts/signup">
-                            <p>회원가입</p>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </header>
+        {% include 'header.html' %}
 
         <main class="main">
             <div class="main_top">
@@ -154,13 +116,16 @@
                                         </form>
                                         <label for="no_{{ book.id }}">
                                             <div class="human" style="background-image: url('{{ book.card_image.url }}');"></div>
+                                            {% if book.lock == 0 %}
+                                                <div class = "lock_image"></div>
+                                            {% endif %}
                                             <div class="name">
                                                 {{book.name}}
                                             </div>
                                         </label>
 
                                         
-                                        {% if book.id|stringformat:"s" == checked_card %}
+                                        {% if book.id|stringformat:"s" == checked_card and book.lock == 1 %}
                                             <div>
                                                 <div class="modal_window">
                                                     <label for="no_{{ book.id }}"></label>
@@ -203,10 +168,10 @@
                                                         </div>
 
                                                         {% for episode in episodes %}
-                                                            <div class="episode{{episode.0.episode_number}}_main_{{ book.id }}">
-                                                                <div class='scene_container'>
+                                                            <div id="carouselExampleControls_{{episode.0.episode_number}}"  class="carousel slide  episode{{episode.0.episode_number}}_main_{{ book.id }}"  data-bs-ride="carousel" data-bs-interval="false">
+                                                                <div class='carousel-inner scene_container'>
                                                                     {% for scene in episode %}
-                                                                        <div class="scene scene_{{book.id}}_{{scene.episode_number}} scene_{{scene.scene_number}}"  id="scene_{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}" >
+                                                                        <div class=" carousel-item scene scene_{{book.id}}_{{scene.episode_number}} scene_{{scene.scene_number}}"  id="scene_{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}" >
                                                                             <div class="wrap_scene_element">
                                                                                 <div class='episode_image' 
                                                                                 {% if face_change %}
@@ -226,54 +191,46 @@
                                                                             </div>
                                                                         </div>
                                                                     {% endfor %}
+                                    
                                                                 </div>
-                                                                <button class="btnLeft" id="btnLeft_{{book.id}}_{{episode.0.episode_number}}" onclick="changescene_{{book.id}}_{{episode.0.episode_number}}(-1)"><</button>
-                                                                <button class="btnRight" id="btnRight_{{book.id}}_{{episode.0.episode_number}}" onclick="changescene_{{book.id}}_{{episode.0.episode_number}}(1)">></button>
-                                                                <script>
-                                                                    let currentsceneIndex_{{book.id}}_{{episode.0.episode_number}} = 1;
-                                                                    const totalscenes_{{book.id}}_{{episode.0.episode_number}} = document.querySelectorAll('.scene_{{book.id}}_{{episode.0.episode_number}}').length;
-                                                                
-                                                                    function changescene_{{book.id}}_{{episode.0.episode_number}}(direction) {
-                                                                        document.getElementById(`scene_{{book.id}}_{{episode.0.episode_number}}_${currentsceneIndex_{{book.id}}_{{episode.0.episode_number}}}`).style.display = 'none';
-                                            
-                                                                        currentsceneIndex_{{book.id}}_{{episode.0.episode_number}} = currentsceneIndex_{{book.id}}_{{episode.0.episode_number}} + direction;
-                                                                        if (currentsceneIndex_{{book.id}}_{{episode.0.episode_number}} < 1) {
-                                                                            currentsceneIndex_{{book.id}}_{{episode.0.episode_number}} = 1;
-                                                                        } else if (currentsceneIndex_{{book.id}}_{{episode.0.episode_number}} > totalscenes_{{book.id}}_{{episode.0.episode_number}}) {
-                                                                            currentsceneIndex_{{book.id}}_{{episode.0.episode_number}} = totalscenes_{{book.id}}_{{episode.0.episode_number}};
-                                                                        }
-                                                                        document.getElementById(`scene_{{book.id}}_{{episode.0.episode_number}}_${currentsceneIndex_{{book.id}}_{{episode.0.episode_number}}}`).style.display = 'block';
-                                                                    }   
-                                                                    
-                                                                </script>
+                                                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls_{{episode.0.episode_number}}" data-bs-slide="prev">
+                                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                    <span class="visually-hidden">Previous</span>
+                                                                  </button>
+                                                                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls_{{episode.0.episode_number}}" data-bs-slide="next">
+                                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                    <span class="visually-hidden">Next</span>
+                                                                  </button>
                                                             </div>
                                                         {% endfor %}
                                                         
                                                         
 
 
-                                                        <div class="quiz_main_{{ book.id }}">
-                                                            <div class="quiz_wrap">
-                                                                <form>
-                                                                    {% for quiz in book.quizzes.all %}
-                                                                        <div class="quiz_div" id="quiz_{{book.id}}_{{quiz.quiz_index}}">
-                                                                            <div class="quiz_text">
-                                                                                <span class="quiz_head">Q{{quiz.quiz_index}}.</span>
-                                                                                <span class="quiz_body">{{quiz.quiz_text}}</span>
-                                                                            </div>                                                                  
-                                                                            <div class="quiz_input_wrap">
-                                                                                <input type = "text" name="input_{{quiz.quiz_index}}" id="input_{{book.id}}_{{quiz.quiz_index}}">
-                                                                            </div>
-                                                                        </div>
-                                                                    {% endfor %}
+                                                        <div class="quiz_main" id="quiz_main_{{ book.id }}">
+                                                            
+                                                            <form class="wrapper">
                                                                 
-                                                                    <div id="quiz_button">
-                                                                        <button type="submit" name="quiz_button_{{book.id}}">채점</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
+                                                                    {% for quiz in book.quizzes.all %}
+                                                                        <div class="card" id="quiz_{{quiz.quiz_index}}">
+                                                                                                                                
+                                                                                <div class='card__heading'><h5>Q{{quiz.quiz_index}}.<h5></div>
+                                                                                <div class='card__text'>{{quiz.quiz_text}}</div>
+                                                                                <div class="quiz_input_wrap">
+                                                                                    <input type = "text" name="input_{{quiz.quiz_index}}" id="input_{{book.id}}_{{quiz.quiz_index}}">
+                                                                                </div>                                                 
+                                                                        </div>
+                                                                        
+                                                                        
+                                                                    {% endfor %}                                                                      
+                                                                                                         
+                                                                <div id="quiz_button">
+                                                                    <button type="submit" name="quiz_button_{{book.id}}">채점</button>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                     </div>
+                                                
                                                 </div>
                                                 <label for="no_{{ book.id }}"></label>
                                                 <script>
@@ -297,6 +254,11 @@
                                                     });
                                                 </script>                               
                                             </div>
+                                            <script>
+                                                for (var jj = 1; jj <= 3; jj++) {
+                                                var myE = document.getElementById("scene_{{book.id}}_"+jj+"_1");
+                                                myE.classList.add("active");}
+                                            </script>
                                         {% endif %}
                                 
                                     </div>
@@ -315,16 +277,63 @@
 
             </div>
             <div class="main_bottom">
-                여긴 하단인데 구독링크 등 광고 넣으면 좋을 듯~
+ 
             </div>
         </main>
-
-        <footer class="footer">
-            <span>AIVLE 4기 빅프로젝트 1조  2023.12.11 ~ 2024.01.17 </span><br>
-            <span>경기도 성남시 분당구 불정로 90 (정자동)</span><br>
-            <span>Copyright© 2023 KT Corp. All rights reserved.</span>
-        </footer>
         
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/Flip.min.js"></script>
+        <script>
+            const quizs = ['quiz_1', 'quiz_2', 'quiz_3', 'quiz_4'];
+            gsap.registerPlugin(Flip);
+
+            const activeClass = "is-active";
+            const inactiveClass = "is-inactive";
+            const cards = document.querySelectorAll(".card");
+        
+            cards.forEach((card, idx) => {
+                card.addEventListener("click", (event) => {
+                    const id = event.target.id;
+                    const nonSelected = quizs.filter((quiz) => quiz != id);
+                    console.log(nonSelected);
+                    const selected = document.querySelector(`div.card#${id}`);
+                    selected.style.gridArea = '1 / 1 / 1 / 4';
+                    nonSelected.forEach((quiz, index) => {
+                        const target = document.querySelector(`div.card#${quiz}`);
+                        target.style.gridArea = `2 / ${index + 1}`
+                    })
+
+                    // <input> 요소에서 발생한 클릭 이벤트를 무시
+                    if (event.target.tagName === 'INPUT') {
+                        return;
+                    }
+        
+                    const state = Flip.getState(cards);
+                    const isCardActive = card.classList.contains(activeClass);
+        
+                    cards.forEach((otherCard, otherIdx) => {
+                        otherCard.classList.remove(activeClass);
+                        otherCard.classList.remove(inactiveClass);
+                        if (!isCardActive && idx !== otherIdx) {
+                            otherCard.classList.add(inactiveClass);
+                        }
+                    });
+        
+                    if (!isCardActive) {
+                        card.classList.add(activeClass);
+                    }
+        
+                    Flip.from(state, {
+                        duration: 1,
+                        ease: "expo.out",
+                        absolute: true
+                    });
+                });
+            });
+        </script>
+
+
+
         <script>
             var audio = new Audio(audioFile);;
             function playAudio(audioFile) {
@@ -363,5 +372,6 @@
                 }
             }
         </script>
+        {% include 'footer.html' %}
     </body>
 </html>
