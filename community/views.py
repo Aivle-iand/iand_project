@@ -19,7 +19,7 @@ def writepage(request):
             post = form.save(commit=False)
             post.writer = request.user
             post.save()
-            return redirect('community/', post.id)
+            return redirect('/community/', post.id)
     else:
         form = PostForm()
         return render(request, 'community/writepage.html', {'form':form})
@@ -82,7 +82,7 @@ def detail(request, pk):
         'comments':comments,
     }
     if request.method == 'POST':
-        if request.user.is_authenticted:
+        if request.user.is_authenticated:
             if request.user == detail.writer:
                 detail.delete()
                 return redirect('/community/')
