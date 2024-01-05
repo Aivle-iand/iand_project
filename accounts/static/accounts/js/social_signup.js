@@ -31,7 +31,7 @@ function checkNicknameDuplication(nickname, nicknameHelp) {
 }
 
 function validateNickname() {
-    var nickname = document.getElementById("id_nickname").value;
+    var nickname = document.getElementById("nickname").value;
     var nicknameHelp = document.getElementById("nicknameHelp");
     var isEmpty = nickname.trim() === "";
     errors.nickname = isEmpty; // 비어있으면 true
@@ -40,7 +40,7 @@ function validateNickname() {
 }
 
 function validatelastName() {
-    var last_name = document.getElementById("id_last_name").value;
+    var last_name = document.getElementById("last_name").value;
     var isEmpty = last_name.trim() === "";
     errors.last_name = isEmpty; // 비어있으면 true
     console.log("Last Name Error:", errors.last_name);
@@ -48,7 +48,7 @@ function validatelastName() {
 }
 
 function validatefirstName() {
-    var first_name = document.getElementById("id_first_name").value;
+    var first_name = document.getElementById("first_name").value;
     var isEmpty = first_name.trim() === "";
     errors.first_name = isEmpty; // 비어있으면 true
     console.log("First Name Error:", errors.first_name);
@@ -75,6 +75,6 @@ function updateSubmitButton() { // 모든 도움말 텍스트를 확인하여 �
 }
     
 // 사용자의 입력에 따라 updateSubmitButton 함수를 지속적으로 호출
-document.getElementById('id_last_name').addEventListener('input', updateSubmitButton);
-document.getElementById('id_first_name').addEventListener('input', updateSubmitButton);
-document.getElementById('id_nickname').addEventListener('input', updateSubmitButton);
+document.getElementById('last_name').addEventListener('input', updateSubmitButton);
+document.getElementById('first_name').addEventListener('input', updateSubmitButton);
+document.getElementById('nickname').addEventListener('input', updateSubmitButton);
