@@ -3,7 +3,7 @@
     --color-cursor: 255,255,255;
     /* --cursor-outline-shade: 0.3; */
     --cursor-size: 10px;
-    --cursor-outline-size: 11px;
+    --cursor-outline-size: 2px;
   }
 
 html,
@@ -23,7 +23,6 @@ body * {
   position: absolute;
   top: 50%;
   left: 50%;
-  mix-blend-mode: difference; 
   will-change: transform;
   border-radius: 50%;
   opacity: 0;
@@ -32,6 +31,7 @@ body * {
 }
 
 #cursor-dot {
+  mix-blend-mode: difference; 
   width: var(--cursor-size);
   height: var(--cursor-size);
   background-color: rgba(var(--color-cursor), 1);
@@ -40,5 +40,5 @@ body * {
 #cursor-dot-outline {
   width: var(--cursor-outline-size);
   height: var(--cursor-outline-size);
-  background-color: rgba(var(--color-cursor), var(--cursor-outline-shade));
+  background-color: rgba(255, 0, 0, 0.5);
 }
