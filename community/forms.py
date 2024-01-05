@@ -23,6 +23,17 @@ class PostUpdate(forms.ModelForm):
     class Meta:
         model = Board
         fields = ['postname', 'contents']
+        widgets = {
+            'postname': TextInput(
+                attrs={
+                    'class': 'form_control', 
+                    'style': 'width: 300px; margin-bottom: 10px; dispalt',
+                    }),
+            
+                'category': Select(
+                    attrs={'class':'select_category_box',
+                           }),
+        }
 
 class CommentForm(forms.ModelForm):
     class Meta:

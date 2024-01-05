@@ -17,12 +17,29 @@
     <body>
         <header>{% include 'header.html'%}</header>
         <main class="main">
-            <h1>글쓰기 수정 페이지</h1>
-            <form method="POST">
-                {% csrf_token %}
-                {{ form.as_p}}
-                <input class="update_btn_dark" type="submit" value="수정 완료">
-            </form>  
+            <div class="main_top">
+                <div class="page_name">게시판 목록</div>
+            </div>
+            <div class="main_center">
+                <div class="div_center">
+                    <div class="side_center">   
+                        <div class="board_div" id="all">
+                            <a href="/community/">- 전체 게시글</a>
+                        </div>
+                        {% for cate in links %}
+                            <div class="board_div"><a href="{{ cate.get_url }}">- {{ cate.name }}</a></div>
+                        {% endfor %}
+                    </div>
+                    <div class="board_write_wrap">
+                        <p class="write_title">글쓰기 수정</p>
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p}}
+                            <input class="update_btn_dark" type="submit" value="수정 완료">
+                        </form>
+                    </div>
+                </div>
+            </div>
         </main>
         <footer>{% include 'footer.html' %}</footer>
     </body>
