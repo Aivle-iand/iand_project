@@ -1,11 +1,12 @@
-from django.shortcuts import render
-from .models import Book
+from django.shortcuts import render, redirect
+from .models import Book, QuizHistory
 import requests
 from pydub import AudioSegment
 import os
 from base64 import b64encode
 from PIL import Image
 from io import BytesIO
+from django.http import JsonResponse
 
 
 master_key = "2179074882679a424c4b817fd744275b"
@@ -160,4 +161,28 @@ def index(request):
 
 
 
+# quiz
+def score_quiz(request, book_id):
+    if request.method == 'POST':
+        book = Book.objects.get(id=book_id)
+        quizzes = book.quizzes.all()
+        score = 0
+        total = quizzes.count()
+
+        for quiz in quizzes:
+            user_answer = request.POST.get(f'input_{quiz.quiz_index}') 
+            if user_answer == quiz.quiz_answer:
+                score += 1
+        return JsonResponse({'score': score, 'total': total})
+    
+       # 모든 퀴즈의 정답을 맞힌 경우
+        if score == total:
+            quiz_history, created = QuizHistory.objects.get_or_create(
+                user=request.user,  # 현재 로그인한 사용자
+                book=book           # 현재 퀴즈의 책
+            )
+            quiz_history.correct_users.add(request.user)
+            quiz_history.read_book.add(book)
+
+        return JsonResponse({'score': score, 'total': total})
 
