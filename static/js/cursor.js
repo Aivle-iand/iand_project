@@ -67,13 +67,13 @@ function updateCursorPosition(x, y) {
 }
 
 document.addEventListener('mouseover', function(event) {
-    if (event.target.tagName === 'P' || event.target.tagName === 'A' | event.target.tagName === 'SPAN') {
+    if (event.target.closest('label, a, span, button')) {
         scaleCursor(5);  // 커서를 1.2배 늘립니다.
     }
 });
 
 document.addEventListener('mouseout', function(event) {
-    if (event.target.tagName === 'P' || event.target.tagName === 'A' | event.target.tagName === 'SPAN') {
+    if (event.target.closest('label, a, span, button')) {
         scaleCursor(1.0);  // 커서를 원래 크기로 복원합니다.
     }
 });
