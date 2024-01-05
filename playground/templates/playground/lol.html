@@ -211,8 +211,8 @@
 
                                                         <div class="quiz_main" id="quiz_main_{{ book.id }}">
                                                             
-                                                            <form class="wrapper">
-                                                                
+                                                            <form class="wrapper" id="quizForm" data-score-url="{% url 'score_quiz' book.id %}" method="POST" >
+                                                                {% csrf_token %}
                                                                     {% for quiz in book.quizzes.all %}
                                                                         <div class="card" id="quiz_{{quiz.quiz_index}}">
                                                                                                                                 
@@ -224,13 +224,21 @@
                                                                         </div>
                                                                         
                                                                         
-                                                                    {% endfor %}                                                                      
-                                                                                                         
-                                                                <div id="quiz_button">
-                                                                    <button type="submit" name="quiz_button_{{book.id}}">채점</button>
-                                                                </div>
+                                                                    {% endfor %}
+                                                                                                                                                                              
                                                             </form>
+                                                            <div class="button_quiz" id="quiz_button_container">
+                                                                <button id="quiz_buttonn" type="submit" form="quizForm" name="quiz_button_{{book.id}}">채점</button>
+                                                            </div>
+
+                                                            <div id="resultForm" style="display: none;">
+                                                                <p id="quizResult"></p>
+                                                              </div>
                                                         </div>
+                                                        
+
+
+  
                                                     </div>
                                                 
                                                 </div>
@@ -286,56 +294,134 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/Flip.min.js"></script>
         <script>
-            const quizs = ['quiz_1', 'quiz_2', 'quiz_3', 'quiz_4'];
-            gsap.registerPlugin(Flip);
-
-            const activeClass = "is-active";
-            const inactiveClass = "is-inactive";
-            const cards = document.querySelectorAll(".card");
-        
-            cards.forEach((card, idx) => {
-                card.addEventListener("click", (event) => {
-                    const id = event.target.id;
-                    const nonSelected = quizs.filter((quiz) => quiz != id);
-                    console.log(nonSelected);
-                    const selected = document.querySelector(`div.card#${id}`);
-                    selected.style.gridArea = '1 / 1 / 1 / 4';
-                    nonSelected.forEach((quiz, index) => {
-                        const target = document.querySelector(`div.card#${quiz}`);
-                        target.style.gridArea = `2 / ${index + 1}`
-                    })
-
-                    // <input> 요소에서 발생한 클릭 이벤트를 무시
+            
+            document.addEventListener('DOMContentLoaded', () => {
+                gsap.registerPlugin(Flip);
+              
+                // 카드의 초기 grid-area를 지정
+                const initialGridAreas = {
+                  'quiz_1': '1 / 1 / 1 / 4',
+                  'quiz_2': '2 / 1 ',
+                  'quiz_3': '2 / 2 ',
+                  'quiz_4': '2 / 3 ',
+                };
+              
+                const cards = document.querySelectorAll(".card");
+              
+                // 페이지 로드 시 각 카드의 grid-area 설정
+                cards.forEach((card) => {
+                    card.style.gridArea = initialGridAreas[card.id];
+                    // '1 / 1 / 1 / 4' 위치에 있는 카드만 visible
+                    if (card.style.gridArea === initialGridAreas[card.id]) {
+                    card.querySelector('.card__text').style.visibility = 'visible';
+                    } else {
+                    card.querySelector('.card__text').style.visibility = 'hidden';
+                    }
+                });
+                
+                
+                
+                const activeClass = "is-active";
+                const inactiveClass = "is-inactive";
+              
+                cards.forEach((card) => {
+                  card.addEventListener("click", () => {
+                    // <input> 요소에서 발생한 클릭 이벤트 무시
                     if (event.target.tagName === 'INPUT') {
                         return;
                     }
-        
-                    const state = Flip.getState(cards);
-                    const isCardActive = card.classList.contains(activeClass);
-        
-                    cards.forEach((otherCard, otherIdx) => {
-                        otherCard.classList.remove(activeClass);
-                        otherCard.classList.remove(inactiveClass);
-                        if (!isCardActive && idx !== otherIdx) {
-                            otherCard.classList.add(inactiveClass);
-                        }
-                    });
-        
-                    if (!isCardActive) {
-                        card.classList.add(activeClass);
+                    
+                    // 현재 카드가 이미 '1 / 1 / 1 / 4' 위치에 있으면 이벤트 무시
+                    if (card.style.gridArea === '1 / 1 / 1 / 4') {
+                        return; // 이벤트 핸들러를 종료
                     }
-        
-                    Flip.from(state, {
-                        duration: 1,
-                        ease: "expo.out",
-                        absolute: true
+                    const state = Flip.getState(cards);
+                    
+                    const isCardActive = card.classList.contains(activeClass);
+              
+                    // 클릭한 카드의 상태를 변경
+                    if (!isCardActive) {
+                      // 모든 카드를 비활성화하고 클릭한 카드만 활성화
+                      cards.forEach((otherCard) => {
+                        otherCard.classList.remove(activeClass);
+                        otherCard.classList.add(inactiveClass);
+                        otherCard.querySelector('.card__text').style.visibility = 'visible';
+                      });
+                      card.classList.add(activeClass);
+                      card.querySelector('.card__text').style.visibility = 'visible';
+                      card.style.gridArea = '1 / 1 / 1 / 4';
+                    } else {
+                      card.classList.remove(activeClass);
+                      card.querySelector('.card__text').style.visibility = 'hidden';
+                    }
+              
+                    // 클릭하지 않은 카드들의 위치를 조정
+                    let cardIndex = 1;
+                    cards.forEach((otherCard) => {
+                      if (!otherCard.classList.contains(activeClass)) {
+                        otherCard.style.gridArea = `2 / ${cardIndex++} / auto / auto`;
+                        otherCard.querySelector('.card__text').style.visibility = 'hidden';
+                      }
                     });
+              
+                    // GSAP Flip 애니메이션을 실행
+                    Flip.from(state, {
+                      duration: 1,
+                      ease: "expo.out",
+                      absolute: true,
+                      onComplete: () => {
+                        
+                      }
+                    });
+                  });
                 });
-            });
+              });
+              
         </script>
 
-
-
+        <script>  
+            document.addEventListener('DOMContentLoaded', function() {
+                const quizForm = document.getElementById('quizForm'); 
+                const resultDiv = document.getElementById('resultForm');
+                const resultText = document.getElementById('quizResult');  
+                const quizButtonContainer = document.getElementById('quiz_button_container');
+                
+                // 폼이 제출되었을 때의 동작을 정의
+                quizForm.addEventListener('submit', function(event) {
+                    // 폼의 기본 제출 동작을 중지
+                    event.preventDefault();  
+                    
+                    // 폼의 데이터를 수집
+                    const formData = new FormData(quizForm);
+                    // 폼 요소에 정의된 'data-score-url' 속성을 기반으로 스코어링 URL 가져옴
+                    const scoreUrl = quizForm.dataset.scoreUrl; 
+                    // 페이지 내 CSRF 토큰 값 가져옴
+                    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                    
+                    // fetch API를 사용하여 서버에 비동기 POST 요청
+                    fetch(scoreUrl, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}' 
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Process and display the score
+                        resultText.textContent = `점수: ${data.score} / ${data.total}`;
+                        // Hide
+                        quizForm.style.display = 'none';
+                        quizButtonContainer.style.display = 'none'
+                        resultDiv.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                });
+            });                      
+        </script>
+            
         <script>
             var audio = new Audio(audioFile);;
             function playAudio(audioFile) {
