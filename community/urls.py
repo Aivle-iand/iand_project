@@ -15,7 +15,8 @@ urlpatterns = [
     path('update/<int:pk>/', views.update, name='update'),
     path('<int:pk>/comments/', views.comments_create, name='comments_create'),
     path('detail/<int:detail_pk>/comments/<int:comment_pk>/delete/', views.comments_delete, name='comments_delete'),
-    path('accounts/', include('accounts.urls'))
+    path('accounts/', include('accounts.urls')),
+    path('writepage/is_super/', views.is_super),
 ]
 
 if settings.DEBUG:
