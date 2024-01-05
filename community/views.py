@@ -37,7 +37,13 @@ def categoryView(request, c_slug=None):
     if search_field == '0':
         post_list = post_list.filter(postname__icontains = keyword)
     else:
-        pass
+        users = User.objects.all() # user 데이터 전부
+        users = users.filter(nickname__icontains=keyword) # keyword와 일치하는 user 가져옥
+        empty = Board.objects.none() # 빈 테이블 선언
+        # 반복문으로 users
+        for user in users:
+            empty = empty.union(post_list.filter(writer=user))
+        post_list = empty
              
     page = request.GET.get('page')
     paginator = Paginator(post_list, 10)
