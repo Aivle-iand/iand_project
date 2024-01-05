@@ -1,24 +1,13 @@
-<!-- {% load static %} -->
+{% load static %}
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="{% static 'css/header_style.css' %}" />
 </head>
 <body>
     <header>
         <div class="header_left">
-            <a href="/"><img src="{% static 'playground/images/logoc_.png' %}" alt="logo" /></a>
+            <a href="../"
+                ><img src="{% static 'playground/images/logoc_.png' %}" alt="logo"
+            /></a>
         </div>
 
         <div class="header_center">
@@ -37,24 +26,8 @@
         </div>
 
         <div class="header_right">
-            <div class="language_setting">
-                <a class="a" href="">
-                    <p>
-                        언어설정
-                        <svg class="language_arrow" viewBox="0 0 8 5">
-                            <title>mainNavArrowDownHover</title>
-                            <path d="M.707 1.707l2.586 2.586a1 1 0 001.414
-                                    0l2.586-2.586C7.923 1.077 7.477 0 6.586
-                                    0H1.414C.524 0 .077 1.077.707 1.707z" fill="#fff"></path>
-                        </svg>
-                    </p>
-                </a>
-                <ul class="language_chart">
-                    <li><a href="">한국어</a></li>
-                    <li><a href="">English</a></li>
-                </ul>
-            </div>
             {% if not user.is_authenticated %}
+            <span class="non_login">지금 로그인을 해서 I&_서비스를 이용해보세요!</span>
             <div class="login">
                 <a class="a" href="/accounts/login">
                     <p>로그인</p>
@@ -66,29 +39,23 @@
                 </a>
             </div>
             {% else %}
-            <div class="language_setting">
-                <a class="a" href="">
-                    <p>
-                        {% comment %} {{user.username}} {% endcomment %}
-                        {{user.first_name}}
-                        <svg class="language_arrow" viewBox="0 0 8 5">
-                            <path d="M.707 1.707l2.586 2.586a1 1 0 001.414
-                                    0l2.586-2.586C7.923 1.077 7.477 0 6.586
-                                    0H1.414C.524 0 .077 1.077.707 1.707z" fill="#fff"></path>
-                        </svg>
-                    </p>
-                </a>
-                <ul class="language_chart">
-                    <li><a href="">마이페이지</a></li>
-                </ul>
-            </div>
-            <div class="logout">
-                <a class="a" id="logoutbtn" href="{% url 'logout' %}">
-                    <p>로그아웃</p>
-                </a>
-            </div>
+                <div class="success_login">{{user.first_name}}님 환영합니다!</div>
+                <div class="credit">
+                    <!-- 현재 크레딧: {{credit}} -->
+                    <img src="{% static 'img/coin.png' %}", height="24", width="24">100
+                </div>
+                <div class="mypage">
+                    <a class="a" id="mypagebtn" href="/mypage">
+                        <p>마이페이지</p>
+                    </a>
+                </div>
+                
+                <div class="logout">
+                    <a class="a" id="logoutbtn" href="{% url 'logout' %}">
+                        <p>로그아웃</p>
+                    </a>
+                </div>
             {% endif %}
-
         </div>
     </header>
 </body>
