@@ -97,6 +97,9 @@ caption {
 .detail_wrap {
     max-width: 60rem;
     margin: auto;
+    padding: 29px 29px 0;
+    border: 1px solid #edeef0;
+    border-radius: 6px;
 }
 
 .detail_wrap .title {
