@@ -5,7 +5,7 @@ header {
     right: 0;
     margin: 0;
     border: 0;
-    z-index: 200000;
+    z-index: 800;
     height: 80px;
     background-color: black;
     border-bottom: 2px solid rgba(51, 51, 51, .25);
@@ -15,6 +15,7 @@ header {
     text-align: left;
     display: flex;
     width: 100%;
+    /* margin-bottom: 80px; */
 }
 
 .header_left {
@@ -89,32 +90,8 @@ header a p {
     display: inline-block;
 }
 
-.language_arrow {
-    width: 10px;
-    height: 5px;
-}
 
-.language_chart {
-    visibility: hidden;
-    position: absolute;
-    left: 5px;
-    top: 50px;
-    background-color: #292929;
-    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, .2);
-    border-radius: 0 0 2px 2px;
-    text-align: left;
-    font-size: 16px;
-    width: 108px;
-    opacity: 0;
-    transition: opacity .5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s, visibility 0s;
-    display: none;
-    list-style: none;
-    padding-inline-start: 0;
-    padding: 4px 4px;
-}
-
-
-.header_right .a:hover+.language_chart {
+.header_right .a:hover .language_chart {
     transition: opacity .5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s, visibility 0s;
     opacity: 1;
     visibility: visible;
@@ -128,11 +105,11 @@ header a p {
     display: block;
 }
 
-.header_right .join p:hover, .header_right .login p:hover, .header_right .logout p:hover {
+.header_right .join p:hover, .header_right .login p:hover, .header_right .logout p:hover .mypage p:hover{
     padding: 7.5px 16px;
-    background: rgb(236,232,44);
+    /* background: rgb(236,232,44); */
     border-radius: 6.4px;
-    color : black;
+    color : white;
 }
 
 header a {
@@ -161,7 +138,7 @@ header p {
 
 header p:hover,
 header p:active {
-    color: yellow;
+    /* color: yellow; */
     letter-spacing: 5px;
     transition: 0.35s;
 }
@@ -198,4 +175,23 @@ header p:hover:before {
 
 header p:hover:before {
     width: 100%;
+}
+
+.header_right .non_login{
+    color: white;
+    font-size: 12px;
+}
+
+.header_right .success_login{
+    color: yellowgreen;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 16px;
+}
+
+.header_right .credit{
+    padding-left: 35px;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
 }
