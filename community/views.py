@@ -3,7 +3,7 @@ from django.urls import path
 from .forms import *
 from .models import *
 from accounts.models import User
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.decorators.http import require_POST
 from django.conf import settings
@@ -19,7 +19,7 @@ def writepage(request):
             post = form.save(commit=False)
             post.writer = request.user
             post.save()
-            return redirect('community/', post.id)
+            return redirect('/community/', post.id)
     else:
         form = PostForm()
         return render(request, 'community/writepage.html', {'form':form})
@@ -82,7 +82,7 @@ def detail(request, pk):
         'comments':comments,
     }
     if request.method == 'POST':
-        if request.user.is_authenticted:
+        if request.user.is_authenticated:
             if request.user == detail.writer:
                 detail.delete()
                 return redirect('/community/')
@@ -126,3 +126,14 @@ def comments_delete(request, detail_pk, comment_pk):
         if request.user == comment.user:
             comment.delete()
     return redirect('community:detail', detail_pk)
+
+def is_super(request):
+    user_id = request.user
+    print(user_id)
+    user = User.objects.get(username=user_id)
+    context = {
+        'is_super': user.is_superuser,
+    }
+    
+    return JsonResponse(context)
+    

@@ -27,8 +27,8 @@
         
     </head>
     <body>
-        {%include 'cursor.html'%}
-        <header>{% include 'header.html'%}</header>
+        {% include 'header.html'%}
+        {% include 'cursor.html' %}
         <main class="main">
             <div class="main_top">
                 <div class="page_name">게시판 목록</div>
@@ -58,7 +58,7 @@
                                         <tr class="table_list">
                                             <td>{{ list.id }}</td>
                                             <td><a href="{% url 'community:detail' list.id %}">{{ list.postname }}</a></td>
-                                            <td>{{ list.writer.username}}</td>
+                                            <td>{{ list.writer.nickname}}</td>
                                             <td>{{ list.registered_date }}</td>
                                         </tr>
                                     {% endfor %}            
