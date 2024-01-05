@@ -2,6 +2,7 @@ var errors = {
     first_name: false,
     last_name: false,
     nickname: false,
+    pin: false, 
 };
 
 
@@ -54,7 +55,30 @@ function validatefirstName() {
     console.log("First Name Error:", errors.first_name);
     updateSubmitButton();
 }
+function validateSecurityAnswer() {
+    var pin = document.getElementById("pin_number").value;
+    var isEmpty = pin.trim() === "";
+    var lengthCheck = /^.{4,4}$/;
+    var specialCharCheck = /^[0-9]+$/;
+    var helpText = document.getElementById("pinHelp");
+    errors.pin = false;
 
+    if (!lengthCheck.test(pin) || !specialCharCheck.test(pin)) {
+        helpText.style.color = 'red';
+        helpText.innerHTML = "PIN 번호는 4자리의 숫자입니다.";
+        errors.pin = true;
+        return;
+    }
+
+    else {
+        helpText.style.color = 'green';
+        helpText.innerHTML = "사용 가능한 PIN 번호입니다.";
+        errors.pin = false;
+    }
+
+    errors.pin = isEmpty; // 비어있으면 true
+    updateSubmitButton();
+}
 /*=========================================================================*/
 // 회원가입 버튼 활성화 / 비활성화
 function updateSubmitButton() { // 모든 도움말 텍스트를 확인하여 오류가 있는지 검사
