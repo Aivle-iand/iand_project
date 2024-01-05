@@ -36,10 +36,19 @@
             rel="stylesheet"
             href="../../animation/animate.css"
         />
-        
+
+        <!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" /> -->
         <style>
+            @font-face {
+                font-family: AppleSDGothicNeo;
+                font-weight: 400;
+                src: url("{% static 'fonts/AppleSDGothicNeoM.ttf' %}") format("ttf");
+            }
+            
+            *{
+                font-family: AppleSDGothicNeo;
+            }
             body {
-                font-family: Arial, sans-serif;
                 margin: 0;
                 display: flex;
                 margin-top: 80px;
