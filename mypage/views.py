@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from accounts.models import User as Custom_User
+from accounts.models import LoginHistory
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -16,8 +17,17 @@ def index(request):
 def mypage_temp(request):
     if not request.user.is_authenticated:
         return redirect('accounts/login')
+    history = {}
+    username = request.user
+    login_histories = LoginHistory.objects.filter(username = username)
+    for i in range(len(login_histories)):
+            login_time = str(login_histories[i].timestamp)
+            login_id = login_histories[i].username
+            marked_id = login_id[:2] + '*' * (len(login_id) - 4) + login_id[-2:]
+            history[i] = {'date' : login_time[:-7], 'login_id' : marked_id, 'country' : login_histories[i].country, 'ip' : login_histories[i].ip}
     context = {
         'face' : "https://iand-bucket.s3.ap-northeast-2.amazonaws.com/media/common/noimage.jpg",
+        'login_history' : history
     }
     return render(request, 'mypage/mypage_temp.html', context) 
 
@@ -43,6 +53,10 @@ def check_current_password(request):
     data = json.loads(request.body)
     current_password = data.get('cur_password', '')
     user = request.user
+    loginHistories = LoginHistory.objects.filter(username = user)
+    for loginHistory in loginHistories:
+        print(loginHistory)
+    
     if user and check_password(current_password, user.password):
         return JsonResponse({'match': True})
     else:
