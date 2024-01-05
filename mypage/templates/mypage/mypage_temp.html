@@ -155,6 +155,9 @@
                 onclick="onClickViewPwd(event)"
               ></button>
             </div>
+            <div class="pass-help" id="cur-pass-help">
+              <p class="pass-chk">비밀번호가 일치하지 않습니다.</p>
+            </div>
             <div
               class="input_container"
               id="new-pwd"
@@ -298,7 +301,21 @@
             <h1>계정 로그인 기록</h1>
             <p>최근 30일까지의 기록만 제공됩니다</p>
           </div>
-          <div class="personal_information_content">test</div>
+          <div class="personal_information_content" id="login_history">
+            <ul class="login_history_msg" id="login_history_caption">
+              <li>날짜 및 시간(KST)</li>
+              <li>로그인 ID</li>
+              <li>국가</li>
+            </ul>
+            {% for key, record in login_history.items %}
+            <ul class="login_history_msg" id="login_history_record">
+              <li>{{record.date}}</li>
+              <li>{{record.login_id}}</li>
+              <li>{{record.country}}</li>
+            </ul>
+            <div class="source_ip">IP주소 : {{record.ip}}</div>
+            {% endfor %}
+          </div>
         </div>
         <div class="delete_card" id="delete_account">
           <div class="delete_information_explain">
