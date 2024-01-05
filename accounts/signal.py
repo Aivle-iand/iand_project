@@ -3,12 +3,15 @@ from django.dispatch import receiver
 from .models import LoginHistory
 from django.utils import timezone
 import requests
+from django.contrib.auth.hashers import make_password
 
 @receiver(user_signed_up)
 def populate_profile(request, user, **kwargs):
     user.first_name = request.POST.get('first_name', '')
     user.last_name = request.POST.get('last_name', '')
     user.nickname = request.POST.get('nickname', '')
+    pin_number = request.POST.get('pin_number', '')
+    user.pin_number = make_password(pin_number)
     user.save()
 
 @receiver(user_logged_in)
