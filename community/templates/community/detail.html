@@ -32,7 +32,7 @@
                         <dl><dt>작성일자:</dt><dd>{{detail.registered_date}}</dd></dl>
                     </div>
                     <div class="detail_contents">
-                        <p>{{detail.contents}}</p>
+                        <p>{{detail.contents|linebreaksbr}}</p>
                     </div>       
                     <div class="detail_btn">
                         <dl><dt><a href="/community/" class="to_board">목록</a></dt></dl><br>
@@ -85,5 +85,6 @@
             </div>
         </div>     
     </main>
+    {% include 'footer.html' %}
 </body>
 </html>
