@@ -10,19 +10,16 @@ from django.conf import settings
 # from login.models import User
 
 def writepage(request):
-    # if not request.session.get('accounts_user'):
-    #     return redirect('/accounts/login')
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login')
     
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            post = form.save()
+            post = form.save(commit=False)
             post.writer = request.user
             post.save()
-            return redirect('/community/', post.id)
-        else:
-            form = PostForm()
-        return render(request, 'community/writepage.html', {'form':form})
+            return redirect('community/', post.id)
     else:
         form = PostForm()
         return render(request, 'community/writepage.html', {'form':form})
@@ -41,8 +38,7 @@ def categoryView(request, c_slug=None):
         post_list = post_list.filter(postname__icontains = keyword)
     else:
         pass
-        #page_obj = page_obj.filter(writer__icontains = keyword)
-        
+             
     page = request.GET.get('page')
     paginator = Paginator(post_list, 10)
     try:
@@ -86,29 +82,31 @@ def detail(request, pk):
         'comments':comments,
     }
     if request.method == 'POST':
-        detail.delete()
-        return redirect('/community/')
+        if request.user.is_authenticted:
+            if request.user == detail.writer:
+                detail.delete()
+                return redirect('/community/')
+            return redirect('community:detail')
     else:
         return render(request, 'community/detail.html', context)
 
     
 def update(request, pk):
     detail = get_object_or_404(Board, pk=pk)
-    # # if request.user_id != detail.writer:
-    #     message.error(request, '수정 권한이 없습니다.')
-    #     return redirect('community:detail', user_id=pk)
-    if request.method == "POST":
-        form = PostUpdate(request.POST, instance=detail)
-        if form.is_valid():
-            detail.postname = form.cleaned_data['postname']
-            detail.contents = form.cleaned_data['contents']
-            detail.save()
-            return redirect('/community/detail/'+str(detail.id))
+    if request.user == detail.writer:
+        if request.method == "POST":
+            form = PostUpdate(request.POST, instance=detail)
+            if form.is_valid():
+                detail.postname = form.cleaned_data['postname']
+                detail.contents = form.cleaned_data['contents']
+                detail.save()
+                return redirect('/community/detail/'+str(detail.id))
+        else:
+            form = PostUpdate(instance=detail)
+        context = {'form':form}
+        return render(request, 'community/update.html', {'form':form})
     else:
-        form = PostUpdate(instance=detail)
-    context = {'form':form}
-    return render(request, 'community/update.html', {'form':form})
-
+        return redirect('community:detail')   
 
 def comments_create(request, pk):
     if request.user.is_authenticated:
@@ -121,7 +119,6 @@ def comments_create(request, pk):
             comment.save()
         return redirect('community:detail', detail.pk)
     return redirect('accounts:login')
-
 
 def comments_delete(request, detail_pk, comment_pk):
     if request.user.is_authenticated:

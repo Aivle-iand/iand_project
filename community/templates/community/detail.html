@@ -36,15 +36,17 @@
                     </div>       
                     <div class="detail_btn">
                         <dl><dt><a href="/community/" class="to_board">목록</a></dt></dl><br>
-                        <div class="update_btn">
-                            <a href="{% url 'community:update' detail.id%}" class="bt">수정</a>
-                        </div>
-                        <div class="delete_btn">
-                            <form action="{% url 'community:detail' detail.id %}" method="POST">
-                                {% csrf_token %}
-                                <input type="submit" value="삭제">
-                            </form>
-                        </div>
+                        {% if detail.writer == request.user %}
+                            <div class="update_btn">
+                                <a href="{% url 'community:update' detail.id%}" class="bt">수정</a>
+                            </div>
+                            <div class="delete_btn">
+                                <form action="{% url 'community:detail' detail.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" value="삭제">
+                                </form>
+                            </div>
+                        {% endif %}
                         <div class="comment_list_wrap">
                             
                             <h4>댓글 목록</h4>
