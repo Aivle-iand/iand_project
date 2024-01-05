@@ -95,8 +95,8 @@ caption {
 
 /* detail */
 .detail_wrap {
-    max-width: 60rem;
-    margin: auto;
+    max-width: 60%;
+    margin-left: 50px;
     padding: 29px 29px 0;
     border: 1px solid #edeef0;
     border-radius: 6px;

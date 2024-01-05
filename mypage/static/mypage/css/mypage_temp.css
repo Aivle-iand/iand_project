@@ -260,7 +260,7 @@ body * {
   all: unset;
   animation-delay: 0.1s;
   position: relative;
-  top: 30px;
+  top: 20px;
   right: 5px;
   padding: 5px;
   width: 15px;
@@ -315,6 +315,22 @@ body * {
   bottom: 13px;
 }
 
+.type-input#username-input {
+  position: relative;
+  bottom: 13px;
+}
+
+#username-container {
+  background-color: #292727;
+  border: 1px solid rgba(138, 138, 138, 0.2);
+}
+
+#username-container span {
+  color: rgba(138, 138, 138, 0.8);
+  font-size: 0.5rem;
+  font-weight: 700;
+}
+
 .nickname_check_msg {
   margin-top: 20px;
 }
@@ -352,6 +368,7 @@ body * {
   font-weight: 700;
   border-radius: 3px;
 }
+
 .save_button:hover {
   outline-color: #b8b8b8;
 }
