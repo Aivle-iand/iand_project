@@ -309,6 +309,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const passwordCurrentInput = document.querySelector(
     "input.type-input#cur-pwd"
   );
+  let curpassHelp = document.getElementById("cur-pass-help");
   let passHelp = document.getElementById("pass-help");
   let chkpassHelp = document.getElementById("chk-pass-help");
   let passLen = document.querySelector(".passlen");
@@ -336,30 +337,42 @@ document.addEventListener("DOMContentLoaded", function () {
         if (data.match) {
           curpassError = false;
           password_cur_container.style.border = "1px solid #4df4d3";
-          // console.log("현재 비밀번호 일치");
+          curpassHelp.style.color = "#4df4d3";
+          curpassHelp.innerHTML = "비밀번호가 일치합니다.";
         } else {
           curpassError = true;
           password_cur_container.style.border = "1px solid #d953e5";
-          // console.log("현재 비밀번호 불일치");
+          curpassHelp.style.color = "#d953e5";
+          curpassHelp.innerHTML = "비밀번호가 일치하지 않습니다.";
         }
       });
   });
 
-  // input에 focus 되었을 때
-  passwordInput.addEventListener("focus", function () {
-    passHelp.style.display = "block";
+  passwordCurrentInput.addEventListener("focus", function () {
+    curpassHelp.style.display = "block";
+    passHelp.style.display = "none";
+    chkpassHelp.style.display = "none";
   });
 
-  passwordInput.addEventListener("blur", function () {
-    passHelp.style.display = "none";
+  // input에 focus 되었을 때
+  passwordInput.addEventListener("focus", function () {
+    curpassHelp.style.display = "none";
+    passHelp.style.display = "block";
+    chkpassHelp.style.display = "none";
   });
 
   passwordCheckInput.addEventListener("focus", function () {
+    curpassHelp.style.display = "none";
+    passHelp.style.display = "none";
     chkpassHelp.style.display = "block";
   });
 
   passwordCheckInput.addEventListener("blur", function () {
-    chkpassHelp.style.display = "none";
+    let password = passwordInput.value;
+    let password_chk = passwordCheckInput.value;
+    if (password_chk === "" && password === "") {
+      chkpassHelp.style.display = "none";
+    }
   });
 
   passwordCheckInput.addEventListener("input", function () {

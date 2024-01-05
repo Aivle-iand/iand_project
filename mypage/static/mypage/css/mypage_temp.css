@@ -443,6 +443,26 @@ body * {
     height: 50px;
 } */
 
+.login_history_msg {
+  display: flex;
+  list-style: none;
+  padding: 0 1rem 0 0;
+  margin-bottom: 0.1rem;
+  justify-content: space-between;
+}
+
+#login_history_caption {
+  font-weight: 700;
+}
+
+#login_history_record {
+  font-size: 13px;
+}
+
+.source_ip {
+  font-size: 10px;
+}
+
 .delete_button_layout {
   width: 100%;
 }
