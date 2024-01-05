@@ -32,9 +32,9 @@
                     </div>
                     <div class="board_write_wrap">
                         <p class="write_title">글쓰기 수정</p>
-                        <form method="POST">
+                        <form method="POST" class="update_form">
                             {% csrf_token %}
-                            {{ form.as_p}}
+                            {{ form }}
                             <input class="update_btn_dark" type="submit" value="수정 완료">
                         </form>
                     </div>
