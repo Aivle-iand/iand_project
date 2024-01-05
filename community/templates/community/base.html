@@ -7,16 +7,28 @@
         <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'community/css/style.css' %}">
         <link rel="stylesheet" href="{% static 'community/css/main_center.css' %}">
+        <!-- <link rel="stylesheet" href="{% static 'css/global_style.css' %}"> -->
         <style>
+            @font-face {
+                font-family: AppleSDGothicNeo;
+                font-weight: 800;
+                src: url("/static/fonts/AppleSDGothicNeoEB.ttf") format("truetype");
+            }
+            
+            body {
+                font-family: AppleSDGothicNeo;
+                background-color: white;
+            }
             #announcement {
                 font-weight: 900;
                 font-size: 22px;
             }
         </style>
-
+        
     </head>
     <body>
-        <header>{% include 'header.html'%}</header>
+        {% include 'header.html'%}
+        {% include 'cursor.html' %}
         <main class="main">
             <div class="main_top">
                 <div class="page_name">게시판 목록</div>
@@ -46,7 +58,7 @@
                                         <tr class="table_list">
                                             <td>{{ list.id }}</td>
                                             <td><a href="{% url 'community:detail' list.id %}">{{ list.postname }}</a></td>
-                                            <td>{{ user.username }}</td>
+                                            <td>{{ list.writer.nickname}}</td>
                                             <td>{{ list.registered_date }}</td>
                                         </tr>
                                     {% endfor %}            
@@ -81,8 +93,8 @@
                         <div>
                             <form id="searchForm" method="get">
                                 <select name="search_field">
-                                    <option value="0" {% if filter_option == '0' %}selected{% endif %}>제목</option>
-                                    <option value="1" {% if filter_option == '1' %}selected{% endif %}>작성자</option>
+                                    <option value="0" {% if search_field == '0' %}selected{% endif %}>제목</option>
+                                    <option value="1" {% if search_field == '1' %}selected{% endif %}>작성자</option>
                                 </select>
                                 <input type="text" id="search_Input" name="keyword" placeholder="검색어를 입력하세요." autocomplete='off' {% if keyword %} value="{{ keyword }}" {% endif %}>
                                 <button type="submit" class="search_btn">검색</button>
@@ -94,8 +106,7 @@
                     </div>
                 </div>                
             </div>
-            
         </main>
-        <footer>{% include 'footer.html' %}</footer>
+        {% include 'footer.html' %}
     </body>
 </html> 

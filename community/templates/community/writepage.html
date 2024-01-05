@@ -35,7 +35,6 @@
                         <form method="POST" id="write_box" class="wb_form" action="{% url 'community:writepage' %}">
                             {% csrf_token %}
                             {{ form }}
-                            
                             <div class="submit_btn">
                                 <input type="submit" value="완료">
                             </div>
@@ -44,6 +43,7 @@
                 </div>
             </div>
         </main>
-        <footer>{% include 'footer.html' %}</footer>
+        {% include 'footer.html' %}
+        <script src="{% static 'community/js/includeHTML.js' %}" defer></script>
     </body>
 </html>

@@ -37,12 +37,11 @@ class Board(models.Model):
         db_table = "community_board"
         verbose_name = "게시물"
         verbose_name_plural = "게시물"
-
-        
+     
 class Comment(models.Model):
-    post = models.ForeignKey(Board, on_delete=models.CASCADE)
+    post = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='comments')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
-    message = models.TextField()
+    content = models.TextField()
     created = models.DateField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     

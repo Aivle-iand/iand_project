@@ -24,6 +24,7 @@
     
     <body>
         {% include 'header.html' %}
+        {% include 'cursor.html' %}
 
         <main class="main">
             <div class="main_top">
@@ -114,16 +115,17 @@
                                             <input type="checkbox" name='checked_card' id="no_{{ book.id }}" class="modal_check" value="{{book.id}}"
                                             {% if checked_card == book.id|stringformat:"s" %}checked{% endif %} onchange="this.form.submit()">
                                         </form>
-                                        <label for="no_{{ book.id }}">
-                                            <div class="human" style="background-image: url('{{ book.card_image.url }}');"></div>
-                                            {% if book.lock == 0 %}
-                                                <div class = "lock_image"></div>
-                                            {% endif %}
-                                            <div class="name">
-                                                {{book.name}}
-                                            </div>
-                                        </label>
-
+                                        <div class ="name_img_wrap">
+                                            <label for="no_{{ book.id }}">
+                                                <div class="human" style="background-image: url('{{ book.card_image.url }}');"></div>
+                                                {% if book.lock == 0 %}
+                                                    <div class = "lock_image"></div>
+                                                {% endif %}
+                                                <div class="name">
+                                                    {{book.name}}
+                                                </div>
+                                            </label>
+                                        </div>
                                         
                                         {% if book.id|stringformat:"s" == checked_card and book.lock == 1 %}
                                             <div>
