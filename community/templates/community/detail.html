@@ -45,10 +45,11 @@
                                 <input type="submit" value="삭제">
                             </form>
                         </div>
-                        <div>
+                        <div class="comment_list_wrap">
+                            
                             <h4>댓글 목록</h4>
                             <!--read-->
-                            <ul>
+                            <ul class="comment_list">
                                 {% for comment in comments %}
                                     <li>
                                         {{ comment.user }} - {{ comment.content }}
@@ -68,13 +69,13 @@
 
                             <!--create-->
                             {% if request.user.is_authenticated %}
-                                <form action="{% url 'community:comments_create' detail.id %}" method="POST">
+                                <form class="comment_form" action="{% url 'community:comments_create' detail.id %}" method="POST">
                                     {% csrf_token %}
                                     {{ comment_form }}
                                     <input type="submit" value="댓글 작성">
                                 </form>
                             {% else %}
-                                <a href="/accounts/login/">[댓글을 작성하려면 로그인하세요.]</a>
+                                <a href="/accounts/login/" class="login_want">[댓글을 작성하려면 로그인하세요.]</a>
                             {% endif %}
                         </div>
                     </div>
