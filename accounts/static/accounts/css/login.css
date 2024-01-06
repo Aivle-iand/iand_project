@@ -191,9 +191,15 @@ main {
 
 .login_btn_div {
     display: flex;
+    padding: 5%;
 }
 
-.login_btn {
+.login_img {
+    width: 3rem;
+    height: 2rem;
+    fill: rgb(173, 173, 173);
+}
+/* .login_btn {
     border: none;
     position: relative;
     margin: auto;
@@ -204,6 +210,18 @@ main {
     padding: 5%;
     background: none;
     margin-bottom: 5%;
+} */
+
+.login_btn {
+    display: block;
+    background: transparent;
+    color: rgb(173, 173, 173);
+    border: 2px solid rgba(173, 173, 173, 0.3);
+    cursor: pointer;
+    border-radius: 20px;
+    width: 60px;
+    height: 60px;
+    margin: auto;
 }
 
 .sign_up_div {
