@@ -66,6 +66,9 @@ def categoryView(request, c_slug=None):
         rightindex - paginator.num_pages
     
     custom_range = range(leftindex, rightindex+1)
+    
+    
+    
     return render(request, 'community/category.html', 
                   {
                       'category':c_page, 
