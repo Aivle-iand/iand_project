@@ -37,7 +37,8 @@ main {
 }
 
 .loginpage h5 {
-    margin-top: auto;
+    margin: auto;
+    padding: 2%;
     font-size: 25px;
     text-align: center;
 }
@@ -106,6 +107,12 @@ main {
 
 .login-id-pass div {
     position: relative;
+}
+.error_msg {
+    color: rgb(190, 41, 204);
+    font-size: 15px;
+    text-align: center;
+    font-weight: bold;
 }
 
 .sns_line {
