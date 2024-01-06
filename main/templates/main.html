@@ -205,17 +205,16 @@
                         <h4>가장 인기있는 인물</h4>
                         <a href="playground/?search=%EC%95%84%EC%9D%B4%EC%9E%91+%EB%89%B4%ED%84%B4&filter_option=&categoryOption=">
                             <div class="container">
-                                <div class="front" style="width:270px; height:396.5px;">
-                                    <img src="{% static 'main/images/main_newton.png' %}" class="image" style="width:270px; height:396.5px;">
+                                <div class="front" style="width:20vw; height:31.6vw;">
+                                    <img src="{% static 'main/images/main_newton.png' %}" class="image" style="width:20vw; height:31.6vw;">
                                     <div class="inner">
                                         <p>아이작 뉴턴</p>
                                         <span>Issac newton</span>
                                     </div>
                                 </div>
                                 
-                                <div class="back" style="width:270px; height:396.5px;">
-                                    <img src="{% static 'main/images/card_back.jpg' %}" class="image" style="width:270px; height:396.5px; border-radius: 10px;">
-                                    <!-- 뒷면에 표시할 내용 -->
+                                <div class="back" style="width:20vw; height:31.6vw;">
+                                    <img src="{% static 'main/images/card_back.jpg' %}" class="image" style="width:20vw; height:31.6vw; border-radius: 10px;">
                                     <div class="inner">
                                         <h2>PLAY</h2>
                                     </div>
@@ -225,41 +224,41 @@
                     </div>
 
                     
-                    <div class="best_section1">
+                    <!-- <div class="best_section1">
                         <h4>가장 최근에 출시된 인물</h4>
                         <a href="http://localhost:8000/playground/?search=%EC%95%84%EC%9D%B8%EC%8A%88%ED%83%80%EC%9D%B8&filter_option=&categoryOption=">
                             <div class="container">
-                                <div class="front" style="width:270px; height:396.5px;">
-                                    <img src="{% static 'main/images/main_아인슈타인.png' %}" class="image" style="width:270px; height:396.5px;">
+                                <div class="front" style="width:20vw; height:31.6vw;">
+                                    <img src="{% static 'main/images/main_아인슈타인.png' %}" class="image" style="width:20vw; height:31.6vw;">
                                     <div class="inner">
                                         <p>알베르트 아인슈타인</p>
                                         <span>Albert Einstein</span>
                                     </div>
                                 </div>
-                                <div class="back" style="width:270px; height:396.5px;">
-                                    <!-- 뒷면에 표시할 내용 -->
-                                    <img src="{% static 'main/images/card_back.jpg' %}" class="image" style="width:270px; height:396.5px; border-radius: 10px;">
+                                <div class="back" style="width:20vw; height:31.6vw;">
+                                    
+                                    <img src="{% static 'main/images/card_back.jpg' %}" class="image" style="width:20vw; height:31.6vw; border-radius: 10px;">
                                     <div class="inner">
                                         <h2>PLAY</h2>
                                     </div>
                                 </div>
                             </div>
                         </a>
-                    </div>
+                    </div> -->
 
                     <div class="best_section1">
                         <h4>출시 예정 인물</h4>
                             <div class="container">
-                                <div class="front" style="width:270px; height:396.5px;">
-                                    <img src="../../media/books/앨런_튜링_썸ㄴㅇ_과학자_mknh5pK.png" class="image" style="width:270px; height:396.5px;">
+                                <div class="front" style="width:20vw; height:31.6vw;">
+                                    <img src="../../media/books/앨런_튜링_썸ㄴㅇ_과학자_mknh5pK.png" class="image" style="width:20vw; height:31.6vw;">
                                     <div class="inner">
                                         <h4>앨런 튜링<h4><br>
                                         <h4>1월 26일 출시 예정<h4>
                                     </div>
                                 </div>
-                                <div class="back" style="width:270px; height:396.5px;">
+                                <div class="back" style="width:20vw; height:31.6vw;">
                                     <!-- 뒷면에 표시할 내용 -->
-                                    <img src="../../media/books/베토벤_썸ㄴㅇ_음악_4kIiy3M.png" class="image" style="width:270px; height:396.5px; border-radius: 10px; filter: brightness(0.4);">
+                                    <img src="../../media/books/베토벤_썸ㄴㅇ_음악_4kIiy3M.png" class="image" style="width:20vw; height:31.6vw; border-radius: 10px; filter: brightness(0.4);">
                                     <div class="inner">
                                         <h4>루트비히 판 베토벤<h4><br>
                                         <h4>1월 28일 출시 예정<h4>
@@ -290,8 +289,8 @@
                         {% for postname, id, writer, date, nickname in notices %}
                             <li>
                                 <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-                                    <a href="community/detail/{{id}}" style="text-decoration: none; color: black; flex-grow: 1;" class=''>
-                                        <span class="postname" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">{{ postname }}</span>
+                                    <a href="community/detail/{{id}}" style="text-decoration: none; color: black; width:50%; flex-grow: 1;" class=''>
+                                        <span class="postname">{{ postname }}</span>
                                     </a>
                                     <div style="display: flex; gap: 10px; align-items: center;">
                                         <span class="date" style="font-size: 0.8em; color: grey;">{{ date }}</span>
