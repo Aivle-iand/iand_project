@@ -156,15 +156,13 @@
                                                                 <div class= "profile_prologue">{{book.prologue}}</div>
                                                             </div>
                                                             <div class= "change_voice_face">
-                                                                <form class="voice_face_form" id="voice_face_form_{{ book.id }}" method="get">
-                                                                    <button type="submit" class="button_voice_face">적용</button> 
-                                                                    <label class="voice_label"><input type="checkbox" class="voice_check" name='voice' value="{{ book.id }}" {% if voice == book.id|stringformat:"s" %}checked{% endif %}>음성 입히기</label> 
-                                                                    <label class="face_label"><input type="checkbox" class="face_check" name='face' value="{{ book.id }}"{% if face == book.id|stringformat:"s" %}checked{% endif %}>얼굴 입히기</label>
-                                                                    <input type="hidden" name="search" value="{{ search_query }}">
-                                                                    <input type="hidden" name="categoryOption" value="{{ categoryOption }}">
-                                                                    <input type="hidden" name="filter_option" value="{{ filter_option }}">
-                                                                    <input type="hidden" name="checked_card" value ="{{ checked_card }}">
-
+                                                                <form class="voice_face_form" id="voice_face_form_{{ book.id }}" data-score-url="{% url 'voice_face_change' checked_card %}" method="POST">
+                                                                    {% csrf_token %}
+                                                                        <button type="submit" class="button_voice_face"
+                                                                        {% if not request.user.is_authenticated %} disabled {% endif %}>적용</button>
+                                                                        <label class="voice_label"><input type="checkbox" class="voice_check" name='voice' value="{{ book.id }}" {% if voice == book.id|stringformat:"s" %}checked{% endif %}>음성 입히기</label>
+                                                                        <label class="face_label"><input type="checkbox" class="face_check" name='face' value="{{ book.id }}"{% if face == book.id|stringformat:"s" %}checked{% endif %}>얼굴 입히기</label>
+                                                                       
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -175,17 +173,17 @@
                                                                     {% for scene in episode %}
                                                                         <div class=" carousel-item scene scene_{{book.id}}_{{scene.episode_number}} scene_{{scene.scene_number}}"  id="scene_{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}" >
                                                                             <div class="wrap_scene_element">
-                                                                                <div class='episode_image' 
-                                                                                {% if face_change %}
+                                                                                <div class='episode_image'
+                                                                                {% if face_change and request.user.is_authenticated %}
                                                                                 style="background-image: url('/static/playground/user/TMuD9dkOkEfHZCUjLoPo/{{face}}/face/{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}.png')"
                                                                                 {% else %}style="background-image: url('/media/{{scene.image}}');"{% endif %}
                                                                                 ></div>
-                                                                                <div class="human_in_scene" id="h_{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}" 
-                                                                                {% if voice_change %}
+                                                                                <div class="human_in_scene" id="h_{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}"
+                                                                                {% if voice_change and request.user.is_authenticated %}
                                                                                 onclick="playAudio('/static/playground/user/TMuD9dkOkEfHZCUjLoPo/{{voice}}/voice/{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}.mp3')"
                                                                                 {% else %}onclick="playAudio('/media/{{scene.voice}}')"{% endif %}
                                                                                 style="background-image: url('/media/{{scene.image_segment}}'); width : {{ scene.width }}px; height : {{ scene.height }}px; top : {{ scene.y_index }}px; right : {{ scene.x_index }}px;"
-                                                                                onmouseover = "this.style.opacity = 1;" onmouseout = "this.style.opacity = 0;">                           
+                                                                                onmouseover = "this.style.opacity = 1;" onmouseout = "this.style.opacity = 0;">                          
                                                                                 </div>
                                                                                 <div class='episode_scene_num'>
                                                                                     {{scene.scene_number}}/4
@@ -231,9 +229,34 @@
                                                                 <button id="quiz_buttonn" type="submit" form="quizForm" name="quiz_button_{{book.id}}">채점</button>
                                                             </div>
 
-                                                            <div id="resultForm" style="display: none;">
+                                                            <div id="resultForm">
                                                                 <p id="quizResult"></p>
-                                                              </div>
+                                                                <form class="wrapper" id="quizForm" data-score-url="{% url 'score_quiz' book.id %}" method="POST" >
+                                                                        {% for quiz in book.quizzes.all %}
+                                                                            <div class="result_card" id="quiz_{{quiz.quiz_index}}">
+                                                                                                                                    
+                                                                                    <div class='result__heading'><h5>Q{{quiz.quiz_index}}.<h5></div>
+                                                                                    <div class='result__text'>{{quiz.quiz_text}}</div>
+                                                                                    <div class="quiz_input_wrap">
+                                                                                        <input type = "text" name="input_{{quiz.quiz_index}}" id="input_{{book.id}}_{{quiz.quiz_index}}">
+                                                                                    </div>                                                 
+                                                                            </div>
+                                                                        {% endfor %}   
+                                                                                                                                                     
+                                                                </form>
+                                                                        <div id="reward_button_container">
+                                                                        <button id="reward_button" class="reward_button" type="submit">리워드 받기</button>
+                                                                            <div id="rewardIcon" style="display: none;">
+                                                                                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                                                                                <lord-icon
+                                                                                    src="https://cdn.lordicon.com/qnwzeeae.json"
+                                                                                    trigger="hover"
+                                                                                    style="width:250px;height:250px">
+                                                                                </lord-icon>
+                                                                            </div>
+                                                                        <button id="restart_button" class="restart_button" type="submit">재도전</button>
+                                                                        </div>
+                                                            </div>
                                                         </div>
                                                         
 
@@ -385,18 +408,22 @@
                 const resultDiv = document.getElementById('resultForm');
                 const resultText = document.getElementById('quizResult');  
                 const quizButtonContainer = document.getElementById('quiz_button_container');
+                const rewardButton = document.getElementById('reward_button');
+                const restartButton = document.getElementById('restart_button');
+                const rewardIcon = document.getElementById('rewardIcon');
                 
-                // 폼이 제출되었을 때의 동작을 정의
+                // 폼이 제출되었을 때의 동작 정의
                 quizForm.addEventListener('submit', function(event) {
-                    // 폼의 기본 제출 동작을 중지
+                    // 폼의 기본 제출 동작 중지
                     event.preventDefault();  
                     
-                    // 폼의 데이터를 수집
+                    // 폼 데이터 수집
                     const formData = new FormData(quizForm);
                     // 폼 요소에 정의된 'data-score-url' 속성을 기반으로 스코어링 URL 가져옴
                     const scoreUrl = quizForm.dataset.scoreUrl; 
                     // 페이지 내 CSRF 토큰 값 가져옴
                     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
                     
                     // fetch API를 사용하여 서버에 비동기 POST 요청
                     fetch(scoreUrl, {
@@ -406,14 +433,48 @@
                             'X-CSRFToken': '{{ csrf_token }}' 
                         }
                     })
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                        return response.json();
+                    })
                     .then(data => {
-                        // Process and display the score
                         resultText.textContent = `점수: ${data.score} / ${data.total}`;
-                        // Hide
+
+                        // 사용자 입력값을 결과 폼의 입력 필드에 설정
+                        formData.forEach((value, key) => {
+                            const resultInput = resultDiv.querySelector(`input[name="${key}"]`);
+                            if (resultInput) {
+                                resultInput.value = value;
+                            }
+                        });
+
+                        // 조건에 따라 버튼 활성화 또는 비활성화
+                        if (data.score == data.total) {
+                            // 점수가 전체와 같으면 리워드 버튼 활성화
+                            rewardButton.disabled = false;
+                            restartButton.disabled = true;
+                            // 리워드 버튼 클릭 시 아이콘 표시
+                            rewardButton.addEventListener('click', function() {
+                            rewardIcon.style.display = 'block'; // 아이콘 표시
+                            rewardButton.style.display = 'none';
+                            });
+                        } else {
+                            //재도전 버튼 활성화
+                            rewardButton.disabled = true;
+                            restartButton.disabled = false;
+                        }
+
+                        // 재도전 버튼 클릭 시 페이지 새로고침
+                        restartButton.addEventListener('click', function() {
+                            location.reload();
+                        });
+                    
                         quizForm.style.display = 'none';
                         quizButtonContainer.style.display = 'none'
                         resultDiv.style.display = 'block';
+
                     })
                     .catch(error => {
                         console.error('Error:', error);
