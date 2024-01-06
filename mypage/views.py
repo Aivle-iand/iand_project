@@ -25,37 +25,46 @@ environ.Env.read_env(
 
 # Create your views here.
 def index(request):
+    try:
+        pin_chk = request.session['pin_checked']
+    except:
+        request.session['pin_checked'] = False
     if not request.user.is_authenticated:
         return redirect('accounts/login')
-    username = request.user
-    str_username = str(username)
-    marked_id = str_username[:2] + '*' * 5 + str_username[-2:]
-    context = {
-        'marked_id' : marked_id,
-    }
-    
-    return render(request, 'mypage/mypage_certify.html', context)
+    if request.session['pin_checked']:
+        return redirect('/mypage/mypage_temp')
+    else:
+        username = request.user
+        str_username = str(username)
+        marked_id = str_username[:2] + '*' * 5 + str_username[-2:]
+        context = {
+            'marked_id' : marked_id,
+        }
+        
+        return render(request, 'mypage/mypage_certify.html', context)
 
 def mypage_temp(request):
-    # pin_chk = request.session['pin_checked']
+    try:
+        pin_chk = request.session['pin_checked']
+    except:
+        pin_chk = False
     if not request.user.is_authenticated:
         return redirect('accounts/login')
-    # if pin_chk == None:
-    #     return redirect('mypage')
-    history = {}
-    username = request.user
-    login_histories = LoginHistory.objects.filter(username = username)
-    for i in range(len(login_histories)):
-            login_time = str(login_histories[i].timestamp)
-            login_id = login_histories[i].username
-            marked_id = login_id[:2] + '*' * (len(login_id) - 4) + login_id[-2:]
-            history[i] = {'date' : login_time[:-7], 'login_id' : marked_id, 'country' : login_histories[i].country, 'ip' : login_histories[i].ip}
-    context = {
-        'face' : "https://iand-bucket.s3.ap-northeast-2.amazonaws.com/media/common/noimage.jpg",
-        'login_history' : history,
-    }
-    
-    return render(request, 'mypage/mypage_temp.html', context)
+    else:
+        history = {}
+        username = request.user
+        login_histories = LoginHistory.objects.filter(username = username)
+        for i in range(len(login_histories)):
+                login_time = str(login_histories[i].timestamp)
+                login_id = login_histories[i].username
+                marked_id = login_id[:2] + '*' * (len(login_id) - 4) + login_id[-2:]
+                history[i] = {'date' : login_time[:-7], 'login_id' : marked_id, 'country' : login_histories[i].country, 'ip' : login_histories[i].ip}
+        context = {
+            'face' : "https://iand-bucket.s3.ap-northeast-2.amazonaws.com/media/common/noimage.jpg",
+            'login_history' : history,
+        }
+        
+        return render(request, 'mypage/mypage_temp.html', context)
 
 region_name = env('S3_REGION_NAME')
 access_key_id = env('S3_ACCESS_KEY_ID')
@@ -224,7 +233,7 @@ def check_pin_pwd(request):
         cur_pinpwd = data.get('cur_pinpwd', '')
         username = request.user
         if username and check_password(cur_pinpwd, username.pin_number):
-            # request.session['pin_checked'] = True
+            request.session['pin_checked'] = True
             return JsonResponse({'match' : True})
         else:
             return JsonResponse({'match' : False})
