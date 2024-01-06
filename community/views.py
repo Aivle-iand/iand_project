@@ -33,7 +33,7 @@ def categoryView(request, c_slug=None):
         post_list = Board.objects.filter(category=c_page).order_by('-id')
     else:
         post_list = Board.objects.all().order_by('-id')
-    
+    post_list = post_list.prefetch_related('comments')
     if search_field == '0':
         post_list = post_list.filter(postname__icontains = keyword)
     else:
