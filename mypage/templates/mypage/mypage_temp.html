@@ -10,7 +10,8 @@
   </head>
 
   <body>
-    {% include 'header.html' %}
+    {% include 'cursor.html' %} {% include 'header.html' %} {% include
+    'fonts.html' %}
     <main class="main">
       <div class="modal hidden">
         <div class="modal_overlay" onclick="closeModal()"></div>
@@ -289,7 +290,11 @@
               >
                 RECORD
               </button>
-              <button class="save_button" id="voice_upload_button">
+              <button
+                class="save_button"
+                id="voice_upload_button"
+                onclick="uploadFile()"
+              >
                 SAVE <br />
                 CHANGE
               </button>
