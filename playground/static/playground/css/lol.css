@@ -964,6 +964,11 @@ display: flex;
     margin-left: 550px;
 }
 
+#lord_icon {
+    margin-left: 550px;
+
+}
+
 /* BUTTON */
 #reward_button {
     border-color: rgb(146, 106, 59); 
