@@ -23,10 +23,7 @@ def get_client_ip(request):
         return JsonResponse({'error': str(e)}, status=500)
 
 class CustomLoginView(LoginView):
-    template_name = 'accounts/login.html'
-    success_url = reverse_lazy('main')
-    def form_invalid(self, form):
-        return super().form_invalid(form)
+    template_name = 'account/login.html'
     
 class CustomSocialSignupView(SocialSignupView):
     form_class = CustomSocialSignupForm

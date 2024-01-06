@@ -54,7 +54,7 @@
             
             <div class="login_main">
                 <div class="loginpage">
-                    <form action="{% url 'account_login' %}" method="POST">
+                    <form action="{% url 'account_login' %}?next={{request.GET.next}}" method="POST">
 
                         {% csrf_token %}
 
