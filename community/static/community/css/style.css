@@ -274,10 +274,10 @@ caption {
 }
 
 .comment_form_wrap>form>textarea {
-    width : calc(100% - 10px);
-    height : 72%;
+    width : calc(100% - 5px)!important;
+    height : 72%!important;
     resize : none;
-    margin-left : 10px;
+    margin-left : 5px;
     border : 0;
 }
 
