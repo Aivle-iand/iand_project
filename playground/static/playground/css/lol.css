@@ -270,7 +270,7 @@ header a {
 
 .main_top_12 {
     margin : 0px;
-    min-width : 300px;
+    min-width : 372px;
 }
 
 .main_top_1 {
@@ -318,7 +318,7 @@ header a {
 .item {
     height : 372px;
     width : 239px;
-    background-image: url('/static/playground/images/card.png');
+    /* background-image: url('/static/playground/images/card.png'); */
     background-repeat: no-repeat;
     background-size: cover;
     /* flex: 0 0 239px;  */
@@ -451,12 +451,11 @@ header a {
 
 .human {
     position: relative;
-    height: 300px;
-    width: 224px;
-    top : 6px;
-    right : -7px;
-    border: 3px solid rgb(224,159,89);
+    height: 372px;
+    width: 239px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.25);
     background-size: 100% 100%;
+    border-radius: 10px;
     background-position : center center;
     background-repeat: no-repeat;
     overflow: hidden;
@@ -485,9 +484,9 @@ label:hover>.human {
     height : 372px;
 }
 
-.item {
+/* .item {
     overflow: hidden;
-}
+} */
 
 .modal_check_form + div>label>.name{
     position : relative;

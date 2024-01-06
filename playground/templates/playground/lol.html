@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type='text/css' href="{% static '/playground/css/lol.css' %}">
+    <link rel="stylesheet" type='text/css' href="{% static '/playground/css/playground_card.css' %}">
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
@@ -16,7 +17,7 @@
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous">
-</script>
+    </script>
 
 
     <title>1인칭 주인공 시점</title>
@@ -116,8 +117,30 @@
                                             <input type="checkbox" name='checked_card' id="no_{{ book.id }}" class="modal_check" value="{{book.id}}"
                                             {% if checked_card == book.id|stringformat:"s" %}checked{% endif %} onchange="this.form.submit()">
                                         </form>
+                                        
                                         <div class ="name_img_wrap">
-                                            <label for="no_{{ book.id }}">
+                                            <label for="no_{{ book.id }}" class="card_container">
+                                                    <div class='front'>
+                                                        <div class="human" style="background-image: url('{{ book.card_image.url }}');"></div>
+                                                        <div class="inner">
+                                                            <p>{{book.name}}</p>
+                                                            <span>{{book.category}}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class='back'>
+                                                        <img src="{% static 'main/images/card_back.jpg' %}" class="image" style="width:100%; height:100%; border-radius:10px;">
+                                                        <div class="inner">
+                                                            {% if book.lock == 0 %}
+                                                                <h2>Comming<br>Soon</h2>
+                                                            {% else %}
+                                                                <h2>Play</h2>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                            </label>
+                                            
+                                            {% comment %} <label for="no_{{ book.id }}">
                                                 <div class="human" style="background-image: url('{{ book.card_image.url }}');"></div>
                                                 {% if book.lock == 0 %}
                                                     <div class = "lock_image"></div>
@@ -125,7 +148,7 @@
                                                 <div class="name">
                                                     {{book.name}}
                                                 </div>
-                                            </label>
+                                            </label> {% endcomment %}
                                         </div>
                                         
                                         {% if book.id|stringformat:"s" == checked_card and book.lock == 1 %}
@@ -214,7 +237,6 @@
                                                                 {% csrf_token %}
                                                                     {% for quiz in book.quizzes.all %}
                                                                         <div class="card" id="quiz_{{quiz.quiz_index}}">
-                                                                                                                                
                                                                                 <div class='card__heading'><h5>Q{{quiz.quiz_index}}.<h5></div>
                                                                                 <div class='card__text'>{{quiz.quiz_text}}</div>
                                                                                 <div class="quiz_input_wrap">
@@ -260,10 +282,6 @@
                                                                         </div>
                                                             </div>
                                                         </div>
-                                                        
-
-
-  
                                                     </div>
                                                 
                                                 </div>

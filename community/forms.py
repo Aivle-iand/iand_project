@@ -40,12 +40,11 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['content']
         exclude = ('post', 'writer')
-        widget = {
-            'content':TextInput(
+        widgets = {
+            'content':forms.Textarea(
                 attrs={
-                    'class':'comment_text_area',
-                    'style':'width:90%; height:200px; resize:none;'
-                    
+                    'placeholder':'댓글을 입력하세요.',
+                    'style':'width:100%; resize:none; height:100px; border:none;'
                 }
             )
         }
