@@ -54,7 +54,7 @@
                             <ul class="comment_list">
                                 {% for comment in comments %}
                                     <li>
-                                        {{ comment.user }} - {{ comment.content }}
+                                        {{ comment.user.nickname }} - {{ comment.content }}
                                         <!--delete-->
                                         {% if user == comment.user %}
                                             <form action="{% url 'community:comments_delete' detail.pk comment.pk %}" method="POST" class="d-inline">
