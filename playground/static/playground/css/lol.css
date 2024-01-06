@@ -872,28 +872,6 @@ grid-column: span 2;
     
 }
 
-/* button */
-/* .quiz_input_wrap>input[type="text"]:focus {
-    background-color: rgb(249, 249, 249); 
-    border: 2px solid rgb(248, 248, 246); 
-    color: black; 
-} */
-
-/* #quiz_button {
-    display : flex;
-    flex-direction: row-reverse;
-    
-} */
-
-/* #quiz_button>button {
-    background-color: rgb(255, 255, 255);
-    border : 2px solid rgb(0, 0, 0);
-    color : rgb(0, 0, 0);
-    height : 25px;
-    font-size : 17px;
-}
-*/
-
 
 #quiz_button_container {
     position: absolute; 
@@ -904,18 +882,143 @@ grid-column: span 2;
 }
 
 #quiz_buttonn {
-    background-color: #ff000000;
-    color: white;
     border: 1px solid white;
     margin-bottom: 37;
+    border-color: rgb(146, 106, 59); 
+    color: #f8f8f8;
+    box-shadow: 0 0 40px 40px rgb(146, 106, 59) inset, 0 0 0 0 rgb(146, 106, 59); 
+    transition: all 150ms ease-in-out;
 
 }
+
+
+#quiz_buttonn:hover {
+    background-color: transparent; /* 투명 배경 */
+    color: #FFFFFF;
+    box-shadow: 0 0 10px 0 rgb(146, 106, 59) inset, 0 0 10px 4px rgb(146, 106, 59); 
+  }
+
 
 /* quiz 결과 폼*/
 #resultForm {
     display: none;
   }
+
+.result_card {
+cursor: pointer;
+overflow: hidden;
+border-radius: 5%;
+background-color: rgb(244, 245, 249);
+height: 190px;
+display: flex;
+flex-direction: column;
+position: relative;
+border : 0px; 
+}
+
+#quiz_1.result_card {
+    grid-area: 1 / 1 ;
+  }
+
+#quiz_2.result_card {
+grid-area: 1 / 2 ;
+}
+
+#quiz_3.result_card {
+grid-area: 2 / 1 ;
+}
+
+#quiz_4.result_card {
+grid-area: 2 / 2 ;
+}
   
+
+.result__text {
+height: 80px;
+border-radius: 4px;
+background-color: #B88851;
+opacity: 0.8;
+margin: 10px;
+padding: 0 20px;
+text-align: center;
+display: flex; 
+justify-content: center; 
+align-items: center; 
+font-size: 12px;
+}
+
+
+.result__heading {
+opacity: 0.9;
+width: 100%;
+color: #E1CDB7;
+background-color: rgb(146, 106, 59);
+margin: 0 ;
+height: 50px;
+text-align: center; 
+justify-content: center; 
+align-items: center; 
+display: flex;
+}
+
+#rewardIcon {
+    margin-left: 550px
+}
+
+/* BUTTON */
+#reward_button {
+    border-color: rgb(146, 106, 59); 
+    color: #f8f8f8;
+    box-shadow: 0 0 40px 40px rgb(146, 106, 59) inset, 0 0 0 0 rgb(146, 106, 59); 
+    transition: all 150ms ease-in-out;
+    width: 120px;
+    height: 40px;
+    margin-right: 50px;
+    margin-left: 600px;
+    margin-bottom: 40px;
+}
+  
+#reward_button:hover {
+    background-color: transparent; /* 투명 배경 */
+    color: #FFFFFF;
+    box-shadow: 0 0 10px 0 rgb(146, 106, 59) inset, 0 0 10px 4px rgb(146, 106, 59); 
+  }
+
+.reward_button {
+    margin-right: 50px;
+  }
+
+#reward_button_container {
+    position: absolute;
+    bottom: -70px;
+    right: 20px;
+    font-size: 16px;
+    font-weight: 530;
+}
+
+#restart_button {
+    border-color: rgb(146, 106, 59); 
+    color: #f8f8f8;
+    box-shadow: 0 0 40px 40px rgb(146, 106, 59) inset, 0 0 0 0 rgb(146, 106, 59); 
+    transition: all 150ms ease-in-out;
+    width: 120px;
+    height: 40px;
+    margin-right: 50px;
+    margin-left: 600px;
+    margin-bottom: 105px;
+}
+  
+
+#restart_button:hover {
+    background-color: transparent; /* 투명 배경 */
+    color: #FFFFFF;
+    box-shadow: 0 0 10px 0 rgb(146, 106, 59) inset, 0 0 10px 4px rgb(146, 106, 59); 
+  }
+
+.restart_button {
+    margin-right: 50px;
+  }
+
 
 
 .main_bottom {
