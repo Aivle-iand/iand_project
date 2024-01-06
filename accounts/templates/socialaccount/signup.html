@@ -45,6 +45,7 @@
 
 {% if not user.nickname or user.first_name or user.second_name %}
 <body>
+    {% include 'fonts.html' %}
     <header class="header">
         <a href="{% url 'account_login' %}">
             <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img">
