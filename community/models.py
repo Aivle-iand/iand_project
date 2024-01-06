@@ -41,7 +41,7 @@ class Board(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='comments')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
-    content = models.TextField()
+    content = models.TextField(verbose_name='')
     created = models.DateField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
