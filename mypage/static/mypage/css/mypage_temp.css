@@ -482,7 +482,6 @@ video {
   vertical-align: center;
 }
 .upload_area:hover {
-  /* background:rgba(71, 69, 69, 0.8); */
   border-color: #b8b8b8;
   cursor: pointer;
 }

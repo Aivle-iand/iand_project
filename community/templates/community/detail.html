@@ -10,6 +10,7 @@
     <title>Detail</title>
 </head>
 <body>
+    {% include 'fonts.html' %}
     <header>{% include 'header.html'%}</header>
     <main class="main">
         <div class="main_top">
@@ -25,66 +26,114 @@
                         <div class="board_div"><a href="{{ cate.get_url }}">- {{ cate.name }}</a></div>
                     {% endfor %}
                 </div>
-                <div class="detail_wrap">
-                    <p class="title">{{detail.postname}}</p>
-                    <div class="detail_post">
-                        <dl><dt>작성자:</dt><dd>{{detail.writer.nickname}}</dd></dl>
-                        <dl><dt>작성일자:</dt><dd>{{detail.registered_date}}</dd></dl>
-                    </div>
-                    <div class="detail_contents">
-                        <p>{{detail.contents|linebreaksbr}}</p>
-                    </div>       
-                    <div class="detail_btn">
-                        <dl><dt class="to_board_dt"><a href="/community/" class="to_board">목록</a></dt></dl><br>
-                        {% if detail.writer == request.user %}
-                            <div class="update_btn">
-                                <a href="{% url 'community:update' detail.id%}" class="bt">수정</a>
+                    <div class="detail_wrap">
+                        <p class="title">{{detail.postname}}</p>
+                        <div class="detail_post">
+                            <dl><dt>작성자:</dt><dd>{{detail.writer.nickname}}</dd></dl>
+                            <dl><dt>작성일자:</dt><dd>{{detail.registered_date}}</dd></dl>
+                        </div>
+                        <div class="detail_contents">
+                            <div class="post_content">
+                                {{detail.contents|linebreaksbr}}
                             </div>
-                            <div class="delete_btn">
-                                <form action="{% url 'community:detail' detail.id %}" method="POST">
-                                    {% csrf_token %}
-                                    <input type="submit" value="삭제">
-                                </form>
+                            <div class="in_post_bottom_wrap">
+                                <div class="left_post_bottom">
+                                    <div>댓글 수 {{comments|length}}</div>
+                                    
+                                </div>
+                                <div class="right_post_bottom">
+                                    <div><a href="./" class="to_board">새로고침</a></div>
+                                    <div><a href="/community/" class="to_board">목록가기</a></div>
+                                    <div><button onclick="scrollToElement('position_comment')">댓글쓰기</button></div>
+                                </div>
                             </div>
-                        {% endif %}
-                        <div class="comment_list_wrap">
-                            
-                            <h4>댓글 목록</h4>
-                            <!--read-->
-                            <ul class="comment_list">
-                                {% for comment in comments %}
-                                    <li>
-                                        {{ comment.user.nickname }} - {{ comment.content }}
-                                        <!--delete-->
-                                        {% if user == comment.user %}
-                                            <form action="{% url 'community:comments_delete' detail.pk comment.pk %}" method="POST" class="d-inline">
-                                            {% csrf_token %}
-                                            <input type="submit" value="댓글 삭제">
-                                            </form>
-                                        {% endif %}
-                                    </li>
-                                {% empty %}
-                                    <p>댓글이 없어요..</p>
-                                {% endfor %}
-                            </ul>
-                            <hr>
+                        </div>       
 
-                            <!--create-->
-                            {% if request.user.is_authenticated %}
-                                <form class="comment_form" action="{% url 'community:comments_create' detail.id %}" method="POST">
-                                    {% csrf_token %}
-                                    {{ comment_form }}
-                                    <input type="submit" value="댓글 작성">
-                                </form>
-                            {% else %}
-                                <a href="/accounts/login/" class="login_want">[댓글을 작성하려면 로그인하세요.]</a>
+                        <div class="detail_btn">
+                            
+                            {% if detail.writer == request.user %}
+                                <div class="update_btn">
+                                    <a href="{% url 'community:update' detail.id%}" class="bt">수정</a>
+                                </div>
+                                <div class="delete_btn">
+                                    <form action="{% url 'community:detail' detail.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="submit" value="삭제">
+                                    </form>
+                                </div>
                             {% endif %}
+                            <div class="comment_list_wrap">
+                                
+                                <h4>댓글</h4>
+                                <!--read-->
+                                <ul class="comment_list">
+                                    {% for comment in comments %}
+                                        <li class="one_comment">
+                                            <div class="comment_wrap">
+                                                <div class="comment_nick">
+                                                    {{ comment.user.nickname }}
+                                                </div>
+                                                <div class="comment_content">
+                                                    {{ comment.content }}
+                                                </div>
+                                                <div class="comment_when">
+                                                    20XX.01.XX XX:XX
+
+                                                    {% if user == comment.user %}
+                                                    <form action="{% url 'community:comments_delete' detail.pk comment.pk %}" method="POST" class="d-inline">
+                                                    {% csrf_token %}
+                                                    <input  class="delete_comment" type="submit" value="삭제">
+                                                    </form>
+                                                {% endif %}
+                                                </div>
+                                                <!--delete-->
+                                                
+                                                <hr>
+                                            </div>
+                                        </li>
+                                    
+                                    {% endfor %}
+                                </ul>
+                                <div id="position_comment"></div>
+                                <!--create-->
+                                {% if request.user.is_authenticated %}
+                                    <div class="comment_form_wrap">
+                                        <form class="comment_form" id="comment_form" action="{% url 'community:comments_create' detail.id %}" method="POST">
+                                            {% csrf_token %}
+                                            {{ comment_form }}
+                                            <input type="submit" value="댓글 작성">
+                                        </form>
+                                    </div>
+                                {% else %}
+                                    <div class="login_want">
+                                        <a href="/accounts/login/" >[댓글을 작성하려면 로그인하세요.]</a>
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
+                    <div class="last_button_wrap">
+                        <div><a href="/community/" class="to_board">목록가기</a></div>
+                        <div><button onclick="scrollToElement('position_comment')">TOP</button></div>
+                    </div>
                 </div>
-            </div>
-        </div>     
-    </main>
-    {% include 'footer.html' %}
+            </div>     
+        </main>
+        {% include 'footer.html' %}
+
+        <script>
+            function scrollToElement(elementId) {
+            var targetElement = document.getElementById(elementId);
+        
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                behavior: 'smooth'
+                });
+            } else {
+                console.error('Element with id ' + elementId + ' not found.');
+            }
+            }
+        </script>
+
 </body>
 </html>
