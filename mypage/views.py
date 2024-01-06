@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from .models import UserProfile
 from accounts.models import User as Custom_User
@@ -64,6 +64,7 @@ bucket_name = env('S3_BUCKET_NAME')
 custom_domain = f'{bucket_name}.s3.{region_name}.amazonaws.com'
 
 def upload_image(args):
+    is_success = False
     file = args['file']
     user = args['user']
     s3 = boto3.client('s3', aws_access_key_id=access_key_id, aws_secret_access_key=secret_access_key, region_name=region_name)
@@ -71,21 +72,30 @@ def upload_image(args):
     s3.upload_fileobj(file, bucket_name, f'media/{user}/profile/face_img.png', ExtraArgs={'ACL': 'public-read'})
     # S3 파일 URL 생성
     file_url = f'{custom_domain}/media/{user}/profile/face_img.png'
-    # DB에 URL 저장
-    profile = UserProfile.objects.filter(user=user).exists()
-    if (profile):
-        user_profile = UserProfile.objects.update(user=user, image_url=file_url)
-    else:
-        user_profile = UserProfile.objects.create(user=user, image_url=file_url)
     
-    return user_profile
+    # DB에 URL 저장
+    user_profile = UserProfile.objects.filter(user_id=user)
+    if (bool(user_profile)):
+        try:
+            user_profile.update(image_url=file_url)
+            is_success = True
+        except:
+            is_success = False
+    else:
+        try:
+            user_profile = UserProfile.objects.create(user=user, image_url=file_url)   
+            is_success = True
+        except:
+            is_success = False
+    
+    return is_success
     
 def upload_voice(args):
+    is_success = False
     file = args['file']
     user = args['user']
 
     user_bytes = user.username.encode("ascii") 
-  
     user_encode = base64.b64encode(user_bytes) 
     
     file_path = f'./mypage/{file.name}'
@@ -101,19 +111,27 @@ def upload_voice(args):
                                   files=files,)
     os.remove(file_path)
     response_json = json.loads(response.text)
-    print(response_json)
+    
     try:
         voice_id = response_json['voice_id']
     except:
-        return JsonResponse({'status': 'error', 'message': '보이스 아이디를 찾을 수 없습니다.'})
+        return is_success 
         
-    profile = UserProfile.objects.filter(user=user).exists()
-    if (profile):
-        user_profile = UserProfile.objects.update(user=user, audio_url=voice_id)
+    user_profile = UserProfile.objects.filter(user_id=user)
+    if (bool(user_profile)):
+        try:
+            user_profile.update(audio_url=voice_id)
+            is_success = True
+        except:
+            is_success = False
     else:
-        user_profile = UserProfile.objects.create(user=user, audio_url=voice_id)
-        
-    return user_profile
+        try:
+            user_profile = UserProfile.objects.create(user=user, audio_url=voice_id)   
+            is_success = True
+        except:
+            is_success = False
+
+    return is_success
 
 @csrf_exempt
 def upload_media(request):
@@ -121,12 +139,12 @@ def upload_media(request):
         'image': upload_image,
         'audio': upload_voice,
     }
-    print(request.FILES.get('file'))
+    
     param = {
         'file': request.FILES.get('file'),
         'user': request.user,
     }
-    print(request.user.id)
+    
     file_url = f'{custom_domain}/media/{request.user}/profile/face_img.png',
     key = param['file'].content_type.split('/')[0]
     is_success = func_tool[key](param)
@@ -136,7 +154,6 @@ def upload_media(request):
     elif not is_success:
         return JsonResponse({'status': 'error', 'message': 'Invalid request'})
 
-    return JsonResponse({'status': 'error', 'message': 'Invalid request'})
 
 @csrf_exempt
 def check_api_user(request):
