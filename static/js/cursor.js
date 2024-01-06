@@ -15,6 +15,23 @@ document.addEventListener('mousemove', (e) => {
     updateCursorPosition(e.pageX, e.pageY); // pageX, pageY로 변경
 });
 
+// 커서 위치를 업데이트하는 함수
+function updateCursorPosition(x_, y_) {
+    const x = x_;
+    const y = y_;
+    const dot = document.getElementById('cursor-dot');
+    const dotOutline = document.getElementById('cursor-dot-outline');
+
+    dot.style.left = `${x}px`;
+    dot.style.top = `${y}px`;
+    dotOutline.style.left = `${x}px`;
+    dotOutline.style.top = `${y}px`;
+
+    dot.style.opacity = 1;
+    dotOutline.style.opacity = 1;
+}
+
+//=======================================================================================================================
 function invertColor(hex) {
     // HEX 색상에서 #을 제거합니다.
     if (hex.indexOf('#') === 0) {
@@ -40,35 +57,10 @@ function updateCursorColor(color) {
     dot.style.backgroundColor = `rgba(${color}, 1)`;
 }
 
-// 스크롤할 때도 사용자 정의 커서 위치를 업데이트
-document.addEventListener('scroll', () => {
-    updateCursorPosition(lastKnownX, lastKnownY);
-});
-
-// 마지막으로 알려진 마우스 위치를 저장하는 변수
-let lastKnownX = 0;
-let lastKnownY = 0;
-
-// 커서 위치를 업데이트하는 함수
-function updateCursorPosition(x, y) {
-    lastKnownX = x;
-    lastKnownY = y;
-
-    const dot = document.getElementById('cursor-dot');
-    const dotOutline = document.getElementById('cursor-dot-outline');
-
-    dot.style.left = `${lastKnownX}px`;
-    dot.style.top = `${lastKnownY}px`;
-    dotOutline.style.left = `${lastKnownX}px`;
-    dotOutline.style.top = `${lastKnownY}px`;
-
-    dot.style.opacity = 1;
-    dotOutline.style.opacity = 1;
-}
 
 document.addEventListener('mouseover', function(event) {
     if (event.target.closest('label, a, button')) {
-        scaleCursor(5);  // 커서를 1.2배 늘립니다.
+        scaleCursor(3);  // 커서를 1.2배 늘립니다.
     }
 });
 
@@ -89,4 +81,10 @@ function scaleCursor(scale) {
 function red_dot(scale) {
     const dotOutline = document.getElementById('cursor-dot-outline');
     dotOutline.style.transform = `background(#0000FF)`
+}
+
+window.onload = function() {
+    setTimeout (function () {
+        scrollTo(0, 0);
+    }, 100);
 }

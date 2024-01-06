@@ -7,7 +7,7 @@ from django.contrib.auth import get_user
 
 def custom_main_view(request):
     board = Board.objects.filter(category=1).order_by('-id').values_list('id', 'postname', 'writer', 'registered_date', 'writer')[:10]
-    nickname = Board.objects.select_related('writer').order_by('-writer__id').values_list('writer__nickname', flat=True)
+    nickname = Board.objects.filter(category=1).select_related('writer').order_by('-id').values_list('writer__nickname', flat=True)
 
     # 각 속성을 리스트로 추출
     ids = [item[0] for item in board]  # id 값
