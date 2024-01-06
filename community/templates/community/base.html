@@ -57,7 +57,7 @@
                                     {% for list in page_obj %}
                                         <tr class="table_list">
                                             <td>{{ list.id }}</td>
-                                            <td><a href="{% url 'community:detail' list.id %}">{{ list.postname }} -- [{{ list.comment_count }}]</a></td>
+                                            <td><a href="{% url 'community:detail' list.id %}">{{ list.postname }}<span style="color : red">[{{ list.comment_count }}]</span></a></td>
                                             <td>{{ list.writer.nickname}}</td>
                                             <td>{{ list.registered_date }}</td>
                                         </tr>
