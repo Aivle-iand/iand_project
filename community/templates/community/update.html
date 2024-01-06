@@ -23,9 +23,9 @@
             <div class="main_center">
                 <div class="div_center">
                     <div class="side_center">   
-                        <div class="board_div" id="all">
+                        <!-- <div class="board_div" id="all">
                             <a href="/community/">- 전체 게시글</a>
-                        </div>
+                        </div> -->
                         {% for cate in links %}
                             <div class="board_div"><a href="{{ cate.get_url }}">- {{ cate.name }}</a></div>
                         {% endfor %}

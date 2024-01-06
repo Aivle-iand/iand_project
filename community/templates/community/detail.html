@@ -19,9 +19,9 @@
         <div class="main_center">
             <div class="div_center">
                 <div class="side_center">   
-                    <div class="board_div" id="all">
+                    <!-- <div class="board_div" id="all">
                         <a href="/community/">- 전체 게시글</a>
-                    </div>
+                    </div> -->
                     {% for cate in links %}
                         <div class="board_div"><a href="{{ cate.get_url }}">- {{ cate.name }}</a></div>
                     {% endfor %}
@@ -77,8 +77,7 @@
                                                     {{ comment.content }}
                                                 </div>
                                                 <div class="comment_when">
-                                                    20XX.01.XX XX:XX
-
+                                                    {{ comment.created }}
                                                     {% if user == comment.user %}
                                                     <form action="{% url 'community:comments_delete' detail.pk comment.pk %}" method="POST" class="d-inline">
                                                     {% csrf_token %}

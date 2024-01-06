@@ -26,7 +26,7 @@ class Category(models.Model):
 class Board(models.Model):
     postname = models.CharField(max_length=64, verbose_name='')
     contents = models.TextField(verbose_name='')
-    registered_date = models.DateField(auto_now_add=True)
+    registered_date = models.DateTimeField(auto_now_add=True)
     writer = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE, verbose_name='작성자')
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE, verbose_name='게시판 목록')
     
@@ -42,8 +42,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='comments')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
     content = models.TextField(verbose_name='')
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return self.content
