@@ -65,11 +65,19 @@ custom_domain = f'{bucket_name}.s3.{region_name}.amazonaws.com'
 
 def upload_image(args):
     is_success = False
-    file = args['file']
-    user = args['user']
+    file, type, user = args.values()
+    print(file, type, user)
     s3 = boto3.client('s3', aws_access_key_id=access_key_id, aws_secret_access_key=secret_access_key, region_name=region_name)
     # S3에 파일 업로드
-    s3.upload_fileobj(file, bucket_name, f'media/{user}/profile/face_img.png', ExtraArgs={'ACL': 'public-read'})
+    s3.upload_fileobj(
+        Fileobj=file,
+        Bucket=bucket_name, 
+        Key=f'media/{user}/profile/face_img.png', 
+        ExtraArgs={
+            'ACL': 'public-read',
+            'ContentType': type,  # 예시로 JPEG 이미지 설정
+            'ContentDisposition': 'inline'  # 브라우저에서 바로 표시
+            })
     # S3 파일 URL 생성
     file_url = f'{custom_domain}/media/{user}/profile/face_img.png'
     
@@ -141,12 +149,13 @@ def upload_media(request):
     }
     
     param = {
-        'file': request.FILES.get('file'),
+        'file': request.FILES['file'],
+        'type': request.FILES['file'].content_type,
         'user': request.user,
     }
-    
+    print(request.FILES['file'])
     file_url = f'{custom_domain}/media/{request.user}/profile/face_img.png',
-    key = param['file'].content_type.split('/')[0]
+    key = param['type'].split('/')[0]
     is_success = func_tool[key](param)
     
     if is_success:

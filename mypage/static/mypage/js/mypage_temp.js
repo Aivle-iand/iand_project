@@ -408,7 +408,6 @@ const image_input = (file) => {
     const img = document.getElementById('face_img');
     img.src = img_url;
   }
-
   reader.readAsDataURL(file);
 
   document.getElementById('image_name').textContent = `File Name : ${file.name}`;
