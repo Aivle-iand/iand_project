@@ -21,7 +21,7 @@ function updateCursorPosition(x_, y_) {
     const y = y_;
     const dot = document.getElementById('cursor-dot');
     const dotOutline = document.getElementById('cursor-dot-outline');
-
+    
     dot.style.left = `${x}px`;
     dot.style.top = `${y}px`;
     dotOutline.style.left = `${x}px`;
