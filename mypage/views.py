@@ -12,11 +12,22 @@ import json
 
 # Create your views here.
 def index(request):
-    return render(request, 'mypage/mypage_certify.html')
-
-def mypage_temp(request):
     if not request.user.is_authenticated:
         return redirect('accounts/login')
+    username = request.user
+    str_username = str(username)
+    marked_id = str_username[:2] + '*' * 5 + str_username[-2:]
+    context = {
+        'marked_id' : marked_id,
+    }
+    return render(request, 'mypage/mypage_certify.html', context)
+
+def mypage_temp(request):
+    # pin_chk = request.session['pin_checked']
+    if not request.user.is_authenticated:
+        return redirect('accounts/login')
+    # if pin_chk == None:
+    #     return redirect('mypage')
     history = {}
     username = request.user
     login_histories = LoginHistory.objects.filter(username = username)
@@ -27,7 +38,7 @@ def mypage_temp(request):
             history[i] = {'date' : login_time[:-7], 'login_id' : marked_id, 'country' : login_histories[i].country, 'ip' : login_histories[i].ip}
     context = {
         'face' : "https://iand-bucket.s3.ap-northeast-2.amazonaws.com/media/common/noimage.jpg",
-        'login_history' : history
+        'login_history' : history,
     }
     return render(request, 'mypage/mypage_temp.html', context) 
 
@@ -52,11 +63,7 @@ def check_nickname(request):
 def check_current_password(request):
     data = json.loads(request.body)
     current_password = data.get('cur_password', '')
-    user = request.user
-    loginHistories = LoginHistory.objects.filter(username = user)
-    for loginHistory in loginHistories:
-        print(loginHistory)
-    
+    user = request.user    
     if user and check_password(current_password, user.password):
         return JsonResponse({'match': True})
     else:
@@ -94,4 +101,20 @@ def delete_account(request):
         user = request.user
         user.delete()  # 현재 로그인된 사용자 삭제
         return JsonResponse({'message': '계정이 성공적으로 삭제되었습니다. 로그인 페이지로 이동합니다.'})
+    else:
+        return JsonResponse({'status': 'error'})
+        
+@csrf_exempt
+def check_pin_pwd(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        cur_pinpwd = data.get('cur_pinpwd', '')
+        username = request.user
+        if username and check_password(cur_pinpwd, username.pin_number):
+            # request.session['pin_checked'] = True
+            return JsonResponse({'match' : True})
+        else:
+            return JsonResponse({'match' : False})
+    else:
+        return JsonResponse({'status' : 'error'})
         
