@@ -108,7 +108,22 @@
                         data-bs-slide-to="2"
                         aria-label="Slide 3"
                     ></button>
+
+                    <button
+                        type="button"
+                        data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide-to="3"
+                        aria-label="Slide 4"
+                    ></button>
+
+                    <button
+                        type="button"
+                        data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide-to="4"
+                        aria-label="Slide 5"
+                    ></button>
                 </div>
+                
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img
@@ -129,6 +144,22 @@
                             src="{% static 'main/images/003.png' %}"
                             class="d-block w-100 banner"
                             alt="아인슈타인 출시 예정"
+                        />
+                    </div>
+
+                    <div class="carousel-item">
+                        <img
+                            src="{% static 'main/images/004.png' %}"
+                            class="d-block w-100 banner"
+                            alt="앨런튜링 출시 예정"
+                        />
+                    </div>
+
+                    <div class="carousel-item">
+                        <img
+                            src="{% static 'main/images/005.png' %}"
+                            class="d-block w-100 banner"
+                            alt="베토벤 출시 예정"
                         />
                     </div>
                 </div>
@@ -160,7 +191,7 @@
         </div>
 
         <div class="main_container">
-            <div class="animate__animated animate__backInUp monthly_best">
+            <div class=" monthly_best">
                 <h1 style="margin-bottom: 30px; font-family: 'Do Hyeon', sans-serif; font-size: 60px">
                     <img 
                         src="https://cdn-icons-png.flaticon.com/128/1021/1021220.png"
@@ -170,22 +201,23 @@
                     화제의 인물
                 </h1>
                 <div class="sections">
-                    <div class="animate__animated animate__backInUp animate__delay-1s best_section1">
+                    <div class="best_section1">
                         <h4>가장 인기있는 인물</h4>
                         <a href="playground/?search=%EC%95%84%EC%9D%B4%EC%9E%91+%EB%89%B4%ED%84%B4&filter_option=&categoryOption=">
                             <div class="container">
-                                <div class="front">
-                                    <img src="{% static 'main/images/main_newton.png' %}" class="image">
+                                <div class="front" style="width:270px; height:396.5px;">
+                                    <img src="{% static 'main/images/main_newton.png' %}" class="image" style="width:270px; height:396.5px;">
                                     <div class="inner">
                                         <p>아이작 뉴턴</p>
                                         <span>Issac newton</span>
                                     </div>
                                 </div>
-                                <div class="back">
+                                
+                                <div class="back" style="width:270px; height:396.5px;">
+                                    <img src="{% static 'main/images/card_back.jpg' %}" class="image" style="width:270px; height:396.5px; border-radius: 10px;">
                                     <!-- 뒷면에 표시할 내용 -->
                                     <div class="inner">
-                                        <p><span style="color: yellow;">아이작 뉴턴</span>경은 잉글랜드의 수학자, 물리학자, 천문학자이다. 1687년 발간된 《자연철학의 수학적 원리》는 고전역학과 만유인력의 기본 바탕을 제시하며, 과학사에서 영향력 있는 저서 중의 하나로 꼽힌다.</p>
-                                        <h3> 클릭해서 직접 아이작뉴턴이 되어 학습해보세요! </h3>
+                                        <h2>PLAY</h2>
                                     </div>
                                 </div>
                             </div>
@@ -193,31 +225,53 @@
                     </div>
 
                     
-                    <div class="animate__animated animate__backInUp animate__delay-1s best_section2">
+                    <div class="best_section1">
                         <h4>가장 최근에 출시된 인물</h4>
-                        <a href="playground/?search=%EC%95%84%EC%9D%B4%EC%9E%91+%EB%89%B4%ED%84%B4&filter_option=&categoryOption=">
+                        <a href="http://localhost:8000/playground/?search=%EC%95%84%EC%9D%B8%EC%8A%88%ED%83%80%EC%9D%B8&filter_option=&categoryOption=">
                             <div class="container">
-                                <div class="front">
-                                    <img src="{% static 'main/images/main_아인슈타인.png' %}" class="image">
+                                <div class="front" style="width:270px; height:396.5px;">
+                                    <img src="{% static 'main/images/main_아인슈타인.png' %}" class="image" style="width:270px; height:396.5px;">
                                     <div class="inner">
                                         <p>알베르트 아인슈타인</p>
                                         <span>Albert Einstein</span>
                                     </div>
                                 </div>
-                                <div class="back">
+                                <div class="back" style="width:270px; height:396.5px;">
                                     <!-- 뒷면에 표시할 내용 -->
+                                    <img src="{% static 'main/images/card_back.jpg' %}" class="image" style="width:270px; height:396.5px; border-radius: 10px;">
                                     <div class="inner">
-                                        <p><span style="color: yellow;">알베르트 아인슈타인</span>은 독일 태생의 이론물리학자로서 역사상 가장 위대한 물리학자 중의 한 명으로 널리 알려져 있다. 상대성 이론을 개발한 것으로 유명하지만 양자역학 이론의 발전에도 중요한 공헌을 했다. 상대성 이론은 양자역학과 함께 현대 물리학의 두 기둥이다.</p>
-                                        <h3> 클릭해서 직접 아인슈타인이 되어 학습해보세요! </h3>
+                                        <h2>PLAY</h2>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
+
+                    <div class="best_section1">
+                        <h4>출시 예정 인물</h4>
+                            <div class="container">
+                                <div class="front" style="width:270px; height:396.5px;">
+                                    <img src="../../media/books/앨런_튜링_썸ㄴㅇ_과학자_mknh5pK.png" class="image" style="width:270px; height:396.5px;">
+                                    <div class="inner">
+                                        <h4>앨런 튜링<h4><br>
+                                        <h4>1월 26일 출시 예정<h4>
+                                    </div>
+                                </div>
+                                <div class="back" style="width:270px; height:396.5px;">
+                                    <!-- 뒷면에 표시할 내용 -->
+                                    <img src="../../media/books/베토벤_썸ㄴㅇ_음악_4kIiy3M.png" class="image" style="width:270px; height:396.5px; border-radius: 10px; filter: brightness(0.4);">
+                                    <div class="inner">
+                                        <h4>루트비히 판 베토벤<h4><br>
+                                        <h4>1월 28일 출시 예정<h4>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="animate__animated animate__backInUp animate__delay notice_list">
+            <div class=" animate__delay notice_list">
                 <h1 style="margin-bottom: 30px; font-family: 'Do Hyeon', sans-serif; font-size: 60px;">
                     <img
                         src="https://cdn-icons-png.flaticon.com/128/10099/10099006.png"
@@ -229,14 +283,14 @@
                     <div style="height: 2px; background-color: black; margin-top: 30px; margin-left: 50px;"></div>
                 </h1>
                 
-                <div class="animate__animated animate__backInUp animate__delay notice_sections">
+                <div class=" animate__delay notice_sections">
                     <!-- Unordered list for notices -->
                     
                     <ul style="list-style-type: disc; padding-left: 10%;">
                         {% for postname, id, writer, date, nickname in notices %}
                             <li>
                                 <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-                                    <a href="community/detail/{{id}}" style="text-decoration: none; color: black; flex-grow: 1;" class='animate__animated animate__backInUp'>
+                                    <a href="community/detail/{{id}}" style="text-decoration: none; color: black; flex-grow: 1;" class=''>
                                         <span class="postname" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">{{ postname }}</span>
                                     </a>
                                     <div style="display: flex; gap: 10px; align-items: center;">
