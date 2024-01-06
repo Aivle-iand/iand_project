@@ -1,6 +1,7 @@
 {% load static %}
 <head>
     <link rel="stylesheet" href="{% static 'css/header_style.css' %}" />
+    
 </head>
 <body>
     <header>
@@ -40,7 +41,14 @@
                 <div class="success_login">{{user.first_name}}님 환영합니다!</div>
                 <div class="credit">
                     <!-- 현재 크레딧: {{credit}} -->
-                    <img src="{% static 'img/coin.png' %}", height="24px", width="24px">100
+                <lord-icon
+                    src="https://cdn.lordicon.com/yfrgwbag.json"
+                    trigger="loop"
+                    state="loop-cycle"
+                    style="width:24px;height:24px">
+                </lord-icon>
+                100
+{% comment %} <img src="{% static 'img/coin.png' %}", height="24px", width="24px">100 {% endcomment %}
                 </div>
                 <div class="mypage">
                     <a id="mypagebtn" href="/mypage">마이페이지 </a>
@@ -52,7 +60,11 @@
             {% endif %}
         </div>
     </header>
+
 </body>
+
+<script src="https://cdn.lordicon.com/lordicon.js"></script>
+
 <script type="text/javascript">
     document.getElementById("logoutbtn").addEventListener("click", function(event) {
         alert("로그아웃 되었습니다.");
