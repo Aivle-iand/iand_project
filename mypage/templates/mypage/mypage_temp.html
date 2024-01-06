@@ -22,10 +22,16 @@
             <div class="modal hidden">
                 <div class="modal_overlay" onclick="closeModal()"></div>
                 <div class="modal_content">
-                    <video id="videoElement" width="640" height="480" autoplay></video>
-                    <canvas id="canvas" width="640" height="480"></canvas>
-                    <p id="directions"></p>
-                    <button id="capture"> 캡쳐 </button>
+                    <div class="modal_content_main">
+                        <video id="videoElement" width="640" height="420" autoplay></video>
+                        <canvas id="canvas" width="640" height="420"></canvas>
+                        <p id="directions"></p>
+                    </div>
+                    <div class="modal_content_footer">
+                        <div class="capture-btn" onclick="faceCapture(event)">
+                            <img class="capture-img" src="{% static 'mypage/img/capture.png' %}"/>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="nav_root">
@@ -172,7 +178,13 @@
                 <div class="personal_information_card" id="upload_img">
                     <div class="personal_information_explain">
                         <h1>이미지 업로드</h1>
-                        <img id="face_img" src="{{face}}" />
+                        <p id="img_notice">
+                            얼굴 이미지를 업로드하면 합성 AI를 사용하실 수 있습니다.<br>
+                            얼굴이 가려지지 않은 정면 사진이어야 합니다.<br>
+                            업로드 가능 포멧: '.jpg', '.jpeg', '.png', '.svg'<br>
+                            업로드 가능 사이즈: 최대 2MB
+                        </p>
+                        <img id="face_img" />
                     </div>
                     <div class="personal_information_content">
                         <div
@@ -191,7 +203,7 @@
                                 type="file"
                                 id="image_input"
                                 style="display: none"
-                                onchange="inputOnchange(event)"
+                                onchange="onloadeddataFile(event)"
                             />
                         </div>
                         <div class="upload_button_area">
@@ -204,7 +216,8 @@
                             </button>
                             <button
                                 class="save_button"
-                                id="voice_upload_button"
+                                id="image_upload"
+                                onclick="onClickUploadMedia(event)"
                             >
                                 SAVE <br />
                                 CHANGE
@@ -239,7 +252,7 @@
                                 type="file"
                                 id="voice_input"
                                 style="display: none"
-                                onchange="inputOnchange(event)"
+                                onchange="onloadeddataFile(event)"
                             />
                         </div>
                         <div class="upload_button_area">
@@ -252,7 +265,8 @@
                             </button>
                             <button
                                 class="save_button"
-                                id="voice_upload_button"
+                                id="voice_upload"
+                                onclick="onClickUploadMedia(event)"
                             >
                                 SAVE <br />
                                 CHANGE

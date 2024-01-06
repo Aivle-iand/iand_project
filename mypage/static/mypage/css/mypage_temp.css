@@ -14,7 +14,13 @@ body * {
     box-sizing: border-box;
 }
 
-
+img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-select: none;
+}
 
 /* MAIN 구간 */
 
@@ -29,6 +35,7 @@ body * {
 
 /* modal csss*/
 .modal {
+    margin-top: 20px;
     z-index: 4;
     position: fixed;
     top: 0;
@@ -48,13 +55,62 @@ body * {
 }
 
 .modal_content {
-    background-color: white;
-    padding: 50px 100px;
+    display: flex;
+    flex-direction: column;
     text-align: center;
     position: relative;
+    padding-top: 20px;
+    max-height: 800px;
     top: 0px;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.modal_content_main {
+    height: 80%;
+    background-color: #292727;
+    padding: 50px 100px;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.modal_content_footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0px;
+    background-color: #201E1F;
+    border-radius: 0px 0px 20px 20px;
+}
+
+.capture-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+    border: 15px solid rgb(163, 151, 198);
+    border-radius: 50%;
+    background-color: #383636;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.66) inset, 
+              0 2px 0 -1px rgba(0,0,0,0.87), 
+              0 3px 0 -1px rgba(0,0,0,0.92), 
+              0 3px 13px -1px rgba(100,100,100,0.79);
+}
+
+.capture-btn:active {
+    top: 1.5px;
+    border-color: #6F6490;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.11),0 1px rgba(0,0,0,0.95) inset;
+    position: relative;
+}
+
+.capture-img {
+    width: 80%;
+}
+
+.capture-img:active {
+    filter: invert(39%) sepia(12%) saturate(1169%) hue-rotate(214deg) brightness(101%) contrast(87%);
 }
 
 .hidden {
@@ -63,8 +119,12 @@ body * {
 
 canvas {
     display: block;
-    border: 1px solid black;
+    border: 1px solid #d953e5;
+    background-color: black;
     margin-top: 10px;
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+    -moz-transform:rotateY(180deg); /* Firefox */
 }
 
 video {
@@ -75,6 +135,7 @@ video {
     z-index: 10;
     font-size: 1em;
     color: #292727;
+    margin-top: 42px;
 }
 
 /* nav_root */
@@ -120,7 +181,6 @@ video {
 .main_root {
     width: calc(100% - 300px);
     height: 100%;
-    /* background-color: #292727; */
 }
 
 .header_size {
@@ -186,6 +246,10 @@ video {
 }
 
 .personal_information_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 60%;
     background-color: #292727;
     padding: 30px 40px 30px 40px;
@@ -400,22 +464,6 @@ video {
 .voice_file_name {
     margin-top: 90px;
 }
-
-/* #voice_upload_cancel_button {
-    margin-left: 15%;
-    width: 25%;
-    margin-right: 10%;
-    height: 50px;
-    visibility: hidden;
-    background-color: white;
-} */
-
-/* #voice_upload_button {
-    margin-right: 10%;
-    width: 25%;
-    margin-left: 10%;
-    height: 50px;
-} */
 
 .delete_button_layout {
     width: 100%;
