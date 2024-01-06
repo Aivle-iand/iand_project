@@ -869,9 +869,8 @@ grid-column: span 2;
     display :flex;
     flex-direction: row-reverse;
     justify-content: center;
-    
+    font-size: 14px;
 }
-
 
 #quiz_button_container {
     position: absolute; 
@@ -961,8 +960,8 @@ align-items: center;
 display: flex;
 }
 
-#rewardIcon {
-    margin-left: 550px
+.rewardIcon {
+    margin-left: 550px;
 }
 
 /* BUTTON */

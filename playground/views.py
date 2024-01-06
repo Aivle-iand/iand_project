@@ -7,6 +7,9 @@ from base64 import b64encode
 from PIL import Image
 from io import BytesIO
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from mypage.models import UserProfile
+from django.conf import settings
 
 
 master_key = "2179074882679a424c4b817fd744275b"
@@ -121,15 +124,16 @@ def index(request):
 
 
 def voice_face_change(request, checked_card):
-    if request.session.get('user') and request.method == 'POST':
-        voice, face = request.POST.get('voice', ''), request.POST.get('voice', '')
+    if request.user.is_authenticated and request.method == 'POST':
+        user_profile = get_object_or_404(UserProfile, user=request.user)
+        voice, face = request.POST.get('voice', ''), request.POST.get('face', '')
         voice_change, face_change = 0, 0
  
-        human = Book.objects.get(id=int(checked_card))
+        human = get_object_or_404(Book, id=int(checked_card))
         hu = human.episodes.all()
         episodes = [hu.filter(episode_number=1), hu.filter(episode_number=2), hu.filter(episode_number=3)]
        
-        if voice: # user_profile이 어디에 있는지 모르겠음. 그 테이블이랑 연결해서 조건 넣어야함.
+        if voice: 
             voice_path = os.path.abspath(__file__)
             voice_path, _ = os.path.split(voice_path)
             voice_path +=  '/static/playground/user/' + str(request.user.username) + '/' + str(voice) + '/voice'
@@ -144,10 +148,10 @@ def voice_face_change(request, checked_card):
                     else:
                         scene_ = episodes[int(epi)-1].get(scene_number=sce)
                         tfs = scene_.voice_text
-                        text_to_speach(tfs, request.user.profile.voice_url , master_key, voice_path, file_name)
+                        text_to_speach(tfs, request.user.profile.audio_url , master_key, voice_path, file_name)
             voice_change = 1
  
-        if face: # user_profile이 어디에 있는지 모르겠음. 그 테이블이랑 연결해서 조건 넣어야함.
+        if face: 
             face_path = os.path.abspath(__file__)
             face_path, _ = os.path.split(face_path)
             face_path +=  '/static/playground/user/' + str(request.user.username) + '/' + str(face) + '/face'
@@ -163,7 +167,7 @@ def voice_face_change(request, checked_card):
                     else:
                         scene_ = episodes[int(epi)-1].get(scene_number=sce)
                         image_bg =  face_path.split('iand_project')[0] + 'iand_project/media/contents' + file_name
-                        image_face = request.user.profile.voice_url
+                        image_face = request.user.profile.image_url
                         face_swap(master_face_key, image_bg, image_face, img_file)
             face_change = 1      
         context = {}
@@ -174,6 +178,7 @@ def voice_face_change(request, checked_card):
             context['face_change'] == 1
        
         return JsonResponse(context)
+
 
 
 # quiz
