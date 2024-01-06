@@ -451,7 +451,7 @@ const onloadeddataFile = (event) => {
   }
 }
 
-const onclickPlayIcon = () => {
+const onclickPlayIcon = (event) => {
   event.stopPropagation();
   event.preventDefault();
   const audioPreview = document.getElementById('audioPreview');
@@ -502,3 +502,235 @@ const onClickUploadMedia = (event) => {
   .then(data => alert(data))
   .catch( _ => alert('업로드에 실패했습니다.'));
 };
+
+let nickname_input = "";
+document.addEventListener("DOMContentLoaded", function () {
+  var dupCheckButton = document.querySelector("#nickname_check");
+  var nicknameInput = document.querySelector("#nickname-input");
+  let nicknameChange = document.getElementById("nickname_change");
+
+  dupCheckButton.addEventListener("click", function () {
+    var nickname = nicknameInput.value;
+    var requestUrl = `/mypage/mypage_temp/check_nickname?personal_nickname=${encodeURIComponent(
+      nickname
+    )}`;
+    fetch(requestUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.is_taken) {
+          alert("중복된 닉네임이 존재합니다.");
+        } else {
+          alert("닉네임 변경이 가능합니다.");
+          nickname_input = nickname;
+          // nicknameChange.style.backgroundColor = 'red';
+          // nicknameChange.style.color = 'white';
+        }
+      })
+      .catch((error) => {
+        console.error("에러 발생:", error);
+      });
+  });
+
+  nicknameChange.addEventListener("click", function () {
+    let nickname_now = nicknameInput.value;
+    if (nickname_input == nickname_now) {
+      fetch("/mypage/mypage_temp/change_nickname", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ new_nickname: nickname_now }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          alert(data.message);
+          window.location.reload();
+        });
+    } else {
+      alert("닉네임 중복 체크를 다시 진행해주세요!");
+    }
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const passwordInput = document.querySelector("input.type-input#new-pwd");
+  const passwordCheckInput = document.querySelector("input.type-input#chk-pwd");
+  const passwordCurrentInput = document.querySelector(
+    "input.type-input#cur-pwd"
+  );
+  let curpassHelp = document.getElementById("cur-pass-help");
+  let passHelp = document.getElementById("pass-help");
+  let chkpassHelp = document.getElementById("chk-pass-help");
+  let passLen = document.querySelector(".passlen");
+  let passInit = document.querySelector(".passinit");
+  let curpassError = true;
+  let chkpassError = true;
+  let newpassError = true;
+  const passwordSaveButton = document.getElementById("pwd-change-button");
+
+  passwordCurrentInput.addEventListener("input", function () {
+    let curPassword = this.value;
+    let password_cur_container = document.querySelector(
+      "div.input_container#cur-pwd"
+    );
+
+    fetch("/mypage/mypage_temp/check-current-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ cur_password: curPassword }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.match) {
+          curpassError = false;
+          password_cur_container.style.border = "1px solid #4df4d3";
+          curpassHelp.style.color = "#4df4d3";
+          curpassHelp.innerHTML = "비밀번호가 일치합니다.";
+        } else {
+          curpassError = true;
+          password_cur_container.style.border = "1px solid #d953e5";
+          curpassHelp.style.color = "#d953e5";
+          curpassHelp.innerHTML = "비밀번호가 일치하지 않습니다.";
+        }
+      });
+  });
+
+  passwordCurrentInput.addEventListener("focus", function () {
+    curpassHelp.style.display = "block";
+    passHelp.style.display = "none";
+    chkpassHelp.style.display = "none";
+  });
+
+  // input에 focus 되었을 때
+  passwordInput.addEventListener("focus", function () {
+    curpassHelp.style.display = "none";
+    passHelp.style.display = "block";
+    chkpassHelp.style.display = "none";
+  });
+
+  passwordCheckInput.addEventListener("focus", function () {
+    curpassHelp.style.display = "none";
+    passHelp.style.display = "none";
+    chkpassHelp.style.display = "block";
+  });
+
+  passwordCheckInput.addEventListener("blur", function () {
+    let password = passwordInput.value;
+    let password_chk = passwordCheckInput.value;
+    if (password_chk === "" && password === "") {
+      chkpassHelp.style.display = "none";
+    }
+  });
+
+  passwordCheckInput.addEventListener("input", function () {
+    let password = passwordInput.value;
+    let password_chk = passwordCheckInput.value;
+    let password_chk_container = document.querySelector(
+      "div.input_container#chk-pwd"
+    );
+    if (password_chk === password) {
+      chkpassHelp.style.color = "#4df4d3";
+      chkpassHelp.innerHTML = "비밀번호가 일치합니다.";
+      password_chk_container.style.border = "1px solid #4df4d3";
+      newpassError = false;
+    } else {
+      chkpassHelp.style.color = "#d953e5";
+      chkpassHelp.innerHTML = "비밀번호가 일치하지 않습니다.";
+      password_chk_container.style.border = "1px solid #d953e5";
+      newpassError = true;
+    }
+  });
+  // input에 입력되는 내용 확인
+  passwordInput.addEventListener("input", function () {
+    let password = passwordInput.value;
+    let password_chk = passwordCheckInput.value;
+    var lengthCheck = password.length >= 8 && password.length <= 16;
+    var specialCharCheck = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(
+      password
+    );
+    let password_container = document.querySelector(
+      "div.input_container#new-pwd"
+    );
+    let password_chk_container = document.querySelector(
+      "div.input_container#chk-pwd"
+    );
+
+    // 비밀번호 길이 검사
+    if (lengthCheck) {
+      passLen.style.color = "#4df4d3";
+    } else {
+      passLen.style.color = "#d953e5";
+    }
+
+    // 특수 문자 포함 검사
+    if (specialCharCheck) {
+      passInit.style.color = "#4df4d3";
+    } else {
+      passInit.style.color = "#d953e5";
+    }
+
+    if (lengthCheck && specialCharCheck) {
+      password_container.style.border = "1px solid #4df4d3";
+      chkpassError = false;
+    } else {
+      password_container.style.border = "1px solid #d953e5";
+      chkpassError = true;
+    }
+    if (password == password_chk) {
+      password_chk_container.style.border = "1px solid #4df4d3";
+      chkpassHelp.innerHTML = "비밀번호가 일치합니다.";
+      chkpassHelp.style.color = "#4df4d3";
+      newpassError = false;
+    } else {
+      password_chk_container.style.border = "1px solid #d953e5";
+      chkpassHelp.innerHTML = "비밀번호가 일치하지 않습니다.";
+      chkpassHelp.style.color = "#d953e5";
+      newpassError = true;
+    }
+  });
+
+  passwordSaveButton.addEventListener("click", function () {
+    curPassword = passwordInput.value;
+    if (!curpassError && !newpassError && !chkpassError) {
+      fetch("/mypage/mypage_temp/change_password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cur_password: curPassword }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          alert(data.message);
+          window.location.reload();
+        });
+    } else {
+      alert("입력된 필드를 확인하세요.");
+    }
+  });
+});
+
+function confirmDeletion() {
+  let result = confirm("정말로 계정을 삭제하시겠습니까?");
+  if (result) {
+    fetch("/mypage/mypage_temp/delete_account", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ action: "delete" }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        alert(data.message);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  } else {
+    console.log("계정 삭제 취소");
+  }
+}

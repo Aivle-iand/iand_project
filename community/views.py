@@ -2,20 +2,24 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import path
 from .forms import *
 from .models import *
-from django.http import HttpResponse
+from accounts.models import User
+from django.http import JsonResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.decorators.http import require_POST
+from django.conf import settings
 # from login.models import User
 
 def writepage(request):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login')
+    
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            post = form.save()
+            post = form.save(commit=False)
+            post.writer = request.user
+            post.save()
             return redirect('/community/', post.id)
-        else:
-            form = PostForm()
-        return render(request, 'community/writepage.html', {'form':form})
     else:
         form = PostForm()
         return render(request, 'community/writepage.html', {'form':form})
@@ -33,9 +37,14 @@ def categoryView(request, c_slug=None):
     if search_field == '0':
         post_list = post_list.filter(postname__icontains = keyword)
     else:
-        pass
-        #page_obj = page_obj.filter(writer__icontains = keyword)
-        
+        users = User.objects.all() # user 데이터 전부
+        users = users.filter(nickname__icontains=keyword) # keyword와 일치하는 user 가져옥
+        empty = Board.objects.none() # 빈 테이블 선언
+        # 반복문으로 users
+        for user in users:
+            empty = empty.union(post_list.filter(writer=user))
+        post_list = empty
+             
     page = request.GET.get('page')
     paginator = Paginator(post_list, 10)
     try:
@@ -71,48 +80,66 @@ def categoryView(request, c_slug=None):
 def detail(request, pk):
     # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
     detail = get_object_or_404(Board, pk=pk)
+    comment_form = CommentForm()
+    comments = detail.comments.all()
+    context = {
+        'detail':detail,
+        'comment_form':comment_form,
+        'comments':comments,
+    }
     if request.method == 'POST':
-        detail.delete()
-        return redirect('/community/')
+        if request.user.is_authenticated:
+            if request.user == detail.writer:
+                detail.delete()
+                return redirect('/community/')
+            return redirect('community:detail')
     else:
-        return render(request, 'community/detail.html', {'detail':detail})
+        return render(request, 'community/detail.html', context)
 
     
 def update(request, pk):
     detail = get_object_or_404(Board, pk=pk)
-    # # if request.user_id != detail.writer:
-    #     message.error(request, '수정 권한이 없습니다.')
-    #     return redirect('community:detail', user_id=pk)
-    if request.method == "POST":
-        form = PostUpdate(request.POST, instance=detail)
-        if form.is_valid():
-            detail.postname = form.cleaned_data['postname']
-            detail.contents = form.cleaned_data['contents']
-            detail.save()
-            return redirect('/community/detail/'+str(detail.id))
+    if request.user == detail.writer:
+        if request.method == "POST":
+            form = PostUpdate(request.POST, instance=detail)
+            if form.is_valid():
+                detail.postname = form.cleaned_data['postname']
+                detail.contents = form.cleaned_data['contents']
+                detail.save()
+                return redirect('/community/detail/'+str(detail.id))
+        else:
+            form = PostUpdate(instance=detail)
+        context = {'form':form}
+        return render(request, 'community/update.html', {'form':form})
     else:
-        form = PostUpdate(instance=detail)
-    context = {'form':form}
-    return render(request, 'community/update.html', {'form':form})
+        return redirect('community:detail')   
 
-@require_POST
 def comments_create(request, pk):
     if request.user.is_authenticated:
-        article = get_object_or_404(Board, pk=pk)
+        detail = get_object_or_404(Board, pk=pk)
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
-            comment.article = article
+            comment.post= detail
             comment.user = request.user
             comment.save()
-        return redirect('articles:detail', article.pk)
+        return redirect('community:detail', detail.pk)
     return redirect('accounts:login')
 
-
-@require_POST
-def comments_delete(request, article_pk, comment_pk):
+def comments_delete(request, detail_pk, comment_pk):
     if request.user.is_authenticated:
         comment = get_object_or_404(Comment, pk=comment_pk)
         if request.user == comment.user:
             comment.delete()
-    return redirect('articles:detail', article_pk)
+    return redirect('community:detail', detail_pk)
+
+def is_super(request):
+    user_id = request.user
+    print(user_id)
+    user = User.objects.get(username=user_id)
+    context = {
+        'is_super': user.is_superuser,
+    }
+    
+    return JsonResponse(context)
+    

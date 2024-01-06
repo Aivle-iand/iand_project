@@ -1,23 +1,22 @@
-/* HEADER 구간 */
-.div_header {
+header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     margin: 0;
     border: 0;
-    z-index: 200000;
-    height : 80px;
+    z-index: 800;
+    height: 80px;
     background-color: black;
-    border-bottom: 2px solid rgba(51,51,51,.25);
-    font-size: 14px !important;
+    border-bottom: 2px solid rgba(51, 51, 51, .25);
+    font-size: 19px !important;
     font-weight: bold;
     line-height: normal;
     text-align: left;
     display: flex;
     width: 100%;
+    /* margin-bottom: 80px; */
 }
-
 .header_left {
     display: flex;
     align-items: center;
@@ -30,15 +29,15 @@
     flex: 1;
     align-items: center;
     justify-content: flex-start;
-    margin-left : 10px;
+    margin-left: 10px;
 }
 
 .header_center div {
     display: inline-flex;
     position: relative;
-    height: 80px;
+    /* height: 80px; */
     cursor: pointer;
-    min-width : 115px;
+    min-width: 115px;
 }
 
 .header_center a {
@@ -47,37 +46,10 @@
     padding: 0;
     flex-direction: column;
     justify-content: center;
-    height: 66px;
+    /* height: 66px; */
     font-size: 19px;
     font-weight: 600;
     line-height: 120%;
-    letter-spacing: .08em;
-    overflow: hidden;
-    transition: color 1s cubic-bezier(0.06, 0.81, 0, 0.98), border-color .5s 
-                         cubic-bezier(0.06, 0.81, 0, 0.98);
-}
-
-.header_center a p {
-    margin-top : 16px!important;
-}
-
-.header_center a p {
-    padding: 7.5px 16px !important;
-}  
-
-.header_center a p:hover {
-    padding: 7.5px 16px;
-    background: rgba(128,128,128,.3);
-    border-radius: 6.4px;
-}
-
-.header_center a p:hover + .underbar {
-    background-color: rgb(236, 232, 44); 
-    position: absolute; 
-    bottom: 7px; 
-    height: 4px; 
-    width: 100%; 
-    border-radius: 2px;
 }
 
 .header_right {
@@ -90,82 +62,63 @@
 .header_right div {
     display: inline-flex;
     position: relative;
-    height: 80px;
-    cursor: pointer;
-    min-width : 90px;
+    align-items: center;
+    justify-content: center;
+    /* height: 80px; */
+    min-width: 90px;
 }
 
 .header_right .a {
     display: flex;
     margin: auto;
     padding: 0;
-    width : 100%;
+    width: 100%;
     flex-direction: column;
     justify-content: center;
-    height: 66px;
-    font-size: 16px;
+    /* height: 66px; */
+    font-size: 19px;
     font-weight: 600;
     line-height: 120%;
     letter-spacing: .08em;
     overflow: hidden;
-    transition: color 1s cubic-bezier(0.06, 0.81, 0, 0.98), border-color .5s 
-                         cubic-bezier(0.06, 0.81, 0, 0.98);
+    transition: color 1s cubic-bezier(0.06, 0.81, 0, 0.98), border-color .5s cubic-bezier(0.06, 0.81, 0, 0.98);
 }
 
 header a p {
-    text-align: center;
-    display : inline-block;
-}
-
-.language_arrow {
-    width: 10px;
-    height : 5px;
-}
-
-.language_chart {
-    visibility: hidden;
-    position: absolute;
-    left: 5px;
-    top: 50px;
-    background-color: #292929;
-    box-shadow: 0px 4px 16px 0px rgba(0,0,0,.2);
-    border-radius: 0 0 2px 2px;
-    text-align: left;
-    font-size: 16px;
-    width: 108px;
-    opacity: 0;
-    transition: opacity .5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s,visibility 0s;
-    display: none;
-    list-style: none;
-    padding-inline-start: 0;
-    padding : 4px 4px;
+    text-align: center !important;
+    margin: 19px 0px;
+    display: inline-block;
 }
 
 
-.header_right .a:hover+.language_chart {
-    transition: opacity .5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s,visibility 0s;
+.header_right .a:hover .language_chart {
+    transition: opacity .5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s, visibility 0s;
+    color: whitesmoke;
     opacity: 1;
     visibility: visible;
     display: block;
 }
 
-.header_right .language_chart:hover {
-    transition: opacity .5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s,visibility 0s;
+*/ .header_right .language_chart:hover {
+    color: whitesmoke;
+    transition: opacity .5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s, visibility 0s;
     opacity: 1;
     visibility: visible;
     display: block;
 }
 
-.header_right .join p:hover, .header_right .login p:hover {
+.header_right .join p:hover, .header_right .login p:hover, .header_right .logout p:hover .mypage p:hover{
     padding: 7.5px 16px;
-    background: rgb(236,232,44);
+    /* background: rgb(236,232,44); */
     border-radius: 6.4px;
-    color : black;
+    color : white;
 }
 
 header a {
     text-decoration: none;
-    color : white;
+    letter-spacing: 0;
+    transition: 0.35s;
+    color:white;
 }
 
 .header_right a p {
@@ -173,15 +126,72 @@ header a {
 }
 
 .header_right>div {
-    margin : 0 3px; 
-}
-
-.join p,.login p {
-    background: rgba(128,128,128,.3);
-    border-radius: 6.4px;
+    margin: 0 3px;
 }
 
 .language_chart li {
-    padding-bottom : 2px;
-    text-align : center;
+    padding-bottom: 2px;
+    text-align: center;
+}
+
+header a:hover,
+header a:active {
+    color: whitesmoke;
+    /* color: yellow; */
+    letter-spacing: 5px;
+    transition: 0.35s;
+}
+
+header a:after {
+    bottom: -10px;
+}
+
+header a:before {
+    top: -10px;
+}
+
+header a:after,
+header a:before {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border: 1px solid rgba(255, 255, 255, 0);
+    content: " ";
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    transition: all 280ms ease-in-out;
+    width: 0;
+}
+
+header a:hover:after,
+header a:hover:before {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-color: #fff;
+    transition: width 350ms ease-in-out;
+    width: 100%;
+}
+
+header a:hover:before {
+    width: 100%;
+}
+
+.header_right .non_login{
+    color: white;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.header_right .success_login{
+    color: yellowgreen;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 16px;
+}
+
+.header_right .credit{
+    padding-left: 35px;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
 }

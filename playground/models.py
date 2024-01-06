@@ -1,17 +1,19 @@
 from django.db import models
+from django.conf import settings
+from django.db import models
 
 
 class Book(models.Model):
     name = models.CharField(max_length=90)
     category = models.TextField(null=True, blank=True)
     card_image = models.ImageField(upload_to='books/')  # 'media/books/'에 이미지 저장
-    Ep_title_1 = models.CharField(max_length=30 , default=None,help_text="에피소드1")
-    Ep_title_2 = models.CharField(max_length=30 , default=None,help_text="에피소드2")
-    Ep_title_3 = models.CharField(max_length=30 , default=None,help_text="에피소드3")
+    Ep_title_1 = models.CharField(max_length=30 , default=None, help_text="에피소드1")
+    Ep_title_2 = models.CharField(max_length=30 , default=None, help_text="에피소드2")
+    Ep_title_3 = models.CharField(max_length=30 , default=None, help_text="에피소드3")
     profile_image = models.ImageField(null=True, blank=True, upload_to='profiles/')
     prologue = models.TextField(null=True, blank=True)
     year_of_life = models.TextField(null=True, blank=True)
-    quiz = models.IntegerField(default=0)
+    lock = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -36,8 +38,24 @@ class Episodes(models.Model):
         return f"{self.book.name}_{self.episode_number}_{self.scene_number}"
 
 
+
+
+#퀴즈 모델
 class Quiz(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='quizzes')
     quiz_index = models.IntegerField(default=None)
     quiz_text = models.CharField(max_length=1000,default=None, help_text="퀴즈 문제 내용")
     quiz_answer =models.CharField(max_length=100,default=None, help_text="퀴즈 문제 정답")
+
+
+class QuizHistory(models.Model):
+    correct_users = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, 
+        blank=True, 
+        help_text="정답을 맞힌 사용자"
+    )
+    read_book = models.ManyToManyField(
+        Book, 
+        blank=True, 
+        help_text="읽은 책"
+    )
