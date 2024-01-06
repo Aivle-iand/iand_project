@@ -33,6 +33,8 @@ class Board(models.Model):
     # 게시글의 제목(postname)이 Post object 대신하기
     def __str__(self):
         return self.postname
+    def comment_count(self):
+        return Comment.objects.filter(post=self).count()
     class Meta:
         db_table = "community_board"
         verbose_name = "게시물"
