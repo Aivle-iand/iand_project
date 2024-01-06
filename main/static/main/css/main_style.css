@@ -156,3 +156,11 @@
     font-size: 16px;
     padding: 16px 32px;
   }
+
+.postname {
+    white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 설정 */
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트 대신 생략 기호(...) 표시 */
+    display: block; /* 블록 레벨 요소로 설정, 필요에 따라 조정 */
+    width: 80%; /* 요소의 너비 설정, 상황에 맞게 조정 */
+}
