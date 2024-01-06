@@ -3,6 +3,9 @@
     letter-spacing: normal !important;
 }
 
+/* html *, body * {
+    font-family: 'Dongle', sans-serif;
+} */
 
 body {
     margin : 0;
@@ -220,9 +223,25 @@ header a {
     min-height : 800px;
 }
 
+.main_top_wrap {
+    position : absolute;
+    width : 100%;
+    height : 100%;
+}
+
+#video_background {
+    height: 100%;
+    width: 100%;
+    object-position: top;
+    object-fit: none;
+    opacity : 0.95;
+    z-index: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+}
+
 .main_top {
     position: relative; 
-    height: 240px;
+    height: 350px;
     width: 100%;
     text-align: center;
     background-repeat: no-repeat;
@@ -237,15 +256,19 @@ header a {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('/static/playground/images/top.png');
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 0.5; 
     z-index: -1; 
 }
 
+.main_top_text {
+    position : relative;
+    color : white;
+    top : -240px;
+}
+
 .main_top_12 {
-    padding-top : 45px;
     margin : 0px;
     min-width : 300px;
 }
@@ -289,26 +312,23 @@ header a {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: left;
+    justify-content: center;
 }
 
 .item {
-    height : 330px;
-    flex: 0 0 22%; 
-    min-width : 0px;
+    height : 372px;
+    width : 239px;
+    background-image: url('/static/playground/images/card.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* flex: 0 0 239px;  */
     margin: 10px; 
     box-sizing: border-box;
-    background-color: rgb(6,28,37);
-    border : 5px solid rgb(6,28,37);
     color: #fff;
     text-align: center;
     margin : 20px;
 }
 
-.item:hover {
-    background-color: rgb(19, 38, 91);
-    border : 5px solid rgb(19, 38, 91);
-}
 /* 검색 바 */
 
 .classification_bar {
@@ -391,7 +411,7 @@ header a {
     font-weight: 600;
 }
 #radioForm input:checked + label>div{
-    border-bottom: 4px solid yellow;
+    border-bottom: 4px solid rgb(235, 168, 96);
 }
 
 #optionForm>select {
@@ -426,64 +446,66 @@ header a {
     color : #fff;
     width : 100%;
     height : 100%;
-}
-
-.modal_check_form + label>.human{
-        height : 85%;
-        background-size: cover;
+    position : absolute;
 }
 
 .human {
     position: relative;
+    height: 300px;
+    width: 224px;
+    top : 6px;
+    right : -7px;
+    border: 3px solid rgb(224,159,89);
+    background-size: 100% 100%;
+    background-position : center center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    transition: background-size 0.3s ease-in-out;
+
 }
 
-.human::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 2;
-    display: block;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 100%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
+.lock_image {
+    position : relative;
+    width : 220px;
+    height : 296px;
+    top : -292px;
+    right : -8px;
+    opacity : 0.8;
+    background-image : url('/static/playground/images/자물쇠.png');
+    background-repeat : no-repeat;
+    background-size : cover;
 }
 
-.item>label:hover .human::before {
-    animation: circle .75s;
+label:hover>.human {
+    background-size: 110% 110%;
 }
 
-@keyframes circle {
-    0% {
-        opacity: 1;
-    }
-    40% {
-        opacity: 1;
-    }
-    100% {
-        width: 200%;
-        height: 200%;
-        opacity: 0;
-    }
+.name_img_wrap>label {
+    width : 239px;
+    height : 372px;
 }
-
 
 .item {
     overflow: hidden;
 }
 
-.modal_check_form + label>.name{
-        height : 15%;
-        font-size : 25px;
-        font-weight : 600;
-        padding-top : 7px;
+.modal_check_form + div>label>.name{
+    position : relative;
+    height: 15%;
+    width : 224px;
+    font-size: 28px;
+    font-weight: 600;
+    padding-top: 9px;
+    color: rgb(224,159,89);
+    right : -7px;
+}
+
+.lock_image + .name {
+    top : -296px!important;
 }
 
 
-.modal_check_form +label +div {
+.modal_check_form +div.name_img_wrap +div {
     /* display : none; */
     position: fixed;
     top: 0;
@@ -493,19 +515,19 @@ header a {
     z-index: 100;
 }
 
-.modal_check_form + label + div > div {
+.modal_check_form + div.name_img_wrap + div > div {
     position : absolute;
     top: 55%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 1110px;
+    width: 1160px;
     height: 514px;
     background: #000603;
     z-index : 2;
-    border : 2px solid rgb(14, 64, 14);
+    border : 3px solid rgb(224, 159, 89);
 }
 
-.modal_check_form + label + div > div > label {
+.modal_check_form + div.name_img_wrap + div > div > label {
     position : absolute;
     top: 3%;
     right: 2%;
@@ -516,11 +538,11 @@ header a {
     opacity : 0.4;
 }
 
-.modal_check_form + label + div > div > label:hover {
+.modal_check_form + div.name_img_wrap + div > div > label:hover {
     opacity : 1;
 }
 
-.modal_check_form + label + div > label {
+.modal_check_form + div.name_img_wrap + div > label {
     position :absolute;
     top: 0;
     left: 0;
@@ -532,13 +554,14 @@ header a {
 
 .modal_window{
     display : flex;
+    background-color : rgb(24,16,31);
 }
 
 .modal_side {
     display : flex;
     flex-direction: column;
-    border-right : 2px solid rgb(14,64,14);
-    width : 250px;
+    border-right : 3px solid rgb(224,159,89);
+    width : 327px;
     height : 100%;
     text-align: left;
 }
@@ -549,7 +572,7 @@ header a {
 }
 
 .modal_side input:checked + label {
-    background-color: rgba(14, 46, 14,0.7);
+    background-color: rgba(224, 159, 89,0.65);
 }
 
 .modal_main {
@@ -654,6 +677,7 @@ header a {
     background-color: #12533700;
     cursor: pointer;
     position: relative; 
+    font-family : sans-serif!important;
 }
 
 .voice_face_form input[type="checkbox"]:checked::before {
@@ -762,69 +786,241 @@ header a {
     position : relative;
 }
 
+
 /* Quiz 모달 */
-.quiz_head {
-    font-size : 25px;
-    font-weight : 600;
+.quiz_main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.quiz_wrap > form {
-    display : flex;
-    flex-direction: column;
-    margin : 0 15px;
-    margin-top : 20px;
-    
+.wrapper {
+width: 100%;
+max-width: 700px; 
+display: grid;  
+grid-gap: 20px;  
+margin-top: 50px;  
+margin-left: 100px;
+grid-template-columns: repeat(3, 1fr); 
+grid-template-rows: auto auto auto;
 }
 
-.quiz_wrap > form * {
-    text-align: left;
-    margin-bottom : 9px;
+
+.card {
+cursor: pointer;
+overflow: hidden;
+border-radius: 70%;
+background-color: rgb(26, 39, 98);
+grid-column: span 3;
+height: 190px;
+display: flex;
+flex-direction: column;
+position: relative;
+border : 0px!important;
 }
+
+
+.card__text {
+height: 80px;
+border-radius: 4px;
+background-color: #B88851;
+opacity: 0.8;
+margin: 10px;
+padding: 0 20px;
+text-align: center;
+display: flex; 
+justify-content: center; 
+align-items: center; 
+  }
+  
+
+.card__heading {
+opacity: 0.9;
+width: 100%;
+color: #E1CDB7;
+background-color: rgb(146, 106, 59);
+margin: 0 ;
+height: 50px;
+text-align: center; 
+justify-content: center; 
+align-items: center; 
+display: flex;
+}
+
+
+.card.is-active {
+grid-row: 1;
+grid-column: 1 / span 6;
+height: 200px;
+order: 0;
+}
+
+.card.is-active:after {
+opacity: 1;
+transform: translateY(0);
+}
+
+.card.is-inactive {
+grid-column: span 2;
+}
+
 
 .quiz_input_wrap{
     display :flex;
     flex-direction: row-reverse;
+    justify-content: center;
+    
 }
 
 
-.quiz_input_wrap>input[type="text"] {
-    background-color: #00000000;
-    border : 2px solid white;
-    color : white;
-    height : 25px;
-    text-align: right;
+#quiz_button_container {
+    position: absolute; 
+    bottom: 20px; 
+    right: 20px;     
+    font-size: 16px;
+    font-weight: 530;       
 }
 
-#quiz_button {
-    display : flex;
-    flex-direction: row-reverse;
+#quiz_buttonn {
+    border: 1px solid white;
+    margin-bottom: 37;
+    border-color: rgb(146, 106, 59); 
+    color: #f8f8f8;
+    box-shadow: 0 0 40px 40px rgb(146, 106, 59) inset, 0 0 0 0 rgb(146, 106, 59); 
+    transition: all 150ms ease-in-out;
 
 }
 
-#quiz_button>button {
-    background-color: #00000000;
-    border : 2px solid white;
-    color : white;
-    height : 25px;
-    font-size : 17px;
+
+#quiz_buttonn:hover {
+    background-color: transparent; /* 투명 배경 */
+    color: #FFFFFF;
+    box-shadow: 0 0 10px 0 rgb(146, 106, 59) inset, 0 0 10px 4px rgb(146, 106, 59); 
+  }
+
+
+/* quiz 결과 폼*/
+#resultForm {
+    display: none;
+  }
+
+.result_card {
+cursor: pointer;
+overflow: hidden;
+border-radius: 5%;
+background-color: rgb(244, 245, 249);
+height: 190px;
+display: flex;
+flex-direction: column;
+position: relative;
+border : 0px; 
 }
 
-#quiz_button>button:hover {
-    background-color: #ffffff;
-    border : 2px solid white;
-    color : black;
-    font-weight: 600;
+#quiz_1.result_card {
+    grid-area: 1 / 1 ;
+  }
+
+#quiz_2.result_card {
+grid-area: 1 / 2 ;
 }
 
-/* footer */
-
-.footer{
-    padding-top :20px;
-    height : 180px;
-    background-color : rgb(116, 115, 115);
-    text-align : center;
-    font-size : 18px;
-    color : rgb(30,30,30);
-    font-weight : 400;
+#quiz_3.result_card {
+grid-area: 2 / 1 ;
 }
 
+#quiz_4.result_card {
+grid-area: 2 / 2 ;
+}
+  
+
+.result__text {
+height: 80px;
+border-radius: 4px;
+background-color: #B88851;
+opacity: 0.8;
+margin: 10px;
+padding: 0 20px;
+text-align: center;
+display: flex; 
+justify-content: center; 
+align-items: center; 
+font-size: 12px;
+}
+
+
+.result__heading {
+opacity: 0.9;
+width: 100%;
+color: #E1CDB7;
+background-color: rgb(146, 106, 59);
+margin: 0 ;
+height: 50px;
+text-align: center; 
+justify-content: center; 
+align-items: center; 
+display: flex;
+}
+
+#rewardIcon {
+    margin-left: 550px
+}
+
+/* BUTTON */
+#reward_button {
+    border-color: rgb(146, 106, 59); 
+    color: #f8f8f8;
+    box-shadow: 0 0 40px 40px rgb(146, 106, 59) inset, 0 0 0 0 rgb(146, 106, 59); 
+    transition: all 150ms ease-in-out;
+    width: 120px;
+    height: 40px;
+    margin-right: 50px;
+    margin-left: 600px;
+    margin-bottom: 40px;
+}
+  
+#reward_button:hover {
+    background-color: transparent; /* 투명 배경 */
+    color: #FFFFFF;
+    box-shadow: 0 0 10px 0 rgb(146, 106, 59) inset, 0 0 10px 4px rgb(146, 106, 59); 
+  }
+
+.reward_button {
+    margin-right: 50px;
+  }
+
+#reward_button_container {
+    position: absolute;
+    bottom: -70px;
+    right: 20px;
+    font-size: 16px;
+    font-weight: 530;
+}
+
+#restart_button {
+    border-color: rgb(146, 106, 59); 
+    color: #f8f8f8;
+    box-shadow: 0 0 40px 40px rgb(146, 106, 59) inset, 0 0 0 0 rgb(146, 106, 59); 
+    transition: all 150ms ease-in-out;
+    width: 120px;
+    height: 40px;
+    margin-right: 50px;
+    margin-left: 600px;
+    margin-bottom: 105px;
+}
+  
+
+#restart_button:hover {
+    background-color: transparent; /* 투명 배경 */
+    color: #FFFFFF;
+    box-shadow: 0 0 10px 0 rgb(146, 106, 59) inset, 0 0 10px 4px rgb(146, 106, 59); 
+  }
+
+.restart_button {
+    margin-right: 50px;
+  }
+
+
+
+.main_bottom {
+    height : 200px;
+}

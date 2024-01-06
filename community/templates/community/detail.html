@@ -26,31 +26,65 @@
                     {% endfor %}
                 </div>
                 <div class="detail_wrap">
-                    <h1 class="title">{{detail.postname}}</h1>
+                    <p class="title">{{detail.postname}}</p>
                     <div class="detail_post">
-                        <dl><dt>작성자:</dt><dd>{{user.username}}</dd></dl>
+                        <dl><dt>작성자:</dt><dd>{{detail.writer.nickname}}</dd></dl>
                         <dl><dt>작성일자:</dt><dd>{{detail.registered_date}}</dd></dl>
                     </div>
                     <div class="detail_contents">
-                        <p>{{detail.contents}}</p>
+                        <p>{{detail.contents|linebreaksbr}}</p>
                     </div>       
                     <div class="detail_btn">
-                        <dl><dt><a href="/community/" class="to_board">목록</a></dt></dl><br>
-                        <div class="update_btn">
-                            <a href="{% url 'community:update' detail.id%}" class="bt">수정</a>
+                        <dl><dt class="to_board_dt"><a href="/community/" class="to_board">목록</a></dt></dl><br>
+                        {% if detail.writer == request.user %}
+                            <div class="update_btn">
+                                <a href="{% url 'community:update' detail.id%}" class="bt">수정</a>
+                            </div>
+                            <div class="delete_btn">
+                                <form action="{% url 'community:detail' detail.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" value="삭제">
+                                </form>
+                            </div>
+                        {% endif %}
+                        <div class="comment_list_wrap">
+                            
+                            <h4>댓글 목록</h4>
+                            <!--read-->
+                            <ul class="comment_list">
+                                {% for comment in comments %}
+                                    <li>
+                                        {{ comment.user.nickname }} - {{ comment.content }}
+                                        <!--delete-->
+                                        {% if user == comment.user %}
+                                            <form action="{% url 'community:comments_delete' detail.pk comment.pk %}" method="POST" class="d-inline">
+                                            {% csrf_token %}
+                                            <input type="submit" value="댓글 삭제">
+                                            </form>
+                                        {% endif %}
+                                    </li>
+                                {% empty %}
+                                    <p>댓글이 없어요..</p>
+                                {% endfor %}
+                            </ul>
+                            <hr>
+
+                            <!--create-->
+                            {% if request.user.is_authenticated %}
+                                <form class="comment_form" action="{% url 'community:comments_create' detail.id %}" method="POST">
+                                    {% csrf_token %}
+                                    {{ comment_form }}
+                                    <input type="submit" value="댓글 작성">
+                                </form>
+                            {% else %}
+                                <a href="/accounts/login/" class="login_want">[댓글을 작성하려면 로그인하세요.]</a>
+                            {% endif %}
                         </div>
-                        <div class="delete_btn">
-                            <form action="{% url 'community:detail' detail.id %}" method="POST">
-                                {% csrf_token %}
-                                <input type="submit" value="삭제">
-                            </form>
-                        </div>
-                        <dl><dt></dt></dl>
-                        
                     </div>
                 </div>
             </div>
         </div>     
     </main>
+    {% include 'footer.html' %}
 </body>
 </html>

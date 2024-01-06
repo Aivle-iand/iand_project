@@ -47,6 +47,8 @@
     </head>
 
     <body>
+        {% include 'fonts.html' %}
+        
         <header class="header">
             <a href="{% url 'account_login' %}">
                 <img src="{% static 'img/iand_logo_w.png' %}"
@@ -120,8 +122,8 @@
                                 <div id="nicknameHelp"></div>
 
                                 <div class="signup-security">
-                                    <a>보안 질문</a>
-                                    <select class="custom-select" required>
+                                    <a>PIN 번호 4자리 입력</a>
+                                    <!-- <select class="custom-select" required>
                                         <option value="" disabled selected>보안
                                             질문을 선택해주세요</option>
                                         <option value="1">당신이 자주 방문하는 도시 이름은
@@ -130,11 +132,12 @@
                                         <option value="3">처음 키운 애완동물의 이름은?</option>
                                         <option value="4">가장 좋아하는 영화는?</option>
                                         <option value="5">기억에 남는 선생님 성함은?</option>
-                                    </select>
+                                    </select> -->
 
-                                    <input name="security-answer" id="security-answer" type="text"
-                                        placeholder="보안 질문의 답" required oninput="validateSecurityAnswer()">
+                                    <input name="pin_number" id="pin_number" type="password"
+                                        placeholder="· · · ·" required oninput="validateSecurityAnswer()">
                                 </div>
+                                <div id="pinHelp"></div>
 
                                 <div class="agree_privacy">
                                     <!-- Title for the privacy policy agreement -->
@@ -435,7 +438,10 @@
                 </div>
             </footer>
         </body>
-        <script src="{% static 'js/signup.js' %}"></script>
+        <script src="{% static 'accounts/js/signup.js' %}"></script>
+        {% if request.method == 'POST' or user_signed_up %}
+            <script src="{% static 'accounts/js/ip.js' %}"></script>
+        {% endif %}
 
         {% comment %} {% if messages %}
         <script type="text/javascript">

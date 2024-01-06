@@ -17,19 +17,28 @@
     </head>
 
     <body>
-        {% include 'header.html' %}
+        {% include 'cursor.html' %} {% include 'header.html' %} {% include
+        'fonts.html' %}
         <main class="main">
             <div class="modal hidden">
                 <div class="modal_overlay" onclick="closeModal()"></div>
                 <div class="modal_content">
                     <div class="modal_content_main">
-                        <video id="videoElement" width="640" height="420" autoplay></video>
+                        <video
+                            id="videoElement"
+                            width="640"
+                            height="420"
+                            autoplay
+                        ></video>
                         <canvas id="canvas" width="640" height="420"></canvas>
                         <p id="directions"></p>
                     </div>
                     <div class="modal_content_footer">
                         <div class="capture-btn" onclick="faceCapture(event)">
-                            <img class="capture-img" src="{% static 'mypage/img/capture.png' %}"/>
+                            <img
+                                class="capture-img"
+                                src="{% static 'mypage/img/capture.png' %}"
+                            />
                         </div>
                     </div>
                 </div>
@@ -50,6 +59,7 @@
                                         /><span>계정 정보</span></a
                                     >
                                 </li>
+                                {% if user.email == '' %}
                                 <li>
                                     <a
                                         class="personal_information_link"
@@ -60,6 +70,7 @@
                                         /><span>비밀번호 변경</span></a
                                     >
                                 </li>
+                                {% endif %}
                                 <li>
                                     <a
                                         class="personal_information_link"
@@ -114,74 +125,168 @@
                     <div class="personal_information_explain">
                         <h1>계정 정보</h1>
                         <p>
-                           닉네임 변경을 원하시면 닉네임 변경 후 중복 체크를 해주세요.
-                           중복 닉네임이 없을 경우 변경이 가능합니다.
+                            닉네임 변경을 원하시면 닉네임 변경 후 중복 체크를
+                            해주세요. 중복 닉네임이 없을 경우 변경이 가능합니다.
                         </p>
                     </div>
                     <div class="personal_information_content">
-                        <div class="personal_information_username">
-                            <div class="personal_username">User ID로 변경</div>
-                            <span>USERNAME</span>
+                        <div class="input_container" id="username-container">
+                            <div class="input_wrapper">
+                                <span class="input-label" id="nickname"
+                                    >사용자 ID</span
+                                >
+                                <input
+                                    class="type-input"
+                                    id="username-input"
+                                    data-testid="input-username"
+                                    autocapitalize="off"
+                                    type="text"
+                                    value="{{user.username}}"
+                                    disabled
+                                />
+                            </div>
                         </div>
-                        <div class="personal_information_nickname">
-                            <input
-                                class="personal_nickname"
-                                data-testid="input-username"
-                                autocapitalize="off"
-                                type="text"
-                                value=""
-                            />
+                        <div
+                            class="input_container"
+                            onclick="onClickInputWrapper(event)"
+                        >
+                            <div class="input_wrapper">
+                                <span class="input-label" id="nickname"
+                                    >닉네임</span
+                                >
+                                <input
+                                    class="type-input"
+                                    id="nickname-input"
+                                    data-testid="input-username"
+                                    autocapitalize="off"
+                                    type="text"
+                                    value="{{user.nickname}}"
+                                />
+                                <label id="nickname">닉네임</label>
+                            </div>
                         </div>
                         <div class="button-area">
-                            <button class="save_button">변경사항 저장</button>
+                            <button class="save_button" id="nickname_check">
+                                중복 체크
+                            </button>
+                            <button class="save_button" id="nickname_change">
+                                변경사항 저장
+                            </button>
                         </div>
                     </div>
                 </div>
+                {% if user.email == '' %}
                 <div class="personal_information_card" id="change_password">
                     <div class="personal_information_explain">
                         <h1>비밀번호 변경</h1>
                         <p>
-                            주기적으로 비밀번호를 변경하면 계정 무단 로그인을 방지할 수 있습니다.
+                            주기적으로 비밀번호를 변경하면 계정 무단 로그인을
+                            방지할 수 있습니다.
                         </p>
                     </div>
-                    <div class="personal_information_content">
+                    <div class="personal_information_content" id="pwd-content">
                         <p class="change_password_text">비밀번호 변경</p>
-                        <div class="input_container" onclick="onClickInputWrapper(event)">
+                        <div
+                            class="input_container"
+                            id="cur-pwd"
+                            onclick="onClickInputWrapper(event)"
+                        >
                             <div class="input_wrapper" id="cur-pwd">
-                                <span class="input-label" id="cur-pwd">현재 비밀번호</span>
-                                <input type="password" class="type-input" id="cur-pwd">
+                                <span class="input-label" id="cur-pwd"
+                                    >현재 비밀번호</span
+                                >
+                                <input
+                                    type="password"
+                                    class="type-input"
+                                    id="cur-pwd"
+                                />
                                 <label id="cur-pwd">현재 비밀번호</label>
                             </div>
-                            <button class="view_pwd" id="cur-pwd" onclick="onClickViewPwd(event)"></button>
+                            <button
+                                class="view_pwd"
+                                id="cur-pwd"
+                                onclick="onClickViewPwd(event)"
+                            ></button>
                         </div>
-                        <div class="input_container" id="new-pwd" onclick="onClickInputWrapper(event)">
+                        <div class="pass-help" id="cur-pass-help">
+                            <p class="pass-chk">
+                                비밀번호가 일치하지 않습니다.
+                            </p>
+                        </div>
+                        <div
+                            class="input_container"
+                            id="new-pwd"
+                            onclick="onClickInputWrapper(event)"
+                        >
                             <div class="input_wrapper" id="new-pwd">
-                                <span class="input-label" id="new-pwd">새 비밀번호</span>
-                                <input type="password" class="type-input" id="new-pwd">
+                                <span class="input-label" id="new-pwd"
+                                    >새 비밀번호</span
+                                >
+                                <input
+                                    type="password"
+                                    class="type-input"
+                                    id="new-pwd"
+                                />
                                 <label id="new-pwd">새 비밀번호</label>
                             </div>
-                            <button class="view_pwd" id="new-pwd" onclick="onClickViewPwd(event)"></button>
+                            <button
+                                class="view_pwd"
+                                id="new-pwd"
+                                onclick="onClickViewPwd(event)"
+                            ></button>
                         </div>
-                        <div class="input_container" id="chk-pwd" onclick="onClickInputWrapper(event)">
+                        <div class="pass-help" id="pass-help">
+                            <p class="passlen">
+                                비밀번호는 최소 8자 이상 최대 16자 이하를
+                                충족해야 합니다.
+                            </p>
+                            <p class="passinit">
+                                최소 한 개 이상의 특수 문자를 포함해야 합니다.
+                            </p>
+                        </div>
+                        <div
+                            class="input_container"
+                            id="chk-pwd"
+                            onclick="onClickInputWrapper(event)"
+                        >
                             <div class="input_wrapper" id="chk-pwd">
-                                <span class="input-label" id="chk-pwd">새 비밀번호 확인</span>
-                                <input type="password" class="type-input" id="chk-pwd">
+                                <span class="input-label" id="chk-pwd"
+                                    >새 비밀번호 확인</span
+                                >
+                                <input
+                                    type="password"
+                                    class="type-input"
+                                    id="chk-pwd"
+                                />
                                 <label id="chk-pwd">새 비밀번호 확인</label>
                             </div>
-                            <button class="view_pwd" id="chk-pwd" onclick="onClickViewPwd(event)"></button>
+                            <button
+                                class="view_pwd"
+                                id="chk-pwd"
+                                onclick="onClickViewPwd(event)"
+                            ></button>
+                        </div>
+                        <div class="pass-help" id="chk-pass-help">
+                            <p class="pass-chk">
+                                비밀번호가 일치하지 않습니다.
+                            </p>
                         </div>
                         <div class="button-area">
-                            <button class="save_button">변경사항 저장</button>
+                            <button class="save_button" id="pwd-change-button">
+                                변경사항 저장
+                            </button>
                         </div>
                     </div>
                 </div>
+                {% endif %}
                 <div class="personal_information_card" id="upload_img">
                     <div class="personal_information_explain">
                         <h1>이미지 업로드</h1>
                         <p id="img_notice">
-                            얼굴 이미지를 업로드하면 합성 AI를 사용하실 수 있습니다.<br>
-                            얼굴이 가려지지 않은 정면 사진이어야 합니다.<br>
-                            업로드 가능 포멧: '.jpg', '.jpeg', '.png', '.svg'<br>
+                            얼굴 이미지를 업로드하면 합성 AI를 사용하실 수
+                            있습니다.<br />
+                            얼굴이 가려지지 않은 정면 사진이어야 합니다.<br />
+                            업로드 가능 포멧: '.jpg', '.jpeg', '.png', '.svg'<br />
                             업로드 가능 사이즈: 최대 2MB
                         </p>
                         <img id="face_img" />
@@ -232,7 +337,7 @@
                         <img
                             src="{% static 'mypage/img/play-circle.svg' %}"
                             id="playIcon"
-                            onclick="onclickPlayIcon()"
+                            onclick="onclickPlayIcon(event)"
                         />
                     </div>
                     <div class="personal_information_content">
@@ -277,11 +382,29 @@
                 <div class="personal_information_card" id="login_history">
                     <div class="personal_information_explain">
                         <h1>계정 로그인 기록</h1>
-                        <p>
-                            최근 30일까지의 기록만 제공됩니다
-                        </p>
+                        <p>최근 30일까지의 기록만 제공됩니다</p>
                     </div>
-                    <div class="personal_information_content">test</div>
+                    <div
+                        class="personal_information_content"
+                        id="login_history"
+                    >
+                        <ul
+                            class="login_history_msg"
+                            id="login_history_caption"
+                        >
+                            <li>날짜 및 시간(KST)</li>
+                            <li>로그인 ID</li>
+                            <li>국가</li>
+                        </ul>
+                        {% for key, record in login_history.items %}
+                        <ul class="login_history_msg" id="login_history_record">
+                            <li>{{record.date}}</li>
+                            <li>{{record.login_id}}</li>
+                            <li>{{record.country}}</li>
+                        </ul>
+                        <div class="source_ip">IP주소 : {{record.ip}}</div>
+                        {% endfor %}
+                    </div>
                 </div>
                 <div class="delete_card" id="delete_account">
                     <div class="delete_information_explain">
@@ -293,7 +416,7 @@
                                 class="delete_button"
                                 id="delete_button"
                                 type="submit"
-                                onclick="setupModal()"
+                                onclick="confirmDeletion()"
                             >
                                 탈퇴 진행
                             </button>

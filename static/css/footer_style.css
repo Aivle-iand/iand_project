@@ -1,5 +1,6 @@
 /* Footer 구간 */
 .footer{
+    width: 100%;
     padding-top :20px;
     height : 180px;
     background-color : rgb(116, 115, 115);
