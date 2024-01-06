@@ -1,5 +1,12 @@
 // -------------------------
 // li부분 색깔 변화를 위한 js
+
+const app = () => {};
+window.onload = app();
+
+const userInfo = {};
+let stream = null;
+
 document.addEventListener("DOMContentLoaded", function() {
   const navigationLinks = document.querySelectorAll('.internal_navigation_list a');
   const sections = document.querySelectorAll('.main_root > div');
@@ -71,13 +78,39 @@ const openModal = (event) => {
   drawTool[id](modal_content);
 }
 
-const closeModal = (event) => {
+const closeModal = () => {
   const modal = document.querySelector('div.modal');
+  stopStreaming();
   modal.classList.add('hidden');
 }
 
+function stopStreaming() {
+  if (stream) {
+      // 각 트랙을 반복하여 중지
+      stream.getTracks().forEach(track => track.stop());
+      stream = null;
+  }
+}
+
+const faceCapture = async (event) => {
+  console.log('faceCapture');
+  const preView = document.querySelector('img#face_img');
+  const videoElement = document.getElementById("videoElement");
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+  
+  await canvas.toBlob(function(blob) {
+    const imageUrl = URL.createObjectURL(blob);
+    userInfo['image_upload'] = blob;
+    preView.src = imageUrl;
+  }, 'image/png');
+
+  closeModal();
+  stopStreaming();
+}
+
 const drawCapture = async (content) => {
-  console.log('in drawCapture');
   const videoElement = document.getElementById("videoElement");
   const canvas = document.getElementById("canvas");
   const button = document.getElementById("capture");
@@ -88,10 +121,10 @@ const drawCapture = async (content) => {
   await navigator.mediaDevices
       .getUserMedia({ video: true })
       .then((stream) => {
+          stream = stream;
           videoElement.srcObject = stream;
+          detectFrame();
       });
-
-  detectFrame();
 
   async function detectFrame() {
       ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
@@ -141,17 +174,32 @@ const drawCapture = async (content) => {
       return outputs["output0"].data;
   }
 
+  function allowedButton(button, img) {
+    button.style.border = "15px solid #A397C6";
+    button.style.cursor = 'pointer';
+    img.style.filter = 'invert(66%) sepia(14%) saturate(692%) hue-rotate(214deg) brightness(92%) contrast(88%)';
+    button.style.pointerEvents = 'auto';
+  }
+
+  function rejectedButton(button, img) {
+    button.style.border = "15px solid #6F6490";
+    button.style.pointerEvents = "none";
+    img.style.filter = 'invert(39%) sepia(12%) saturate(1169%) hue-rotate(214deg) brightness(101%) contrast(87%)';
+  }
+
   function draw_image_and_boxes(boxes) {
       // 인식 여부에 따른 테두리, 버튼 제어
+      const button = document.querySelector('div.capture-btn');
+      const img = document.querySelector('img.capture-img');
       canvas.style.borderWidth = "5px";
       if (boxes.length == 1 && boxes[0][4] == 'normal') {
           directions.textContent = "캡쳐 버튼을 눌러주세요."
-          canvas.style.borderColor = "#00FF00";
-          button.disabled = false;
-      } else {
-          canvas.style.borderColor = "red";
-          button.disabled = true;
-      }
+          directions.style.color = canvas.style.borderColor = "#4df4d3";
+          allowedButton(button, img);
+        } else {
+          canvas.style.borderColor = directions.style.color = "#d953e5";
+          rejectedButton(button, img);
+        }
       // directions
       if (boxes.length == 0) {
           directions.textContent = "얼굴이 인식되지 않았습니다."
@@ -291,13 +339,9 @@ const onClickViewPwd = (e) => {
 //voice 파일 업로드 관련 js
 let fileInput = document.getElementById('file_input');
 let fileNameDisplay = document.querySelector('.voice_file_name');
-// let uploadInstruction = uploadArea.querySelector('.voice_upload_msg'); // 업로드 지시문 <p> 태그
 let uploadVoiceButton = document.getElementById('voice_upload_button');
 let voiceCancelButton = document.getElementById('voice_upload_cancel_button');
-
 let uploadArea = document.querySelector('.upload_area');
-let uploadImage = null;
-let uploadVoice = null;
 
 // 클릭으로 파일 업로드 창 열기
 const uploadClick = (event) => {
@@ -306,10 +350,68 @@ const uploadClick = (event) => {
   input.click();
 }
 
-const image_input = (file) => {
-  uploadImage = file;
-  const reader = new FileReader();
+const validFile = (file) => {
+  function imageValid(formet, size) {
+    const formets = ['jpg', 'jpeg', 'png', 'svg'];
+    const maxSize = 2 * (1024 * 1024);
+    if (!(file instanceof File)) {
+      alert('파일 형식이 아닙니다.');
+      return false;
+    }
+    if (!formets.includes(formet)) {
+      alert('지원하는 포멧이 아닙니다. \n지원 포멧: jpg, jpeg, png, svg');
+      return false;
+    }
+    if (size > maxSize) {
+      alert(`이미지 사이즈가 너무 큽니다. ${maxSize}MB 이하의 파일을 올려주세요.` );
+      return false;
+    }
 
+    return true;
+  }
+
+  function audioValid(formet, size) {
+    const formets = ['mp3', 'wav', 'aac', 'ogg', 'm4a', 'flac', 'x-m4a', 'mpeg'];
+    const maxSize = 10 * (1024 * 1024);
+    if (!(file instanceof File)) {
+      alert('파일 형식이 아닙니다.');
+      return false;
+    }
+    if (!formets.includes(formet)) {
+      alert('지원하는 포멧이 아닙니다. \n지원 포멧: mp3, wav, aac, ogg, m4a, flac, m4a, mpeg');
+      return false;
+    }
+
+    if (size > maxSize) {
+      alert(`오디오 사이즈가 너무 큽니다. ${maxSize}mb 이하의 파일을 올려주세요.`);
+      return false;
+    }
+
+    return true;
+  }
+
+  const functions = {
+    'image': imageValid,
+    'audio': audioValid,
+  }
+
+  const allowedType = ['image', 'audio'];
+  const [type, formet] = file.type.split('/');
+  if (!allowedType.includes(type)) {
+    alert('형식에 맞는 파일을 올려주세요.')
+    return false;
+  }
+
+  const size = file.size;
+  
+  is_true = functions[type](formet, size);
+
+  return is_true;
+}
+
+const image_input = (file) => {
+  const reader = new FileReader();
+  userInfo['image_upload'] = file;
   reader.onload = () => {
     const img_url = reader.result;
     const img = document.getElementById('face_img');
@@ -323,10 +425,7 @@ const image_input = (file) => {
 }
 
 const voice_input = (file) => {
-  if (!file) {
-    return 
-  }
-  uploadVoice = file;
+  userInfo['voice_upload'] = file;
   const audioPreview = document.getElementById('audioPreview');
   audioPreview.src = URL.createObjectURL(file);
 
@@ -335,9 +434,16 @@ const voice_input = (file) => {
   document.getElementById('playIcon').style = 'filter: invert(86%) sepia(0%) saturate(0%) hue-rotate(275deg) brightness(86%) contrast(91%); cursor: pointer;'
 }
 
-const inputOnchange = (event) => {
+const onloadeddataFile = (event) => {
+  event.stopPropagation();
+  event.preventDefault();
   const id = event.currentTarget.id;
   const file = event.target.files[0];
+  
+  if (!validFile(file)) {
+    return;
+  }
+
   if (id == 'image_input') {
     image_input(file)
   } else if (id == 'voice_input') {
@@ -346,6 +452,8 @@ const inputOnchange = (event) => {
 }
 
 const onclickPlayIcon = () => {
+  event.stopPropagation();
+  event.preventDefault();
   const audioPreview = document.getElementById('audioPreview');
   if (audioPreview.src) {
       audioPreview.play();
@@ -370,3 +478,27 @@ const onDropUpload = (event) => {
     voice_input(files[0])
   }
 }
+
+// media file upload(image or voice)
+const onClickUploadMedia = (event) => {
+  const id = event.target.id;
+  const file = userInfo[id];
+
+  if (!file) {
+    console.error("No file selected.");
+    return;
+  }
+
+  // FormData 객체 생성
+  const formData = new FormData();
+  formData.append('file', file);
+
+  // 백엔드 서버로 파일 전송
+  fetch('/mypage/mypage_temp/upload_media/', {
+      method: 'POST',
+      body: formData,
+  })
+  .then(response => response.json())
+  .then(data => alert(data))
+  .catch( _ => alert('업로드에 실패했습니다.'));
+};
