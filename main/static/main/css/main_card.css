@@ -43,7 +43,10 @@
       -webkit-perspective: 1000px;
               perspective: 1000px;
   }
-  
+  .inner h2 {
+    font-weight:800; 
+    text-shadow: 2px 2px 5px black
+  }
   .front,
   .back{
     background-size: cover;
@@ -65,12 +68,14 @@
       font-size: 1.2rem;
   }
   
-  .back{
-    background: #cedce7;
-    background: -webkit-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-    background: -o-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-    background: linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-  }
+  .back {
+    background: -webkit-radial-gradient(#9a9abe, #d9dfe4);
+    background:    -moz-radial-gradient(#9a9abe, #d9dfe4);
+    background:      -o-radial-gradient(#9a9abe, #d9dfe4);
+    background:         radial-gradient(#9a9abe, #d9dfe4);
+}
+
+
   
   .front:after{
       position: absolute;
@@ -103,7 +108,8 @@
       width: 100%;
       height: 100%;
   }
-  
+
+
   .inner{
       -webkit-transform: translateY(-50%) translateZ(60px) scale(0.94);
               transform: translateY(-50%) translateZ(60px) scale(0.94);
@@ -147,7 +153,9 @@
     -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
   }
-  
+  .front .imgage {
+    height:100%;
+  }
   .front .inner p{
     font-size: 2rem;
     margin-bottom: 2rem;
@@ -173,6 +181,9 @@
     font-weight: 300;
   }
   
+  .front .inner p{
+    font-size: 1.5rem;
+  }
   @media screen and (max-width: 64rem){
     .col{
       width: calc(33.333333% - 2rem);
@@ -191,3 +202,5 @@
       margin: 0 0 2rem 0;
     }
   }
+
+  
