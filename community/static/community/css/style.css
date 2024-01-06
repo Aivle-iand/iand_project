@@ -94,6 +94,10 @@ caption {
 }
 
 /* detail */
+
+.detail_post>dl {
+    margin-bottom : 0px;
+}
 .detail_wrap {
     max-width: 60%;
     margin-left: 50px;
@@ -106,14 +110,12 @@ caption {
 .detail_wrap .title {
     margin-bottom: 2rem;
     font-size: xx-large;
+    font-weight: 700;
 }
 
 .detail_wrap .detail_post {
     border-bottom: 1px solid #999;
-    margin: auto;
     width: 100%;
-    padding-top: 10px;
-    padding-bottom: 10px; 
 }
 
 .detail_wrap .detail_post dl {
@@ -137,7 +139,100 @@ caption {
 
 .detail_wrap .detail_contents {
     margin-top: 10px;
-    padding-bottom: 30px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #999;
-    height: 400px;
 }
+
+/* 연수 */
+
+.post_content { 
+    min-height : 300px;
+}
+
+
+
+.left_post_bottom {
+    width : calc(100% - 210px);
+}
+
+
+.right_post_bottom {
+    display : flex;
+    
+}
+
+.right_post_bottom>div {
+    padding : 0 5px;
+    min-width: 60px;
+}
+
+.right_post_bottom>div>a {
+    text-decoration: none;
+    color : black;
+}
+
+.right_post_bottom>div>button {
+    background: none;
+    border : 0;    
+    padding : 0;
+}
+
+.comment_list_wrap>h4 {
+    margin : 20px 0 ;
+    font-weight : 800; 
+} 
+
+.comment_list {
+    padding-left : 0;
+    width : 100%;
+}
+
+.one_comment {
+    list-style-type : none;
+    padding-left : 10px;
+}
+
+#comment_form_wrap {
+    height : 120px;
+    width : 100%;
+}
+
+textarea#id_content {
+    height : 100px;
+    width : 100%;
+    resize: none;
+}
+
+.comment_nick {
+    font-size : 17px;
+    font-weight : 600;
+}
+
+.comment_content {
+    font-weight : 400;
+}
+
+.comment_when {
+    font-size : 13px;
+    font-weight : 400;
+    color : rgb(90, 90, 90);
+}
+
+.delete_comment {
+    background : none;
+    border : 0;
+    text-decoration: underline;
+    color : rgb(90, 90, 90);
+}
+
+
+.in_post_bottom_wrap {
+    display : flex;
+}
+
+
+.login_want {
+    margin-left : 5px;
+    margin-bottom : 20px;
+}
+
