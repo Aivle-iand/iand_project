@@ -25,6 +25,7 @@
     <body>
         {% include 'header.html' %}
         {% include 'cursor.html' %}
+        {% include 'fonts.html' %}
 
         <main class="main">
             <div class="main_top">
@@ -505,21 +506,28 @@
                 audio.play();
             }
         </script>
+        
         <script>
-            var audioPath = {{user_voice}};
-        
-            for (var i = 1; i <= 3; i++) {
-                for (var j = 1; j <= 4; j++) {
-                    var elementId = "h_" + {{book.id}} + "_" + i + "_" + j;
-                    var element = document.getElementById(elementId);
-        
-                    if (element) {
-                        element.onclick = function() {
-                            playAudio(audioPath[i-1][j-1]);
-                        };
+            document.addEventListener('DOMContentLoaded', function() {
+                var voiceCheckbox = document.querySelector('.voice_check');
+            
+                for (var i = 1; i <= 3; i++) {
+                    for (var j = 1; j <= 4; j++) {
+                        (function(i, j) {
+                            var elementId = "h_" + {{ book.id }} + "_" + i + "_" + j;
+                            var element = document.getElementById(elementId);
+                            
+                            if (element) {
+                                element.onclick = function() {
+                                    if (voiceCheckbox.checked) {
+                                        playAudio(audioPath[i-1][j-1]);
+                                    }
+                                };
+                            }
+                        })(i, j);
                     }
                 }
-            }
+            });            
         </script>
         {% include 'footer.html' %}
     </body>

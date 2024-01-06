@@ -656,6 +656,7 @@ label:hover>.human {
 .voice_label, .face_label {
     display: flex;
     align-items: center; 
+    
 }
 
 .voice_face_form {
@@ -705,6 +706,7 @@ label:hover>.human {
     border: 2px solid white;    
     cursor: pointer;
 }
+
 
 .button_voice_face:hover {
     background-color: #ffffff;

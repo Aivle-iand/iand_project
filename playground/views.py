@@ -7,6 +7,9 @@ from base64 import b64encode
 from PIL import Image
 from io import BytesIO
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+# from mypage.models import userprofile
+from django.conf import settings
 
 
 master_key = "2179074882679a424c4b817fd744275b"
@@ -121,8 +124,8 @@ def index(request):
 
 
 def voice_face_change(request, checked_card):
-    if request.session.get('user') and request.method == 'POST':
-        voice, face = request.POST.get('voice', ''), request.POST.get('voice', '')
+    if request.user.is_authenticated and request.method == 'POST':
+        voice, face = request.POST.get('voice', ''), request.POST.get('face', '')
         voice_change, face_change = 0, 0
  
         human = Book.objects.get(id=int(checked_card))
@@ -174,6 +177,7 @@ def voice_face_change(request, checked_card):
             context['face_change'] == 1
        
         return JsonResponse(context)
+
 
 
 # quiz
