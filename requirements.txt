@@ -13,3 +13,4 @@ pillow
 pydub
 django-allauth
 django-environ
+boto3
