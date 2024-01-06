@@ -93,7 +93,6 @@ function stopStreaming() {
 }
 
 const faceCapture = async (event) => {
-  console.log('faceCapture');
   const preView = document.querySelector('img#face_img');
   const videoElement = document.getElementById("videoElement");
   const canvas = document.getElementById("canvas");
@@ -280,10 +279,9 @@ const drawCapture = async (content) => {
   const yolo_classes = ["normal", "abnormal"];
 }
 
-const drawRecord = (content) => {
-  console.log('in drawRecord');
-  console.log(content);
-}
+// const drawRecord = (content) => {
+//   레코딩 함수
+// }
 
 //-----------------------
 // 입력에 따라서 label, span의 변화를 위한 js
@@ -327,13 +325,6 @@ const onClickViewPwd = (e) => {
     button.style.backgroundImage = "url('https://iand-bucket.s3.ap-northeast-2.amazonaws.com/media/common/eye-close.png')";
   }
 }
-
-//------------------------
-// cancel 버튼과 save 버튼 변화에 대한 j
-
-  
-//-----------------------------------
-
 
 //-----------------------------
 //voice 파일 업로드 관련 js
@@ -485,7 +476,7 @@ const onClickUploadMedia = (event) => {
   const file = userInfo[id];
 
   if (!file) {
-    console.error("No file selected.");
+    alert("파일을 등록해주세요.");
     return;
   }
 
@@ -499,7 +490,7 @@ const onClickUploadMedia = (event) => {
       body: formData,
   })
   .then(response => response.json())
-  .then(data => alert(data))
+  .then(data => alert('파일 업로드에 성공했습니다.'))
   .catch( _ => alert('업로드에 실패했습니다.'));
 };
 
@@ -522,12 +513,10 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           alert("닉네임 변경이 가능합니다.");
           nickname_input = nickname;
-          // nicknameChange.style.backgroundColor = 'red';
-          // nicknameChange.style.color = 'white';
         }
       })
       .catch((error) => {
-        console.error("에러 발생:", error);
+        alert("중복체크하는 과정에서 알수없는 에러가 발생했습니다.");
       });
   });
 
@@ -727,10 +716,8 @@ function confirmDeletion() {
         alert(data.message);
         window.location.reload();
       })
-      .catch((error) => {
-        console.error("Error:", error);
+      .catch(() => {
+        alert('계정 삭제에 실패했습니다. \n다시 시도해 주세요.')
       });
-  } else {
-    console.log("계정 삭제 취소");
   }
 }
