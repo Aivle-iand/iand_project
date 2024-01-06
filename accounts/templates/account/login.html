@@ -46,6 +46,7 @@
     </head>
     
     <body>
+        {% include 'fonts.html' %}
         <main class="main">
 
             <a class="logo_class" href='{% url "main:main" %}'>
@@ -54,14 +55,18 @@
             
             <div class="login_main">
                 <div class="loginpage">
-                    <form action="{% url 'account_login' %}?next={{request.GET.next}}" method="POST">
+                    <form id="login_form" action="{% url 'account_login' %}?next={{request.GET.next}}" method="POST">
 
                         {% csrf_token %}
 
                         <h5 class="loginpage-title">로그인</h5>
-
                         <div class="loginbox">
                             <div class="login-id-pass">
+                                {% if form.non_field_errors %}
+                                {% for error in form.non_field_errors %}
+                                    <p class="error_msg">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
                                 <div class="login-id">
                                     <input class="username" name="login" id ="usernameInput" data-testid="input-username" autocapitalize="off" type="text" value="" name="usernameInput">
                                     <label for="usernameInput" id="usernameLabel">계정이름</label>
@@ -180,12 +185,13 @@
     <script src="{% static 'accounts/js/ip.js' %}"></script>
     {% endif %}
 
-    {% comment %} {% if messages %}
-        <script type="text/javascript">
+
+    {% if messages.error %}
+    <script>
         {% for message in messages %}
             alert("{{ message }}");
         {% endfor %}
-        </script>
-    {% endif %} {% endcomment %}
+    </script>
+    {% endif %}
 
 </html>
