@@ -132,6 +132,26 @@ def voice_face_change(request, checked_card):
         human = get_object_or_404(Book, id=int(checked_card))
         hu = human.episodes.all()
         episodes = [hu.filter(episode_number=1), hu.filter(episode_number=2), hu.filter(episode_number=3)]
+        
+        if face: 
+            face_path = os.path.abspath(__file__)
+            face_path, _ = os.path.split(face_path)
+            face_path +=  '/static/playground/user/' + str(request.user.username) + '/' + str(face) + '/face'
+            if not os.path.exists(face_path):
+                os.makedirs(face_path)
+            for epi in '123':
+                for sce in '1234':
+                    file_name = '/' + str(face) +'_'+epi+'_'+ sce +'.png'
+                   
+                    img_file = os.path.join(face_path+file_name)
+                    if os.path.exists(img_file):
+                        continue
+                    else:
+                        scene_ = episodes[int(epi)-1].get(scene_number=sce)
+                        image_bg =  face_path.split('iand_project')[0] + 'iand_project/media/contents' + file_name
+                        image_face = request.user.profile.image_url
+                        face_swap(master_face_key, image_bg, image_face, img_file)
+            face_change = 1  
        
         if voice: 
             voice_path = os.path.abspath(__file__)
@@ -151,25 +171,7 @@ def voice_face_change(request, checked_card):
                         text_to_speach(tfs, request.user.profile.audio_url , master_key, voice_path, file_name)
             voice_change = 1
  
-        if face: 
-            face_path = os.path.abspath(__file__)
-            face_path, _ = os.path.split(face_path)
-            face_path +=  '/static/playground/user/' + str(request.user.username) + '/' + str(face) + '/face'
-            if not os.path.exists(face_path):
-                os.makedirs(face_path)
-            for epi in '123':
-                for sce in '1234':
-                    file_name = '/' + str(face) +'_'+epi+'_'+ sce +'.png'
-                   
-                    img_file = os.path.join(face_path+file_name)
-                    if os.path.exists(img_file):
-                        continue
-                    else:
-                        scene_ = episodes[int(epi)-1].get(scene_number=sce)
-                        image_bg =  face_path.split('iand_project')[0] + 'iand_project/media/contents' + file_name
-                        image_face = request.user.profile.image_url
-                        face_swap(master_face_key, image_bg, image_face, img_file)
-            face_change = 1      
+            
         context = {}
        
         if voice_change == 1:
