@@ -37,15 +37,16 @@
             background-size: cover;
         }
 
-        .login_btn {
-            background-image: url('{% static "img/login_img.png" %}');
-            background-size: cover;
-        }
         
     </style>
-    </head>
+    {% comment %} .login_btn {
+        background-image: url('{% static "img/login_img.png" %}');
+        background-size: cover;
+    } {% endcomment %}
+</head>
     
     <body>
+        {% include 'fonts.html' %}
         <main class="main">
 
             <a class="logo_class" href='{% url "main:main" %}'>
@@ -54,14 +55,18 @@
             
             <div class="login_main">
                 <div class="loginpage">
-                    <form action="{% url 'account_login' %}?next={{request.GET.next}}" method="POST">
+                    <form id="login_form" action="{% url 'account_login' %}?next={{request.GET.next}}" method="POST">
 
                         {% csrf_token %}
 
                         <h5 class="loginpage-title">로그인</h5>
-
                         <div class="loginbox">
                             <div class="login-id-pass">
+                                {% if form.non_field_errors %}
+                                {% for error in form.non_field_errors %}
+                                    <p class="error_msg">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
                                 <div class="login-id">
                                     <input class="username" name="login" id ="usernameInput" data-testid="input-username" autocapitalize="off" type="text" value="" name="usernameInput">
                                     <label for="usernameInput" id="usernameLabel">계정이름</label>
@@ -76,8 +81,14 @@
                             </div>
 
                             <div class="login_btn_div">
-                                <input type="submit" class="login_btn" id="id_login_btn" value=""/>
+                                <button class="login_btn" id="id_login_btn" type="submit" onclick="submitPinButton()" >
+                                {% comment %} <input type="submit" class="login_btn" id="id_login_btn" value=""/> {% endcomment %}
+                                <svg class="login_img" id="login_img" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22.8011 14.75L14.2234 6.70971L16.0474 5L26.8695 15.1441C27.3732 15.6163 27.3732 16.3817 26.8695 16.8538L16.0474 26.998L14.2234 25.2883L22.7989 17.25H4.75V14.75H22.8011Z">
+                                </path>
+                                </svg>
                             </div>
+                        </button>
                         </div>
                     </form>
 
@@ -180,12 +191,13 @@
     <script src="{% static 'accounts/js/ip.js' %}"></script>
     {% endif %}
 
-    {% comment %} {% if messages %}
-        <script type="text/javascript">
+
+    {% if messages.error %}
+    <script>
         {% for message in messages %}
             alert("{{ message }}");
         {% endfor %}
-        </script>
-    {% endif %} {% endcomment %}
+    </script>
+    {% endif %}
 
 </html>
