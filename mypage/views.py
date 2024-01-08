@@ -53,6 +53,7 @@ def mypage_temp(request):
         pin_chk = request.session['pin_checked']
     except:
         request.session['pin_checked'] = False
+        pin_chk = False
         return redirect('/mypage')
     if(pin_chk):
         history = {}
@@ -74,6 +75,8 @@ def mypage_temp(request):
             context['profile_img'] = None
         
         return render(request, 'mypage/mypage_temp.html', context)
+    else:
+        return redirect('/mypage')
 
 region_name = env('S3_REGION_NAME')
 access_key_id = env('S3_ACCESS_KEY_ID')
