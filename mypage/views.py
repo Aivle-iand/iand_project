@@ -30,11 +30,12 @@ def index(request):
     
     try:
         pin_chk = request.session['pin_checked']
-        if (pin_chk):
-            return redirect('/mypage/mypage_temp')
     except:
         request.session['pin_checked'] = False
-    finally:
+        pin_chk = False
+    if (pin_chk):
+        return redirect('/mypage/mypage_temp')
+    else:
         username = request.user
         str_username = str(username)
         marked_id = str_username[:2] + '*' * 5 + str_username[-2:]
@@ -49,10 +50,11 @@ def mypage_temp(request):
         return redirect('accounts/login')
     
     try:
-        _ = request.session['pin_checked']
+        pin_chk = request.session['pin_checked']
     except:
+        request.session['pin_checked'] = False
         return redirect('/mypage')
-    finally:
+    if(pin_chk):
         history = {}
         username = request.user
         profile = UserProfile.objects.filter(user_id = username).first()
@@ -61,7 +63,7 @@ def mypage_temp(request):
                 login_time = str(login_histories[i].timestamp)
                 login_id = login_histories[i].username
                 marked_id = login_id[:2] + '*' * 4 + login_id[-2:]
-                history[i] = {'date' : login_time[:-7], 'login_id' : marked_id, 'country' : login_histories[i].country, 'ip' : login_histories[i].ip}
+                history[i] = {'date' : login_time[:-13], 'login_id' : marked_id, 'country' : login_histories[i].country, 'ip' : login_histories[i].ip}
         context = {
             'login_history' : history,
         }
