@@ -9,10 +9,11 @@
 /* MAIN-TOP 구간 */
 
 .main_top {
-    height : 350px;
+    height : 300px;
     width : 100%;
-    background-color: rgba(242, 242, 242, 0.999);
-
+    background-image : url('/static/community/img/community_bg.png');
+    background-repeat : no-repeat;
+    background-size : cover;
 }
 
 .page_name {
