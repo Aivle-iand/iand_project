@@ -117,3 +117,17 @@ form > div {
     width: 100%;
     height: 400px;
 }
+
+/* 게시글 목록 간격 고정 */
+th.head_title {
+    min-width: 350px;
+}
+th.head_writer {
+    min-width: 180px;
+}
+th.head_views {
+    min-width: 100px;
+}
+th.head_date {
+    min-width: 200px;
+}
