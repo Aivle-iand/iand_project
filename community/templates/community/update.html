@@ -35,7 +35,9 @@
                         <form method="POST" class="update_form">
                             {% csrf_token %}
                             {{ form }}
-                            <input class="update_btn_dark" type="submit" value="수정 완료">
+                            <div class="finish_modify">
+                                <input class="update_btn_dark" type="submit" value="수정 완료">
+                            </div>
                         </form>
                     </div>
                 </div>
