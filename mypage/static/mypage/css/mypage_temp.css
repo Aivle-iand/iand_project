@@ -252,6 +252,10 @@ video {
     padding: 30px 40px 30px 40px;
 }
 
+.personal_information_content > p{
+  color: #e8e8e8;
+}
+
 .personal_information_empty {
   margin: 0px 0px 10px 0px;
 }
@@ -308,6 +312,7 @@ video {
   display: flex;
   flex-direction: row;
   height: 60px;
+  width: 80%;
   border-radius: 5px;
   margin: 20px;
   background: #383636;
@@ -328,12 +333,18 @@ video {
   color: #9e9e9e;
 }
 
+
+
 .input_wrapper > label#nickname {
   display: none;
 }
 
 .input_wrapper > span#nickname {
   display: block;
+}
+
+.input-label {
+  color: #9e9e9e;
 }
 
 .view_pwd {
@@ -451,6 +462,7 @@ video {
 
 .save_button:hover {
   outline-color: #b8b8b8;
+  cursor: pointer;
 }
 
 .form_text {
@@ -486,6 +498,18 @@ video {
   cursor: pointer;
 }
 
+.upload_msg {
+  position: relative;
+}
+
+.upload_msg.top {
+  bottom: 12px;
+}
+
+.upload_msg.bottom {
+  bottom: 18px;
+}
+
 .upload_button_area {
   display: flex;
   justify-content: space-around;
@@ -494,15 +518,21 @@ video {
   margin-top: 35px;
 }
 
+#playIcon_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #playIcon {
   z-index: 1;
-  width: 100%;
+  width: 10em;
   margin-top: 20px;
   filter: invert(12%) sepia(97%) saturate(31%) hue-rotate(29deg) brightness(96%)
     contrast(95%);
 }
 
-.voice_file_name {
+.audio_file_name {
   margin-top: 90px;
 }
 
