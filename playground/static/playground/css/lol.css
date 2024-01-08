@@ -686,11 +686,11 @@ label:hover>.human {
 }
 
 .voice_face_form input[type="checkbox"]::before {
-    content: "✔︎";
+    content: "■";
     display: block;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 42%;
+    left: 46%;
     transform: translate(-50%, -50%);
     color: #000000; 
     font-size: 19px;
