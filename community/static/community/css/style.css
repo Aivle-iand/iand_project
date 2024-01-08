@@ -8,7 +8,7 @@ caption {
 
 .board_free_wrap {
     width: 100%;
-    padding: 50px;
+    padding: 0px 50px;
 }
 
 .board_list {
@@ -309,3 +309,6 @@ caption {
     color : black;
 }
 
+td, th {
+    caret-color: transparent; /* 커서의 깜빡임을 없앱니다. */
+}
