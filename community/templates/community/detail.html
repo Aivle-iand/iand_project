@@ -1,4 +1,5 @@
 {% load static %}
+{% load tz %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -28,7 +29,13 @@
                             <p class="title" id='detail_title'>{{detail.postname}}</p>
                             <div class="detail_post">
                                 <dl><dt>작성자:</dt><dd>{{detail.writer.nickname}}</dd></dl>
-                                <dl><dt>작성일자:</dt><dd>{{detail.registered_date}}</dd></dl>
+                                <dl><dt>작성일자:</dt><dd>
+                                    {% if  detail.registered_date|date:"Y.m.d" == now|timezone:"Asia/Seoul"|date:"Y.m.d" %}
+                                        {{ detail.registered_date|date:"H:i" }}
+                                    {%else%}
+                                        {{ detail.registered_date|date:"Y.m.d H:i" }}
+                                    {% endif %}</dd></dl>
+                                <dl><dt>조회수:</dt><dd>{{ detail.post_count }}</dd></dl>
                             </div>
                             <div class="detail_contents">
                                 <div class="post_content">

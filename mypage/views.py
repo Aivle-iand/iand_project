@@ -60,7 +60,7 @@ def mypage_temp(request):
         for i in range(len(login_histories)):
                 login_time = str(login_histories[i].timestamp)
                 login_id = login_histories[i].username
-                marked_id = login_id[:2] + '*' * (len(login_id) - 4) + login_id[-2:]
+                marked_id = login_id[:2] + '*' * 4 + login_id[-2:]
                 history[i] = {'date' : login_time[:-7], 'login_id' : marked_id, 'country' : login_histories[i].country, 'ip' : login_histories[i].ip}
         context = {
             'login_history' : history,

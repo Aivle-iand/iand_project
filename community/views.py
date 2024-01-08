@@ -34,6 +34,7 @@ def categoryView(request, c_slug=None):
     else:
         post_list = Board.objects.all().order_by('-id')
     post_list = post_list.prefetch_related('comments')
+    
     if search_field == '0':
         post_list = post_list.filter(postname__icontains = keyword)
     else:
@@ -85,6 +86,15 @@ def detail(request, pk):
     detail = get_object_or_404(Board, pk=pk)
     comment_form = CommentForm()
     comments = detail.comments.all()
+    visited_posts = request.session.get('visited_posts', [])
+ 
+    if pk not in visited_posts:
+        # 처음 방문하는 글이라면 조회수 증가
+        detail.counter()
+ 
+        # 세션에 방문한 글 기록
+        visited_posts.append(pk)
+        request.session['visited_posts'] = visited_posts
     context = {
         'detail':detail,
         'comment_form':comment_form,

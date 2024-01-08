@@ -9,16 +9,17 @@
 /* MAIN-TOP 구간 */
 
 .main_top {
-    height : 350px;
+    height : 300px;
     width : 100%;
-    background-color: rgba(242, 242, 242, 0.999);
-
+    background-image : url('/static/community/img/community_bg.png');
+    background-repeat : no-repeat;
+    background-size : cover;
 }
 
 .page_name {
     font-size : 35px;
     font-weight : 600;
-    padding-top : 295px;
+    padding-top : 321px;
     padding-left : 40px;
 }
 
@@ -39,6 +40,8 @@
     height : 100%;
     border-right : 3px solid rgb(242, 242, 242);
     min-width: 300px;
+    padding-top: 50px;
+    caret-color: transparent; /* 커서의 깜빡임을 없앱니다. */
 }
 
 .side_center div {
@@ -116,4 +119,18 @@ form > div {
 .update_form textarea#id_contents {
     width: 100%;
     height: 400px;
+}
+
+/* 게시글 목록 간격 고정 */
+th.head_title {
+    min-width: 350px;
+}
+th.head_writer {
+    min-width: 180px;
+}
+th.head_views {
+    min-width: 100px;
+}
+th.head_date {
+    min-width: 200px;
 }
