@@ -140,12 +140,24 @@ function validatelastName() {
 function checkNicknameDuplication(nickname, nicknameHelp) {
     // AJAX 요청 설정
     // console.log("닉네임 테스트");
+    var lengthCheck = /^.{2,10}$/;
+    
+    
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "check_nickname_dup", true); // '/check-user-id'는 서버의 중복 확인 API 경로
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function() {
+        // nicknameHelp.innerHTML = "";
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
+
+            if (!lengthCheck.test(nickname)) {
+                nicknameHelp.style.color = 'red';
+                nicknameHelp.innerHTML = "닉네임은 최소 2자이상 최대 10자 이하 이어야 합니다.";
+                errors.nickname = true;
+                return;
+            }
+
             if (response.isDuplicate) {
                 nicknameHelp.style.color = 'red';
                 nicknameHelp.innerHTML = "이미 사용 중인 닉네임입니다.";
@@ -165,9 +177,11 @@ function checkNicknameDuplication(nickname, nicknameHelp) {
 
 
 function validateNickName() {
+    
     var nickname = document.getElementById("nickname").value;
     var nicknameHelp = document.getElementById("nicknameHelp");
     var isEmpty = nickname.trim() === "";
+
     errors.nickname = isEmpty; // 비어있으면 true
     checkNicknameDuplication(nickname, nicknameHelp)
     updateSubmitButton();

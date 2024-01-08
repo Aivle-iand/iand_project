@@ -70,17 +70,15 @@ const openModal = (event) => {
     return;
   }
   const drawTool = {
-    "image-capture-btn": drawCapture,
-    "voice-record-btn": drawRecord,
-  };
+    'image-capture-btn': drawCapture,
+    'audio-record-btn': drawRecord,
+  }
 
-  const modal = document.querySelector("div.modal");
-  const modal_content = document.querySelector("div.modal_content");
-  modal.classList.remove("hidden");
-
+  const modal = document.querySelector('div.modal');
+  const modal_content = document.querySelector('div.modal_content');
   const id = event.target.id;
-  drawTool[id](modal_content);
-};
+  drawTool[id](modal_content, modal);
+}
 
 const closeModal = () => {
   const modal = document.querySelector("div.modal");
@@ -113,21 +111,22 @@ const faceCapture = async (event) => {
   stopStreaming();
 };
 
-const drawCapture = async (content) => {
+const drawCapture = async (content, modal) => {
   const videoElement = document.getElementById("videoElement");
   const canvas = document.getElementById("canvas");
-  const button = document.getElementById("capture");
   const directions = document.getElementById("directions");
   const ctx = canvas.getContext("2d");
-  const modelPromise = ort.InferenceSession.create(
-    "https://raw.githubusercontent.com/Gichang404/models/master/yolov8n_onnx/face_detect.onnx"
-  );
+  const modelPromise = ort.InferenceSession.create("https://raw.githubusercontent.com/Gichang404/models/master/yolov8n_onnx/face_detect.onnx");
 
-  await navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
-    stream = stream;
-    videoElement.srcObject = stream;
-    detectFrame();
-  });
+  await navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((stream) => {
+          stream = stream;
+          videoElement.srcObject = stream;
+          modal.classList.remove('hidden');
+          detectFrame();
+      })
+      .catch(() =>alert('미디어 장치에 접근할 권한이 없거나 장치를 찾을 수 없습니다..'));
 
   async function detectFrame() {
     ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
@@ -292,9 +291,9 @@ const drawCapture = async (content) => {
   const yolo_classes = ["normal", "abnormal"];
 };
 
-// const drawRecord = (content) => {
-//   레코딩 함수
-// }
+const drawRecord = (content) => {
+  alert('추후 개발될 기능입니다.')
+};
 
 //-----------------------
 // 입력에 따라서 label, span의 변화를 위한 js
@@ -341,12 +340,6 @@ const onClickViewPwd = (e) => {
 
 //-----------------------------
 //voice 파일 업로드 관련 js
-let fileInput = document.getElementById("file_input");
-let fileNameDisplay = document.querySelector(".voice_file_name");
-let uploadVoiceButton = document.getElementById("voice_upload_button");
-let voiceCancelButton = document.getElementById("voice_upload_cancel_button");
-let uploadArea = document.querySelector(".upload_area");
-
 // 클릭으로 파일 업로드 창 열기
 const uploadClick = (event) => {
   const id = event.currentTarget.id;
@@ -354,155 +347,138 @@ const uploadClick = (event) => {
   input.click();
 };
 
-const validFile = (file) => {
-  function imageValid(formet, size) {
-    const formets = ["jpg", "jpeg", "png", "svg"];
+const validFile = (file, id) => {
+  const [type, formet] = file.type.split('/');
+  const size = file.size;
+
+  function imageValid() {
+    const formets = ['jpg', 'jpeg', 'png', 'svg'];
     const maxSize = 2 * (1024 * 1024);
+
     if (!(file instanceof File)) {
       alert("파일 형식이 아닙니다.");
       return false;
-    }
+    };
+
     if (!formets.includes(formet)) {
       alert("지원하는 포멧이 아닙니다. \n지원 포멧: jpg, jpeg, png, svg");
       return false;
-    }
+    };
+
     if (size > maxSize) {
       alert(
         `이미지 사이즈가 너무 큽니다. ${maxSize}MB 이하의 파일을 올려주세요.`
       );
       return false;
-    }
+    };
 
     return true;
-  }
-
-  function audioValid(formet, size) {
-    const formets = [
-      "mp3",
-      "wav",
-      "aac",
-      "ogg",
-      "m4a",
-      "flac",
-      "x-m4a",
-      "mpeg",
-    ];
+  };
+function audioValid() {
+    const formets = ['mp3', 'wav', 'aac', 'ogg', 'm4a', 'flac', 'x-m4a', 'mpeg'];
     const maxSize = 10 * (1024 * 1024);
+
     if (!(file instanceof File)) {
-      alert("파일 형식이 아닙니다.");
+      alert('파일 형식이 아닙니다.');
       return false;
-    }
+    };
     if (!formets.includes(formet)) {
-      alert(
-        "지원하는 포멧이 아닙니다. \n지원 포멧: mp3, wav, aac, ogg, m4a, flac, m4a, mpeg"
-      );
+      alert('지원하는 포멧이 아닙니다. \n지원 포멧: mp3, wav, aac, ogg, m4a, flac, m4a, mpeg');
       return false;
-    }
+    };
 
     if (size > maxSize) {
-      alert(
-        `오디오 사이즈가 너무 큽니다. ${maxSize}mb 이하의 파일을 올려주세요.`
-      );
+      alert(`오디오 사이즈가 너무 큽니다. ${maxSize}mb 이하의 파일을 올려주세요.`);
       return false;
-    }
+    };
 
     return true;
-  }
-
-  const functions = {
-    image: imageValid,
-    audio: audioValid,
   };
 
-  const allowedType = ["image", "audio"];
-  const [type, formet] = file.type.split("/");
-  if (!allowedType.includes(type)) {
-    alert("형식에 맞는 파일을 올려주세요.");
+  const functions = {
+    'image': imageValid,
+    'audio': audioValid,
+  };
+  
+  if (type !== id.split('_')[0]) {
+    alert('형식에 맞는 파일을 올려주세요.');
     return false;
-  }
+  };
 
-  const size = file.size;
-
-  is_true = functions[type](formet, size);
+  is_true = functions[type]();
 
   return is_true;
 };
 
 const image_input = (file) => {
   const reader = new FileReader();
-  userInfo["image_upload"] = file;
+  userInfo['image_upload'] = file;
   reader.onload = () => {
     const img_url = reader.result;
-    const img = document.getElementById("face_img");
+    const img = document.getElementById('face_img');
     img.src = img_url;
-  };
+  }
   reader.readAsDataURL(file);
 
-  document.getElementById(
-    "image_name"
-  ).textContent = `File Name : ${file.name}`;
-  document.getElementById("image_msg").textContent =
-    "클릭하여 이미지를 변경하거나";
-};
+  document.getElementById('preview_notice').textContent = '현재 업로드된 이미지 입니다.'
+  document.getElementById('image_name').textContent = `File Name : ${file.name}`;
+  document.getElementById('image_msg').textContent = '클릭하여 이미지를 변경하거나';
+}
 
 const voice_input = (file) => {
-  userInfo["voice_upload"] = file;
-  const audioPreview = document.getElementById("audioPreview");
+  userInfo['audio_upload'] = file;
+  const audioPreview = document.getElementById('audioPreview');
   audioPreview.src = URL.createObjectURL(file);
 
-  document.getElementById(
-    "voice_name"
-  ).textContent = `File Name : ${file.name}`;
-  document.getElementById("voice_msg").textContent =
-    "클릭하여 음을파일을 변경하거나";
-  document.getElementById("playIcon").style =
-    "filter: invert(86%) sepia(0%) saturate(0%) hue-rotate(275deg) brightness(86%) contrast(91%); cursor: pointer;";
-};
+  document.getElementById('audio_name').textContent = `File Name : ${file.name}`;
+  document.getElementById('audio_msg').textContent = '클릭하여 음을파일을 변경하거나';
+  document.getElementById('playIcon').style = 'filter: invert(86%) sepia(0%) saturate(0%) hue-rotate(275deg) brightness(86%) contrast(91%); cursor: pointer;'
+}
 
 const onloadeddataFile = (event) => {
   event.stopPropagation();
   event.preventDefault();
   const id = event.currentTarget.id;
   const file = event.target.files[0];
-
-  if (!validFile(file)) {
+  
+  if (!validFile(file, id)) {
     return;
   }
 
-  if (id == "image_input") {
-    image_input(file);
-  } else if (id == "voice_input") {
-    voice_input(file);
+  if (id == 'image_input') {
+    image_input(file)
+  } else if (id == 'audio_input') {
+    voice_input(file)
   }
-};
+}
 
 const onclickPlayIcon = (event) => {
   event.stopPropagation();
   event.preventDefault();
-  const audioPreview = document.getElementById("audioPreview");
+  const audioPreview = document.getElementById('audioPreview');
   if (audioPreview.src) {
-    audioPreview.play();
+      audioPreview.play();
   }
-};
+}
 
 const onDragOverUpload = (event) => {
   event.stopPropagation();
   event.preventDefault();
-  event.dataTransfer.dropEffect = "copy";
-};
+  event.dataTransfer.dropEffect = 'copy';
+}
 
 const onDropUpload = (event) => {
   event.stopPropagation();
   event.preventDefault();
   const files = event.dataTransfer.files;
-  if (event.target.id.includes("image")) {
-    document.getElementById("image_input").files = files;
-    image_input(files[0]);
+  if ((event.target.id).includes('image')) {
+    document.getElementById('image_input').files = files
+    image_input(files[0])
   } else {
-    document.getElementById("voice_input").files = files;
-    voice_input(files[0]);
+    document.getElementById('audio_input').files = files
+    voice_input(files[0])
   }
-};
+}
 
 // media file upload(image or voice)
 const onClickUploadMedia = (event) => {
