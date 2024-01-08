@@ -6,7 +6,7 @@ import os
 from base64 import b64encode
 from PIL import Image
 from io import BytesIO
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404
 from mypage.models import UserProfile
 from django.conf import settings
@@ -16,9 +16,19 @@ master_key = "2179074882679a424c4b817fd744275b"
 master_id = "TMuD9dkOkEfHZCUjLoPo"
 master_face_key = "SG_6abbbc640db94e2c"
 
+    
 def toB64(image_path):
-    with open(image_path, "rb") as image_file:
-        return b64encode(image_file.read()).decode('utf-8')
+    if 's3' in image_path:
+        image_url = 'https://' + image_path
+        response = requests.get(image_url)
+        if response.status_code == 200:
+            return b64encode(response.content).decode('utf-8')
+        else:
+            raise Exception(f"Error fetching {image_url}: Status code {response.status_code}")
+    else:
+        with open(image_path, "rb") as image_file:
+            return b64encode(image_file.read()).decode('utf-8')
+    
 
 def face_swap(api_key, bg_image_path, face_image_path, save_path):
     url = "https://api.segmind.com/v1/sd2.1-faceswapper"
@@ -132,6 +142,27 @@ def voice_face_change(request, checked_card):
         human = get_object_or_404(Book, id=int(checked_card))
         hu = human.episodes.all()
         episodes = [hu.filter(episode_number=1), hu.filter(episode_number=2), hu.filter(episode_number=3)]
+        
+        if face: 
+            face_path = os.path.abspath(__file__)
+            face_path, _ = os.path.split(face_path)
+            face_path +=  '/static/playground/user/' + str(request.user.username) + '/' + str(face) + '/face'
+            print(face_path)
+            if not os.path.exists(face_path):
+                os.makedirs(face_path)
+            for epi in '123':
+                for sce in '1234':
+                    file_name = '/' + str(face) +'_'+epi+'_'+ sce +'.png'
+                    img_file = os.path.join(face_path+file_name)
+                    if os.path.exists(img_file):
+                        continue
+                    else:
+                        scene_ = episodes[int(epi)-1].get(scene_number=sce)
+                        image_bg =  face_path.split('iand_project')[0] + 'iand_project/media/contents' + file_name
+                        image_face = request.user.profile.image_url
+                        face_swap(master_face_key, image_bg, image_face, img_file)
+            face_change = 1  
+            print(face_change)
        
         if voice: 
             voice_path = os.path.abspath(__file__)
@@ -143,6 +174,7 @@ def voice_face_change(request, checked_card):
                 for sce in '1234':
                     file_name = '/'+str(voice)+'_'+epi+'_'+ sce +'.mp3'
                     mp3_file = os.path.join(voice_path+file_name)
+                    print(mp3_file)
                     if os.path.exists(mp3_file):
                         continue
                     else:
@@ -151,34 +183,21 @@ def voice_face_change(request, checked_card):
                         text_to_speach(tfs, request.user.profile.audio_url , master_key, voice_path, file_name)
             voice_change = 1
  
-        if face: 
-            face_path = os.path.abspath(__file__)
-            face_path, _ = os.path.split(face_path)
-            face_path +=  '/static/playground/user/' + str(request.user.username) + '/' + str(face) + '/face'
-            if not os.path.exists(face_path):
-                os.makedirs(face_path)
-            for epi in '123':
-                for sce in '1234':
-                    file_name = '/' + str(face) +'_'+epi+'_'+ sce +'.png'
-                   
-                    img_file = os.path.join(face_path+file_name)
-                    if os.path.exists(img_file):
-                        continue
-                    else:
-                        scene_ = episodes[int(epi)-1].get(scene_number=sce)
-                        image_bg =  face_path.split('iand_project')[0] + 'iand_project/media/contents' + file_name
-                        image_face = request.user.profile.image_url
-                        face_swap(master_face_key, image_bg, image_face, img_file)
-            face_change = 1      
+            
         context = {}
        
         if voice_change == 1:
             context['voice_change'] == 1
         if face_change == 1:
-            context['face_change'] == 1
-       
-        return JsonResponse(context)
+            context['face_change'] = 1  
+        else:
+            context['face_change'] = 0  
 
+        return JsonResponse(context)
+    
+    else:
+      return HttpResponse("조건에 맞지 않음", status=400)
+    
 
 
 # quiz
