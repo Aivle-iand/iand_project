@@ -27,7 +27,7 @@ class PostUpdate(forms.ModelForm):
             'postname': TextInput(
                 attrs={
                     'class': 'form_control', 
-                    'style': 'width: 300px; margin-bottom: 10px; dispalt',
+                    'style': 'width: 300px; margin-bottom: 10px;',
                     }),
             
                 'category': Select(
