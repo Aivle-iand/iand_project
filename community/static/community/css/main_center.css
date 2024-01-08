@@ -100,8 +100,13 @@ div:has(> .form_control) {
 }
  
 div:has(> .select_category_box) {
-    width: 300px;
-    margin-left: 20px;
+    width: 500px;
+    margin-left: 280px;
+    justify-self: center;
+    text-align: center;
+    align-items: center;
+    margin: 0 0 10px 30px!important;
+    font-size : 25px;
 }
  
 form#write_box {
@@ -158,23 +163,39 @@ th.head_date {
 }
  
  
- 
-#write_box>input[type="text"] {
+/* #write_box > input[type="text"] {
     height: 50px;
     width: 600px!important;
     margin: 0 0 10px 0!important;
     font-size : 25px;
 }
  
-#write_box>label {
+#write_box > label {
     justify-self: center;
     text-align: center;
     align-items: center;
     display : flex;
     margin: 0 0 10px 30px!important;
     font-size : 25px;
+} */
+
+input#id_postname {
+    height: 50px;
+    width: 600px!important;
+    margin: 0 0 10px 0!important;
+    font-size : 25px;
 }
  
+/* label {
+    justify-self: center;
+    text-align: center;
+    align-items: center;
+    display : flex;
+    margin: 0 0 10px 30px!important;
+    font-size : 25px;
+    margin-left: 320px;
+} */
+
 #write_box>select {
     margin: 0 0 10px 26px!important;
     width : 200px;
