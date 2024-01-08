@@ -57,7 +57,7 @@
                                 {% if post_list %}
                                     {% for list in page_obj %}
                                         <tr class="table_list">
-                                            <td class="data_title"><a href="{% url 'community:detail' list.id %}" >{{ list.postname|truncatechars:20}} <span style="color : red; font-weight:600;">{% if list.comment_count != 0 %}[{{ list.comment_count }}]{% endif %}</span></a></td>
+                                            <td class="data_title"><a href="{% url 'community:detail' list.id %}" >{{ list.postname|truncatechars:30}} <span style="color : red; font-weight:600;">{% if list.comment_count != 0 %}[{{ list.comment_count }}]{% endif %}</span></a></td>
                                             <td class="data_writer">{{ list.writer.nickname|truncatechars:10}}</td>
                                             <td class="data_views">{{ list.post_count }}</td>
                                             <!-- <td class="data_date">{% if  list.registered_date|date:"Y.m.d" == now|timezone:"Asia/Seoul"|date:"Y.m.d" %}
@@ -97,7 +97,7 @@
                             {% endif %}
                             </ul>
                         </div>
-                        <div>
+                        <div class="btm_bar">
                             <form id="searchForm" method="get">
                                 <select name="search_field">
                                     <option value="0" {% if search_field == '0' %}selected{% endif %}>제목</option>
@@ -106,9 +106,9 @@
                                 <input type="text" id="search_Input" name="keyword" placeholder="검색어를 입력하세요." autocomplete='off' {% if keyword %} value="{{ keyword }}" {% endif %}>
                                 <button type="submit" class="search_btn">검색</button>
                             </form>
-                        </div>
-                        <div class="write_btn">
-                            <a href="{% url 'community:writepage' %}" class="bt">글쓰기</a>
+                            <div class="write_btn">
+                                <a class="write_bt" href="{% url 'community:writepage' %}" >글쓰기</a>
+                            </div>
                         </div>
                     </div>
                 </div>                

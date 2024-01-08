@@ -99,9 +99,9 @@ caption {
     margin-bottom : 0px;
 }
 .detail_wrap {
-    max-width: 60%;
-    margin-left: 50px;
-    width: 100%;
+    margin: 0 90px;
+    margin-top : 30px;
+    width: calc(100% - 250px );
     display : flex;
     flex-direction: column;
 }
@@ -127,6 +127,7 @@ caption {
 .detail_wrap .detail_post {
     border-bottom: 1px solid #999;
     width: 100%;
+    position :relative;
 }
 
 .detail_wrap .detail_post dl {
@@ -292,15 +293,15 @@ caption {
 }
 
 .comment_form_wrap>form>.submit_button {
-    position :absolute;
+    position :relative;
 }
 
 .comment_form_wrap>form>.submit_button>input {
     background: none;
     border : 0;
-    position: relative;
-    top: -37px;
-    left: 803px;
+    position: absolute;
+    top: -30px;
+    right : 0;
     font-size: 16px;
     color : #c8c5c5;
 }
@@ -311,4 +312,27 @@ caption {
 
 td, th {
     caret-color: transparent; /* 커서의 깜빡임을 없앱니다. */
+}
+
+
+.update_btn a, .delete_btn input {
+    background : none;
+    border : 0;
+    text-decoration : none;
+    color : #757474;
+    position : absolute;
+    top : 0px;
+    right : 0px;
+} 
+
+.update_btn a {
+    right : 50px!important;
+}
+
+.delete_btn input{
+    top : -1px;
+}
+
+.update_btn a:hover, .delete_btn input:hover {
+    color : black;
 }
