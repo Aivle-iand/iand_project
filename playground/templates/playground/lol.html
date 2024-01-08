@@ -180,7 +180,7 @@
                                                                 <div class= "profile_prologue">{{book.prologue}}</div>
                                                             </div>
                                                             <div class= "change_voice_face">
-                                                                <form class="voice_face_form" id="voice_face_form_{{ book.id }}" data-score-url="{% url 'voice_face_change' checked_card %}" method="POST">
+                                                                <form class="voice_face_form" id="voice_face_form_{{ book.id }}" data-score-url="{% url 'voice_face_change' checked_card %}" method="POST" >
                                                                     {% csrf_token %}
                                                                         <button type="submit" class="button_voice_face"
                                                                         {% if not request.user.is_authenticated %} disabled {% endif %}>적용</button>
@@ -188,6 +188,36 @@
                                                                         <label class="face_label"><input type="checkbox" class="face_check" name='face' value="{{ book.id }}"{% if face == book.id|stringformat:"s" %}checked{% endif %}>얼굴 입히기</label>
                                                                        
                                                                 </form>
+
+                                                                <script>
+                                                                    document.addEventListener('DOMContentLoaded', function() {
+                                                                        var form = document.getElementById('voice_face_form_{{ book.id }}');
+                                                                    
+                                                                        form.addEventListener('submit', function(event) {
+                                                                            event.preventDefault();  
+                                                                    
+                                                                            var formData = new FormData(form);
+                                                                            var url = form.getAttribute('data-score-url');  
+                                                                    
+                                                                            fetch(url, {
+                                                                                method: 'POST',
+                                                                                body: formData,
+                                                                                headers: {
+                                                                                    'X-CSRFToken': '{{ csrf_token }}'
+                                                                                }
+                                                                            })
+                                                                            .then(response => response.json())
+                                                                            .then(data => {
+                                                                               
+                                                                                alert('적용이 완료되었습니다.');
+                                                                            })
+                                                                            .catch(error => {
+                                                                                console.error('Error:', error);
+                                                                                alert('적용에 실패했습니다.');
+                                                                            });
+                                                                        });
+                                                                    });
+                                                                </script>
                                                             </div>
                                                         </div>
 
@@ -198,10 +228,11 @@
                                                                         <div class=" carousel-item scene scene_{{book.id}}_{{scene.episode_number}} scene_{{scene.scene_number}}"  id="scene_{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}" >
                                                                             <div class="wrap_scene_element">
                                                                                 <div class='episode_image'
-                                                                                {% if face_change and request.user.is_authenticated %}
-                                                                                style="background-image: url('/static/playground/user/TMuD9dkOkEfHZCUjLoPo/{{face}}/face/{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}.png')"
-                                                                                {% else %}style="background-image: url('/media/{{scene.image}}');"{% endif %}
-                                                                                ></div>
+                                                                                    {% if face_change and request.user.is_authenticated %}
+                                                                                    style="background-image: url('/static/playground/user/{{ request.user.username }}/{{ book.id }}/face/{{ book.id }}_{{ scene.episode_number }}_{{ scene.scene_number }}.png')"
+                                                                                    {% else %}style="background-image: url('/media/{{ scene.image }}');"{% endif %}>
+                                                                                </div>
+                                                                                
                                                                                 <div class="human_in_scene" id="h_{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}"
                                                                                 {% if voice_change and request.user.is_authenticated %}
                                                                                 onclick="playAudio('/static/playground/user/TMuD9dkOkEfHZCUjLoPo/{{voice}}/voice/{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}.mp3')"
@@ -542,6 +573,12 @@
                 }
             }
         </script>
+
+            
+
+    
+            
+        
         {% include 'footer.html' %}
     </body>
 </html>
