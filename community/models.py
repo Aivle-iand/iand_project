@@ -26,7 +26,7 @@ class Category(models.Model):
 class Board(models.Model):
     postname = models.CharField(max_length=64, verbose_name='')
     contents = models.TextField(verbose_name='')
-    registered_date = models.DateTimeField(default=timezone.now)
+    registered_date = models.DateTimeField(default=timezone.now())
     writer = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE, verbose_name='작성자')
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE, verbose_name='게시판 목록')
     post_count = models.PositiveIntegerField(default=0)
