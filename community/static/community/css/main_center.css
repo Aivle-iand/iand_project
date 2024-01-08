@@ -100,13 +100,11 @@ div:has(> .form_control) {
 }
  
 div:has(> .select_category_box) {
-    width: 500px;
-    margin-left: 280px;
-    justify-self: center;
+    width: 300px;
     text-align: center;
-    align-items: center;
-    margin: 0 0 10px 30px!important;
+    margin: 0 0 10px 310px!important;
     font-size : 25px;
+    padding-top: 5px;
 }
  
 form#write_box {
