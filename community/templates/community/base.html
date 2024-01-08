@@ -48,19 +48,19 @@
                         <table class="board_list">
                             <caption>게시판 목록</caption>
                             <thead>
-                                <th>제목</th>
-                                <th>글쓴이</th>
-                                <th>조회수</th>
-                                <th>작성일</th>
+                                <th class="head_title">제목</th>
+                                <th class="head_writer">글쓴이</th>
+                                <th class="head_views">조회수</th>
+                                <th class="head_date">작성일</th>
                             </thead>
                             <tbody class="board_list_body">
                                 {% if post_list %}
                                     {% for list in page_obj %}
                                         <tr class="table_list">
-                                            <td><a href="{% url 'community:detail' list.id %}" class="title_length_limit">{{ list.postname }} <span style="color : red">[{{ list.comment_count }}]</span></a></td>
-                                            <td>{{ list.writer.nickname}}</td>
-                                            <td>{{ list.counter }}</td>
-                                            <td>{% if  list.registered_date|date:"Y.m.d" == now|timezone:"Asia/Seoul"|date:"Y.m.d" %}
+                                            <td class="data_title"><a href="{% url 'community:detail' list.id %}" >{{ list.postname|truncatechars:20}} <span style="color : red; font-weight:600;">{% if list.comment_count != 0 %}[{{ list.comment_count }}]{% endif %}</span></a></td>
+                                            <td class="data_writer">{{ list.writer.nickname|truncatechars:10}}</td>
+                                            <td class="data_views">{{ list.post_count }}</td>
+                                            <td class="data_date">{% if  list.registered_date|date:"Y.m.d" == now|timezone:"Asia/Seoul"|date:"Y.m.d" %}
                                                     {{ list.registered_date|date:"H:i" }}
                                                 {%else%}
                                                     {{ list.registered_date|date:"Y.m.d H:i" }}
