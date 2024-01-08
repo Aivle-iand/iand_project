@@ -46,7 +46,7 @@ def face_swap(api_key, bg_image_path, face_image_path, save_path):
 
 
 
-def text_to_speach(text_for_sound, unique_voice_id ,api_key ,voice_path ,file_name):
+def text_to_speach(text_for_sound, unique_voice_id ,api_key ,voice_save_path ,file_name):
     CHUNK_SIZE = 1024
     url = "https://api.elevenlabs.io/v1/text-to-speech/" + unique_voice_id
 
@@ -68,17 +68,18 @@ def text_to_speach(text_for_sound, unique_voice_id ,api_key ,voice_path ,file_na
     
     response = requests.post(url, json=data, headers=headers)
     
-    file_path = voice_path
+    file_path = voice_save_path
     name = file_name
     os.makedirs(file_path,exist_ok=True)
     with open(file_path+name, 'wb') as f:
         for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
             if chunk:
                 f.write(chunk)
-
-    audio = AudioSegment.from_file(file_path+name)
-    louder_audio = audio + 20 # 20dB 증가시키기
-    louder_audio.export(file_path+name, format='mp3')
+                
+    # louder_audio.export(file_path+name, format='mp3')
+    # audio = AudioSegment.from_file(file_path+name)
+    # louder_audio = audio + 20 # 20dB 증가시키기
+    # louder_audio.export(file_path+name, format='mp3')
 
 
 def index(request):
@@ -186,14 +187,12 @@ def voice_face_change(request, checked_card):
             
         context = {}
        
-        if voice_change == 1:
-            context['voice_change'] == 1
-        if face_change == 1:
-            context['face_change'] = 1  
-        else:
-            context['face_change'] = 0  
+    
+        context['voice_change'] = voice_change
+        context['face_change'] = face_change  
 
         return JsonResponse(context)
+
     
     else:
       return HttpResponse("조건에 맞지 않음", status=400)

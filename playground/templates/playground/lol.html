@@ -208,17 +208,57 @@
                                                                             })
                                                                             .then(response => response.json())
                                                                             .then(data => {
-                                                                              
-                                                                            
-                                                                                alert('적용이 완료되었습니다.');
+                                                                                var face_change = data.face_change;
+                                                                                var voice_change = data.voice_change;
+                                                                    
+                                                                                document.querySelectorAll('.wrap_scene_element').forEach(sceneElement => {
+                                                                                    var bookId = sceneElement.getAttribute('data-book-id');
+                                                                                    var username = sceneElement.getAttribute('data-username');
+                                                                                    var sceneIdParts = sceneElement.id.split('_');
+                                                                                    var episodeNum = sceneIdParts[2];
+                                                                                    var sceneNum = sceneIdParts[3];
+                                                                                    var audioIdParts = element.getAttribute('data-audio-id').split('_');
+                                                                                    var newAudioPath;
+                                                                    
+                                                                                    if (face_change) {
+                                                                                        var newImageUrl = '/static/playground/user/' + username + '/' + bookId + '/face/' + bookId + '_' + episodeNum + '_' + sceneNum + '.png';
+                                                                                        sceneElement.style.backgroundImage = 'url(' + newImageUrl + ')';
+                                                                                    } else {
+                                                                                        var originalImageUrl = '/media/' + sceneElement.getAttribute('data-original-image');
+                                                                                        sceneElement.style.backgroundImage = 'url(' + originalImageUrl + ')';
+                                                                                    }
+
+                                                                                    if (voice_change) {
+                                                                                        newAudioPath = '/static/playground/user/'+ username + '/' + bookId + '/voice/' + bookId + '_' + episodeNum + '_' + sceneNum + '.mp3';
+                                                                                    } else {
+                                                                                        newAudioPath = '/media/' + element.getAttribute('data-original-voice');
+                                                                                    }
+                                                                    
+                                                                                    element.setAttribute('onclick', "playAudio('" + newAudioPath + "')");
+                                                                                });
+                                                                            })
+                                                                    
+                                                                                
+                                                                                });
+                                                                    
+                                                                                if (face_change && voice_change) {
+                                                                                    alert('음성 및 이미지 합성이 완료 되었습니다.');
+                                                                                } else if (face_change && !voice_change) {
+                                                                                    alert('이미지 합성이 완료 되었습니다.');
+                                                                                } else if (!face_change && voice_change) {
+                                                                                    alert('음성 합성이 완료되었습니다.');
+                                                                                } else if (!face_change && !voice_change) {
+                                                                                    alert('아무 것도 체크되어있지 않습니다. 원본이 출력됩니다.');
+                                                                                }
+                                                                    
                                                                             })
                                                                             .catch(error => {
                                                                                 console.error('Error:', error);
                                                                                 alert('적용에 실패했습니다.');
                                                                             });
-                                                                        });
-                                                                    });
-                                                                </script>
+                                                                
+                                                                    </script>
+                                                                    
                                                             </div>
                                                         </div>
 
@@ -227,23 +267,33 @@
                                                                 <div class='carousel-inner scene_container'>
                                                                     {% for scene in episode %}
                                                                         <div class=" carousel-item scene scene_{{book.id}}_{{scene.episode_number}} scene_{{scene.scene_number}}"  id="scene_{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}" >
-                                                                            <div class="wrap_scene_element">
-                                                                                <div class='episode_image'
-                                                                                    {% if face_change and request.user.is_authenticated %}
-                                                                                    style="background-image: url('/static/playground/user/{{ request.user.username }}/{{ book.id }}/face/{{ book.id }}_{{ scene.episode_number }}_{{ scene.scene_number }}.png')"
-                                                                                    {% else %}style="background-image: url('/media/{{ scene.image }}');"{% endif %}>
+                                                                            <div class="wrap_scene_element" 
+                                                                                    
+                                                                                id="scene_{{ book.id }}_{{ scene.episode_number }}_{{ scene.scene_number }}" 
+                                                                                data-original-image="{{ scene.image }}"
+                                                                                data-username="{{ request.user.username }}"
+                                                                                data-book-id="{{ book.id }}"
+                                                                                style="background-image: url('/media/{{ scene.image }}');"   >
+                                                                                    
+                                                                                    
+                                                                                  
+                                                                                <div class='episode_image'>
+                                                                                </div>
+
+                                                                                <div class="human_in_scene" 
+                                                                                    id="h_{{ book.id }}_{{ scene.episode_number }}_{{ scene.scene_number }}"
+                                                                                    data-audio-id="{{ book.id }}_{{ scene.episode_number }}_{{ scene.scene_number }}"
+                                                                                    data-original-voice='{{scene.image_segment}}'
+                                                                                    onclick="playAudio('/media/{{ scene.voice }}')"  
+                                                                                    style="background-image: url('/media/{{ scene.image_segment }}'); width: {{ scene.width }}px; height: {{ scene.height }}px; top: {{ scene.y_index }}px; right: {{ scene.x_index }}px;"
+                                                                                    onmouseover="this.style.opacity = 1;" 
+                                                                                    onmouseout="this.style.opacity = 0;">
                                                                                 </div>
                                                                                 
-                                                                                <div class="human_in_scene" id="h_{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}"
-                                                                                {% if voice_change and request.user.is_authenticated %}
-                                                                                onclick="playAudio('/static/playground/user/TMuD9dkOkEfHZCUjLoPo/{{voice}}/voice/{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}.mp3')"
-                                                                                {% else %}onclick="playAudio('/media/{{scene.voice}}')"{% endif %}
-                                                                                style="background-image: url('/media/{{scene.image_segment}}'); width : {{ scene.width }}px; height : {{ scene.height }}px; top : {{ scene.y_index }}px; right : {{ scene.x_index }}px;"
-                                                                                onmouseover = "this.style.opacity = 1;" onmouseout = "this.style.opacity = 0;">                          
-                                                                                </div>
                                                                                 <div class='episode_scene_num'>
                                                                                     {{scene.scene_number}}/4
                                                                                 </div>
+                                                                                
                                                                             </div>
                                                                         </div>
                                                                     {% endfor %}
@@ -536,7 +586,8 @@
         </script>
             
         <script>
-            var audio = new Audio(audioFile);;
+            var audio = new Audio(audioFile);
+            console.log(456)
             function playAudio(audioFile) {
 
                 if (audio && !audio.paused) {
@@ -560,6 +611,8 @@
         
         <script>
             var audioPath = {{user_voice}};
+            console.log(333)
+            console.log({{user_voice}})
         
             for (var i = 1; i <= 3; i++) {
                 for (var j = 1; j <= 4; j++) {
@@ -574,10 +627,6 @@
                 }
             }
         </script>
-
-            
-
-    
             
         
         {% include 'footer.html' %}
