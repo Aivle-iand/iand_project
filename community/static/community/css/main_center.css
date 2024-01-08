@@ -192,3 +192,20 @@ th.head_date {
     right : 0;
     top : 10px;
 }
+
+.finish_modify{
+    position : relative;
+}
+ 
+.finish_modify input {
+    position : absolute;
+    right : 0;
+    border : 2px solid black;
+}
+
+.update_form input[type="text"] {
+    height: 50px;
+    width: 600px!important;
+    margin: 0 0 10px 0!important;
+    font-size : 25px;
+}

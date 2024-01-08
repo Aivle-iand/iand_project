@@ -9,16 +9,24 @@ class PostForm(forms.ModelForm):
         widgets = {
             'postname': TextInput(
                 attrs={
-                    'class': 'form_control', 
-                    'style': 'width: 300px; margin-bottom: 10px; dispalt',
+                    'class': 'form_control',
+                    'style': 'width: 300px; margin-bottom: 10px;',
                     'placeholder': '제목을 입력하세요.',
                     }),
-            
-                'category': Select(
-                    attrs={'class':'select_category_box',
-                           }),
+           
+            'category': Select(
+                attrs={'class':'select_category_box',
+                        }),
+           
+            'contents' : forms.Textarea(
+                attrs = {
+                    'placeholder' : "본문 내용을 입력하세요. ",
+                    'style' : 'font-size : 18px;',
+                }
+            )
+           
         }
-    
+   
 class PostUpdate(forms.ModelForm):
     class Meta:
         model = Board
@@ -26,15 +34,15 @@ class PostUpdate(forms.ModelForm):
         widgets = {
             'postname': TextInput(
                 attrs={
-                    'class': 'form_control', 
-                    'style': 'width: 300px; margin-bottom: 10px;',
+                    'class': 'form_control',
+                    'style': 'width: 300px; margin-bottom: 10px; dispalt',
                     }),
-            
+           
                 'category': Select(
                     attrs={'class':'select_category_box',
                            }),
         }
-
+ 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
