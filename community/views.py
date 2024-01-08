@@ -113,7 +113,7 @@ def detail(request, pk):
             if request.user == detail.writer:
                 detail.delete()
                 return redirect('/community/'+category)
-            return redirect(reverse('community:detail', args=[pk]))
+            return redirect('community:detail')
     else:
         return render(request, 'community/detail.html', context)
 
@@ -163,3 +163,4 @@ def is_super(request):
     }
     
     return JsonResponse(context)
+    
