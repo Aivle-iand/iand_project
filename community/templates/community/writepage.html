@@ -1,3 +1,4 @@
+
 {% load static %}
 <!doctype html>
 <html lang="ko">
@@ -22,21 +23,19 @@
             </div>
             <div class="main_center">
                 <div class="div_center">
-                    <div class="side_center">   
-                        <!-- <div class="board_div" id="all">
-                            <a href="/community/">- 전체 게시글</a>
-                        </div> -->
+                    <div class="side_center">  
                         {% for cate in links %}
                             <div class="board_div"><a href="{{ cate.get_url }}">- {{ cate.name }}</a></div>
                         {% endfor %}
                     </div>
                     <div class="board_write_wrap">
-                        <p class="write_title">새 글 작성</p>
+                        <p class="write_title">게시판 글 쓰기</p>
+                        <hr>
                         <form method="POST" id="write_box" class="wb_form" action="{% url 'community:writepage' %}">
                             {% csrf_token %}
                             {{ form }}
                             <div class="submit_btn">
-                                <input type="submit" value="완료">
+                                <input type="submit" value="등록">
                             </div>
                         </form>
                     </div>
