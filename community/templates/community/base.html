@@ -61,12 +61,7 @@
                                             <td class="data_title"><a href="{% url 'community:detail' list.id %}" >{{ list.postname|truncatechars:30}} <span style="color : red; font-weight:600;">{% if list.comment_count != 0 %}[{{ list.comment_count }}]{% endif %}</span></a></td>
                                             <td class="data_writer">{{ list.writer.nickname|truncatechars:10}}</td>
                                             <td class="data_views">{{ list.post_count }}</td>
-                                            <!-- <td class="data_date">{% if  list.registered_date|date:"Y.m.d" == now|timezone:"Asia/Seoul"|date:"Y.m.d" %}
-                                                    {{ list.registered_date|date:"H:i" }}
-                                                {%else%}
-                                                    {{ list.registered_date|date:"Y.m.d H:i" }}
-                                                {% endif %}</td> -->
-                                                <td class="data_date">{{ list.registered_date|custom_date_format }}</td>
+                                            <td class="data_date">{{ list.registered_date|custom_date_format }}</td>
  
                                         </tr>
                                     {% endfor %}            
