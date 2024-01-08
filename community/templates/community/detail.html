@@ -1,5 +1,6 @@
 {% load static %}
 {% load tz %}
+{% load custom_filter %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,7 +20,7 @@
         </div>
         <div class="main_center">
             <div class="div_center">
-                <div class="side_center">  
+                <div class="side_center">   
                     {% for cate in links %}
                         <div class="board_div"><a href="{{ cate.get_url }}">- {{ cate.name }}</a></div>
                     {% endfor %}
@@ -51,7 +52,7 @@
                                         </div>
                                     </dl>
                                 {% endif %}
- 
+
                             </div>
                             <div class="detail_contents">
                                 <div class="post_content">
@@ -60,7 +61,7 @@
                                 <div class="in_post_bottom_wrap">
                                     <div class="left_post_bottom">
                                         <div>댓글 수 {{comments|length}}</div>
-                                       
+                                        
                                     </div>
                                     <div class="right_post_bottom">
                                         <div><a href="./" class="to_board">새로고침</a></div>
@@ -68,23 +69,12 @@
                                         <div><button onclick="scrollToElement('position_comment')">댓글쓰기</button></div>
                                     </div>
                                 </div>
-                            </div>      
- 
+                            </div>       
+
                             <div class="detail_btn">
-                               
-                                {% if detail.writer == request.user %}
-                                    <div class="update_btn">
-                                        <a href="{% url 'community:update' detail.id%}" class="bt">수정</a>
-                                    </div>
-                                    <div class="delete_btn">
-                                        <form action="{% url 'community:detail' detail.id %}" method="POST">
-                                            {% csrf_token %}
-                                            <input type="submit" value="삭제">
-                                        </form>
-                                    </div>
-                                {% endif %}
+                                
                                 <div class="comment_list_wrap">
-                                   
+                                    
                                     <h4>댓글</h4>
                                     <!--read-->
                                     <ul class="comment_list">
@@ -99,7 +89,7 @@
                                                     </div>
                                                     <div class="comment_when">
                                                         {{comment.created}}
- 
+
                                                         {% if user == comment.user %}
                                                         <form action="{% url 'community:comments_delete' detail.pk comment.pk %}" method="POST" class="d-inline">
                                                         {% csrf_token %}
@@ -108,16 +98,16 @@
                                                     {% endif %}
                                                     </div>
                                                     <!--delete-->
-                                                   
+                                                    
                                                     <hr>
                                                 </div>
                                             </li>
-                                       
+                                        
                                         {% endfor %}
                                     </ul>
                                     <div id="position_comment"></div>
                                     <!--create-->
- 
+
                                     {% if request.user.is_authenticated %}
                                         <div class="comment_form_wrap">
                                             <div class="comment_in_nick">{{user.nickname}}</div>
@@ -137,20 +127,20 @@
                                 </div>
                             </div>
                         </div>
-                   
+                    
                     <div class="last_button_wrap">
                         <div><button onclick="scrollToElement('main_top_b')">TOP</button></div>
                         <div><a href="/community/" class="to_board">목록가기</a></div>
                     </div>
                 </div>
-            </div>    
+            </div>     
         </main>
         {% include 'footer.html' %}
- 
+
         <script>
             function scrollToElement(elementId) {
             var targetElement = document.getElementById(elementId);
-       
+        
             if (targetElement) {
                 targetElement.scrollIntoView({
                 behavior: 'smooth'
@@ -160,6 +150,6 @@
             }
             }
         </script>
- 
+
 </body>
 </html>
