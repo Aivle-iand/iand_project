@@ -1,4 +1,5 @@
 {% load static %}
+{% load tz %}
 <!doctype html>
 <html lang="ko">
     <head>
@@ -47,19 +48,24 @@
                         <table class="board_list">
                             <caption>게시판 목록</caption>
                             <thead>
-                                <th>번호</th>
                                 <th>제목</th>
                                 <th>글쓴이</th>
+                                <th>조회수</th>
                                 <th>작성일</th>
                             </thead>
                             <tbody class="board_list_body">
                                 {% if post_list %}
                                     {% for list in page_obj %}
                                         <tr class="table_list">
-                                            <td>{{ list.id }}</td>
                                             <td><a href="{% url 'community:detail' list.id %}" class="title_length_limit">{{ list.postname }} <span style="color : red">[{{ list.comment_count }}]</span></a></td>
                                             <td>{{ list.writer.nickname}}</td>
-                                            <td>{{ list.registered_date }}</td>
+                                            <td>{{ list.counter }}</td>
+                                            <td>{% if  list.registered_date|date:"Y.m.d" == now|timezone:"Asia/Seoul"|date:"Y.m.d" %}
+                                                    {{ list.registered_date|date:"H:i" }}
+                                                {%else%}
+                                                    {{ list.registered_date|date:"Y.m.d H:i" }}
+                                                {% endif %}</td>
+
                                         </tr>
                                     {% endfor %}            
                                 {% else %}
