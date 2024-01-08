@@ -309,3 +309,6 @@ caption {
     color : black;
 }
 
+td, th {
+    caret-color: transparent; /* 커서의 깜빡임을 없앱니다. */
+}
