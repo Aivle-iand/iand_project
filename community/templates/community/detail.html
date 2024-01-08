@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="right_post_bottom">
                                         <div><a href="./" class="to_board">새로고침</a></div>
-                                        <div><a href="/community/"+{{detail.category}} class="to_board">목록가기</a></div>
+                                        <div><a href="{% url 'community:post_by_category' c_slug=detail.category.slug %}" class="to_board">목록가기</a></div>
                                         <div><button onclick="scrollToElement('position_comment')">댓글쓰기</button></div>
                                     </div>
                                 </div>

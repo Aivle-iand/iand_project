@@ -112,7 +112,7 @@ def detail(request, pk):
         if request.user.is_authenticated:
             if request.user == detail.writer:
                 detail.delete()
-                return redirect('/community/'+category)
+                return redirect('community:post_by_category', c_slug=category)
             return redirect('community:detail')
     else:
         return render(request, 'community/detail.html', context)
