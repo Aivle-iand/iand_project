@@ -41,6 +41,7 @@
     border-right : 3px solid rgb(242, 242, 242);
     min-width: 300px;
     padding-top: 50px;
+    caret-color: transparent; /* 커서의 깜빡임을 없앱니다. */
 }
 
 .side_center div {
