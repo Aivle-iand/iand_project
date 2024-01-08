@@ -1,3 +1,4 @@
+
 {% load static %}
 {% load tz %}
 {% load custom_filter %}
@@ -16,7 +17,7 @@
                 font-weight: 800;
                 src: url("/static/fonts/AppleSDGothicNeoEB.ttf") format("truetype");
             }
-            
+           
             body {
                 font-family: AppleSDGothicNeo;
                 background-color: white;
@@ -26,7 +27,7 @@
                 font-size: 22px;
             }
         </style>
-        
+       
     </head>
     <body>
         {% include 'header.html'%}
@@ -37,7 +38,7 @@
             </div>
             <div class="main_center">
                 <div class="div_center">
-                    <div class="side_center">   
+                    <div class="side_center">  
                         <!-- <div class="board_div" id="all">
                             <a href="/community/">- 전체 게시글</a>
                         </div> -->
@@ -65,8 +66,8 @@
                                                 {%else%}
                                                     {{ list.registered_date|date:"Y.m.d H:i" }}
                                                 {% endif %}</td> -->
-                                            <td class="data_date">{{ list.registered_date|custom_date_format }}</td>
-
+                                                <td class="data_date">{{ list.registered_date|custom_date_format }}</td>
+ 
                                         </tr>
                                     {% endfor %}            
                                 {% else %}
@@ -82,7 +83,7 @@
                                 {% if page_obj.has_previous %}
                                 <li style="margin:3px;"><a style="text-decoration:none; color:blue;" href="?page={{page_obj.previous_page_number}}">&#10094; Prev</a></li>
                                 {% endif %}
-                                
+                               
                                 {% for page in paginator.page_range %}
                                 {% if page == page_obj.number %}
                                     <li style="margin:3px;"><a style="text-decoration:none; color:#000;" href="?page={{page}}">{{page}}</a></li>
@@ -90,7 +91,7 @@
                                     <li style="margin:3px;"><a style="text-decoration:none; color:blue;" href="?page={{page}}">{{page}}</a></li>
                                 {% endif %}
                                 {% endfor %}
-
+ 
                                 {% if page_obj.has_next %}
                                 <li style="margin:3px;"><a style="text-decoration:none; color:blue;" href="?page={{page_obj.next_page_number}}">&#10095; Next</a></li>
                                 {% endif %}
@@ -116,4 +117,5 @@
         </main>
         {% include 'footer.html' %}
     </body>
-</html> 
+</html>
+ 
