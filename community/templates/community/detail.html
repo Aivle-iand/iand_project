@@ -36,6 +36,22 @@
                                         {{ detail.registered_date|date:"Y.m.d H:i" }}
                                     {% endif %}</dd></dl>
                                 <dl><dt>조회수:</dt><dd>{{ detail.post_count }}</dd></dl>
+                                {% if detail.writer == request.user %}
+                                    <dl>
+                                        <div class="update_btn">
+                                            <a href="{% url 'community:update' detail.id%}" class="bt">수정</a>
+                                        </div>
+                                    </dl>
+                                    <dl>
+                                        <div class="delete_btn">
+                                            <form action="{% url 'community:detail' detail.id %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="submit" value="삭제">
+                                            </form>
+                                        </div>
+                                    </dl>
+                                {% endif %}
+
                             </div>
                             <div class="detail_contents">
                                 <div class="post_content">
@@ -56,17 +72,6 @@
 
                             <div class="detail_btn">
                                 
-                                {% if detail.writer == request.user %}
-                                    <div class="update_btn">
-                                        <a href="{% url 'community:update' detail.id%}" class="bt">수정</a>
-                                    </div>
-                                    <div class="delete_btn">
-                                        <form action="{% url 'community:detail' detail.id %}" method="POST">
-                                            {% csrf_token %}
-                                            <input type="submit" value="삭제">
-                                        </form>
-                                    </div>
-                                {% endif %}
                                 <div class="comment_list_wrap">
                                     
                                     <h4>댓글</h4>

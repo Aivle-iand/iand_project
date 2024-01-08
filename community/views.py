@@ -19,7 +19,7 @@ def writepage(request):
             post = form.save(commit=False)
             post.writer = request.user
             post.save()
-            return redirect('/community/', post.id)
+            return redirect('/community/announcement', post.id)
     else:
         form = PostForm()
         return render(request, 'community/writepage.html', {'form':form})

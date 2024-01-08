@@ -8,9 +8,9 @@ register = template.Library()
 @register.filter(name='custom_date_format')
 def custom_date_format(value):
     now = timezone.localtime(timezone.now())
-    delta = now - value
 
-    if delta < timedelta(days=1):
+
+    if value.day == now.day:
         return f"{value.hour:02d}:{value.minute:02d}"
     else:
         return date(value, "Y-m-d")

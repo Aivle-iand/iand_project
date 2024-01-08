@@ -10,7 +10,8 @@
 
 .main_top {
     height : 300px;
-    width : 100%;
+    width : 1270px;
+    min-width: 100%;
     background-image : url('/static/community/img/community_bg.png');
     background-repeat : no-repeat;
     background-size : cover;
@@ -60,6 +61,7 @@
 }
 
 /* 사이드 밑줄 없애기 */
+.write_btn a,
 .board_list a,
 .board_div > a {
     text-decoration: none;
@@ -123,14 +125,27 @@ form > div {
 
 /* 게시글 목록 간격 고정 */
 th.head_title {
-    min-width: 350px;
+    min-width: 570px;
 }
 th.head_writer {
-    min-width: 180px;
+    min-width: 150px;
 }
 th.head_views {
-    min-width: 100px;
+    min-width: 80px;
 }
 th.head_date {
-    min-width: 200px;
+    min-width: 100px;
+}
+
+.btm_bar {
+    display : flex;
+    position : relative;
+    justify-content: center;
+    align-items: center;
+}
+ 
+.write_btn{
+    position : absolute;
+    right : 0;
+    color: burlywood;
 }
