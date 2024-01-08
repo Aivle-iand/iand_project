@@ -29,12 +29,16 @@ class Board(models.Model):
     registered_date = models.DateTimeField(auto_now_add=True)
     writer = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE, verbose_name='작성자')
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE, verbose_name='게시판 목록')
+    post_count = models.PositiveIntegerField(default=0)
     
     # 게시글의 제목(postname)이 Post object 대신하기
     def __str__(self):
         return self.postname
     def comment_count(self):
         return Comment.objects.filter(post=self).count()
+    def counter(self):
+        self.post_count = self.post_count + 1
+        self.save() 
     class Meta:
         db_table = "community_board"
         verbose_name = "게시물"

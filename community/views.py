@@ -34,6 +34,7 @@ def categoryView(request, c_slug=None):
     else:
         post_list = Board.objects.all().order_by('-id')
     post_list = post_list.prefetch_related('comments')
+    
     if search_field == '0':
         post_list = post_list.filter(postname__icontains = keyword)
     else:
@@ -85,6 +86,7 @@ def detail(request, pk):
     detail = get_object_or_404(Board, pk=pk)
     comment_form = CommentForm()
     comments = detail.comments.all()
+    detail.counter()
     context = {
         'detail':detail,
         'comment_form':comment_form,
