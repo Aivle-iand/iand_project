@@ -6,9 +6,10 @@ register = template.Library()
 
 @register.filter(name='custom_date_format')
 def custom_date_format(value):
-    now = value.astimezone(timezone.pytz.timezone('Asia/Seoul'))
+    now = timezone.localtime(value, timezone=timezone.pytz.timezone('Asia/Seoul'))
 
-    if value.day == now.day:
-        return f"{value.hour:02d}:{value.minute:02d}"
+    if isinstance:
+        now = timezone.localtime(value, timezone=timezone.pytz.timezone('Asia/Seoul'))
+        return now.strftime('%H:%M')
     else:
         return date(value, "Y-m-d H:i")
