@@ -6,6 +6,11 @@ window.onload = app();
 
 const userInfo = {};
 let stream = null;
+let stopWatch = null;
+let isCount = false;
+let time = null;
+let mediaRecorder = null;
+let audioChunks = [];
 
 document.addEventListener("DOMContentLoaded", function () {
   const navigationLinks = document.querySelectorAll(
@@ -77,6 +82,7 @@ const openModal = (event) => {
   const modal = document.querySelector('div.modal');
   const modal_content = document.querySelector('div.modal_content');
   const id = event.target.id;
+  modal_content.innerHTML = '';
   drawTool[id](modal_content, modal);
 }
 
@@ -112,9 +118,41 @@ const faceCapture = async (event) => {
 };
 
 const drawCapture = async (content, modal) => {
-  const videoElement = document.getElementById("videoElement");
-  const canvas = document.getElementById("canvas");
-  const directions = document.getElementById("directions");
+  const modalContentMain = document.createElement('div');
+  modalContentMain.setAttribute('class', 'modal_content_main');
+  content.appendChild(modalContentMain);
+
+  const videoElement = document.createElement('video');
+  videoElement.setAttribute('id', 'videoElement');
+  videoElement.setAttribute('height', '420');
+  videoElement.setAttribute('width', '640');
+  videoElement.setAttribute('autoplay', 'true');
+  modalContentMain.appendChild(videoElement);
+
+  const canvas = document.createElement('canvas');
+  canvas.setAttribute('id', 'canvas');
+  canvas.setAttribute('height', '420');
+  canvas.setAttribute('width', '640');
+  modalContentMain.appendChild(canvas);
+
+  const directions = document.createElement('p');
+  directions.setAttribute('class', 'directions');
+  modalContentMain.appendChild(directions);
+
+  const modalContentFooter = document.createElement('div');
+  modalContentFooter.setAttribute('class', 'modal_content_footer');
+  content.appendChild(modalContentFooter);
+
+  const captureBtn = document.createElement('div');
+  captureBtn.setAttribute('class', 'capture-btn');
+  captureBtn.setAttribute('onclick', 'faceCapture(event)');
+  modalContentFooter.appendChild(captureBtn);
+
+  const captureImg = document.createElement('img');
+  captureImg.setAttribute('class', 'capture-img');
+  captureImg.setAttribute('src', '/static/mypage/img/capture.png');
+  captureBtn.appendChild(captureImg);
+
   const ctx = canvas.getContext("2d");
   const modelPromise = ort.InferenceSession.create("https://raw.githubusercontent.com/Gichang404/models/master/yolov8n_onnx/face_detect.onnx");
 
@@ -291,8 +329,150 @@ const drawCapture = async (content, modal) => {
   const yolo_classes = ["normal", "abnormal"];
 };
 
-const drawRecord = (content) => {
-  alert('추후 개발될 기능입니다.')
+const onClickRecording = async (event) => {
+  const playTime = document.querySelector('span#play_time');
+  const playBtn = document.querySelector('img#play_btn');
+  if (!isCount) {
+    isCount = true;
+    if (time) {
+      playTime.textContent = '00:00';
+      time = 0;
+    }
+    stopWatch = setInterval(() => {
+      time += 1;
+      const min = Math.floor((time % 3600 ) / 60).toString().padStart(2, '0');
+      const sec = (time % 60).toString().padStart(2, '0');
+      console.log(`${min}:${sec}`)
+      playTime.textContent = `${min}:${sec}`
+    }, 1000);
+    playBtn.setAttribute('src', '/static/mypage/img/stop-circle.png')
+
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorder = new MediaRecorder(stream);
+    
+    // 데이터가 사용 가능할 때마다 새로운 청크를 audioChunks 배열에 추가
+    mediaRecorder.addEventListener('dataavailable', event => {
+      audioChunks.push(event.data);
+    });
+
+    // 녹음이 중지되면 Blob 객체를 생성하고 오디오 요소의 소스로 설정
+    mediaRecorder.addEventListener('stop', () => {
+      const audioBlob = new Blob(audioChunks);
+      userInfo['audio_upload'] = audioBlob;
+      audioChunks = [];
+    });
+
+    mediaRecorder.start();
+  } else {
+    isCount = false;
+    clearInterval(stopWatch);
+    playBtn.setAttribute('src', '/static/mypage/img/play-circle.png')
+    mediaRecorder.stop();
+  }
+}
+
+const onClickCompleteRecording = (event) => {
+  const playBtn = document.querySelector('img#play_btn');
+  const playTime = document.querySelector('span#play_time');
+  console.log('isStart')
+  isCount = false;
+  time = 0;
+  clearInterval(stopWatch);
+  playTime.textContent = '00:00';
+  playBtn.setAttribute('src', '/static/mypage/img/play-circle.png')
+  mediaRecorder.stop();
+
+  const modal = document.querySelector('div.modal');
+  const audioPreview = document.getElementById('audioPreview');
+  const audioUrl = URL.createObjectURL(userInfo['audio_upload']);
+  audioPreview.src = audioUrl;
+
+  document.getElementById('audio_name').textContent = `File Name : recording_voice.mp3`;
+  document.getElementById('audio_msg').textContent = '클릭하여 음을파일을 변경하거나';
+  document.getElementById('playIcon').style = 'filter: invert(86%) sepia(0%) saturate(0%) hue-rotate(275deg) brightness(86%) contrast(91%); cursor: pointer;'
+  modal.classList.add('hidden');
+  console.log('isEnd')
+}
+
+const drawRecord = (content, modal) => {
+  modal.classList.remove('hidden');
+  const modalContentMainAudio = document.createElement('div');
+  modalContentMainAudio.setAttribute('class', 'modal_content_main audio');
+
+  const scriptWrapper = document.createElement('div');
+  scriptWrapper.setAttribute('class', 'script_wrapper');
+  modalContentMainAudio.appendChild(scriptWrapper);
+
+  const p = document.createElement('p');
+  p.innerHTML = `그렇게 우리는 매 순간 물의 여정과 함께하고
+  있습니다. <br>우리의 몸과 영혼을 유지하는 이 물은,
+  우리가 매일 마시고 사용하는 것 이상의 의미를
+  가집니다. <br>그것은 고대부터 현대에 이르기까지,
+  문명의 발전과 함께해왔으며, 우리의 역사와 문화
+  속에 깊이 자리 잡고 있지요. <br>또한, 물은 우리가
+  누리는 자연의 아름다움을 통해 우리에게 삶의
+  기쁨을 선사합니다. <br>맑은 강물을 따라 흐르는
+  산책길, 빗방울이 촉촉이 내리는 정원, 그리고 푸른
+  바다가 펼쳐지는 해변은 모두 물이 있기에 가능한
+  풍경들입니다.<br> 그러나 이러한 풍경을 후대에도
+  그대로 물려줄 수 있을지는 오늘 우리의 선택에
+  달려 있습니다.<br> 물 절약과 환경 보호는 이제 선택이
+  아닌 필수가 되었고, 이는 각 개인의 작은 실천에서
+  시작됩니다.<br> 물을 아끼는 일, 오염을 줄이는 노력,
+  그리고 지속 가능한 사용은 모두 우리 삶의 질을
+  향상시키는 중요한 행동입니다. <br>지금 이 순간에도
+  세계 곳곳에서는 물 부족으로 고통받는 사람들이
+  있습니다.<br> 깨끗한 물이 충분하지 않아 질병에
+  시달리고, 삶의 질이 떨어지는 이들에게 우리의
+  작은 실천 하나하나가 큰 변화를 가져올 수
+  있습니다. <br>우리가 당연하게 여기는 한 잔의 물이,
+  다른 누군가에겐 소중한 선물이 될 수 있음을 잊지
+  말아야 합니다.<br> 이제 우리는 물의 여정을 더 깊이
+  이해하고, 그 가치를 존중하는 삶을 살아갈 준비가
+  되었습니다. <br>물 한 방울에 담긴 생명의 소중함을
+  기억하며, 이 지구를 아름답게 가꾸어 가는 데
+  앞장서야 할 때입니다.<br> 물의 여정이 끝나지 않는
+  한, 우리의 여정도 계속됩니다.<br> 자연과 더불어
+  조화롭게 살아가는 삶, 그것이 바로 우리가 꿈꾸는
+  미래이자, 우리가 지향해야 할 지속 가능한 삶의
+  방식입니다. <br>물이 주는 교훈을 가슴에 새기며,
+  오늘도 우리는 물과 함께 흐르는 삶을 살아갑니다.<br>
+  지구상의 모든 생명과 함께하는 이 물의 여정에
+  동행하면서, 우리 모두는 더 나은 내일을 향해 한
+  걸음 한 걸음 나아갈 것입니다. <br> 그렇게, 물과
+  함께하는 여정은 영원히 계속됩니다.`
+  scriptWrapper.appendChild(p);
+
+  content.appendChild(modalContentMainAudio);
+
+  const modalContentFooterAudio = document.createElement('div');
+  modalContentFooterAudio.setAttribute('class', 'modal_content_footer audio');
+  
+  const playWrapper = document.createElement('div');
+  playWrapper.setAttribute('class', 'play_wrapper');
+  modalContentFooterAudio.appendChild(playWrapper);
+              
+  const playBtn = document.createElement('img');
+  playBtn.setAttribute('id', 'play_btn');
+  playBtn.setAttribute('src', '/static/mypage/img/play-circle.png');
+  playBtn.setAttribute('onclick', 'onClickRecording(event)');
+  playWrapper.appendChild(playBtn);
+
+  const playTime = document.createElement('span');
+  playTime.setAttribute('id', 'play_time');
+  playTime.textContent = '00:00';
+  playWrapper.appendChild(playTime);
+
+  const div = document.createElement('div');
+  const saveButton = document.createElement('button');
+  saveButton.textContent = '적용하기';
+  saveButton.setAttribute('class', 'save_button');
+  saveButton.setAttribute('id', 'record_save');
+  saveButton.setAttribute('onclick', 'onClickCompleteRecording(event)');
+  div.appendChild(saveButton);
+
+  modalContentFooterAudio.appendChild(div);
+  content.appendChild(modalContentFooterAudio);
 };
 
 //-----------------------
@@ -304,8 +484,13 @@ const onClickInputWrapper = (e) => {
   const span = document.querySelector(`span.input-label#${id}`);
   const input = document.querySelector(`input.type-input#${id}`);
 
-  label.style.display = "none";
-  span.style.display = "block";
+  if (label) {
+    label.style.display = "none";
+  }
+
+  if (span) {
+    span.style.display = "block";
+  }
   input.style.position = "relative";
   input.style.bottom = "13px";
   input.focus();
@@ -452,13 +637,23 @@ const onloadeddataFile = (event) => {
   }
 }
 
+let isPlaying = false;
 const onclickPlayIcon = (event) => {
   event.stopPropagation();
   event.preventDefault();
   const audioPreview = document.getElementById('audioPreview');
-  if (audioPreview.src) {
-      audioPreview.play();
+  const playIcon = document.querySelector('img#playIcon');
+
+  if (!isPlaying && audioPreview.src) {
+    audioPreview.play();
+    playIcon.setAttribute('src', '/static/mypage/img/stop-circle.svg')
+    isPlaying = true;
+  } else {
+    audioPreview.pause();
+    playIcon.setAttribute('src', '/static/mypage/img/play-circle.svg')
+    isPlaying = false;
   }
+  
 }
 
 const onDragOverUpload = (event) => {
@@ -568,141 +763,14 @@ document.addEventListener("DOMContentLoaded", function () {
   let newpassError = true;
   const passwordSaveButton = document.getElementById("pwd-change-button");
 
-  passwordCurrentInput.addEventListener("input", function () {
-    let curPassword = this.value;
-    let password_cur_container = document.querySelector(
-      "div.input_container#cur-pwd"
-    );
-
-    fetch("/mypage/mypage_temp/check-current-password", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ cur_password: curPassword }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.match) {
-          curpassError = false;
-          password_cur_container.style.border = "1px solid #4df4d3";
-          passChk.style.color = "#4df4d3";
-          passChk.innerHTML = "비밀번호가 일치합니다.";
-        } else {
-          curpassError = true;
-          password_cur_container.style.border = "1px solid #d953e5";
-          passChk.style.color = "#d953e5";
-          passChk.innerHTML = "비밀번호가 일치하지 않습니다.";
-        }
-      });
-  });
-
-  passwordCurrentInput.addEventListener("focus", function () {
-    curpassHelp.style.display = "block";
-    passHelp.style.display = "none";
-    chkpassHelp.style.display = "none";
-  });
-
-  // input에 focus 되었을 때
-  passwordInput.addEventListener("focus", function () {
-    curpassHelp.style.display = "none";
-    passHelp.style.display = "block";
-    chkpassHelp.style.display = "none";
-  });
-
-  passwordCheckInput.addEventListener("focus", function () {
-    curpassHelp.style.display = "none";
-    passHelp.style.display = "none";
-    chkpassHelp.style.display = "block";
-  });
-
-  passwordCheckInput.addEventListener("blur", function () {
-    let password = passwordInput.value;
-    let password_chk = passwordCheckInput.value;
-    if (password_chk === "" && password === "") {
-      chkpassHelp.style.display = "none";
-    }
-  });
-
-  passwordCheckInput.addEventListener("input", function () {
-    let password = passwordInput.value;
-    let password_chk = passwordCheckInput.value;
-    let password_chk_container = document.querySelector(
-      "div.input_container#chk-pwd"
-    );
-    if (password_chk === "") {
-      password_chk_container.style.border = "";
-    } else {
-      if (password_chk === password) {
-        chkpassHelp.style.color = "#4df4d3";
-        chkpassHelp.innerHTML = "비밀번호가 일치합니다.";
-        password_chk_container.style.border = "1px solid #4df4d3";
-        newpassError = false;
-      } else {
-        chkpassHelp.style.color = "#d953e5";
-        chkpassHelp.innerHTML = "비밀번호가 일치하지 않습니다.";
-        password_chk_container.style.border = "1px solid #d953e5";
-        newpassError = true;
-      }
-    }
-  });
-  // input에 입력되는 내용 확인
-  passwordInput.addEventListener("input", function () {
-    let password = passwordInput.value;
-    let password_chk = passwordCheckInput.value;
-    var lengthCheck = password.length >= 8 && password.length <= 16;
-    var specialCharCheck = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(
-      password
-    );
-    let password_container = document.querySelector(
-      "div.input_container#new-pwd"
-    );
-    let password_chk_container = document.querySelector(
-      "div.input_container#chk-pwd"
-    );
-
-    // 비밀번호 길이 검사
-    if (lengthCheck) {
-      passLen.style.color = "#4df4d3";
-    } else {
-      passLen.style.color = "#d953e5";
-    }
-
-    // 특수 문자 포함 검사
-    if (specialCharCheck) {
-      passInit.style.color = "#4df4d3";
-    } else {
-      passInit.style.color = "#d953e5";
-    }
-
-    if (lengthCheck && specialCharCheck) {
-      password_container.style.border = "1px solid #4df4d3";
-      chkpassError = false;
-    } else {
-      password_container.style.border = "1px solid #d953e5";
-      chkpassError = true;
-    }
-    if (password_chk === "") {
-      password_chk_container.style.border = "";
-    } else {
-      if (password == password_chk) {
-        password_chk_container.style.border = "1px solid #4df4d3";
-        chkpassHelp.innerHTML = "비밀번호가 일치합니다.";
-        chkpassHelp.style.color = "#4df4d3";
-        newpassError = false;
-      } else {
-        password_chk_container.style.border = "1px solid #d953e5";
-        chkpassHelp.innerHTML = "비밀번호가 일치하지 않습니다.";
-        chkpassHelp.style.color = "#d953e5";
-        newpassError = true;
-      }
-    }
-  });
-
-  passwordSaveButton.addEventListener("click", function () {
-    curPassword = passwordInput.value;
-    if (!curpassError && !newpassError && !chkpassError) {
-      fetch("/mypage/mypage_temp/change_password", {
+  if (passwordCurrentInput) {
+    passwordCurrentInput.addEventListener("input", function () {
+      let curPassword = this.value;
+      let password_cur_container = document.querySelector(
+        "div.input_container#cur-pwd"
+      );
+  
+      fetch("/mypage/mypage_temp/check-current-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -711,13 +779,157 @@ document.addEventListener("DOMContentLoaded", function () {
       })
         .then((response) => response.json())
         .then((data) => {
-          alert(data.message);
-          window.location.reload();
+          if (data.match) {
+            curpassError = false;
+            password_cur_container.style.border = "1px solid #4df4d3";
+            passChk.style.color = "#4df4d3";
+            passChk.innerHTML = "비밀번호가 일치합니다.";
+          } else {
+            curpassError = true;
+            password_cur_container.style.border = "1px solid #d953e5";
+            passChk.style.color = "#d953e5";
+            passChk.innerHTML = "비밀번호가 일치하지 않습니다.";
+          }
         });
-    } else {
-      alert("입력된 필드를 확인하세요.");
-    }
-  });
+    });
+  }
+
+  if (passwordCurrentInput) {
+    passwordCurrentInput.addEventListener("focus", function () {
+      curpassHelp.style.display = "block";
+      passHelp.style.display = "none";
+      chkpassHelp.style.display = "none";
+    });
+  }
+
+  // input에 focus 되었을 때
+  if (passwordInput) {
+    passwordInput.addEventListener("focus", function () {
+      curpassHelp.style.display = "none";
+      passHelp.style.display = "block";
+      chkpassHelp.style.display = "none";
+    });
+  }
+
+  if(passwordCheckInput) {
+    passwordCheckInput.addEventListener("focus", function () {
+      curpassHelp.style.display = "none";
+      passHelp.style.display = "none";
+      chkpassHelp.style.display = "block";
+    });
+  }
+
+  if(passwordCheckInput) {
+    passwordCheckInput.addEventListener("blur", function () {
+      let password = passwordInput.value;
+      let password_chk = passwordCheckInput.value;
+      if (password_chk === "" && password === "") {
+        chkpassHelp.style.display = "none";
+      }
+    });
+  }
+
+  if (passwordCheckInput) {
+    passwordCheckInput.addEventListener("input", function () {
+      let password = passwordInput.value;
+      let password_chk = passwordCheckInput.value;
+      let password_chk_container = document.querySelector(
+        "div.input_container#chk-pwd"
+      );
+      if (password_chk === "") {
+        password_chk_container.style.border = "";
+      } else {
+        if (password_chk === password) {
+          chkpassHelp.style.color = "#4df4d3";
+          chkpassHelp.innerHTML = "비밀번호가 일치합니다.";
+          password_chk_container.style.border = "1px solid #4df4d3";
+          newpassError = false;
+        } else {
+          chkpassHelp.style.color = "#d953e5";
+          chkpassHelp.innerHTML = "비밀번호가 일치하지 않습니다.";
+          password_chk_container.style.border = "1px solid #d953e5";
+          newpassError = true;
+        }
+      }
+    });
+  }
+
+  if (passwordInput) {
+    passwordInput.addEventListener("input", function () {
+      let password = passwordInput.value;
+      let password_chk = passwordCheckInput.value;
+      var lengthCheck = password.length >= 8 && password.length <= 16;
+      var specialCharCheck = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(
+        password
+      );
+      let password_container = document.querySelector(
+        "div.input_container#new-pwd"
+      );
+      let password_chk_container = document.querySelector(
+        "div.input_container#chk-pwd"
+      );
+  
+      // 비밀번호 길이 검사
+      if (lengthCheck) {
+        passLen.style.color = "#4df4d3";
+      } else {
+        passLen.style.color = "#d953e5";
+      }
+  
+      // 특수 문자 포함 검사
+      if (specialCharCheck) {
+        passInit.style.color = "#4df4d3";
+      } else {
+        passInit.style.color = "#d953e5";
+      }
+  
+      if (lengthCheck && specialCharCheck) {
+        password_container.style.border = "1px solid #4df4d3";
+        chkpassError = false;
+      } else {
+        password_container.style.border = "1px solid #d953e5";
+        chkpassError = true;
+      }
+      if (password_chk === "") {
+        password_chk_container.style.border = "";
+      } else {
+        if (password == password_chk) {
+          password_chk_container.style.border = "1px solid #4df4d3";
+          chkpassHelp.innerHTML = "비밀번호가 일치합니다.";
+          chkpassHelp.style.color = "#4df4d3";
+          newpassError = false;
+        } else {
+          password_chk_container.style.border = "1px solid #d953e5";
+          chkpassHelp.innerHTML = "비밀번호가 일치하지 않습니다.";
+          chkpassHelp.style.color = "#d953e5";
+          newpassError = true;
+        }
+      }
+    });
+  }
+
+  // input에 입력되는 내용 확인
+  if (passwordSaveButton) {
+    passwordSaveButton.addEventListener("click", function () {
+      curPassword = passwordInput.value;
+      if (!curpassError && !newpassError && !chkpassError) {
+        fetch("/mypage/mypage_temp/change_password", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ cur_password: curPassword }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            alert(data.message);
+            window.location.reload();
+          });
+      } else {
+        alert("입력된 필드를 확인하세요.");
+      }
+    });
+  }
 });
 
 function confirmDeletion() {

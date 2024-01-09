@@ -162,6 +162,7 @@ def upload_media(request):
     func_tool = {
         'image': upload_image,
         'audio': upload_voice,
+        'application': upload_voice,
     }
     
     param = {
@@ -170,6 +171,7 @@ def upload_media(request):
         'user': request.user,
     }
     print(request.FILES['file'])
+    print(request.FILES['file'].content_type)
     file_url = f'{custom_domain}/media/{request.user}/profile/face_img.png',
     key = param['type'].split('/')[0]
     is_success = func_tool[key](param)
