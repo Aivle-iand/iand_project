@@ -28,7 +28,7 @@ class Board(models.Model):
     contents = models.TextField(verbose_name='')
     registered_date = models.DateTimeField(auto_now_add=True)
     writer = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE, verbose_name='작성자')
-    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE, verbose_name='게시판 목록')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='게시판 목록')
     post_count = models.PositiveIntegerField(default=0)
     
     # 게시글의 제목(postname)이 Post object 대신하기
@@ -38,7 +38,9 @@ class Board(models.Model):
         return Comment.objects.filter(post=self).count()
     def counter(self):
         self.post_count = self.post_count + 1
-        self.save() 
+        self.save()
+    def krtime(self):
+        return self.registered_date.astimezone(timezone.pytz.timezone('Asia/Seoul'))
     class Meta:
         db_table = "community_board"
         verbose_name = "게시물"

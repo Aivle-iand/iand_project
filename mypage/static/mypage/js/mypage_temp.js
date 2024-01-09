@@ -75,16 +75,16 @@ const openModal = (event) => {
     return;
   }
   const drawTool = {
-    'image-capture-btn': drawCapture,
-    'audio-record-btn': drawRecord,
-  }
+    "image-capture-btn": drawCapture,
+    "audio-record-btn": drawRecord,
+  };
 
-  const modal = document.querySelector('div.modal');
-  const modal_content = document.querySelector('div.modal_content');
+  const modal = document.querySelector("div.modal");
+  const modal_content = document.querySelector("div.modal_content");
   const id = event.target.id;
   modal_content.innerHTML = '';
   drawTool[id](modal_content, modal);
-}
+};
 
 const closeModal = () => {
   const modal = document.querySelector("div.modal");
@@ -154,17 +154,21 @@ const drawCapture = async (content, modal) => {
   captureBtn.appendChild(captureImg);
 
   const ctx = canvas.getContext("2d");
-  const modelPromise = ort.InferenceSession.create("https://raw.githubusercontent.com/Gichang404/models/master/yolov8n_onnx/face_detect.onnx");
+  const modelPromise = ort.InferenceSession.create(
+    "https://raw.githubusercontent.com/Gichang404/models/master/yolov8n_onnx/face_detect.onnx"
+  );
 
   await navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then((stream) => {
-          stream = stream;
-          videoElement.srcObject = stream;
-          modal.classList.remove('hidden');
-          detectFrame();
-      })
-      .catch(() =>alert('미디어 장치에 접근할 권한이 없거나 장치를 찾을 수 없습니다..'));
+    .getUserMedia({ video: true })
+    .then((stream) => {
+      stream = stream;
+      videoElement.srcObject = stream;
+      modal.classList.remove("hidden");
+      detectFrame();
+    })
+    .catch(() =>
+      alert("미디어 장치에 접근할 권한이 없거나 장치를 찾을 수 없습니다..")
+    );
 
   async function detectFrame() {
     ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
@@ -533,62 +537,75 @@ const uploadClick = (event) => {
 };
 
 const validFile = (file, id) => {
-  const [type, formet] = file.type.split('/');
+  const [type, formet] = file.type.split("/");
   const size = file.size;
 
   function imageValid() {
-    const formets = ['jpg', 'jpeg', 'png', 'svg'];
+    const formets = ["jpg", "jpeg", "png", "svg"];
     const maxSize = 2 * (1024 * 1024);
 
     if (!(file instanceof File)) {
       alert("파일 형식이 아닙니다.");
       return false;
-    };
+    }
 
     if (!formets.includes(formet)) {
       alert("지원하는 포멧이 아닙니다. \n지원 포멧: jpg, jpeg, png, svg");
       return false;
-    };
+    }
 
     if (size > maxSize) {
       alert(
         `이미지 사이즈가 너무 큽니다. ${maxSize}MB 이하의 파일을 올려주세요.`
       );
       return false;
-    };
+    }
 
     return true;
-  };
-function audioValid() {
-    const formets = ['mp3', 'wav', 'aac', 'ogg', 'm4a', 'flac', 'x-m4a', 'mpeg'];
+  }
+  function audioValid() {
+    const formets = [
+      "mp3",
+      "wav",
+      "aac",
+      "ogg",
+      "m4a",
+      "flac",
+      "x-m4a",
+      "mpeg",
+    ];
     const maxSize = 10 * (1024 * 1024);
 
     if (!(file instanceof File)) {
-      alert('파일 형식이 아닙니다.');
+      alert("파일 형식이 아닙니다.");
       return false;
-    };
+    }
     if (!formets.includes(formet)) {
-      alert('지원하는 포멧이 아닙니다. \n지원 포멧: mp3, wav, aac, ogg, m4a, flac, m4a, mpeg');
+      alert(
+        "지원하는 포멧이 아닙니다. \n지원 포멧: mp3, wav, aac, ogg, m4a, flac, m4a, mpeg"
+      );
       return false;
-    };
+    }
 
     if (size > maxSize) {
-      alert(`오디오 사이즈가 너무 큽니다. ${maxSize}mb 이하의 파일을 올려주세요.`);
+      alert(
+        `오디오 사이즈가 너무 큽니다. ${maxSize}mb 이하의 파일을 올려주세요.`
+      );
       return false;
-    };
+    }
 
     return true;
-  };
+  }
 
   const functions = {
-    'image': imageValid,
-    'audio': audioValid,
+    image: imageValid,
+    audio: audioValid,
   };
-  
-  if (type !== id.split('_')[0]) {
-    alert('형식에 맞는 파일을 올려주세요.');
+
+  if (type !== id.split("_")[0]) {
+    alert("형식에 맞는 파일을 올려주세요.");
     return false;
-  };
+  }
 
   is_true = functions[type]();
 
@@ -597,45 +614,53 @@ function audioValid() {
 
 const image_input = (file) => {
   const reader = new FileReader();
-  userInfo['image_upload'] = file;
+  userInfo["image_upload"] = file;
   reader.onload = () => {
     const img_url = reader.result;
-    const img = document.getElementById('face_img');
+    const img = document.getElementById("face_img");
     img.src = img_url;
-  }
+  };
   reader.readAsDataURL(file);
 
-  document.getElementById('preview_notice').textContent = '현재 업로드된 이미지 입니다.'
-  document.getElementById('image_name').textContent = `File Name : ${file.name}`;
-  document.getElementById('image_msg').textContent = '클릭하여 이미지를 변경하거나';
-}
+  document.getElementById("preview_notice").textContent =
+    "현재 업로드된 이미지 입니다.";
+  document.getElementById(
+    "image_name"
+  ).textContent = `File Name : ${file.name}`;
+  document.getElementById("image_msg").textContent =
+    "클릭하여 이미지를 변경하거나";
+};
 
 const voice_input = (file) => {
-  userInfo['audio_upload'] = file;
-  const audioPreview = document.getElementById('audioPreview');
+  userInfo["audio_upload"] = file;
+  const audioPreview = document.getElementById("audioPreview");
   audioPreview.src = URL.createObjectURL(file);
 
-  document.getElementById('audio_name').textContent = `File Name : ${file.name}`;
-  document.getElementById('audio_msg').textContent = '클릭하여 음을파일을 변경하거나';
-  document.getElementById('playIcon').style = 'filter: invert(86%) sepia(0%) saturate(0%) hue-rotate(275deg) brightness(86%) contrast(91%); cursor: pointer;'
-}
+  document.getElementById(
+    "audio_name"
+  ).textContent = `File Name : ${file.name}`;
+  document.getElementById("audio_msg").textContent =
+    "클릭하여 음을파일을 변경하거나";
+  document.getElementById("playIcon").style =
+    "filter: invert(86%) sepia(0%) saturate(0%) hue-rotate(275deg) brightness(86%) contrast(91%); cursor: pointer;";
+};
 
 const onloadeddataFile = (event) => {
   event.stopPropagation();
   event.preventDefault();
   const id = event.currentTarget.id;
   const file = event.target.files[0];
-  
+
   if (!validFile(file, id)) {
     return;
   }
 
-  if (id == 'image_input') {
-    image_input(file)
-  } else if (id == 'audio_input') {
-    voice_input(file)
+  if (id == "image_input") {
+    image_input(file);
+  } else if (id == "audio_input") {
+    voice_input(file);
   }
-}
+};
 
 let isPlaying = false;
 const onclickPlayIcon = (event) => {
@@ -659,21 +684,21 @@ const onclickPlayIcon = (event) => {
 const onDragOverUpload = (event) => {
   event.stopPropagation();
   event.preventDefault();
-  event.dataTransfer.dropEffect = 'copy';
-}
+  event.dataTransfer.dropEffect = "copy";
+};
 
 const onDropUpload = (event) => {
   event.stopPropagation();
   event.preventDefault();
   const files = event.dataTransfer.files;
-  if ((event.target.id).includes('image')) {
-    document.getElementById('image_input').files = files
-    image_input(files[0])
+  if (event.target.id.includes("image")) {
+    document.getElementById("image_input").files = files;
+    image_input(files[0]);
   } else {
-    document.getElementById('audio_input').files = files
-    voice_input(files[0])
+    document.getElementById("audio_input").files = files;
+    voice_input(files[0]);
   }
-}
+};
 
 // media file upload(image or voice)
 const onClickUploadMedia = (event) => {
@@ -704,25 +729,30 @@ document.addEventListener("DOMContentLoaded", function () {
   var dupCheckButton = document.querySelector("#nickname_check");
   var nicknameInput = document.querySelector("#nickname-input");
   let nicknameChange = document.getElementById("nickname_change");
+  var lengthCheck = /^.{2,10}$/;
 
   dupCheckButton.addEventListener("click", function () {
     var nickname = nicknameInput.value;
     var requestUrl = `/mypage/mypage_temp/check_nickname?personal_nickname=${encodeURIComponent(
       nickname
     )}`;
-    fetch(requestUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.is_taken) {
-          alert("중복된 닉네임이 존재합니다.");
-        } else {
-          alert("닉네임 변경이 가능합니다.");
-          nickname_input = nickname;
-        }
-      })
-      .catch((error) => {
-        alert("중복체크하는 과정에서 알수없는 에러가 발생했습니다.");
-      });
+    if (!lengthCheck.test(nickname)) {
+      alert("닉네임은 최소 2자이상 최대 10자 이하 이어야 합니다.");
+    } else {
+      fetch(requestUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.is_taken) {
+            alert("중복된 닉네임이 존재합니다.");
+          } else {
+            alert("닉네임 변경이 가능합니다.");
+            nickname_input = nickname;
+          }
+        })
+        .catch((error) => {
+          alert("중복체크하는 과정에서 알수없는 에러가 발생했습니다.");
+        });
+    }
   });
 
   nicknameChange.addEventListener("click", function () {

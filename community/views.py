@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.decorators.http import require_POST
 from django.conf import settings
-# from login.models import User
+
 
 def writepage(request):
     if not request.user.is_authenticated:
@@ -19,7 +19,10 @@ def writepage(request):
             post = form.save(commit=False)
             post.writer = request.user
             post.save()
-            return redirect('/community/', post.id)
+            catecate = request.POST.get('category','')
+            cate_dict = {'1':'announcement', '2':'freeboard', '3':'qna'}
+            catecate = cate_dict[catecate]
+            return redirect('/community/'+catecate, post.id)
     else:
         form = PostForm()
         return render(request, 'community/writepage.html', {'form':form})
@@ -87,7 +90,11 @@ def detail(request, pk):
     comment_form = CommentForm()
     comments = detail.comments.all()
     visited_posts = request.session.get('visited_posts', [])
- 
+    
+    catecate_id = detail.category_id
+    cate_dict = {'1':'announcement', '2':'freeboard', '3':'qna'}
+    category = cate_dict[str(catecate_id)]
+
     if pk not in visited_posts:
         # 처음 방문하는 글이라면 조회수 증가
         detail.counter()
@@ -99,12 +106,13 @@ def detail(request, pk):
         'detail':detail,
         'comment_form':comment_form,
         'comments':comments,
+        'category':category,
     }
     if request.method == 'POST':
         if request.user.is_authenticated:
             if request.user == detail.writer:
                 detail.delete()
-                return redirect('/community/')
+                return redirect('community:post_by_category', c_slug=category)
             return redirect('community:detail')
     else:
         return render(request, 'community/detail.html', context)
