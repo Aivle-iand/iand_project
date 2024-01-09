@@ -457,9 +457,16 @@
                     if (event.target.tagName === 'INPUT') {
                         return;
                     }
-                    
+                    console.log(card.style.gridArea, 111)
                     // 현재 카드가 이미 '1 / 1 / 1 / 4' 위치에 있으면 이벤트 무시
                     if (card.style.gridArea === '1 / 1 / 1 / 4') {
+                        console.log(card.style.gridArea, 222)
+                        return; // 이벤트 핸들러를 종료
+                    }
+
+                    // 현재 카드가 이미 '1 / 1 / 1 / 1' 위치에 있으면 이벤트 무시
+                    if (card.style.gridArea === '1 / 1 / 1 / 1') {
+                        console.log(card.style.gridArea, 333)
                         return; // 이벤트 핸들러를 종료
                     }
                     const state = Flip.getState(cards);
