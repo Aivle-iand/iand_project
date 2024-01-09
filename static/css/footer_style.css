@@ -8,4 +8,5 @@
     font-size : 18px;
     color : rgb(30,30,30);
     font-weight : 400;
+    caret-color: transparent; /* 커서의 깜빡임을 없앱니다. */
 }
