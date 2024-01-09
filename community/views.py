@@ -164,3 +164,12 @@ def is_super(request):
     
     return JsonResponse(context)
     
+    
+def comments_modify(request, detail_pk, comment_pk):
+    if request.user.is_authenticated:
+        comment = get_object_or_404(Comment, pk=comment_pk, user=request.user)
+        if request.user == comment.user:
+            form = CommentForm(request.POST, instance=comment)
+            if form.is_valid():
+                form.save()
+    return redirect('community:detail', detail_pk)

@@ -80,27 +80,60 @@
                                     <ul class="comment_list">
                                         {% for comment in comments %}
                                             <li class="one_comment">
-                                                <div class="comment_wrap">
+                                                
+
+                                                <div id = "{{comment.id}}_origin"  class="comment_wrap">
                                                     <div class="comment_nick">
                                                         {{ comment.user.nickname }}
                                                     </div>
                                                     <div class="comment_content">
-                                                        {{ comment.content }}
+                                                        
+                                                        
+                                                        <div class="comment_content_now">
+                                                            {{ comment.content }}
+                                                        </div>
+
+                                                        <div class="update_btn_container" style="display:none;">
+                                                            <textarea class="modify_comment" cols="40" rows="10">{{comment.content}}</textarea>
+                                                            <input class="update_comment_btn" type="button" value="수정">
+                                                        </div>
+                                                        
                                                     </div>
                                                     <div class="comment_when">
                                                         {{comment.created}}
-
                                                         {% if user == comment.user %}
+                                                        <button class="go_modify" onclick="change_comments_{{comment.id}}()" >수정
+                                                        </button>
                                                         <form action="{% url 'community:comments_delete' detail.pk comment.pk %}" method="POST" class="d-inline">
-                                                        {% csrf_token %}
-                                                        <input  class="delete_comment" type="submit" value="삭제">
+                                                            {% csrf_token %}
+                                                            <input class="delete_comment" type="submit" value="삭제">   
                                                         </form>
-                                                    {% endif %}
+                                                        {% endif %}
                                                     </div>
-                                                    <!--delete-->
-                                                    
-                                                    <hr>
+                                                    <hr style="margin : 10px 0;">
+
                                                 </div>
+
+                                                <div id = "{{comment.id}}_modify" class="comment_form_wrap" style="display:none;">
+                                                    <div class="comment_in_nick">{{user.nickname}}</div>
+                                                    <form class="comment_form" id="comment_form" action="comments/{{comment.id}}/modify/" method="POST">
+                                                        {% csrf_token %}
+                                                        <textarea name="content" cols="40" rows="10" style="width:100%; resize:none; height:100px; border:none;" required="" id="id_content">{{ comment.content }}</textarea>
+                                                        <div class="submit_button">
+                                                            <input type="submit" value="수정">
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                                <script>
+                                                    function change_comments_{{comment.id}}() {
+                                                        var origin_{{comment.id}} = document.getElementById('{{comment.id}}_origin');
+                                                        var modified_{{comment.id}} = document.getElementById('{{comment.id}}_modify');
+                                                        origin_{{comment.id}}.style.display = 'none';
+                                                        modified_{{comment.id}}.style.display = 'block';
+                                                    }
+                                                </script>
+
                                             </li>
                                         
                                         {% endfor %}
