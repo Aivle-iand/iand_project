@@ -1,4 +1,7 @@
+
 {% load static %}
+{% load tz %}
+{% load custom_filter %}
 <!doctype html>
 <html lang="ko">
     <head>
@@ -14,7 +17,7 @@
                 font-weight: 800;
                 src: url("/static/fonts/AppleSDGothicNeoEB.ttf") format("truetype");
             }
-            
+           
             body {
                 font-family: AppleSDGothicNeo;
                 background-color: white;
@@ -24,7 +27,7 @@
                 font-size: 22px;
             }
         </style>
-        
+       
     </head>
     <body>
         {% include 'header.html'%}
@@ -35,7 +38,7 @@
             </div>
             <div class="main_center">
                 <div class="div_center">
-                    <div class="side_center">   
+                    <div class="side_center">  
                         <!-- <div class="board_div" id="all">
                             <a href="/community/">- 전체 게시글</a>
                         </div> -->
@@ -45,21 +48,21 @@
                     </div>
                     <div class="board_free_wrap">
                         <table class="board_list">
-                            <caption>게시판 목록</caption>
                             <thead>
-                                <th>번호</th>
-                                <th>제목</th>
-                                <th>글쓴이</th>
-                                <th>작성일</th>
+                                <th class="head_title">제목</th>
+                                <th class="head_writer">글쓴이</th>
+                                <th class="head_views">조회수</th>
+                                <th class="head_date">작성일</th>
                             </thead>
                             <tbody class="board_list_body">
                                 {% if post_list %}
                                     {% for list in page_obj %}
                                         <tr class="table_list">
-                                            <td>{{ list.id }}</td>
-                                            <td><a href="{% url 'community:detail' list.id %}" class="title_length_limit">{{ list.postname }} <span style="color : red">[{{ list.comment_count }}]</span></a></td>
-                                            <td>{{ list.writer.nickname}}</td>
-                                            <td>{{ list.registered_date }}</td>
+                                            <td class="data_title"><a href="{% url 'community:detail' list.id %}" >{{ list.postname|truncatechars:30}} <span style="color : red; font-weight:600;">{% if list.comment_count != 0 %}[{{ list.comment_count }}]{% endif %}</span></a></td>
+                                            <td class="data_writer">{{ list.writer.nickname|truncatechars:10}}</td>
+                                            <td class="data_views">{{ list.post_count }}</td>
+                                            <td class="data_date">{{ list.registered_date|custom_date_format }}</td>
+ 
                                         </tr>
                                     {% endfor %}            
                                 {% else %}
@@ -75,7 +78,7 @@
                                 {% if page_obj.has_previous %}
                                 <li style="margin:3px;"><a style="text-decoration:none; color:blue;" href="?page={{page_obj.previous_page_number}}">&#10094; Prev</a></li>
                                 {% endif %}
-                                
+                               
                                 {% for page in paginator.page_range %}
                                 {% if page == page_obj.number %}
                                     <li style="margin:3px;"><a style="text-decoration:none; color:#000;" href="?page={{page}}">{{page}}</a></li>
@@ -83,14 +86,14 @@
                                     <li style="margin:3px;"><a style="text-decoration:none; color:blue;" href="?page={{page}}">{{page}}</a></li>
                                 {% endif %}
                                 {% endfor %}
-
+ 
                                 {% if page_obj.has_next %}
                                 <li style="margin:3px;"><a style="text-decoration:none; color:blue;" href="?page={{page_obj.next_page_number}}">&#10095; Next</a></li>
                                 {% endif %}
                             {% endif %}
                             </ul>
                         </div>
-                        <div>
+                        <div class="btm_bar">
                             <form id="searchForm" method="get">
                                 <select name="search_field">
                                     <option value="0" {% if search_field == '0' %}selected{% endif %}>제목</option>
@@ -99,9 +102,9 @@
                                 <input type="text" id="search_Input" name="keyword" placeholder="검색어를 입력하세요." autocomplete='off' {% if keyword %} value="{{ keyword }}" {% endif %}>
                                 <button type="submit" class="search_btn">검색</button>
                             </form>
-                        </div>
-                        <div class="write_btn">
-                            <a href="{% url 'community:writepage' %}" class="bt">글쓰기</a>
+                            <div class="write_btn">
+                                <a class="write_bt" href="{% url 'community:writepage' %}" >글쓰기</a>
+                            </div>
                         </div>
                     </div>
                 </div>                
@@ -109,4 +112,5 @@
         </main>
         {% include 'footer.html' %}
     </body>
-</html> 
+</html>
+ 

@@ -1,106 +1,105 @@
 .root {
-    width: 100%;
-    min-height: 100%;
-    background-image: url("../img/mypage_bg.png");
-    background-size: cover;
+  width: 100%;
+  min-height: 100%;
+  background-image: url("../img/mypage_bg.png");
+  background-size: cover;
 }
 
 header {
-    min-height: 80px;
-    padding: 25px;
+  min-height: 80px;
+  padding: 25px;
 }
 
 .logo_wrapper {
-    padding: 20px
+  padding: 0px 20px;
 }
 
 .logo {
-    width: 6.5rem;
-    height: 5rem;
+  width: 9rem;
+  height: 9rem;
 }
 
 main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .input_wrapper {
-    padding-top: 40px
+  padding-top: 40px;
 }
 .input_wrapper > form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 23rem;
-    width: 23rem;
-    padding: 60px 20px 40px;
-    background: #FFFFFF;
-    opacity: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 23rem;
+  width: 23rem;
+  padding: 60px 20px 40px;
+  background: #ffffff;
+  opacity: 95%;
 }
 .form_title {
-    display: block;
-    font-size: 1.7rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    
+  display: block;
+  font-size: 1.7rem;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 .form_msg {
-    display: block;
-    color: gray;
-    font-size: 1.4rem;
+  display: block;
+  color: gray;
+  font-size: 1.4rem;
 }
 .pwd {
-    background: #F1F1F1;
-    border: none;
-    padding: 15px 13px 15px;
-    margin-top: 45px;
-    box-sizing: border-box;
-    height: 45px;
-    display: block;
-    outline: none;
-    width: 80%;
-    color: rgb(31, 31, 31);
-    line-height: 18px;
-    font-size: 18px;
-    font-weight: 700;
+  background: #f1f1f1;
+  border: none;
+  padding: 15px 13px 15px;
+  margin-top: 45px;
+  box-sizing: border-box;
+  height: 45px;
+  display: block;
+  outline: none;
+  width: 80%;
+  color: rgb(31, 31, 31);
+  line-height: 18px;
+  font-size: 18px;
+  font-weight: 700;
 }
 .pwd::placeholder {
-    font-size: 0.8rem
+  font-size: 0.8rem;
 }
 .pwd:focus {
-    background: transparent;
-    border: 2px solid rgb(10, 10, 10);
+  background: transparent;
+  border: 2px solid rgb(10, 10, 10);
 }
 
 .submit_btn {
-    display: block;
-    margin-top: 80px;
-    font-size: 3rem;
-    background: transparent;
-    color: rgb(173, 173, 173);
-    border: 2px solid rgba(173, 173, 173, 0.3);
-    font-size: 20px;
-    font-weight: 700;
-    cursor: not-allowed;
-    border-radius: 25px;
-    width: 70px;
-    height: 70px;
+  display: block;
+  margin-top: 80px;
+  font-size: 3rem;
+  background: transparent;
+  color: rgb(173, 173, 173);
+  border: 2px solid rgba(173, 173, 173, 0.3);
+  font-size: 20px;
+  font-weight: 700;
+  cursor: not-allowed;
+  border-radius: 25px;
+  width: 70px;
+  height: 70px;
 }
 .submit_btn.activate {
-    background: rgb(213, 50, 53);
-    color: #FFFFFF;
-    border: none;
-    cursor: pointer;
+  background: rgb(213, 50, 53);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
 }
 
 .submit_img {
-    width: 3rem;
-    height: 2rem;
-    fill: rgb(173, 173, 173);
+  width: 3rem;
+  height: 2rem;
+  fill: rgb(173, 173, 173);
 }
 .submit_img.activate {
-    width: 3rem;
-    height: 2rem;
-    fill: #FFFFFF;
+  width: 3rem;
+  height: 2rem;
+  fill: #ffffff;
 }

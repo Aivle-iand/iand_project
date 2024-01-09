@@ -1,4 +1,6 @@
 {% load static %}
+{% load tz %}
+{% load custom_filter %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -28,7 +30,29 @@
                             <p class="title" id='detail_title'>{{detail.postname}}</p>
                             <div class="detail_post">
                                 <dl><dt>작성자:</dt><dd>{{detail.writer.nickname}}</dd></dl>
-                                <dl><dt>작성일자:</dt><dd>{{detail.registered_date}}</dd></dl>
+                                <dl><dt>작성일자:</dt><dd>
+                                    {% if  detail.registered_date|date:"Y.m.d" == now|timezone:"Asia/Seoul"|date:"Y.m.d" %}
+                                        {{ detail.registered_date|date:"H:i" }}
+                                    {%else%}
+                                        {{ detail.registered_date|date:"Y.m.d H:i" }}
+                                    {% endif %}</dd></dl>
+                                <dl><dt>조회수:</dt><dd>{{ detail.post_count }}</dd></dl>
+                                {% if detail.writer == request.user %}
+                                    <dl>
+                                        <div class="update_btn">
+                                            <a href="{% url 'community:update' detail.id%}" class="bt">수정</a>
+                                        </div>
+                                    </dl>
+                                    <dl>
+                                        <div class="delete_btn">
+                                            <form action="{% url 'community:detail' detail.id %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="submit" value="삭제">
+                                            </form>
+                                        </div>
+                                    </dl>
+                                {% endif %}
+
                             </div>
                             <div class="detail_contents">
                                 <div class="post_content">
@@ -41,7 +65,7 @@
                                     </div>
                                     <div class="right_post_bottom">
                                         <div><a href="./" class="to_board">새로고침</a></div>
-                                        <div><a href="/community/" class="to_board">목록가기</a></div>
+                                        <div><a href="{% url 'community:post_by_category' c_slug=detail.category.slug %}" class="to_board">목록가기</a></div>
                                         <div><button onclick="scrollToElement('position_comment')">댓글쓰기</button></div>
                                     </div>
                                 </div>
@@ -49,17 +73,6 @@
 
                             <div class="detail_btn">
                                 
-                                {% if detail.writer == request.user %}
-                                    <div class="update_btn">
-                                        <a href="{% url 'community:update' detail.id%}" class="bt">수정</a>
-                                    </div>
-                                    <div class="delete_btn">
-                                        <form action="{% url 'community:detail' detail.id %}" method="POST">
-                                            {% csrf_token %}
-                                            <input type="submit" value="삭제">
-                                        </form>
-                                    </div>
-                                {% endif %}
                                 <div class="comment_list_wrap">
                                     
                                     <h4>댓글</h4>
