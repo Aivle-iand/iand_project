@@ -10,6 +10,7 @@
 body {
     margin : 0;
     padding : 0;
+    caret-color: transparent; /* 커서의 깜빡임을 없앱니다. */
 }
 
 body * {
