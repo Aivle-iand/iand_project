@@ -311,7 +311,7 @@ caption {
     color : black;
 }
  
-td, th {
+td, th, .detail_wrap > div.detail_wrap_1 {
     caret-color: transparent; /* 커서의 깜빡임을 없앱니다. */
 }
  

@@ -15,8 +15,10 @@ header {
     text-align: left;
     display: flex;
     width: 100%;
+    caret-color: transparent; /* 커서의 깜빡임을 없앱니다. */
     /* margin-bottom: 80px; */
 }
+
 .header_left {
     display: flex;
     align-items: center;

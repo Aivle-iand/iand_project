@@ -22,6 +22,7 @@
     width: 100%;
     /* height: 400px; */
     display: flex;
+    caret-color: transparent; /* 커서의 깜빡임을 없앱니다. */
 }
 
 .monthly_best, .notice_list {
