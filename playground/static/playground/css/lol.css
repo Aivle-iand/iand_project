@@ -859,9 +859,9 @@ opacity: 1;
 transform: translateY(0);
 }
 
-.card.is-inactive {
+/* .card.is-inactive {
 grid-column: span 2;
-}
+} */
 
 
 .quiz_input_wrap{
