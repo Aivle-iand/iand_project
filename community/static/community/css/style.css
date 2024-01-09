@@ -1,50 +1,51 @@
+
 table {
     border-collapse: collapse;
 }
-
+ 
 caption {
     display: none;
 }
-
+ 
 .board_free_wrap {
     width: 100%;
-    padding: 50px;
+    padding: 30px 70px;
 }
-
+ 
 .board_list {
     width: 100%;
     border-top: 1px solid green;
 }
-
+ 
 .board_list tr {
     border-bottom: 1px solid #ccc;
 }
-
+ 
 .board_list th,
 .board_list td {
     padding: 10px;
     font-size: 14px;
 }
-
+ 
 .board_list td {
     text-align: center;
 }
-
+ 
 .board_list .title {
     width: 50%;
     text-align: center;
 }
-
+ 
 .board_list tbody tr td:nth-child(2):hover {
     text-decoration: underline;
 }
-
+ 
 .board_free_wrap .paging{
     margin-top: 20px;
     font-size: 0;
     text-align: center;
 }
-
+ 
 .board_free_wrap .paging a {
     display: inline-block;
     margin-left: 10px;
@@ -52,214 +53,215 @@ caption {
     border-radius: 100px;
     font-size: 12px;
 }
-
+ 
 .board_free_wrap .paging a:first-child {
     margin-left: 0;
 }
-
+ 
 .board_free_wrap .paging a .num {
     background: green;
 }
-
+ 
 .board_free_wrap .paging a .bt {
     border: 1px solid #000;
     font-weight: 600;
 }
-
+ 
 .board_free_wrap .paging a.num.on {
     color: #000;
 }
-
+ 
 .write_btn {
     text-align: right;
 }
-
+ 
 .write_btn a.bt {
     background: #988d8d;
     color: #fff;
     text-decoration: none;
 }
-
+ 
 .write_btn a {
     display: inline-block;
     min-width: 30px;
-    padding: 7px;
-    border: 1px solid #000;
+    padding: 2px;
+    border: 2px solid #000;
     border-radius: 2px;
-    font-size: 1rem;
+    font-size: 17px;
 }
-
+ 
 .board_cate {
     text-decoration: none;
 }
-
+ 
 /* detail */
-
+ 
 .detail_post>dl {
     margin-bottom : 0px;
 }
 .detail_wrap {
-    max-width: 60%;
-    margin-left: 50px;
-    width: 100%;
+    margin: 0 90px;
+    margin-top : 30px;
+    width: calc(100% - 250px );
     display : flex;
     flex-direction: column;
 }
-
+ 
 .detail_wrap>div.detail_wrap_1 {
     padding: 29px 29px 0;
     border: 1px solid #edeef0;
     border-radius: 6px;
 }
-
+ 
 .last_button_wrap{
     display : flex;
     flex-direction: row-reverse;
     margin-top : 10px;
 }
-
+ 
 .detail_wrap .title {
     margin-bottom: 2rem;
     font-size: xx-large;
     font-weight: 700;
 }
-
+ 
 .detail_wrap .detail_post {
     border-bottom: 1px solid #999;
     width: 100%;
+    position :relative;
 }
-
+ 
 .detail_wrap .detail_post dl {
     display: inline-block;
 }
-
+ 
 .detail_wrap .detail_post dl dt, dd{
     display: inline-block;
     font-size: 1rem;
 }
-
+ 
 .detail_wrap .detail_post dl dt{
     margin-left: 5px;
     color: #999;
 }
-
+ 
 .detail_wrap .detail_post dl dd{
     margin-left: 5px;
     margin-right: 10px;
 }
-
+ 
 .detail_wrap .detail_contents {
     margin-top: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid #999;
 }
-
+ 
 /* 연수 */
-
-.post_content { 
+ 
+.post_content {
     min-height : 300px;
 }
-
-
-
+ 
+ 
+ 
 .left_post_bottom {
     width : calc(100% - 210px);
 }
-
-
+ 
+ 
 .right_post_bottom {
     display : flex;
-    
+   
 }
-
+ 
 .right_post_bottom>div {
     padding : 0 5px;
     min-width: 60px;
 }
-
+ 
 .right_post_bottom>div>a {
     text-decoration: none;
     color : black;
 }
-
+ 
 .right_post_bottom>div>button {
     background: none;
     border : 0;    
     padding : 0;
 }
-
-
+ 
+ 
 .last_button_wrap>div {
     padding : 0 5px;
     min-width: 60px;
     text-align : center;
 }
-
+ 
 .last_button_wrap>div>a {
     text-decoration: none;
     color : black;
 }
-
+ 
 .last_button_wrap>div>button {
     background: none;
     border : 0;    
     padding : 0;
 }
-
-
+ 
+ 
 .comment_list_wrap>h4 {
     margin : 20px 0 ;
-    font-weight : 800; 
-} 
-
+    font-weight : 800;
+}
+ 
 .comment_list {
     padding-left : 0;
     width : 100%;
 }
-
+ 
 .one_comment {
     list-style-type : none;
     padding-left : 10px;
 }
-
+ 
 #comment_form_wrap {
     height : 120px;
     width : 100%;
 }
-
+ 
 .comment_nick {
     font-size : 17px;
     font-weight : 600;
 }
-
+ 
 .comment_content {
     font-weight : 400;
 }
-
+ 
 .comment_when {
     font-size : 13px;
     font-weight : 400;
     color : rgb(90, 90, 90);
 }
-
+ 
 .delete_comment {
     background : none;
     border : 0;
     text-decoration: underline;
     color : rgb(90, 90, 90);
 }
-
-
+ 
+ 
 .in_post_bottom_wrap {
     display : flex;
 }
-
-
+ 
+ 
 .login_want {
     margin-left : 5px;
     margin-bottom : 20px;
 }
-
+ 
 .comment_form_wrap{
     width: 100%;
     height: 150px;
@@ -267,12 +269,12 @@ caption {
     border-radius: 10px;
     border: 2px solid #e0e0e0;
 }
-
+ 
 .comment_form_wrap>form {
     width : 100%;
     height : 100%;
 }
-
+ 
 .comment_form_wrap>form>textarea {
     width : calc(100% - 5px)!important;
     height : 72%!important;
@@ -280,32 +282,58 @@ caption {
     margin-left : 5px;
     border : 0;
 }
-
+ 
 .comment_form_wrap>form>textarea:focus {
     outline: none;
 }
-
+ 
 .comment_in_nick {  
     font-size: 17px;
     font-weight: 600;
     margin : 10px 0 0 10px;
 }
-
+ 
 .comment_form_wrap>form>.submit_button {
-    position :absolute;
+    position :relative;
 }
-
+ 
 .comment_form_wrap>form>.submit_button>input {
     background: none;
     border : 0;
-    position: relative;
-    top: -37px;
-    left: 803px;
+    position: absolute;
+    top: -30px;
+    right : 0;
     font-size: 16px;
     color : #c8c5c5;
 }
-
+ 
 .comment_form_wrap>form>.submit_button>input:hover {
     color : black;
 }
-
+ 
+td, th {
+    caret-color: transparent; /* 커서의 깜빡임을 없앱니다. */
+}
+ 
+ 
+.update_btn a, .delete_btn input {
+    background : none;
+    border : 0;
+    text-decoration : none;
+    color : #757474;
+    position : absolute;
+    top : 0px;
+    right : 0px;
+}
+ 
+.update_btn a {
+    right : 50px!important;
+}
+ 
+.delete_btn input{
+    top : -1px;
+}
+ 
+.update_btn a:hover, .delete_btn input:hover {
+    color : black;
+}

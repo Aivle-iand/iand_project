@@ -25,13 +25,15 @@ environ.Env.read_env(
 
 # Create your views here.
 def index(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts/login')
+    
     try:
         pin_chk = request.session['pin_checked']
     except:
         request.session['pin_checked'] = False
-    if not request.user.is_authenticated:
-        return redirect('accounts/login')
-    if request.session['pin_checked']:
+        pin_chk = False
+    if (pin_chk):
         return redirect('/mypage/mypage_temp')
     else:
         username = request.user
@@ -44,27 +46,37 @@ def index(request):
         return render(request, 'mypage/mypage_certify.html', context)
 
 def mypage_temp(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts/login')
+    
     try:
         pin_chk = request.session['pin_checked']
     except:
+        request.session['pin_checked'] = False
         pin_chk = False
-    if not request.user.is_authenticated:
-        return redirect('accounts/login')
-    else:
+        return redirect('/mypage')
+    if(pin_chk):
         history = {}
         username = request.user
+        profile = UserProfile.objects.filter(user_id = username).first()
         login_histories = LoginHistory.objects.filter(username = username)
         for i in range(len(login_histories)):
                 login_time = str(login_histories[i].timestamp)
                 login_id = login_histories[i].username
-                marked_id = login_id[:2] + '*' * (len(login_id) - 4) + login_id[-2:]
-                history[i] = {'date' : login_time[:-7], 'login_id' : marked_id, 'country' : login_histories[i].country, 'ip' : login_histories[i].ip}
+                marked_id = login_id[:2] + '*' * 4 + login_id[-2:]
+                history[i] = {'date' : login_time[:-13], 'login_id' : marked_id, 'country' : login_histories[i].country, 'ip' : login_histories[i].ip}
         context = {
-            'face' : "https://iand-bucket.s3.ap-northeast-2.amazonaws.com/media/common/noimage.jpg",
             'login_history' : history,
         }
         
+        if profile and profile.image_url:
+            context['profile_img'] = profile.image_url
+        else: 
+            context['profile_img'] = None
+        
         return render(request, 'mypage/mypage_temp.html', context)
+    else:
+        return redirect('/mypage')
 
 region_name = env('S3_REGION_NAME')
 access_key_id = env('S3_ACCESS_KEY_ID')
@@ -75,7 +87,7 @@ custom_domain = f'{bucket_name}.s3.{region_name}.amazonaws.com'
 def upload_image(args):
     is_success = False
     file, type, user = args.values()
-    print(file, type, user)
+
     s3 = boto3.client('s3', aws_access_key_id=access_key_id, aws_secret_access_key=secret_access_key, region_name=region_name)
     # S3에 파일 업로드
     s3.upload_fileobj(
