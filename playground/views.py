@@ -46,7 +46,7 @@ def face_swap(api_key, bg_image_path, face_image_path, save_path):
 
 
 
-def text_to_speach(text_for_sound, unique_voice_id ,api_key ,voice_path ,file_name):
+def text_to_speach(text_for_sound, unique_voice_id ,api_key ,voice_save_path ,file_name):
     CHUNK_SIZE = 1024
     url = "https://api.elevenlabs.io/v1/text-to-speech/" + unique_voice_id
 
@@ -68,17 +68,18 @@ def text_to_speach(text_for_sound, unique_voice_id ,api_key ,voice_path ,file_na
     
     response = requests.post(url, json=data, headers=headers)
     
-    file_path = voice_path
+    file_path = voice_save_path
     name = file_name
     os.makedirs(file_path,exist_ok=True)
     with open(file_path+name, 'wb') as f:
         for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
             if chunk:
                 f.write(chunk)
-
-    audio = AudioSegment.from_file(file_path+name)
-    louder_audio = audio + 20 # 20dB 증가시키기
-    louder_audio.export(file_path+name, format='mp3')
+                
+    # louder_audio.export(file_path+name, format='mp3')
+    # audio = AudioSegment.from_file(file_path+name)
+    # louder_audio = audio + 20 # 20dB 증가시키기
+    # louder_audio.export(file_path+name, format='mp3')
 
 
 def index(request):
@@ -86,6 +87,7 @@ def index(request):
     checked_card = request.GET.get('checked_card', '')
    
     books = Book.objects.all()
+    books = books.order_by('-lock')
    
     if filter_option:        
         if request.user.is_authenticated:
@@ -100,7 +102,6 @@ def index(request):
                 books = books.exclude(id__in=empty.values('id'))
         else:
             filter_option = ''
-            #여기서 경고창(로그인 후 이용가능합니다.) 추가해야함.
        
     if search_query:
         books = books.filter(name__icontains=search_query)
@@ -138,7 +139,6 @@ def voice_face_change(request, checked_card):
         user_profile = get_object_or_404(UserProfile, user=request.user)
         voice, face = request.POST.get('voice', ''), request.POST.get('face', '')
         voice_change, face_change = 0, 0
- 
         human = get_object_or_404(Book, id=int(checked_card))
         hu = human.episodes.all()
         episodes = [hu.filter(episode_number=1), hu.filter(episode_number=2), hu.filter(episode_number=3)]
@@ -162,8 +162,8 @@ def voice_face_change(request, checked_card):
                         image_face = request.user.profile.image_url
                         face_swap(master_face_key, image_bg, image_face, img_file)
             face_change = 1  
-            print(face_change)
-       
+        
+
         if voice: 
             voice_path = os.path.abspath(__file__)
             voice_path, _ = os.path.split(voice_path)
@@ -181,19 +181,16 @@ def voice_face_change(request, checked_card):
                         scene_ = episodes[int(epi)-1].get(scene_number=sce)
                         tfs = scene_.voice_text
                         text_to_speach(tfs, request.user.profile.audio_url , master_key, voice_path, file_name)
+        
             voice_change = 1
- 
             
+
         context = {}
-       
-        if voice_change == 1:
-            context['voice_change'] == 1
-        if face_change == 1:
-            context['face_change'] = 1  
-        else:
-            context['face_change'] = 0  
+        context['voice_change'] = voice_change
+        context['face_change'] = face_change  
 
         return JsonResponse(context)
+
     
     else:
       return HttpResponse("조건에 맞지 않음", status=400)
