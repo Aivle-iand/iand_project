@@ -192,13 +192,14 @@
                                                                 <script>
                                                                     document.addEventListener('DOMContentLoaded', function() {
                                                                         var form = document.getElementById('voice_face_form_{{ book.id }}');
-                                                                    
+                                                                        
                                                                         form.addEventListener('submit', function(event) {
-                                                                            event.preventDefault();  
-                                                                    
+                                                                            event.preventDefault();
+                                                                            
+                                                                            
                                                                             var formData = new FormData(form);
-                                                                            var url = form.getAttribute('data-score-url');  
-                                                                    
+                                                                            var url = form.getAttribute('data-score-url');
+                                                                            var temp = '';
                                                                             fetch(url, {
                                                                                 method: 'POST',
                                                                                 body: formData,
@@ -206,19 +207,22 @@
                                                                                     'X-CSRFToken': '{{ csrf_token }}'
                                                                                 }
                                                                             })
+
                                                                             .then(response => response.json())
+
                                                                             .then(data => {
+                                                                                temp = data;
                                                                                 var face_change = data.face_change;
                                                                                 var voice_change = data.voice_change;
                                                                     
-                                                                                document.querySelectorAll('.wrap_scene_element').forEach(sceneElement => {
+                                                                                document.querySelectorAll('.episode_image').forEach(sceneElement => {
                                                                                     var bookId = sceneElement.getAttribute('data-book-id');
                                                                                     var username = sceneElement.getAttribute('data-username');
                                                                                     var sceneIdParts = sceneElement.id.split('_');
                                                                                     var episodeNum = sceneIdParts[2];
                                                                                     var sceneNum = sceneIdParts[3];
-                                                                                    var audioIdParts = element.getAttribute('data-audio-id').split('_');
-                                                                                    var newAudioPath;
+                                                                                    var humanElement = document.querySelector('#h_' + bookId + '_' + episodeNum + '_' + sceneNum);
+                                                                                    console.log(humanElement)
                                                                     
                                                                                     if (face_change) {
                                                                                         var newImageUrl = '/static/playground/user/' + username + '/' + bookId + '/face/' + bookId + '_' + episodeNum + '_' + sceneNum + '.png';
@@ -227,18 +231,14 @@
                                                                                         var originalImageUrl = '/media/' + sceneElement.getAttribute('data-original-image');
                                                                                         sceneElement.style.backgroundImage = 'url(' + originalImageUrl + ')';
                                                                                     }
-
-                                                                                    if (voice_change) {
-                                                                                        newAudioPath = '/static/playground/user/'+ username + '/' + bookId + '/voice/' + bookId + '_' + episodeNum + '_' + sceneNum + '.mp3';
-                                                                                    } else {
-                                                                                        newAudioPath = '/media/' + element.getAttribute('data-original-voice');
+                                                                    
+                                                                                    if (voice_change && humanElement) {
+                                                                                        var newAudioPath = '/static/playground/user/' + username + '/' + bookId + '/voice/' + bookId + '_' + episodeNum + '_' + sceneNum + '.mp3';
+                                                                                        humanElement.setAttribute('onclick', "playAudio('" + newAudioPath + "')");
+                                                                                    } else if (humanElement) {
+                                                                                        var originalAudioPath = '/media/' + humanElement.getAttribute('data-original-voice');
+                                                                                        humanElement.setAttribute('onclick', "playAudio('" + originalAudioPath + "')");
                                                                                     }
-                                                                    
-                                                                                    element.setAttribute('onclick', "playAudio('" + newAudioPath + "')");
-                                                                                });
-                                                                            })
-                                                                    
-                                                                                
                                                                                 });
                                                                     
                                                                                 if (face_change && voice_change) {
@@ -250,14 +250,19 @@
                                                                                 } else if (!face_change && !voice_change) {
                                                                                     alert('아무 것도 체크되어있지 않습니다. 원본이 출력됩니다.');
                                                                                 }
-                                                                    
-                                                                            })
-                                                                            .catch(error => {
-                                                                                console.error('Error:', error);
-                                                                                alert('적용에 실패했습니다.');
+
+                                                                                
                                                                             });
-                                                                
+                                                                            
+                                                                        })
+                                                                        .catch(error => {
+                                                                            
+                                                                            console.error('Error:', error);
+                                                                            alert('발생했습니다.');
+                                                                        });
+                                                                    });
                                                                     </script>
+                                                                                  
                                                                     
                                                             </div>
                                                         </div>
@@ -267,17 +272,14 @@
                                                                 <div class='carousel-inner scene_container'>
                                                                     {% for scene in episode %}
                                                                         <div class=" carousel-item scene scene_{{book.id}}_{{scene.episode_number}} scene_{{scene.scene_number}}"  id="scene_{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}" >
-                                                                            <div class="wrap_scene_element" 
-                                                                                    
+                                                                            <div class="wrap_scene_element" >
+                                                
+                                                                                <div class='episode_image'
                                                                                 id="scene_{{ book.id }}_{{ scene.episode_number }}_{{ scene.scene_number }}" 
                                                                                 data-original-image="{{ scene.image }}"
                                                                                 data-username="{{ request.user.username }}"
                                                                                 data-book-id="{{ book.id }}"
-                                                                                style="background-image: url('/media/{{ scene.image }}');"   >
-                                                                                    
-                                                                                    
-                                                                                  
-                                                                                <div class='episode_image'>
+                                                                                style="background-image: url('/media/{{ scene.image }}');">
                                                                                 </div>
 
                                                                                 <div class="human_in_scene" 
@@ -587,10 +589,10 @@
             
         <script>
             var audio = new Audio(audioFile);
-            console.log(456)
+            
             function playAudio(audioFile) {
-
-                if (audio && !audio.paused) {
+                
+                if (audio && !audio.paused) { // 오디오가 있고, 멈춰있지 않으면 return
                 return;
                 }
 
@@ -609,7 +611,7 @@
             }
         </script>
         
-        <script>
+        {% comment %} <script>
             var audioPath = {{user_voice}};
             console.log(333)
             console.log({{user_voice}})
@@ -626,7 +628,7 @@
                     }
                 }
             }
-        </script>
+        </script> {% endcomment %}
             
         
         {% include 'footer.html' %}
