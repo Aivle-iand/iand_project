@@ -9,6 +9,7 @@
 html,
 body {
   cursor: none!important;
+  caret-color: transparent; /* 커서의 깜빡임을 없앱니다. */
 }
 
 html *,
