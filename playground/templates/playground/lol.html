@@ -196,9 +196,10 @@
                                                                         form.addEventListener('submit', function(event) {
                                                                             event.preventDefault();
                                                                             
+                                                                            
                                                                             var formData = new FormData(form);
                                                                             var url = form.getAttribute('data-score-url');
-                                                                            
+                                                                            var temp = '';
                                                                             fetch(url, {
                                                                                 method: 'POST',
                                                                                 body: formData,
@@ -206,8 +207,11 @@
                                                                                     'X-CSRFToken': '{{ csrf_token }}'
                                                                                 }
                                                                             })
+
                                                                             .then(response => response.json())
+
                                                                             .then(data => {
+                                                                                temp = data;
                                                                                 var face_change = data.face_change;
                                                                                 var voice_change = data.voice_change;
                                                                     
@@ -218,6 +222,7 @@
                                                                                     var episodeNum = sceneIdParts[2];
                                                                                     var sceneNum = sceneIdParts[3];
                                                                                     var humanElement = document.querySelector('#h_' + bookId + '_' + episodeNum + '_' + sceneNum);
+                                                                                    console.log(humanElement)
                                                                     
                                                                                     if (face_change) {
                                                                                         var newImageUrl = '/static/playground/user/' + username + '/' + bookId + '/face/' + bookId + '_' + episodeNum + '_' + sceneNum + '.png';
@@ -245,17 +250,19 @@
                                                                                 } else if (!face_change && !voice_change) {
                                                                                     alert('아무 것도 체크되어있지 않습니다. 원본이 출력됩니다.');
                                                                                 }
-                                                                            })
-                                                                            .catch(error => {
-                                                                                console.error('Error:', error);
-                                                                                alert('적용에 실패했습니다.');
+
+                                                                                
                                                                             });
+                                                                            
+                                                                        })
+                                                                        .catch(error => {
+                                                                            
+                                                                            console.error('Error:', error);
+                                                                            alert('발생했습니다.');
                                                                         });
                                                                     });
                                                                     </script>
-                                                                    
-
-                                                               
+                                                                                  
                                                                     
                                                             </div>
                                                         </div>
@@ -582,10 +589,10 @@
             
         <script>
             var audio = new Audio(audioFile);
-            console.log(456)
+            
             function playAudio(audioFile) {
-
-                if (audio && !audio.paused) {
+                
+                if (audio && !audio.paused) { // 오디오가 있고, 멈춰있지 않으면 return
                 return;
                 }
 
