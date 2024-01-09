@@ -136,6 +136,53 @@ video {
   margin-top: 42px;
 }
 
+/* modal audio */
+.modal_content_main.audio {
+  max-width: 600px;
+  max-height: 550px;
+  padding: 40px;
+  overflow-y: auto;
+  color: #ccc;
+  line-height: 2;
+  text-align: justify;
+}
+
+.modal_content_main.audio::-webkit-scrollbar {
+  width: 10px;
+}
+ 
+.modal_content_main.audio::-webkit-scrollbar-thumb {
+  background: #f0f0f0;
+  border-radius: 20px;
+}
+ 
+.modal_content_main.audio::-webkit-scrollbar-track {
+  background: #4F4C4C;
+  border-radius: 20px;
+}
+
+.modal_content_footer.audio {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.play_wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#play_btn {
+  margin-right: 10px;
+  filter: invert(86%) sepia(0%) saturate(0%) hue-rotate(275deg) brightness(86%) contrast(91%); 
+  cursor: pointer;
+}
+
+#play_time {
+  filter: invert(86%) sepia(0%) saturate(0%) hue-rotate(275deg) brightness(86%) contrast(91%)
+}
+
 /* nav_root */
 .nav_root {
   width: 300px;

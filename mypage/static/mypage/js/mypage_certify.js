@@ -14,7 +14,6 @@ const updateButton = (event) => {
 function submitPinButton() {
   const cur_pinpwd_input = document.getElementById("cur-pinpwd");
   cur_pinpwd = cur_pinpwd_input.value;
-  console.log(cur_pinpwd);
   fetch("/mypage/check_pin_pwd", {
     method: "POST",
     headers: {
@@ -25,7 +24,6 @@ function submitPinButton() {
     .then((response) => response.json())
     .then((data) => {
       if (data.match) {
-        console.log("success");
         window.location.href = "/mypage/mypage_temp";
       } else {
         alert("PIN 비밀번호가 일치하지 않습니다.");
