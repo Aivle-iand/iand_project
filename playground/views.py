@@ -205,10 +205,12 @@ def score_quiz(request, book_id):
         score = 0
         total = quizzes.count()
         answers = {}
+        isCorrect = {}
 
-        for quiz in quizzes:
+        for index, quiz in enumerate(quizzes):
             user_answer = request.POST.get(f'input_{quiz.quiz_index}') 
             is_correct = user_answer == quiz.quiz_answer  # 정답 여부 체크
+            isCorrect[index] = is_correct;
             answers[f'quiz_{quiz.quiz_index}'] = is_correct
             if user_answer == quiz.quiz_answer:
                 score += 1
@@ -221,7 +223,7 @@ def score_quiz(request, book_id):
             quiz_history.correct_users.add(request.user)
             quiz_history.read_book.add(book)
 
-        return JsonResponse({'score': score, 'total': total, 'answers': answers})
+        return JsonResponse({'score': score, 'total': total, 'answers': answers, 'isCorrect': isCorrect,})
 
    
     
