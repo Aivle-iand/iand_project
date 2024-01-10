@@ -246,7 +246,7 @@
                                                 <script>
                                                     const radioButtons{{ book.id }} = document.querySelectorAll('input[name="side_option_{{ book.id }}"]');
                                                     const contentDivs{{ book.id }} = document.querySelectorAll('#modal_main_{{ book.id }} > div');
-                                            
+                                                    console.log(radioButton{{book.id}})
                                                     contentDivs{{ book.id }}[0].style.display = 'block';
                                             
                                                     radioButtons{{ book.id }}.forEach((radioButton, index) => {
