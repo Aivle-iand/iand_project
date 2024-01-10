@@ -11,7 +11,6 @@ class PostForm(forms.ModelForm):
                 attrs={
                     'class': 'form_control',
                     'style': 'width: 300px; margin-bottom: 10px;',
-                    'placeholder': '제목을 입력하세요.',
                     }),
            
             'category': Select(
@@ -24,7 +23,11 @@ class PostForm(forms.ModelForm):
                     'style' : 'font-size : 18px;',
                 }
             )
-           
+        }
+        labels = {
+            'postname': '제목',
+            'category': '카테고리',
+            'contents': '내용',
         }
    
 class PostUpdate(forms.ModelForm):
@@ -41,6 +44,10 @@ class PostUpdate(forms.ModelForm):
                 'category': Select(
                     attrs={'class':'select_category_box',
                            }),
+        }
+        labels = {
+            'postname': '제목',
+            'contents': '내용',
         }
  
 class CommentForm(forms.ModelForm):

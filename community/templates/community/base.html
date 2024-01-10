@@ -10,7 +10,7 @@
         <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'community/css/style.css' %}">
         <link rel="stylesheet" href="{% static 'community/css/main_center.css' %}">
-        <!-- <link rel="stylesheet" href="{% static 'css/global_style.css' %}"> -->
+        <link rel="stylesheet" href="{% static 'css/global_style.css' %}">
         <style>
             @font-face {
                 font-family: AppleSDGothicNeo;
@@ -31,7 +31,6 @@
     </head>
     <body>
         {% include 'header.html'%}
-        <!-- {% include 'cursor.html' %} -->
         <main class="main">
             <div class="main_top">
                 <div class="page_name">게시판 목록</div>
@@ -100,10 +99,31 @@
                                     <option value="1" {% if search_field == '1' %}selected{% endif %}>작성자</option>
                                 </select>
                                 <input type="text" id="search_Input" name="keyword" placeholder="검색어를 입력하세요." autocomplete='off' {% if keyword %} value="{{ keyword }}" {% endif %}>
-                                <button type="submit" class="search_btn">검색</button>
+                                <button type="submit" class="search_btn">
+                                    <img src="{% static 'community/img/icon-search.png' %}" />
+                                </button>
                             </form>
                             <div class="write_btn">
-                                <a class="write_bt" href="{% url 'community:writepage' %}" >글쓰기</a>
+                                <!-- <a class="write_bt" href="{% url 'community:writepage' %}" >글쓰기</a> -->
+                                <button class="community_btn list" id="{% url 'community:writepage' %}" onclick="onclickPost(event)">
+                                    <div class="svg-wrapper-1">
+                                      <div class="svg-wrapper">
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          viewBox="0 0 24 24"
+                                          width="24"
+                                          height="24"
+                                        >
+                                          <path fill="none" d="M0 0h24v24H0z"></path>
+                                          <path
+                                            fill="currentColor"
+                                            d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                                          ></path>
+                                        </svg>
+                                      </div>
+                                    </div>
+                                    <span class="write_bt" href="{% url 'community:writepage' %}" >글쓰기</ㅁ>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -111,6 +131,7 @@
             </div>
         </main>
         {% include 'footer.html' %}
+        <script src="{% static 'community/js/base.js'%}" defer></script>
     </body>
 </html>
  

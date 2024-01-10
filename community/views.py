@@ -7,8 +7,9 @@ from django.http import JsonResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.decorators.http import require_POST
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 
-
+@csrf_exempt
 def writepage(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login')
@@ -24,7 +25,9 @@ def writepage(request):
             catecate = cate_dict[catecate]
             return redirect('/community/'+catecate, post.id)
     else:
+        print(request.method, 'in else')
         form = PostForm()
+        print(form)
         return render(request, 'community/writepage.html', {'form':form})
     
 def categoryView(request, c_slug=None):
