@@ -1,4 +1,8 @@
 /* Footer 구간 */
+footer {
+    min-width: 1300px;
+}
+
 .footer{
     width: 100%;
     padding-top :20px;

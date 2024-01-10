@@ -222,6 +222,7 @@ header a {
 .main {
     margin-top : 80px;
     min-height : 800px;
+    min-width: 1300px;
 }
 
 .main_top_wrap {
