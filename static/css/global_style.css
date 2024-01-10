@@ -8,7 +8,7 @@
     font-family: AppleSDGothicNeo;
 }
 
-html, body {
+html, body, main {
     margin: 0px; 
     padding: 0px;
 }
