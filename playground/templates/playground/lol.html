@@ -25,7 +25,6 @@
     
     <body>
         {% include 'header.html' %}
-        <!-- {% include 'cursor.html' %} -->
         {% include 'fonts.html' %}
 
         <main class="main">
@@ -59,11 +58,13 @@
                             <div class="nav_div">
                                 <div class="function">
                                     
-                                    <form id="searchForm" method="get" action="{% url 'index' %}">
-                                        <input type="text" id="search_Input" name="search" placeholder="위인을 검색하세요" value="{{ search_query }}" autocomplete='off'>
+                                    <form class="search-box" id="searchForm" method="get" action="{% url 'index' %}">
+                                        <input class="search-txt" type="text" id="search_Input" name="search" placeholder="위인을 검색하세요" value="{{ search_query }}" autocomplete='off'>
                                         <input type="hidden" name="filter_option" value="{{ filter_option }}">
                                         <input type="hidden" name="categoryOption" value="{{ categoryOption }}">
-                                        <button type="submit">검색</button>
+                                        <button class="search-btn" type="submit">
+                                            <img src="{% static 'playground/images/icon-search.png' %}" />
+                                        </button>
                                     </form>
 
                                                           
@@ -72,24 +73,24 @@
                                         <input type="hidden" name="filter_option" value="{{ filter_option }}">
 
                                         <input type="radio" name="categoryOption" id="category0" value="0" checked onchange="this.form.submit()" {% if categoryOption == '0' %}checked{% endif %}>
-                                        <label for="category0">전체<div class='nav_under'></div></label>
+                                        <label for="category0">전체</label>
                                     
                                         <input type="radio" name="categoryOption" id="category1" value="1" onchange="this.form.submit()" {% if categoryOption == '1' %}checked{% endif %}>
-                                        <label for="category1">과학자<div class='nav_under'></div></label>
+                                        <label for="category1">과학자</label>
                                     
                                         <input type="radio" name="categoryOption" id="category2" value="2" onchange="this.form.submit()" {% if categoryOption == '2' %}checked{% endif %}>
-                                        <label for="category2">수학자<div class='nav_under'></div></label>
+                                        <label for="category2">수학자</label>
 
                                         <input type="radio" name="categoryOption" id="category3" value="3" onchange="this.form.submit()" {% if categoryOption == '3' %}checked{% endif %}> 
-                                        <label for="category3">철학자<div class='nav_under'></div></label>
+                                        <label for="category3">철학자</label>
 
                                         <input type="radio" name="categoryOption" id="category4" value="4" onchange="this.form.submit()" {% if categoryOption == '4' %}checked{% endif %}>
-                                        <label for="category4">음악가<div class='nav_under'></div></label>
+                                        <label for="category4">음악가</label>
                                     </form>
                                     
                             
                                     <form method="get" action="{% url 'index' %}">
-                                        <select name="filter_option" onchange="this.form.submit()">
+                                        <select name="filter_option" onchange="this.form.submit()" class="book_select">
                                             <option value="" {% if filter_option|stringformat:"s" == '' %}selected{% endif %}>전체</option>
                                             <option value="1" {% if filter_option|stringformat:"s" == '1' %}selected{% endif %}>읽은 책</option>
                                             <option value="0" {% if filter_option|stringformat:"s" == '0' %}selected{% endif %}>안읽은 책</option>
@@ -120,7 +121,7 @@
                                         
                                         <div class ="name_img_wrap">
                                             <label for="no_{{ book.id }}" class="card_container">
-                                                    <div class='front'>
+                                                <div class="front {% if book.lock == 0 %}opacity-high{% else %}opacity-low{% endif %}">
                                                         <div class="human" style="background-image: url('{{ book.card_image.url }}');"></div>
                                                         <div class="inner">
                                                             <p>{{book.name}}</p>
@@ -139,16 +140,6 @@
                                                         </div>
                                                     </div>
                                             </label>
-                                            
-                                            {% comment %} <label for="no_{{ book.id }}">
-                                                <div class="human" style="background-image: url('{{ book.card_image.url }}');"></div>
-                                                {% if book.lock == 0 %}
-                                                    <div class = "lock_image"></div>
-                                                {% endif %}
-                                                <div class="name">
-                                                    {{book.name}}
-                                                </div>
-                                            </label> {% endcomment %}
                                         </div>
                                         
                                         {% if book.id|stringformat:"s" == checked_card and book.lock == 1 %}
@@ -222,7 +213,6 @@
                                                                                     var episodeNum = sceneIdParts[2];
                                                                                     var sceneNum = sceneIdParts[3];
                                                                                     var humanElement = document.querySelector('#h_' + bookId + '_' + episodeNum + '_' + sceneNum);
-                                                                                    console.log(humanElement)
                                                                     
                                                                                     if (face_change) {
                                                                                         var newImageUrl = '/static/playground/user/' + username + '/' + bookId + '/face/' + bookId + '_' + episodeNum + '_' + sceneNum + '.png';
@@ -321,11 +311,15 @@
                                                                 {% csrf_token %}
                                                                     {% for quiz in book.quizzes.all %}
                                                                         <div class="card" id="quiz_{{quiz.quiz_index}}">
-                                                                                <div class='card__heading'><h5>Q{{quiz.quiz_index}}.<h5></div>
-                                                                                <div class='card__text'>{{quiz.quiz_text}}</div>
-                                                                                <div class="quiz_input_wrap">
-                                                                                    <input type = "text" name="input_{{quiz.quiz_index}}" id="input_{{book.id}}_{{quiz.quiz_index}}">
-                                                                                </div>                                                 
+                                                                            <div class='card__heading'><h5>Q{{quiz.quiz_index}}.<h5></div>
+                                                                            <div class='card__text'>{{quiz.quiz_text}}</div>
+                                                                            <div class="quiz_input_wrap">
+                                                                                <div class="form-group">
+                                                                                    <input type="text" onchange="onchangeQuizInput(event)" onfocus="onfocusQuizInput(event)" onblur="onblurQuizInput(event)" placeholder="정답!!" class="form-style" name="input_{{quiz.quiz_index}}" id="input_{{book.id}}_{{quiz.quiz_index}}">
+                                                                                    <img class="input-icon" id="input_{{book.id}}_{{quiz.quiz_index}}" src="{% static 'playground/images/thinking.png' %}"></img>
+                                                                                </div>                                                                                                                                     
+                                                                            </div>
+                                                                            <img class="check_type" id="input_{{book.id}}_{{quiz.quiz_index}}" src="{% static 'playground/images/thinking.png' %}"/>
                                                                         </div>
                                                                         
                                                                         
@@ -345,8 +339,11 @@
                                                                                     <div class='result__heading'><h5>Q{{quiz.quiz_index}}.<h5></div>
                                                                                     <div class='result__text'>{{quiz.quiz_text}}</div>
                                                                                     <div class="quiz_input_wrap">
-                                                                                        <input type = "text" name="input_{{quiz.quiz_index}}" id="input_{{book.id}}_{{quiz.quiz_index}}">
-                                                                                    </div>                                                 
+                                                                                        <div class="form-group">
+                                                                                            <input type="text" class="form-style result" name="input_{{quiz.quiz_index}}" id="result_input_{{book.id}}_{{quiz.quiz_index}}" readonly>
+                                                                                            <img class="input-icon result" id="result_input_{{book.id}}_{{quiz.quiz_index}}" src=""></img>
+                                                                                        </div>                                                                                                                                     
+                                                                                    </div>
                                                                             </div>
                                                                         {% endfor %}   
                                                                                                                                                      
@@ -420,8 +417,8 @@
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/Flip.min.js"></script>
+        <script src="{% static 'playground/js/lol.js' %}" defer></script>
         <script>
-            
             document.addEventListener('DOMContentLoaded', () => {
                 gsap.registerPlugin(Flip);
               
@@ -436,14 +433,23 @@
                 const cards = document.querySelectorAll(".card");
               
                 // 페이지 로드 시 각 카드의 grid-area 설정
-                cards.forEach((card) => {
+                cards.forEach((card, index) => {
                     card.style.gridArea = initialGridAreas[card.id];
+                    const input = card.children[2].children[0];
+                    const icon = card.children[3];
+                    
+                    if (index !== 0) {
+                        input.style.display = 'none'
+                    }
                     // '1 / 1 / 1 / 4' 위치에 있는 카드만 visible
                     if (card.style.gridArea === initialGridAreas[card.id]) {
-                    card.querySelector('.card__text').style.visibility = 'visible';
+                        card.querySelector('.card__text').style.visibility = 'visible';
+                        icon.style.visibility = 'hidden';
                     } else {
-                    card.querySelector('.card__text').style.visibility = 'hidden';
+                        card.querySelector('.card__text').style.visibility = 'hidden';
+                        icon.style.visibility = 'visible';
                     }
+                    console.log(icon)
                 });
                 
                 
@@ -451,7 +457,7 @@
                 const activeClass = "is-active";
                 const inactiveClass = "is-inactive";
               
-                cards.forEach((card) => {
+                cards.forEach((card, index) => {
                   card.addEventListener("click", () => {
                     // <input> 요소에서 발생한 클릭 이벤트 무시
                     if (event.target.tagName === 'INPUT') {
@@ -460,6 +466,11 @@
                     
                     // 현재 카드가 이미 '1 / 1 / 1 / 4' 위치에 있으면 이벤트 무시
                     if (card.style.gridArea === '1 / 1 / 1 / 4') {
+                        return; // 이벤트 핸들러를 종료
+                    }
+
+                    // 현재 카드가 이미 '1 / 1 / 1 / 1' 위치에 있으면 이벤트 무시
+                    if (card.style.gridArea === '1 / 1 / 1 / 1') {
                         return; // 이벤트 핸들러를 종료
                     }
                     const state = Flip.getState(cards);
@@ -476,10 +487,18 @@
                       });
                       card.classList.add(activeClass);
                       card.querySelector('.card__text').style.visibility = 'visible';
+
+                      const input = card.children[2].children[0];
+                      input.style.display = 'block';
+
                       card.style.gridArea = '1 / 1 / 1 / 4';
+                      const icon = card.children[3];
+                      icon.style.visibility = 'hidden';
+                      console.log('isClick', icon)
                     } else {
                       card.classList.remove(activeClass);
                       card.querySelector('.card__text').style.visibility = 'hidden';
+                      icon.style.visibility = 'visible';
                     }
               
                     // 클릭하지 않은 카드들의 위치를 조정
@@ -487,7 +506,14 @@
                     cards.forEach((otherCard) => {
                       if (!otherCard.classList.contains(activeClass)) {
                         otherCard.style.gridArea = `2 / ${cardIndex++} / auto / auto`;
-                        otherCard.querySelector('.card__text').style.visibility = 'hidden';
+                        const cardText = otherCard.querySelector('.card__text');
+                        const input = otherCard.children[2].children[0];
+                        const icon = otherCard.children[3];
+                        console.log(icon, 'in nonClick')
+                        icon.style.visibility = 'visible';
+                        
+                        input.style.display = 'none';
+                        cardText.style.visibility = 'hidden';
                       }
                     });
               
@@ -524,7 +550,7 @@
                     // 폼 데이터 수집
                     const formData = new FormData(quizForm);
                     // 폼 요소에 정의된 'data-score-url' 속성을 기반으로 스코어링 URL 가져옴
-                    const scoreUrl = quizForm.dataset.scoreUrl; 
+                    const scoreUrl = quizForm.dataset.scoreUrl;
                     // 페이지 내 CSRF 토큰 값 가져옴
                     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
@@ -544,7 +570,17 @@
                         return response.json();
                     })
                     .then(data => {
+                        // is_correct_quiz
                         resultText.textContent = `점수: ${data.score} / ${data.total}`;
+                        console.log(data.isCorrect)
+                        const inputIcons = document.querySelectorAll(".input-icon.result");
+                        inputIcons.forEach((inputIcon, index) => {
+                            if (data.isCorrect[index]) {
+                                inputIcon.setAttribute('src', '/static/playground/images/correct.png');
+                            } else {
+                                inputIcon.setAttribute('src', '/static/playground/images/incorrect.png');
+                            }
+                        })
 
                         // 사용자 입력값을 결과 폼의 입력 필드에 설정
                         formData.forEach((value, key) => {
@@ -613,8 +649,6 @@
         
         {% comment %} <script>
             var audioPath = {{user_voice}};
-            console.log(333)
-            console.log({{user_voice}})
         
             for (var i = 1; i <= 3; i++) {
                 for (var j = 1; j <= 4; j++) {

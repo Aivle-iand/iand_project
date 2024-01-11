@@ -222,6 +222,7 @@ header a {
 .main {
     margin-top : 80px;
     min-height : 800px;
+    min-width: 1300px;
 }
 
 .main_top_wrap {
@@ -349,9 +350,9 @@ header a {
     display : flex;
     justify-content: center;
     flex : 1;
-    height : 45px;
+    height : 58px;
     align-items: center;
-    border : 2px solid rgb(161, 161, 161);
+    /* border : 2px solid rgb(161, 161, 161); */
     min-width : 800px;
     border-radius: 8px; 
     margin : 0 250px;
@@ -365,7 +366,7 @@ header a {
     align-items: center;
 }
 
-#searchForm {
+/* #searchForm {
     margin :0 1px;
     display : flex;
     justify-content: center;
@@ -384,8 +385,75 @@ header a {
 }
 #searchForm>button {
     width : 50px;
-}
+} */
+
+.search-box{
+    height: auto;
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px
+  }
+  .search-box:hover {
+    background-color: #2f3640;
+  }
+  
+  .search-txt::placeholder {
+    color: white;
+  }
+  .search-box:hover > .search-txt{
+    width: 240px;
+    padding: 0 6px; 
+  }
+  .search-box:hover > .search-btn{
+    background: white
+  }
+  .search-btn{
+    all: unset;
+    color: #e84118;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #2f3640;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s
+  }
+  .search-btn > img {
+    width: 50%;
+    filter: invert(53%) sepia(45%) saturate(676%) hue-rotate(1deg) brightness(110%) contrast(104%);
+  }
+  .search-txt{
+    caret-color: white;
+    border:none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 0px;
+  }
+  #radioForm input:hover + label {
+    border-bottom: 4px solid #DF9F1F;
+    -webkit-transition: all 100ms linear;
+    transition: all 100ms linear;
+  }
  
+.book_select {
+    border: none;
+}
+.book_select:hover {
+    border-bottom: 4px solid #DF9F1F;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.book_select:focus {
+    outline: unset;
+}
 
 #radioForm {
     margin : 0px 20px;
@@ -409,10 +477,14 @@ header a {
 
 #radioForm input:checked + label{
     color : black;
+    border-bottom: 4px solid #DF9F1F;
+    -webkit-transition: all 100ms linear;
+    transition: all 100ms linear;
     font-weight: 600;
 }
 #radioForm input:checked + label>div{
-    border-bottom: 4px solid rgb(235, 168, 96);
+    /* border-bottom: 4px solid rgb(235, 168, 96); */
+    border-bottom: 4px solid #DF9F1F;
 }
 
 #optionForm>select {
@@ -860,10 +932,163 @@ opacity: 1;
 transform: translateY(0);
 }
 
-.card.is-inactive {
+/* .card.is-inactive {
 grid-column: span 2;
+} */
+/* quiz */
+.form-group {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
 }
 
+.form-style{
+    padding: 13px 20px;
+    padding-left: 55px;
+    margin-bottom: 10px;
+    height: 45px;
+    width: 100%;
+    font-weight: 500;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0.5px;
+    outline: none;
+    color: #1f2029;
+    background-color: whitesmoke;
+    border: none;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+    box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+    caret-color: #1f2029;
+}
+.form-style:focus,
+.form-style:active {
+    border: 1px solid #e8e8e8;
+    outline: none;
+    box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+}
+.form-style.result:focus,
+.form-style.result:active {
+    border: none;
+    outline: none;
+}
+.form-style.result {
+    padding-left: 20px;
+    text-align: center;
+}
+.input-icon.result {
+    top: 6px;
+    left: 79px;
+    height: 35px;
+}
+.input-icon {
+    position: absolute;
+    top: 9px;
+    left: 10px;
+    height: 30px;
+    font-size: 24px;
+    line-height: 48px;
+    text-align: left;
+    color: #ffeba7;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.check_type {
+    position: absolute;
+    width: 6rem;
+    left: 60px;
+    bottom: 23px;
+}
+.form-group input:-ms-input-placeholder  {
+    color: #1f2029;
+    opacity: 0.7;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.form-group input::-moz-placeholder  {
+    color: #1f2029;
+    opacity: 0.7;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.form-group input:-moz-placeholder  {
+    color: #1f2029;
+    opacity: 0.7;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.form-group input::-webkit-input-placeholder  {
+    color: #1f2029;
+    opacity: 0.7;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.form-group input:focus:-ms-input-placeholder  {
+    opacity: 0;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.form-group input:focus::-moz-placeholder  {
+    opacity: 0;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.form-group input:focus:-moz-placeholder  {
+    opacity: 0;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.form-group input:focus::-webkit-input-placeholder  {
+    opacity: 0;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.form-group input:-ms-input-placeholder  {
+    color: #1f2029;
+    opacity: 0.7;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.form-group input::-moz-placeholder  {
+    color: #1f2029;
+    opacity: 0.7;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.form-group input:-moz-placeholder  {
+    color: #1f2029;
+    opacity: 0.7;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.form-group input::-webkit-input-placeholder  {
+    color: #1f2029;
+    opacity: 0.7;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.form-group input:focus:-ms-input-placeholder  {
+    opacity: 0;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.form-group input:focus::-moz-placeholder  {
+    opacity: 0;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.form-group input:focus:-moz-placeholder  {
+    opacity: 0;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.form-group input:focus::-webkit-input-placeholder  {
+    opacity: 0;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
 
 .quiz_input_wrap{
     display :flex;
@@ -881,7 +1106,11 @@ grid-column: span 2;
 }
 
 #quiz_buttonn {
+    position: relative;
+    top: 9px;
     border: 1px solid white;
+    border-radius: 4px;
+    padding: 10px 16px;
     margin-bottom: 37;
     border-color: rgb(146, 106, 59); 
     color: #f8f8f8;

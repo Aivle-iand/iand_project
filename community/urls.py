@@ -17,7 +17,9 @@ urlpatterns = [
     path('detail/<int:detail_pk>/comments/<int:comment_pk>/delete/', views.comments_delete, name='comments_delete'),
     path('accounts/', include('accounts.urls')),
     path('writepage/is_super/', views.is_super),
+    path('detail/<int:detail_pk>/comments/<int:comment_pk>/modify/', views.comments_modify, name='comments_modify'),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
