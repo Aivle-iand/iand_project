@@ -38,9 +38,6 @@
             <div class="main_center">
                 <div class="div_center">
                     <div class="side_center">  
-                        <!-- <div class="board_div" id="all">
-                            <a href="/community/">- 전체 게시글</a>
-                        </div> -->
                         {% for cate in links %}
                             <div class="board_div"><a href="{{ cate.get_url }}">- {{ cate.name }}</a></div>
                         {% endfor %}
@@ -104,7 +101,6 @@
                                 </button>
                             </form>
                             <div class="write_btn">
-                                <!-- <a class="write_bt" href="{% url 'community:writepage' %}" >글쓰기</a> -->
                                 <button class="community_btn list" id="{% url 'community:writepage' %}" onclick="onclickPost(event)">
                                     <div class="svg-wrapper-1">
                                       <div class="svg-wrapper">
