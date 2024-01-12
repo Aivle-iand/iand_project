@@ -1,15 +1,6 @@
-@font-face {
-    font-family: AppleSDGothicNeo;
-    font-weight: 800;
-    src: url('static/fonts/AppleSDGothicNeoEB.woff2') format("woff2");
-}
-
-* {
-    font-family: AppleSDGothicNeo;
-}
-
-html, body {
+html,
+body {
     min-width: 1340px;
-    margin: 0px; 
+    margin: 0px;
     padding: 0px;
 }

@@ -175,8 +175,6 @@ def upload_media(request):
         'type': request.FILES['file'].content_type,
         'user': request.user,
     }
-    print(request.FILES['file'])
-    print(request.FILES['file'].content_type)
     file_url = f'{custom_domain}/media/{request.user}/profile/face_img.png',
     key = param['type'].split('/')[0]
     is_success = func_tool[key](param)
@@ -244,7 +242,7 @@ def change_password(request):
 def delete_account(request):
     if request.method == 'POST':
         user = request.user
-        user.delete()  # 현재 로그인된 사용자 삭제
+        user.delete()
         return JsonResponse({'message': '계정이 성공적으로 삭제되었습니다. 로그인 페이지로 이동합니다.'})
     else:
         return JsonResponse({'status': 'error'})

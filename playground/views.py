@@ -3,6 +3,7 @@ from .models import Book, QuizHistory
 import requests
 from pydub import AudioSegment
 import os
+import environ
 from base64 import b64encode
 from PIL import Image
 from io import BytesIO
@@ -11,11 +12,16 @@ from django.shortcuts import get_object_or_404
 from mypage.models import UserProfile
 from django.conf import settings
 
+env = environ.Env(
+    DEBUG=(bool, False)
+)
 
-master_key = "2179074882679a424c4b817fd744275b"
-master_id = "TMuD9dkOkEfHZCUjLoPo"
-master_face_key = "SG_6abbbc640db94e2c"
+environ.Env.read_env(
+    env_file=os.path.join(settings.BASE_DIR, 'secrets.config')
+)
 
+master_key = env('VOICE_API_KEY')
+master_face_key = env('FACE_API_KEY')
     
 def toB64(image_path):
     if 's3' in image_path:
@@ -39,7 +45,7 @@ def face_swap(api_key, bg_image_path, face_image_path, save_path):
         "face_restore": True
     }
 
-    response = requests.post(url, json=data, headers={'x-api-key': api_key}) # 0.05달러 소요
+    response = requests.post(url, json=data, headers={'x-api-key': api_key})
 
     image = Image.open(BytesIO(response.content))
     image.save(save_path)
@@ -75,12 +81,6 @@ def text_to_speach(text_for_sound, unique_voice_id ,api_key ,voice_save_path ,fi
         for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
             if chunk:
                 f.write(chunk)
-                
-    # louder_audio.export(file_path+name, format='mp3')
-    # audio = AudioSegment.from_file(file_path+name)
-    # louder_audio = audio + 20 # 20dB 증가시키기
-    # louder_audio.export(file_path+name, format='mp3')
-
 
 def index(request):
     search_query, filter_option, categoryOption = request.GET.get('search', ''), request.GET.get('filter_option', ''), request.GET.get('categoryOption', '')
@@ -147,7 +147,6 @@ def voice_face_change(request, checked_card):
             face_path = os.path.abspath(__file__)
             face_path, _ = os.path.split(face_path)
             face_path +=  '/static/playground/user/' + str(request.user.username) + '/' + str(face) + '/face'
-            print(face_path)
             if not os.path.exists(face_path):
                 os.makedirs(face_path)
             for epi in '123':
@@ -174,7 +173,6 @@ def voice_face_change(request, checked_card):
                 for sce in '1234':
                     file_name = '/'+str(voice)+'_'+epi+'_'+ sce +'.mp3'
                     mp3_file = os.path.join(voice_path+file_name)
-                    print(mp3_file)
                     if os.path.exists(mp3_file):
                         continue
                     else:
@@ -209,17 +207,14 @@ def score_quiz(request, book_id):
 
         for index, quiz in enumerate(quizzes):
             user_answer = request.POST.get(f'input_{quiz.quiz_index}') 
-            is_correct = user_answer == quiz.quiz_answer  # 정답 여부 체크
+            is_correct = user_answer == quiz.quiz_answer 
             isCorrect[index] = is_correct;
             answers[f'quiz_{quiz.quiz_index}'] = is_correct
             if user_answer == quiz.quiz_answer:
                 score += 1
         
         if score == total:
-            # QuizHistory 객체를 가져오거나 새로 생성
             quiz_history, created = QuizHistory.objects.get_or_create()
-
-            # 사용자와 책을 QuizHistory 객체에 추가
             quiz_history.correct_users.add(request.user)
             quiz_history.read_book.add(book)
 
