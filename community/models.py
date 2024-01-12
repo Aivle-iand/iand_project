@@ -5,7 +5,6 @@ from django.conf import settings
 # from login.models import User
 
 # Create your models here.
-# 게시글(Post)엔 제목(postname), 내용(contents)이 존재합니다
 class Category(models.Model):
     name = models.CharField(max_length=250, unique=True, verbose_name='category')
     slug = models.SlugField(max_length=250, unique=True)
@@ -31,7 +30,6 @@ class Board(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='게시판 목록')
     post_count = models.PositiveIntegerField(default=0)
     
-    # 게시글의 제목(postname)이 Post object 대신하기
     def __str__(self):
         return self.postname
     def comment_count(self):

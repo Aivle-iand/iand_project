@@ -156,8 +156,6 @@ dd {
   border-bottom: 1px solid #999;
 }
 
-/* 연수 */
-
 .post_content {
   min-height: 300px;
 }
@@ -305,7 +303,7 @@ dd {
 
 td,
 th {
-  caret-color: transparent; /* 커서의 깜빡임을 없앱니다. */
+  caret-color: transparent;
 }
 
 .update_btn a,

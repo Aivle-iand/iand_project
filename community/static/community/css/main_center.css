@@ -40,7 +40,7 @@
   border-right: 3px solid rgb(242, 242, 242);
   min-width: 300px;
   padding-top: 50px;
-  caret-color: transparent; /* 커서의 깜빡임을 없앱니다. */
+  caret-color: transparent; 
 }
 
 .side_center div {
@@ -58,7 +58,6 @@
   transition-duration: 0.2s;
 }
 
-/* 사이드 밑줄 없애기 */
 .write_btn a,
 .board_list a,
 .board_div > a {
@@ -128,7 +127,6 @@ form > div {
   outline: none;
 }
 
-/* 게시글 목록 간격 고정 */
 th.head_title {
   min-width: 570px;
 }
@@ -155,32 +153,6 @@ th.head_date {
   color: black;
   background-color: #eaeaea;
 }
-
-/* #write_box > input[type="text"] {
-    height: 50px;
-    width: 600px!important;
-    margin: 0 0 10px 0!important;
-    font-size : 25px;
-}
- 
-#write_box > label {
-    justify-self: center;
-    text-align: center;
-    align-items: center;
-    display : flex;
-    margin: 0 0 10px 30px!important;
-    font-size : 25px;
-} */
-
-/* label {
-    justify-self: center;
-    text-align: center;
-    align-items: center;
-    display : flex;
-    margin: 0 0 10px 30px!important;
-    font-size : 25px;
-    margin-left: 320px;
-} */
 
 #write_box > select {
   margin: 0 0 10px 26px !important;
