@@ -1,8 +1,2 @@
-{% extends "./base.html" %}
-{% block title %}
-    {%if category %}
-        {{ category.name }} 게시판
-    {% else %}
-        전체게시판
-    {% endif %}
-{% endblock %}
+{% extends "./base.html" %} {% block title %} {%if category %} {{category.name}}
+{% else %} 전체게시판 {% endif %} {% endblock %}
