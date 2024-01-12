@@ -20,7 +20,7 @@
             background-attachment: fixed;
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* 최소 높이를 화면의 높이로 설정 */
+            min-height: 100vh;
         }
         .google-login-btn {
             background-image: url('{% static "accounts/img/logo-google.png" %}');
@@ -152,7 +152,6 @@
             const passwordLabel = document.getElementById('passwordLabel');
             const passwordSpan = document.getElementById('passwordSpan');
 
-            // 포커스 이벤트 리스너 추가
             usernameInput.addEventListener('focus', function () {
                 hideLabelAndShowSpan(usernameLabel, usernameSpan);
             });
@@ -161,7 +160,6 @@
                 hideLabelAndShowSpan(passwordLabel, passwordSpan);
             });
 
-            // 입력 이벤트 리스너 추가
             usernameInput.addEventListener('input', function () {
                 toggleLabelAndSpan(usernameInput, usernameLabel, usernameSpan);
             });
