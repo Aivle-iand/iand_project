@@ -78,7 +78,6 @@
                                 <div class="comment_list_wrap">
                                     
                                     <h4>댓글</h4>
-                                    <!--read-->
                                     <ul class="comment_list">
                                         {% for comment in comments %}
                                             <li class="one_comment">
@@ -141,8 +140,6 @@
                                         {% endfor %}
                                     </ul>
                                     <div id="position_comment"></div>
-                                    <!--create-->
-
                                     {% if request.user.is_authenticated %}
                                         <div class="comment_form_wrap">
                                             <div class="comment_in_nick">{{user.nickname}}</div>

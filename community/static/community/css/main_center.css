@@ -83,27 +83,6 @@ thead {
     text-align: center;
 }
 
-/* 글쓰기 페이지 css */
-.board_write_wrap {
-    margin: 30px 70px;
-    width: 100%;
-}
-
-.login_want > a {
-    all: unset;
-    cursor: pointer;
-}
-
-.write_title {
-    font-size: xx-large;
-}
-
-div:has(> .select_category_box) {
-    width: 300px;
-    margin: 0 0 10px 100px !important;
-    font-size: 25px;
-}
-
 .update_form {
     width: 1000px;
 }

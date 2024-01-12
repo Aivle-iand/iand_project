@@ -356,7 +356,6 @@ const onClickRecording = async (event) => {
                 .toString()
                 .padStart(2, "0");
             const sec = (time % 60).toString().padStart(2, "0");
-            console.log(`${min}:${sec}`);
             playTime.textContent = `${min}:${sec}`;
         }, 1000);
         playBtn.setAttribute("src", "/static/mypage/img/stop-circle.png");
@@ -390,7 +389,6 @@ const onClickRecording = async (event) => {
 const onClickCompleteRecording = (event) => {
     const playBtn = document.querySelector("img#play_btn");
     const playTime = document.querySelector("span#play_time");
-    console.log("isStart");
     isCount = false;
     time = 0;
     clearInterval(stopWatch);

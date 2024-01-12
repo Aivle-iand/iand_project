@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link rel="icon" href="{% static 'img/favicon.png' %}" />
+    <link rel="apple-touch-icon" href="{% static 'img/favicon.png' %}" />
     <link rel="stylesheet" href="{% static 'accounts/css/social_signup.css' %}">
     <title>I&_ 회원가입</title>
 
@@ -25,17 +27,15 @@
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
-            -webkit-animation: myfirst 1s; /* Chrome, Safari, Opera */
+            -webkit-animation: myfirst 1s;
             animation: myfirst 1s;
         }
 
-        /* Chrome, Safari, Opera */
         @-webkit-keyframes myfirst {
             from {opacity: 0.2;}
             to {opacity: 1;}
         }
 
-        /* Standard syntax */
         @keyframes myfirst {
             from {opacity: 0.2;}
             to {opacity: 1;}

@@ -44,10 +44,9 @@ def categoryView(request, c_slug=None):
     if search_field == '0':
         post_list = post_list.filter(postname__icontains = keyword)
     else:
-        users = User.objects.all() # user 데이터 전부
-        users = users.filter(nickname__icontains=keyword) # keyword와 일치하는 user 가져옥
-        empty = Board.objects.none() # 빈 테이블 선언
-        # 반복문으로 users
+        users = User.objects.all()
+        users = users.filter(nickname__icontains=keyword)
+        empty = Board.objects.none()
         for user in users:
             empty = empty.union(post_list.filter(writer=user))
         post_list = empty
@@ -89,7 +88,6 @@ def categoryView(request, c_slug=None):
                       },)
 
 def detail(request, pk):
-    # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
     detail = get_object_or_404(Board, pk=pk)
     comment_form = CommentForm()
     comments = detail.comments.all()
