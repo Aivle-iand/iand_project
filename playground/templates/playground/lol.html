@@ -228,7 +228,7 @@
                                                                                         var newAudioPath = '/static/playground/user/' + username + '/' + bookId + '/voice/' + bookId + '_' + episodeNum + '_' + sceneNum + '.mp3';
                                                                                         humanElement.setAttribute('onclick', "playAudio('" + newAudioPath + "')");
                                                                                     } else if (humanElement) {
-                                                                                        var originalAudioPath = '/media/' + humanElement.getAttribute('data-original-voice');
+                                                                                        var originalAudioPath = '/media/voices/' + humanElement.getAttribute('data-audio-id') + '.mp3';
                                                                                         humanElement.setAttribute('onclick', "playAudio('" + originalAudioPath + "')");
                                                                                     }
                                                                                 });
@@ -277,7 +277,6 @@
                                                                                 <div class="human_in_scene" 
                                                                                     id="h_{{ book.id }}_{{ scene.episode_number }}_{{ scene.scene_number }}"
                                                                                     data-audio-id="{{ book.id }}_{{ scene.episode_number }}_{{ scene.scene_number }}"
-                                                                                    data-original-voice='{{scene.image_segment}}'
                                                                                     onclick="playAudio('/media/{{ scene.voice }}')"  
                                                                                     style="background-image: url('/media/{{ scene.image_segment }}'); width: {{ scene.width }}px; height: {{ scene.height }}px; top: {{ scene.y_index }}px; right: {{ scene.x_index }}px;"
                                                                                     onmouseover="this.style.opacity = 1;" 
