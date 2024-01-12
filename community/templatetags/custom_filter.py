@@ -5,14 +5,10 @@ from django.utils import timezone
 register = template.Library()
 
 @register.filter(name='custom_date_format')
-def custom_date_format(value):
-    now = timezone.localtime(value, timezone=timezone.get_default_timezone())
-
-    if isinstance(value, timezone.datetime):
-
-        # 해당 일자에 작성한 글인 경우
-        if value.day == now.day:
-            return  now.strftime('%H:%M')
-    
+def custom_date(value):
+    value = timezone.localtime(value, timezone=timezone.get_default_timezone())
+    now = timezone.localtime(timezone=timezone.get_default_timezone())
+    if value.date() == now.date():
+        return value.strftime("%H:%M")  # 현재 날짜와 같은 경우 시간과 분 표시
     else:
-        return date(value, "Y-m-d H:i")
+        return value.strftime("%Y-%m-%d")  # 다른 경우 연, 월, 일 표시
