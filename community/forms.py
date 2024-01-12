@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import TextInput, EmailInput, NumberInput, Select
 from .models import *
-# from ckeditor_uploader.widgets import CKEditorUploadingWidget
+
 class PostForm(forms.ModelForm):
     class Meta:
         model = Board
