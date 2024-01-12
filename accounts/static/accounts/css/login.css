@@ -3,7 +3,7 @@
     letter-spacing: normal !important;
 }
 
-body>* {
+body > * {
     box-sizing: border-box;
 }
 
@@ -12,7 +12,7 @@ main {
 }
 
 .logo_class {
-    cursor : pointer;
+    cursor: pointer;
     position: absolute;
 }
 
@@ -22,7 +22,7 @@ main {
 }
 
 .login_main {
-    height: calc( 100vh - 100px );
+    height: calc(100vh - 100px);
     display: flex;
     justify-content: right;
     align-items: center;
@@ -64,13 +64,13 @@ main {
     font-size: 18px;
     font-weight: 700;
     font-family: "FF Mark W05", sans-serif;
-    border-radius:5px;
+    border-radius: 5px;
     padding-left: 20px;
 }
 
 .login-id-pass input:not(:focus):hover {
-    background:#F1F1F1;
-    border: #ECECEC;
+    background: #f1f1f1;
+    border: #ececec;
 }
 
 .login-id-pass label {
@@ -125,18 +125,17 @@ main {
 .sns_line div {
     width: 40px;
     height: 0.5px;
-    background-color: #D1D1D1;
+    background-color: #d1d1d1;
 }
 
 .sns_line label {
     font-size: 15px;
-    color: #D1D1D1;
+    color: #d1d1d1;
     font-family: "FF Mark W05", sans-serif;
     font-weight: 800;
     letter-spacing: 0.05em;
     padding: 0px 30px 0px 30px;
 }
-
 
 .api-login-btn {
     position: absolute;
@@ -159,21 +158,20 @@ main {
 
 .google-login-btn {
     background-color: white;
-    border: 2px solid #ECECEC;
+    border: 2px solid #ececec;
 }
 
 .kakao-login-btn {
-    background-color: #371D1E;
-    border: 2px solid #371D1E;
+    background-color: #371d1e;
+    border: 2px solid #371d1e;
 }
 
 .naver-login-btn {
-    /* background-color: #00C300; */
-    border: 2px solid #00C300;
+    border: 2px solid #00c300;
 }
 
 .login-id-pass input:not(:focus) {
-    background: #F8F8F8;
+    background: #f8f8f8;
 }
 
 .login-id-pass input:focus {
@@ -181,11 +179,11 @@ main {
     outline: auto;
 }
 
-.login-id-pass input:focus ~label {
+.login-id-pass input:focus ~ label {
     display: none;
 }
 
-.login-id-pass input:not(:focus) ~span {
+.login-id-pass input:not(:focus) ~ span {
     display: none;
 }
 
@@ -199,18 +197,6 @@ main {
     height: 2rem;
     fill: rgb(173, 173, 173);
 }
-/* .login_btn {
-    border: none;
-    position: relative;
-    margin: auto;
-    margin-top: 5%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    padding: 5%;
-    background: none;
-    margin-bottom: 5%;
-} */
 
 .login_btn {
     display: block;
@@ -228,7 +214,7 @@ main {
     position: relative;
     margin-top: 5%;
     font-size: 14px;
-    color: #D1D1D1;
+    color: #d1d1d1;
     font-family: "FF Mark W05", sans-serif;
     font-weight: 800;
     text-align: center;
@@ -237,7 +223,7 @@ main {
 
 .sign_up_btn {
     text-decoration: none;
-    color: #7F7F7F;
+    color: #7f7f7f;
 }
 
 .sign_up_btn:hover {
@@ -246,13 +232,13 @@ main {
 
 .footer {
     background-color: rgba(0, 0, 0, 0.3);
-    color: #F1F1F1;
+    color: #f1f1f1;
     font-size: 12px;
     height: 100px;
     display: flex;
     text-align: center;
     height: 100px;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
