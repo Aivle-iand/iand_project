@@ -8,15 +8,14 @@ header {
     z-index: 800;
     height: 80px;
     background-color: black;
-    border-bottom: 2px solid rgba(51, 51, 51, .25);
+    border-bottom: 2px solid rgba(51, 51, 51, 0.25);
     font-size: 19px !important;
     font-weight: bold;
     line-height: normal;
     text-align: left;
     display: flex;
     width: 100%;
-    caret-color: transparent; /* 커서의 깜빡임을 없앱니다. */
-    /* margin-bottom: 80px; */
+    caret-color: transparent;
 }
 
 .header_left {
@@ -37,7 +36,6 @@ header {
 .header_center div {
     display: inline-flex;
     position: relative;
-    /* height: 80px; */
     cursor: pointer;
     min-width: 115px;
 }
@@ -48,7 +46,6 @@ header {
     padding: 0;
     flex-direction: column;
     justify-content: center;
-    /* height: 66px; */
     font-size: 19px;
     font-weight: 600;
     line-height: 120%;
@@ -66,7 +63,6 @@ header {
     position: relative;
     align-items: center;
     justify-content: center;
-    /* height: 80px; */
     min-width: 90px;
 }
 
@@ -77,13 +73,13 @@ header {
     width: 100%;
     flex-direction: column;
     justify-content: center;
-    /* height: 66px; */
     font-size: 19px;
     font-weight: 600;
     line-height: 120%;
-    letter-spacing: .08em;
+    letter-spacing: 0.08em;
     overflow: hidden;
-    transition: color 1s cubic-bezier(0.06, 0.81, 0, 0.98), border-color .5s cubic-bezier(0.06, 0.81, 0, 0.98);
+    transition: color 1s cubic-bezier(0.06, 0.81, 0, 0.98),
+        border-color 0.5s cubic-bezier(0.06, 0.81, 0, 0.98);
 }
 
 header a p {
@@ -92,9 +88,8 @@ header a p {
     display: inline-block;
 }
 
-
 .header_right .a:hover .language_chart {
-    transition: opacity .5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s, visibility 0s;
+    transition: opacity 0.5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s, visibility 0s;
     color: whitesmoke;
     opacity: 1;
     visibility: visible;
@@ -103,31 +98,32 @@ header a p {
 
 */ .header_right .language_chart:hover {
     color: whitesmoke;
-    transition: opacity .5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s, visibility 0s;
+    transition: opacity 0.5s cubic-bezier(0.06, 0.81, 0, 0.98) 0s, visibility 0s;
     opacity: 1;
     visibility: visible;
     display: block;
 }
 
-.header_right .join p:hover, .header_right .login p:hover, .header_right .logout p:hover .mypage p:hover{
+.header_right .join p:hover,
+.header_right .login p:hover,
+.header_right .logout p:hover .mypage p:hover {
     padding: 7.5px 16px;
-    /* background: rgb(236,232,44); */
     border-radius: 6.4px;
-    color : white;
+    color: white;
 }
 
 header a {
     text-decoration: none;
     letter-spacing: 0;
     transition: 0.35s;
-    color:white;
+    color: white;
 }
 
 .header_right a p {
     padding: 7.5px 16px;
 }
 
-.header_right>div {
+.header_right > div {
     margin: 0 3px;
 }
 
@@ -139,7 +135,6 @@ header a {
 header a:hover,
 header a:active {
     color: whitesmoke;
-    /* color: yellow; */
     letter-spacing: 5px;
     transition: 0.35s;
 }
@@ -178,20 +173,20 @@ header a:hover:before {
     width: 100%;
 }
 
-.header_right .non_login{
+.header_right .non_login {
     color: white;
     font-size: 12px;
     margin-right: 10px;
 }
 
-.header_right .success_login{
+.header_right .success_login {
     color: yellowgreen;
     justify-content: center;
     flex-direction: column;
     font-size: 16px;
 }
 
-.header_right .credit{
+.header_right .credit {
     padding-left: 35px;
     justify-content: center;
     flex-direction: column;

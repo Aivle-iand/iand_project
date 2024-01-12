@@ -19,7 +19,7 @@
 }
 
 .board_write .content {
-    border-bottom:  1px solid #000;
+    border-bottom: 1px solid #000;
 }
 
 .board_write .content textarea {
@@ -69,8 +69,6 @@
     padding: 10px;
     box-sizing: border-box;
 }
-
-
 
 .board_title .title dl {
     font-size: 0;

@@ -2,7 +2,6 @@ from django import forms
 from .models import User
 from allauth.socialaccount.forms import SignupForm as SocialSignup
 
-
 class CustomSocialSignupForm(SocialSignup):
     last_name = forms.CharField(required=False)
     first_name = forms.CharField(required=False)
@@ -20,7 +19,6 @@ class CustomSocialSignupForm(SocialSignup):
         user = super(CustomSocialSignupForm, self).save(request)
         return user    
     
-
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
