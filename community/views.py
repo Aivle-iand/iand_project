@@ -100,10 +100,8 @@ def detail(request, pk):
     category = cate_dict[str(catecate_id)]
 
     if pk not in visited_posts:
-        # 처음 방문하는 글이라면 조회수 증가
         detail.counter()
  
-        # 세션에 방문한 글 기록
         visited_posts.append(pk)
         request.session['visited_posts'] = visited_posts
     context = {

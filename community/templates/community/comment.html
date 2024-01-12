@@ -2,7 +2,7 @@
 <html>
 <h4>댓글 목록</h4>
 
-<!--read-->
+
 {% if comments %}
   <p><b>{{ comments|length }}개의 댓글이 있습니다.</b></p>
 {% endif %}
@@ -10,7 +10,6 @@
   {% for comment in comments %}
     <li>
       {{ comment.user }} - {{ comment.content }}
-      <!--delete-->
       {% if user == comment.user %}
         <form action="{% url 'detail:comments_delete' post.pk comment.pk %}" method="POST" class="d-inline">
           {% csrf_token %}
@@ -23,7 +22,6 @@
   {% endfor %}
 </ul>
 
-<!--create-->
 {% if request.user.is_authenticated %}
   <form action="{% url 'detail:comments_create' post.pk %}" method="POST">
     {% csrf_token %}
