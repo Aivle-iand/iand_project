@@ -163,7 +163,7 @@
                     
                     <div class="last_button_wrap">
                         <div><button onclick="scrollToElement('main_top_b')">TOP</button></div>
-                        <div><a href="/community/" class="to_board">목록가기</a></div>
+                        <div><a href="{% url 'community:post_by_category' c_slug=detail.category.slug %}" class="to_board">목록가기</a></div>
                     </div>
                 </div>
             </div>     
