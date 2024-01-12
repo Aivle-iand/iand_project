@@ -7,9 +7,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'img/favicon.png' %}" />
+    <link rel="apple-touch-icon" href="{% static 'img/favicon.png' %}" />
     <link rel="stylesheet" href="{% static 'community/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'community/css/main_center.css' %}">
-    <title>Detail</title>
+    <title>{{detail.postname}}</title>
 </head>
 <body>
     {% include 'fonts.html' %}
@@ -163,7 +165,7 @@
                     
                     <div class="last_button_wrap">
                         <div><button onclick="scrollToElement('main_top_b')">TOP</button></div>
-                        <div><a href="{% url 'community:post_by_category' c_slug=detail.category.slug %}" class="to_board">목록가기</a></div>
+                        <div><a href="/community/" class="to_board">목록가기</a></div>
                     </div>
                 </div>
             </div>     
