@@ -42,7 +42,9 @@
         <link rel="stylesheet" 
         href="{% static 'main/css/main_card.css' %}" 
         />
-        <title>메인페이지</title>
+        <link rel="icon" href="{% static 'img/favicon.png' %}" />
+        <link rel="apple-touch-icon" href="{% static 'img/favicon.png' %}" />
+        <title>I&_</title>
     </head>
 
     
@@ -198,30 +200,6 @@
                                 </div>
                             </a>
                         </div>
-
-                        
-                        <!-- <div class="best_section1">
-                            <h4>가장 최근에 출시된 인물</h4>
-                            <a href="http://localhost:8000/playground/?search=%EC%95%84%EC%9D%B8%EC%8A%88%ED%83%80%EC%9D%B8&filter_option=&categoryOption=">
-                                <div class="container">
-                                    <div class="front" style="width:19vw; height:30vw;">
-                                        <img src="{% static 'main/images/main_아인슈타인.png' %}" class="image" style="width:19vw; height:30vw;">
-                                        <div class="inner">
-                                            <p>알베르트 아인슈타인</p>
-                                            <span>Albert Einstein</span>
-                                        </div>
-                                    </div>
-                                    <div class="back" style="width:19vw; height:30vw;">
-                                        
-                                        <img src="{% static 'main/images/card_back.jpg' %}" class="image" style="width:19vw; height:30vw; border-radius: 10px;">
-                                        <div class="inner">
-                                            <h2>PLAY</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div> -->
-
                         <div class="best_section1">
                             <h4>출시 예정 인물</h4>
                                 <div class="container">
@@ -233,7 +211,6 @@
                                         </div>
                                     </div>
                                     <div class="back" style="width:15vw; height:25vh;">
-                                        <!-- 뒷면에 표시할 내용 -->
                                         <img src="../../media/books/베토벤_썸ㄴㅇ_음악_4kIiy3M.png" class="image" style="width:15vw; height:100%; border-radius: 10px; filter: brightness(0.4);">
                                         <div class="inner">
                                             <h4>루트비히 판 베토벤<h4><br>
@@ -258,9 +235,7 @@
                         <div style="height: 2px; background-color: black; margin-top: 30px; margin-left: 50px;"></div>
                     </h1>
                     
-                    <div class=" animate__delay notice_sections">
-                        <!-- Unordered list for notices -->
-                        
+                    <div class=" animate__delay notice_sections">                       
                         <ul style="list-style-type: disc; padding-left: 10%;">
                             {% for postname, id, writer, date, nickname in notices %}
                                 {% if forloop.counter < 8 %}
@@ -278,8 +253,6 @@
                                     </li>
                                 {% endif %}
                             {% endfor %}
-
-                            <!-- Add more notices as needed -->
                         </ul>
                     </div>
                 </div>
@@ -287,10 +260,4 @@
         </main>
         {% include 'footer.html' %}
     </body>
-
-
-    
-
-  <!-- Footer -->
-  
 </html>

@@ -13,6 +13,8 @@
         rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
         crossorigin="anonymous"/>
+    <link rel="icon" href="{% static 'img/favicon.png' %}" />
+    <link rel="apple-touch-icon" href="{% static 'img/favicon.png' %}" />
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -20,7 +22,7 @@
     </script>
 
 
-    <title>1인칭 주인공 시점</title>
+    <title>위인 체험</title>
     </head>
     
     <body>
@@ -226,9 +228,8 @@
                                                                                         var newAudioPath = '/static/playground/user/' + username + '/' + bookId + '/voice/' + bookId + '_' + episodeNum + '_' + sceneNum + '.mp3';
                                                                                         humanElement.setAttribute('onclick', "playAudio('" + newAudioPath + "')");
                                                                                     } else if (humanElement) {
-                                                                                        var originalAudioPath = '/media/voices/' + humanElement.getAttribute('data-audio-id') + '.mp3';
+                                                                                        var originalAudioPath = '/media/' + humanElement.getAttribute('data-original-voice');
                                                                                         humanElement.setAttribute('onclick', "playAudio('" + originalAudioPath + "')");
-                                                                                        console.log(originalAudioPath);
                                                                                     }
                                                                                 });
                                                                     
@@ -276,6 +277,7 @@
                                                                                 <div class="human_in_scene" 
                                                                                     id="h_{{ book.id }}_{{ scene.episode_number }}_{{ scene.scene_number }}"
                                                                                     data-audio-id="{{ book.id }}_{{ scene.episode_number }}_{{ scene.scene_number }}"
+                                                                                    data-original-voice='{{scene.image_segment}}'
                                                                                     onclick="playAudio('/media/{{ scene.voice }}')"  
                                                                                     style="background-image: url('/media/{{ scene.image_segment }}'); width: {{ scene.width }}px; height: {{ scene.height }}px; top: {{ scene.y_index }}px; right: {{ scene.x_index }}px;"
                                                                                     onmouseover="this.style.opacity = 1;" 
@@ -422,7 +424,6 @@
             document.addEventListener('DOMContentLoaded', () => {
                 gsap.registerPlugin(Flip);
               
-                // 카드의 초기 grid-area를 지정
                 const initialGridAreas = {
                   'quiz_1': '1 / 1 / 1 / 4',
                   'quiz_2': '2 / 1 ',
@@ -432,7 +433,6 @@
               
                 const cards = document.querySelectorAll(".card");
               
-                // 페이지 로드 시 각 카드의 grid-area 설정
                 cards.forEach((card, index) => {
                     card.style.gridArea = initialGridAreas[card.id];
                     const input = card.children[2].children[0];
@@ -441,7 +441,7 @@
                     if (index !== 0) {
                         input.style.display = 'none'
                     }
-                    // '1 / 1 / 1 / 4' 위치에 있는 카드만 visible
+
                     if (card.style.gridArea === initialGridAreas[card.id]) {
                         card.querySelector('.card__text').style.visibility = 'visible';
                         icon.style.visibility = 'hidden';
@@ -453,33 +453,28 @@
                 });
                 
                 
-                
                 const activeClass = "is-active";
                 const inactiveClass = "is-inactive";
               
                 cards.forEach((card, index) => {
                   card.addEventListener("click", () => {
-                    // <input> 요소에서 발생한 클릭 이벤트 무시
+             
                     if (event.target.tagName === 'INPUT') {
                         return;
                     }
                     
-                    // 현재 카드가 이미 '1 / 1 / 1 / 4' 위치에 있으면 이벤트 무시
                     if (card.style.gridArea === '1 / 1 / 1 / 4') {
-                        return; // 이벤트 핸들러를 종료
+                        return; 
                     }
 
-                    // 현재 카드가 이미 '1 / 1 / 1 / 1' 위치에 있으면 이벤트 무시
                     if (card.style.gridArea === '1 / 1 / 1 / 1') {
-                        return; // 이벤트 핸들러를 종료
+                        return;
                     }
                     const state = Flip.getState(cards);
                     
                     const isCardActive = card.classList.contains(activeClass);
               
-                    // 클릭한 카드의 상태를 변경
                     if (!isCardActive) {
-                      // 모든 카드를 비활성화하고 클릭한 카드만 활성화
                       cards.forEach((otherCard) => {
                         otherCard.classList.remove(activeClass);
                         otherCard.classList.add(inactiveClass);
@@ -501,7 +496,6 @@
                       icon.style.visibility = 'visible';
                     }
               
-                    // 클릭하지 않은 카드들의 위치를 조정
                     let cardIndex = 1;
                     cards.forEach((otherCard) => {
                       if (!otherCard.classList.contains(activeClass)) {
@@ -517,7 +511,6 @@
                       }
                     });
               
-                    // GSAP Flip 애니메이션을 실행
                     Flip.from(state, {
                       duration: 1,
                       ease: "expo.out",
@@ -542,20 +535,12 @@
                 const restartButton = document.getElementById('restart_button');
                 const rewardIcon = document.getElementById('rewardIcon');
                 
-                // 폼이 제출되었을 때의 동작 정의
                 quizForm.addEventListener('submit', function(event) {
-                    // 폼의 기본 제출 동작 중지
                     event.preventDefault();  
-                    
-                    // 폼 데이터 수집
                     const formData = new FormData(quizForm);
-                    // 폼 요소에 정의된 'data-score-url' 속성을 기반으로 스코어링 URL 가져옴
                     const scoreUrl = quizForm.dataset.scoreUrl;
-                    // 페이지 내 CSRF 토큰 값 가져옴
                     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-                    
-                    // fetch API를 사용하여 서버에 비동기 POST 요청
                     fetch(scoreUrl, {
                         method: 'POST',
                         body: formData,
@@ -570,7 +555,6 @@
                         return response.json();
                     })
                     .then(data => {
-                        // is_correct_quiz
                         resultText.textContent = `점수: ${data.score} / ${data.total}`;
                         console.log(data.isCorrect)
                         const inputIcons = document.querySelectorAll(".input-icon.result");
@@ -581,8 +565,6 @@
                                 inputIcon.setAttribute('src', '/static/playground/images/incorrect.png');
                             }
                         })
-
-                        // 사용자 입력값을 결과 폼의 입력 필드에 설정
                         formData.forEach((value, key) => {
                             const resultInput = resultDiv.querySelector(`input[name="${key}"]`);
                             if (resultInput) {
@@ -590,23 +572,19 @@
                             }
                         });
 
-                        // 조건에 따라 버튼 활성화 또는 비활성화
                         if (data.score == data.total) {
-                            // 점수가 전체와 같으면 리워드 버튼 활성화
                             rewardButton.disabled = false;
                             restartButton.disabled = true;
-                            // 리워드 버튼 클릭 시 아이콘 표시
+
                             rewardButton.addEventListener('click', function() {
-                            rewardIcon.style.display = 'block'; // 아이콘 표시
+                            rewardIcon.style.display = 'block';
                             rewardButton.style.display = 'none';
                             });
                         } else {
-                            //재도전 버튼 활성화
                             rewardButton.disabled = true;
                             restartButton.disabled = false;
                         }
 
-                        // 재도전 버튼 클릭 시 페이지 새로고침
                         restartButton.addEventListener('click', function() {
                             location.reload();
                         });
@@ -628,7 +606,7 @@
             
             function playAudio(audioFile) {
                 
-                if (audio && !audio.paused) { // 오디오가 있고, 멈춰있지 않으면 return
+                if (audio && !audio.paused) { 
                 return;
                 }
 
@@ -646,24 +624,6 @@
                 audio.play();
             }
         </script>
-        
-        {% comment %} <script>
-            var audioPath = {{user_voice}};
-        
-            for (var i = 1; i <= 3; i++) {
-                for (var j = 1; j <= 4; j++) {
-                    var elementId = "h_" + {{book.id}} + "_" + i + "_" + j;
-                    var element = document.getElementById(elementId);
-        
-                    if (element) {
-                        element.onclick = function() {
-                            playAudio(audioPath[i-1][j-1]);
-                        };
-                    }
-                }
-            }
-        </script> {% endcomment %}
-            
         
         {% include 'footer.html' %}
     </body>
