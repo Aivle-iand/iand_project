@@ -2,9 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.conf import settings
-# from login.models import User
 
-# Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=250, unique=True, verbose_name='category')
     slug = models.SlugField(max_length=250, unique=True)
