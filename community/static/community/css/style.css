@@ -35,10 +35,6 @@ caption {
   text-align: center;
 }
 
-.board_list tbody tr td:nth-child(2):hover {
-  text-decoration: underline;
-}
-
 .board_free_wrap .paging {
   margin-top: 20px;
   font-size: 0;

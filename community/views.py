@@ -51,7 +51,8 @@ def categoryView(request, c_slug=None):
         for user in users:
             empty = empty.union(post_list.filter(writer=user))
         post_list = empty
-             
+    
+    post_list = post_list.order_by('-id')
     page = request.GET.get('page')
     paginator = Paginator(post_list, 10)
     try:
