@@ -1,0 +1,135 @@
+
+{% load static %}
+{% load tz %}
+{% load custom_filter %}
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="icon" href="{% static 'img/favicon.png' %}" />
+        <link rel="apple-touch-icon" href="{% static 'img/favicon.png' %}" />
+        <link rel="stylesheet" href="{% static 'community/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'community/css/main_center.css' %}">
+        <link rel="stylesheet" href="{% static 'css/global_style.css' %}">
+        <style>
+            @font-face {
+                font-family: AppleSDGothicNeo;
+                font-weight: 800;
+                src: url("/static/fonts/AppleSDGothicNeoEB.ttf") format("truetype");
+            }
+           
+            body {
+                font-family: AppleSDGothicNeo;
+                background-color: white;
+            }
+            #announcement {
+                font-weight: 900;
+                font-size: 22px;
+            }
+        </style>
+       
+    </head>
+    <body>
+        {% include 'header.html'%}
+        <main class="main">
+            <div class="main_top">
+                <div class="page_name">게시판 목록</div>
+            </div>
+            <div class="main_center">
+                <div class="div_center">
+                    <div class="side_center">  
+                        {% for cate in links %}
+                            <div class="board_div"><a href="{{ cate.get_url }}">- {{ cate.name }}</a></div>
+                        {% endfor %}
+                    </div>
+                    <div class="board_free_wrap">
+                        <table class="board_list">
+                            <thead>
+                                <th class="head_title">제목</th>
+                                <th class="head_writer">글쓴이</th>
+                                <th class="head_views">조회수</th>
+                                <th class="head_date">작성일</th>
+                            </thead>
+                            <tbody class="board_list_body">
+                                {% if post_list %}
+                                    {% for list in page_obj %}
+                                        <tr class="table_list">
+                                            <td class="data_title"><a href="{% url 'community:detail' list.id %}" >{{ list.postname|truncatechars:30}} <span style="color : red; font-weight:600;">{% if list.comment_count != 0 %}[{{ list.comment_count }}]{% endif %}</span></a></td>
+                                            <td class="data_writer">{{ list.writer.nickname|truncatechars:10}}</td>
+                                            <td class="data_views">{{ list.post_count }}</td>
+                                            <td class="data_date">{{ list.registered_date|custom_date_format }}</td>
+ 
+                                        </tr>
+                                    {% endfor %}            
+                                {% else %}
+                                    <tr>
+                                        <td>작성된 게시글이 없습니다.</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        <div class="paging">
+                            {% if page_obj.has_other_pages %}
+                            <ul style="display:flex;list-style: none;">
+                                {% if page_obj.has_previous %}
+                                <li style="margin:3px;"><a style="text-decoration:none; color:blue;" href="?page={{page_obj.previous_page_number}}">&#10094; Prev</a></li>
+                                {% endif %}
+                               
+                                {% for page in paginator.page_range %}
+                                {% if page == page_obj.number %}
+                                    <li style="margin:3px;"><a style="text-decoration:none; color:#000;" href="?page={{page}}">{{page}}</a></li>
+                                {% else %}
+                                    <li style="margin:3px;"><a style="text-decoration:none; color:blue;" href="?page={{page}}">{{page}}</a></li>
+                                {% endif %}
+                                {% endfor %}
+ 
+                                {% if page_obj.has_next %}
+                                <li style="margin:3px;"><a style="text-decoration:none; color:blue;" href="?page={{page_obj.next_page_number}}">&#10095; Next</a></li>
+                                {% endif %}
+                            {% endif %}
+                            </ul>
+                        </div>
+                        <div class="btm_bar">
+                            <form id="searchForm" method="get">
+                                <select name="search_field">
+                                    <option value="0" {% if search_field == '0' %}selected{% endif %}>제목</option>
+                                    <option value="1" {% if search_field == '1' %}selected{% endif %}>작성자</option>
+                                </select>
+                                <input type="text" id="search_Input" name="keyword" placeholder="검색어를 입력하세요." autocomplete='off' {% if keyword %} value="{{ keyword }}" {% endif %}>
+                                <button type="submit" class="search_btn">
+                                    <img src="{% static 'community/img/icon-search.png' %}" />
+                                </button>
+                            </form>
+                            <div class="write_btn">
+                                <button class="community_btn list" id="{% url 'community:writepage' %}" onclick="onclickPost(event)">
+                                    <div class="svg-wrapper-1">
+                                      <div class="svg-wrapper">
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          viewBox="0 0 24 24"
+                                          width="24"
+                                          height="24"
+                                        >
+                                          <path fill="none" d="M0 0h24v24H0z"></path>
+                                          <path
+                                            fill="currentColor"
+                                            d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                                          ></path>
+                                        </svg>
+                                      </div>
+                                    </div>
+                                    <span class="write_bt" href="{% url 'community:writepage' %}" >글쓰기</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </main>
+        {% include 'footer.html' %}
+        <script src="{% static 'community/js/base.js'%}" defer></script>
+    </body>
+</html>
+ 

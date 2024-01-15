@@ -1,0 +1,135 @@
+* {
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+:lang(ko-kr) {
+    word-break: keep-all;
+    letter-spacing: normal !important;
+}
+
+html {
+    background-color: black;
+}
+
+.social_signuppage-title {
+    font-family: "Do Hyeon", sans-serif;
+    font-size: 60px;
+    border-bottom: 2px solid #f9bc28;
+}
+
+.error-message {
+    display: none;
+    color: red;
+    font-size: 12px;
+}
+
+input.error {
+    border: 1px solid red;
+}
+
+.signup-id-pass .already_signup {
+    font-size: 12px;
+    color: #004494;
+    text-decoration-line: none;
+}
+
+body > * {
+    box-sizing: border-box;
+}
+
+.header {
+    height: 80px;
+}
+
+.logo_img {
+    height: 15vw;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.main_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social_signuppage {
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 40%;
+    opacity: 0.7;
+    transition: opacity 0.5s ease;
+}
+
+.social_signuppage:hover {
+    opacity: 0.98;
+}
+
+.social_signuppage * {
+    padding-bottom: 10px;
+}
+
+.social_signuppage input {
+    background: transparent;
+    border: none;
+    padding: 15px 8px 15px;
+    box-sizing: border-box;
+    height: 50px;
+    display: block;
+    outline: none;
+    width: 100%;
+    color: rgb(0, 0, 0);
+    line-height: 18px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: "FF Mark W05", sans-serif;
+    border-radius: 5px;
+}
+
+.social_signuppage input:not(:focus) {
+    background: #f8f8f8;
+}
+
+.social_signuppage input:not(:focus):hover {
+    background: #f1f1f1;
+    border: #ececec;
+}
+
+.signup-button input {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-color: black;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    width: 100%;
+}
+
+.signup-button input[type="submit"]:hover {
+    background-color: #004494;
+    color: white;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+input[type="submit"]:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}
+
+.footer {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #f1f1f1;
+    font-size: 12px;
+    height: 100px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}

@@ -1,0 +1,629 @@
+{% load static %}
+<html lang="en">
+    <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet">    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type='text/css' href="{% static '/playground/css/lol.css' %}">
+    <link rel="stylesheet" type='text/css' href="{% static '/playground/css/playground_card.css' %}">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous"/>
+    <link rel="icon" href="{% static 'img/favicon.png' %}" />
+    <link rel="apple-touch-icon" href="{% static 'img/favicon.png' %}" />
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous">
+    </script>
+
+
+    <title>위인 체험</title>
+    </head>
+    
+    <body>
+        {% include 'header.html' %}
+        {% include 'fonts.html' %}
+
+        <main class="main">
+            <div class="main_top">
+                <div class="main_top_wrap">
+                    <video id="video_background" autoplay muted loop>    
+                        <source src="{% static '/playground/images/background_top.mp4' %}" type="video/mp4">
+                    </video>
+                    <div class="main_top_text">
+                        <p class="main_top_12">
+                            <span class="main_top_1">위인을</span><br>
+                            <span class="main_top_2">
+                            <strong>선택하세요</strong>
+                            </span>
+                        </p>
+                        <p class="main_top_3"> 
+                            검색 혹은 카테고리를 통해 과학자와 수학자 중<br>
+                            경험해보고 싶은 위인을 찾아 주인공이 되어 봅시다!
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="main_center">
+                
+                <section class="nav_section">
+                    <section class="nav_section">
+                        <nav class="classification_bar">
+                            <div class="nav_div">
+                                <div class="function">
+                                    
+                                    <form class="search-box" id="searchForm" method="get" action="{% url 'index' %}">
+                                        <input class="search-txt" type="text" id="search_Input" name="search" placeholder="위인을 검색하세요" value="{{ search_query }}" autocomplete='off'>
+                                        <input type="hidden" name="filter_option" value="{{ filter_option }}">
+                                        <input type="hidden" name="categoryOption" value="{{ categoryOption }}">
+                                        <button class="search-btn" type="submit">
+                                            <img src="{% static 'playground/images/icon-search.png' %}" />
+                                        </button>
+                                    </form>
+
+                                                          
+                                    <form id="radioForm">
+                                        <input type="hidden" name="search" value="{{ search_query }}">
+                                        <input type="hidden" name="filter_option" value="{{ filter_option }}">
+
+                                        <input type="radio" name="categoryOption" id="category0" value="0" checked onchange="this.form.submit()" {% if categoryOption == '0' %}checked{% endif %}>
+                                        <label for="category0">전체</label>
+                                    
+                                        <input type="radio" name="categoryOption" id="category1" value="1" onchange="this.form.submit()" {% if categoryOption == '1' %}checked{% endif %}>
+                                        <label for="category1">과학자</label>
+                                    
+                                        <input type="radio" name="categoryOption" id="category2" value="2" onchange="this.form.submit()" {% if categoryOption == '2' %}checked{% endif %}>
+                                        <label for="category2">수학자</label>
+
+                                        <input type="radio" name="categoryOption" id="category3" value="3" onchange="this.form.submit()" {% if categoryOption == '3' %}checked{% endif %}> 
+                                        <label for="category3">철학자</label>
+
+                                        <input type="radio" name="categoryOption" id="category4" value="4" onchange="this.form.submit()" {% if categoryOption == '4' %}checked{% endif %}>
+                                        <label for="category4">음악가</label>
+                                    </form>
+                                    
+                            
+                                    <form method="get" action="{% url 'index' %}">
+                                        <select name="filter_option" onchange="this.form.submit()" class="book_select">
+                                            <option value="" {% if filter_option|stringformat:"s" == '' %}selected{% endif %}>전체</option>
+                                            <option value="1" {% if filter_option|stringformat:"s" == '1' %}selected{% endif %}>읽은 책</option>
+                                            <option value="0" {% if filter_option|stringformat:"s" == '0' %}selected{% endif %}>안읽은 책</option>
+                                            <input type="hidden" name="search" value="{{ search_query }}">
+                                            <input type="hidden" name="categoryOption" value="{{ categoryOption }}">
+                                        </select>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </nav>
+                      </section>
+                </section>
+                
+                <section class="book_section">
+                    <div class="book_div">
+                        <div class="container">
+                            {% if books %}
+                                {% for book in books %}
+                                    <div class="item">
+                                        <form class="modal_check_form" id='form__{{ book.id }}'>
+                                            <input type="hidden" name="search" value="{{ search_query }}">
+                                            <input type="hidden" name="categoryOption" value="{{ categoryOption }}">
+                                            <input type="hidden" name="filter_option" value="{{ filter_option }}">
+                                            <input type="checkbox" name='checked_card' id="no_{{ book.id }}" class="modal_check" value="{{book.id}}"
+                                            {% if checked_card == book.id|stringformat:"s" %}checked{% endif %} onchange="this.form.submit()">
+                                        </form>
+                                        
+                                        <div class ="name_img_wrap">
+                                            <label for="no_{{ book.id }}" class="card_container">
+                                                <div class="front {% if book.lock == 0 %}opacity-high{% else %}opacity-low{% endif %}">
+                                                        <div class="human" style="background-image: url('{{ book.card_image.url }}');"></div>
+                                                        <div class="inner">
+                                                            <p>{{book.name}}</p>
+                                                            <span>{{book.category}}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class='back'>
+                                                        <img src="{% static 'main/images/card_back.jpg' %}" class="image" style="width:100%; height:100%; border-radius:10px;">
+                                                        <div class="inner">
+                                                            {% if book.lock == 0 %}
+                                                                <h2>Comming<br>Soon</h2>
+                                                            {% else %}
+                                                                <h2>Play</h2>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                            </label>
+                                        </div>
+                                        
+                                        {% if book.id|stringformat:"s" == checked_card and book.lock == 1 %}
+                                            <div>
+                                                <div class="modal_window">
+                                                    <label for="no_{{ book.id }}"></label>
+                                                    <div class="modal_side">
+                                                        <label for=""></label>
+                                                        <input type="radio" name="side_option_{{ book.id }}" id="profile_side_{{ book.id }}" class="modal_radio" checked>
+                                                        <label for="profile_side_{{ book.id }}">프로필</label>
+                                                        <input type="radio" name="side_option_{{ book.id }}" id="episode1_side_{{ book.id }}" class="modal_radio">
+                                                        <label for="episode1_side_{{ book.id }}">{{book.Ep_title_1}}</label>
+                                                        <input type="radio" name="side_option_{{ book.id }}" id="episode2_side_{{ book.id }}" class="modal_radio">
+                                                        <label for="episode2_side_{{ book.id }}">{{book.Ep_title_2}}</label>
+                                                        <input type="radio" name="side_option_{{ book.id }}" id="episode3_side_{{ book.id }}" class="modal_radio">
+                                                        <label for="episode3_side_{{ book.id }}">{{book.Ep_title_3}}</label>
+                                                        <input type="radio" name="side_option_{{ book.id }}" id="quiz_side_{{ book.id }}" class="modal_radio">
+                                                        <label for="quiz_side_{{ book.id }}">Quiz</label>
+                                                    </div>
+                                            
+                                                    <div class="modal_main" id="modal_main_{{ book.id }}">
+                                                        
+                                                        <div class="profile_main profile_main_{{ book.id }}">
+                                                            <div class="profile_contents">
+                                                                <div class= "profile_img" style="background-image: url('{{ book.profile_image.url }}');" onclick="playAudio('/static/audio/sungji.mp3')"></div>
+                                                                <div class= "profile_name">
+                                                                    <span class="profile_name_span">{{book.name}}</span>
+                                                                    <span class="profile_life_span"> {{book.year_of_life}}</span></div>
+                                                                <div class= "profile_prologue">{{book.prologue}}</div>
+                                                            </div>
+                                                            <div class= "change_voice_face">
+                                                                <form class="voice_face_form" id="voice_face_form_{{ book.id }}" data-score-url="{% url 'voice_face_change' checked_card %}" method="POST" >
+                                                                    {% csrf_token %}
+                                                                        <button type="submit" class="button_voice_face"
+                                                                        {% if not request.user.is_authenticated %} disabled {% endif %}>적용</button>
+                                                                        <label class="voice_label"><input type="checkbox" class="voice_check" name='voice' value="{{ book.id }}" {% if voice == book.id|stringformat:"s" %}checked{% endif %}>음성 입히기</label>
+                                                                        <label class="face_label"><input type="checkbox" class="face_check" name='face' value="{{ book.id }}"{% if face == book.id|stringformat:"s" %}checked{% endif %}>얼굴 입히기</label>
+                                                                       
+                                                                </form>
+
+                                                                <script>
+                                                                    document.addEventListener('DOMContentLoaded', function() {
+                                                                        var form = document.getElementById('voice_face_form_{{ book.id }}');
+                                                                        
+                                                                        form.addEventListener('submit', function(event) {
+                                                                            event.preventDefault();
+                                                                            
+                                                                            
+                                                                            var formData = new FormData(form);
+                                                                            var url = form.getAttribute('data-score-url');
+                                                                            var temp = '';
+                                                                            fetch(url, {
+                                                                                method: 'POST',
+                                                                                body: formData,
+                                                                                headers: {
+                                                                                    'X-CSRFToken': '{{ csrf_token }}'
+                                                                                }
+                                                                            })
+
+                                                                            .then(response => response.json())
+
+                                                                            .then(data => {
+                                                                                temp = data;
+                                                                                var face_change = data.face_change;
+                                                                                var voice_change = data.voice_change;
+                                                                    
+                                                                                document.querySelectorAll('.episode_image').forEach(sceneElement => {
+                                                                                    var bookId = sceneElement.getAttribute('data-book-id');
+                                                                                    var username = sceneElement.getAttribute('data-username');
+                                                                                    var sceneIdParts = sceneElement.id.split('_');
+                                                                                    var episodeNum = sceneIdParts[2];
+                                                                                    var sceneNum = sceneIdParts[3];
+                                                                                    var humanElement = document.querySelector('#h_' + bookId + '_' + episodeNum + '_' + sceneNum);
+                                                                    
+                                                                                    if (face_change) {
+                                                                                        var newImageUrl = '/static/playground/user/' + username + '/' + bookId + '/face/' + bookId + '_' + episodeNum + '_' + sceneNum + '.png';
+                                                                                        sceneElement.style.backgroundImage = 'url(' + newImageUrl + ')';
+                                                                                    } else {
+                                                                                        var originalImageUrl = '/media/' + sceneElement.getAttribute('data-original-image');
+                                                                                        sceneElement.style.backgroundImage = 'url(' + originalImageUrl + ')';
+                                                                                    }
+                                                                    
+                                                                                    if (voice_change && humanElement) {
+                                                                                        var newAudioPath = '/static/playground/user/' + username + '/' + bookId + '/voice/' + bookId + '_' + episodeNum + '_' + sceneNum + '.mp3';
+                                                                                        humanElement.setAttribute('onclick', "playAudio('" + newAudioPath + "')");
+                                                                                    } else if (humanElement) {
+                                                                                        var originalAudioPath = '/media/voices/' + humanElement.getAttribute('data-audio-id') + '.mp3';
+                                                                                        humanElement.setAttribute('onclick', "playAudio('" + originalAudioPath + "')");
+                                                                                    }
+                                                                                });
+                                                                    
+                                                                                if (face_change && voice_change) {
+                                                                                    alert('음성 및 이미지 합성이 완료 되었습니다.');
+                                                                                } else if (face_change && !voice_change) {
+                                                                                    alert('이미지 합성이 완료 되었습니다.');
+                                                                                } else if (!face_change && voice_change) {
+                                                                                    alert('음성 합성이 완료되었습니다.');
+                                                                                } else if (!face_change && !voice_change) {
+                                                                                    alert('아무 것도 체크되어있지 않습니다. 원본이 출력됩니다.');
+                                                                                }
+
+                                                                                
+                                                                            });
+                                                                            
+                                                                        })
+                                                                        .catch(error => {
+                                                                            
+                                                                            console.error('Error:', error);
+                                                                            alert('발생했습니다.');
+                                                                        });
+                                                                    });
+                                                                    </script>
+                                                                                  
+                                                                    
+                                                            </div>
+                                                        </div>
+
+                                                        {% for episode in episodes %}
+                                                            <div id="carouselExampleControls_{{episode.0.episode_number}}"  class="carousel slide  episode{{episode.0.episode_number}}_main_{{ book.id }}"  data-bs-ride="carousel" data-bs-interval="false">
+                                                                <div class='carousel-inner scene_container'>
+                                                                    {% for scene in episode %}
+                                                                        <div class=" carousel-item scene scene_{{book.id}}_{{scene.episode_number}} scene_{{scene.scene_number}}"  id="scene_{{book.id}}_{{scene.episode_number}}_{{scene.scene_number}}" >
+                                                                            <div class="wrap_scene_element" >
+                                                
+                                                                                <div class='episode_image'
+                                                                                id="scene_{{ book.id }}_{{ scene.episode_number }}_{{ scene.scene_number }}" 
+                                                                                data-original-image="{{ scene.image }}"
+                                                                                data-username="{{ request.user.username }}"
+                                                                                data-book-id="{{ book.id }}"
+                                                                                style="background-image: url('/media/{{ scene.image }}');">
+                                                                                </div>
+
+                                                                                <div class="human_in_scene" 
+                                                                                    id="h_{{ book.id }}_{{ scene.episode_number }}_{{ scene.scene_number }}"
+                                                                                    data-audio-id="{{ book.id }}_{{ scene.episode_number }}_{{ scene.scene_number }}"
+                                                                                    onclick="playAudio('/media/{{ scene.voice }}')"  
+                                                                                    style="background-image: url('/media/{{ scene.image_segment }}'); width: {{ scene.width }}px; height: {{ scene.height }}px; top: {{ scene.y_index }}px; right: {{ scene.x_index }}px;"
+                                                                                    onmouseover="this.style.opacity = 1;" 
+                                                                                    onmouseout="this.style.opacity = 0;">
+                                                                                </div>
+                                                                                
+                                                                                <div class='episode_scene_num'>
+                                                                                    {{scene.scene_number}}/4
+                                                                                </div>
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                    {% endfor %}
+                                    
+                                                                </div>
+                                                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls_{{episode.0.episode_number}}" data-bs-slide="prev">
+                                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                    <span class="visually-hidden">Previous</span>
+                                                                  </button>
+                                                                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls_{{episode.0.episode_number}}" data-bs-slide="next">
+                                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                    <span class="visually-hidden">Next</span>
+                                                                  </button>
+                                                            </div>
+                                                        {% endfor %}
+                                                        
+                                                        
+
+
+                                                        <div class="quiz_main" id="quiz_main_{{ book.id }}">
+                                                            
+                                                            <form class="wrapper" id="quizForm" data-score-url="{% url 'score_quiz' book.id %}" method="POST" >
+                                                                {% csrf_token %}
+                                                                    {% for quiz in book.quizzes.all %}
+                                                                        <div class="card" id="quiz_{{quiz.quiz_index}}">
+                                                                            <div class='card__heading'><h5>Q{{quiz.quiz_index}}.<h5></div>
+                                                                            <div class='card__text'>{{quiz.quiz_text}}</div>
+                                                                            <div class="quiz_input_wrap">
+                                                                                <div class="form-group">
+                                                                                    <input type="text" onchange="onchangeQuizInput(event)" onfocus="onfocusQuizInput(event)" onblur="onblurQuizInput(event)" placeholder="정답!!" class="form-style" name="input_{{quiz.quiz_index}}" id="input_{{book.id}}_{{quiz.quiz_index}}">
+                                                                                    <img class="input-icon" id="input_{{book.id}}_{{quiz.quiz_index}}" src="{% static 'playground/images/thinking.png' %}"></img>
+                                                                                </div>                                                                                                                                     
+                                                                            </div>
+                                                                            <img class="check_type" id="input_{{book.id}}_{{quiz.quiz_index}}" src="{% static 'playground/images/thinking.png' %}"/>
+                                                                        </div>
+                                                                        
+                                                                        
+                                                                    {% endfor %}
+                                                                                                                                                                              
+                                                            </form>
+                                                            <div class="button_quiz" id="quiz_button_container">
+                                                                <button id="quiz_buttonn" type="submit" form="quizForm" name="quiz_button_{{book.id}}">채점</button>
+                                                            </div>
+
+                                                            <div id="resultForm">
+                                                                <p id="quizResult"></p>
+                                                                <form class="wrapper" id="quizForm" data-score-url="{% url 'score_quiz' book.id %}" method="POST" >
+                                                                        {% for quiz in book.quizzes.all %}
+                                                                            <div class="result_card" id="quiz_{{quiz.quiz_index}}">
+                                                                                                                                    
+                                                                                    <div class='result__heading'><h5>Q{{quiz.quiz_index}}.<h5></div>
+                                                                                    <div class='result__text'>{{quiz.quiz_text}}</div>
+                                                                                    <div class="quiz_input_wrap">
+                                                                                        <div class="form-group">
+                                                                                            <input type="text" class="form-style result" name="input_{{quiz.quiz_index}}" id="result_input_{{book.id}}_{{quiz.quiz_index}}" readonly>
+                                                                                            <img class="input-icon result" id="result_input_{{book.id}}_{{quiz.quiz_index}}" src=""></img>
+                                                                                        </div>                                                                                                                                     
+                                                                                    </div>
+                                                                            </div>
+                                                                        {% endfor %}   
+                                                                                                                                                     
+                                                                </form>
+                                                                        <div id="reward_button_container">
+                                                                        <button id="reward_button" class="reward_button" type="submit">리워드 받기</button>
+                                                                            <div id="rewardIcon" style="display: none;">
+                                                                                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                                                                                <lord-icon
+                                                                                    id = lord_icon
+                                                                                    src="https://cdn.lordicon.com/qnwzeeae.json"
+                                                                                    trigger="loop"
+                                                                                    style="width:250px;height:250px;">
+                                                                                </lord-icon>
+                                                                            </div>
+                                                                        <button id="restart_button" class="restart_button" type="submit">재도전</button>
+                                                                        </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                
+                                                </div>
+                                                <label for="no_{{ book.id }}"></label>
+                                                <script>
+                                                    const radioButtons{{ book.id }} = document.querySelectorAll('input[name="side_option_{{ book.id }}"]');
+                                                    const contentDivs{{ book.id }} = document.querySelectorAll('#modal_main_{{ book.id }} > div');
+                                            
+                                                    contentDivs{{ book.id }}[0].style.display = 'block';
+                                            
+                                                    radioButtons{{ book.id }}.forEach((radioButton, index) => {
+                                                        radioButton.addEventListener('change', () => {
+                                                            contentDivs{{ book.id }}.forEach((div, divIndex) => {
+                                                                div.style.display = index === divIndex ? 'block' : 'none';
+                                                            });
+                                                        });
+                                                    });
+                                                </script>
+                                                <script>
+                                                    document.getElementById('no_{{ book.id }}').addEventListener('change', function () {
+                                                        var popupDiv = document.querySelector('#form__{{ book.id }} + label + div');
+                                                        popupDiv.style.display = this.checked ? 'block' : 'none';
+                                                    });
+                                                </script>                               
+                                            </div>
+                                            <script>
+                                                for (var jj = 1; jj <= 3; jj++) {
+                                                var myE = document.getElementById("scene_{{book.id}}_"+jj+"_1");
+                                                myE.classList.add("active");}
+                                            </script>
+                                        {% endif %}
+                                
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                    <div class="no_result">
+                                        조건에 맞는 위인이 없습니다.<br>
+                                        다시 검색해 주세요.
+                                    </div>
+                            {% endif %}
+
+                           
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            <div class="main_bottom">
+ 
+            </div>
+        </main>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/Flip.min.js"></script>
+        <script src="{% static 'playground/js/lol.js' %}" defer></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                gsap.registerPlugin(Flip);
+              
+                const initialGridAreas = {
+                  'quiz_1': '1 / 1 / 1 / 4',
+                  'quiz_2': '2 / 1 ',
+                  'quiz_3': '2 / 2 ',
+                  'quiz_4': '2 / 3 ',
+                };
+              
+                const cards = document.querySelectorAll(".card");
+              
+                cards.forEach((card, index) => {
+                    card.style.gridArea = initialGridAreas[card.id];
+                    const input = card.children[2].children[0];
+                    const icon = card.children[3];
+                    
+                    if (index !== 0) {
+                        input.style.display = 'none'
+                    }
+
+                    if (card.style.gridArea === initialGridAreas[card.id]) {
+                        card.querySelector('.card__text').style.visibility = 'visible';
+                        icon.style.visibility = 'hidden';
+                    } else {
+                        card.querySelector('.card__text').style.visibility = 'hidden';
+                        icon.style.visibility = 'visible';
+                    }
+                    console.log(icon)
+                });
+                
+                
+                const activeClass = "is-active";
+                const inactiveClass = "is-inactive";
+              
+                cards.forEach((card, index) => {
+                  card.addEventListener("click", () => {
+             
+                    if (event.target.tagName === 'INPUT') {
+                        return;
+                    }
+                    
+                    if (card.style.gridArea === '1 / 1 / 1 / 4') {
+                        return; 
+                    }
+
+                    if (card.style.gridArea === '1 / 1 / 1 / 1') {
+                        return;
+                    }
+                    const state = Flip.getState(cards);
+                    
+                    const isCardActive = card.classList.contains(activeClass);
+              
+                    if (!isCardActive) {
+                      cards.forEach((otherCard) => {
+                        otherCard.classList.remove(activeClass);
+                        otherCard.classList.add(inactiveClass);
+                        otherCard.querySelector('.card__text').style.visibility = 'visible';
+                      });
+                      card.classList.add(activeClass);
+                      card.querySelector('.card__text').style.visibility = 'visible';
+
+                      const input = card.children[2].children[0];
+                      input.style.display = 'block';
+
+                      card.style.gridArea = '1 / 1 / 1 / 4';
+                      const icon = card.children[3];
+                      icon.style.visibility = 'hidden';
+                      console.log('isClick', icon)
+                    } else {
+                      card.classList.remove(activeClass);
+                      card.querySelector('.card__text').style.visibility = 'hidden';
+                      icon.style.visibility = 'visible';
+                    }
+              
+                    let cardIndex = 1;
+                    cards.forEach((otherCard) => {
+                      if (!otherCard.classList.contains(activeClass)) {
+                        otherCard.style.gridArea = `2 / ${cardIndex++} / auto / auto`;
+                        const cardText = otherCard.querySelector('.card__text');
+                        const input = otherCard.children[2].children[0];
+                        const icon = otherCard.children[3];
+                        console.log(icon, 'in nonClick')
+                        icon.style.visibility = 'visible';
+                        
+                        input.style.display = 'none';
+                        cardText.style.visibility = 'hidden';
+                      }
+                    });
+              
+                    Flip.from(state, {
+                      duration: 1,
+                      ease: "expo.out",
+                      absolute: true,
+                      onComplete: () => {
+                        
+                      }
+                    });
+                  });
+                });
+              });
+              
+        </script>
+
+        <script>  
+            document.addEventListener('DOMContentLoaded', function() {
+                const quizForm = document.getElementById('quizForm'); 
+                const resultDiv = document.getElementById('resultForm');
+                const resultText = document.getElementById('quizResult');  
+                const quizButtonContainer = document.getElementById('quiz_button_container');
+                const rewardButton = document.getElementById('reward_button');
+                const restartButton = document.getElementById('restart_button');
+                const rewardIcon = document.getElementById('rewardIcon');
+                
+                quizForm.addEventListener('submit', function(event) {
+                    event.preventDefault();  
+                    const formData = new FormData(quizForm);
+                    const scoreUrl = quizForm.dataset.scoreUrl;
+                    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+                    fetch(scoreUrl, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}' 
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        resultText.textContent = `점수: ${data.score} / ${data.total}`;
+                        console.log(data.isCorrect)
+                        const inputIcons = document.querySelectorAll(".input-icon.result");
+                        inputIcons.forEach((inputIcon, index) => {
+                            if (data.isCorrect[index]) {
+                                inputIcon.setAttribute('src', '/static/playground/images/correct.png');
+                            } else {
+                                inputIcon.setAttribute('src', '/static/playground/images/incorrect.png');
+                            }
+                        })
+                        formData.forEach((value, key) => {
+                            const resultInput = resultDiv.querySelector(`input[name="${key}"]`);
+                            if (resultInput) {
+                                resultInput.value = value;
+                            }
+                        });
+
+                        if (data.score == data.total) {
+                            rewardButton.disabled = false;
+                            restartButton.disabled = true;
+
+                            rewardButton.addEventListener('click', function() {
+                            rewardIcon.style.display = 'block';
+                            rewardButton.style.display = 'none';
+                            });
+                        } else {
+                            rewardButton.disabled = true;
+                            restartButton.disabled = false;
+                        }
+
+                        restartButton.addEventListener('click', function() {
+                            location.reload();
+                        });
+                    
+                        quizForm.style.display = 'none';
+                        quizButtonContainer.style.display = 'none'
+                        resultDiv.style.display = 'block';
+
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                });
+            });                      
+        </script>
+            
+        <script>
+            var audio = new Audio(audioFile);
+            
+            function playAudio(audioFile) {
+                
+                if (audio && !audio.paused) { 
+                return;
+                }
+
+                if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
+                }
+
+                audio = new Audio(audioFile);
+
+                audio.addEventListener('ended', function() {
+                //pass
+                });
+
+                audio.play();
+            }
+        </script>
+        
+        {% include 'footer.html' %}
+    </body>
+</html>

@@ -1,0 +1,75 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/header_style.css' %}" />
+</head>
+<body>
+    <header>
+        <div class="header_left">
+            <a href="/"
+                ><img
+                    src="{% static 'playground/images/logoc_.png' %}"
+                    alt="logo"
+            /></a>
+        </div>
+
+        <div class="header_center">
+            <div class="experience_link">
+                <a href="/playground"> 위인체험 </a>
+            </div>
+            <div class="community_link">
+                <a href="/community/announcement"> 커뮤니티 </a>
+            </div>
+        </div>
+
+        <div class="header_right">
+            {% if not user.is_authenticated %}
+            <div class="non_login">
+                지금 로그인을 해서 I&_서비스를 이용해보세요!
+            </div>
+            <div class="login">
+                <a href="{% url 'account_login' %}?next={{ request.path }}">
+                    로그인
+                </a>
+            </div>
+            <div class="join">
+                <a href="/accounts/signup"> 회원가입 </a>
+            </div>
+            {% else %}
+            <div class="success_login">{{user.nickname}}님 환영합니다!</div>
+            <div class="credit">
+                <!-- 현재 크레딧: {{credit}} -->
+                <lord-icon
+                    src="https://cdn.lordicon.com/yfrgwbag.json"
+                    trigger="loop"
+                    state="loop-cycle"
+                    style="width: 24px; height: 24px"
+                >
+                </lord-icon>
+                100
+            </div>
+            <div class="mypage">
+                <a id="mypagebtn" href="/mypage">마이페이지 </a>
+            </div>
+
+            <div class="logout">
+                <a
+                    id="logoutbtn"
+                    href="{% url 'logout' %}?next={{ request.path }}"
+                >
+                    로그아웃
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </header>
+</body>
+
+<script src="https://cdn.lordicon.com/lordicon.js"></script>
+
+<script type="text/javascript">
+    document
+        .getElementById("logoutbtn")
+        .addEventListener("click", function (event) {
+            alert("로그아웃 되었습니다.");
+        });
+</script>
