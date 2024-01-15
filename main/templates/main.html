@@ -1,0 +1,263 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        />
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      />
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+        ></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+        <link
+            rel="stylesheet"
+            href="{% static 'main/css/banner_style.css' %}"
+        />
+        <link rel="stylesheet" 
+        href="{% static 'main/css/main_style.css' %}" 
+        />
+
+        <link rel="stylesheet" 
+        href="{% static 'css/global_style.css' %}" 
+        />
+
+        <link rel="stylesheet" 
+        href="{% static 'main/css/main_card.css' %}" 
+        />
+        <link rel="icon" href="{% static 'img/favicon.png' %}" />
+        <link rel="apple-touch-icon" href="{% static 'img/favicon.png' %}" />
+        <title>I&_</title>
+    </head>
+
+    
+
+    <body>
+        {% include 'cursor.html' %}
+        {% include 'fonts.html' %}
+        <header>{% include 'header.html' %}</header>
+        <main>
+            <div class="video-background">
+                <video autoplay muted loop id="myVideo">
+                    <source src="{% static 'main/images/main_background_video.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            
+            <div class="Bootstrab_div">
+                <div
+                    id="carouselExampleIndicators"
+                    class="carousel slide"
+                    data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button
+                            type="button"
+                            data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide-to="0"
+                            class="active"
+                            aria-current="true"
+                            aria-label="Slide 1"
+                        ></button>
+                        <button
+                            type="button"
+                            data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide-to="1"
+                            aria-label="Slide 2"
+                        ></button>
+                        <button
+                            type="button"
+                            data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide-to="2"
+                            aria-label="Slide 3"
+                        ></button>
+
+                        <button
+                            type="button"
+                            data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide-to="3"
+                            aria-label="Slide 4"
+                        ></button>
+
+                        <button
+                            type="button"
+                            data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide-to="4"
+                            aria-label="Slide 5"
+                        ></button>
+                    </div>
+                    
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img
+                                src="{% static 'main/images/001.png' %}"
+                                class="d-block w-100 banner"
+                                alt="인트로"
+                            />
+                        </div>
+                        <div class="carousel-item">
+                            <img
+                                src="{% static 'main/images/002.png' %}"
+                                class="d-block w-100 banner"
+                                alt="뉴턴 출시"
+                            />
+                        </div>
+                        <div class="carousel-item">
+                            <img
+                                src="{% static 'main/images/003.png' %}"
+                                class="d-block w-100 banner"
+                                alt="아인슈타인 출시 예정"
+                            />
+                        </div>
+
+                        <div class="carousel-item">
+                            <img
+                                src="{% static 'main/images/004.png' %}"
+                                class="d-block w-100 banner"
+                                alt="앨런튜링 출시 예정"
+                            />
+                        </div>
+
+                        <div class="carousel-item">
+                            <img
+                                src="{% static 'main/images/005.png' %}"
+                                class="d-block w-100 banner"
+                                alt="베토벤 출시 예정"
+                            />
+                        </div>
+                    </div>
+                    <button
+                        class="carousel-control-prev"
+                        type="button"
+                        data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev"
+                    >
+                        <span
+                            class="carousel-control-prev-icon"
+                            aria-hidden="true"
+                        ></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button
+                        class="carousel-control-next"
+                        type="button"
+                        data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next"
+                    >
+                        <span
+                            class="carousel-control-next-icon"
+                            aria-hidden="true"
+                        ></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="main_container">
+                <div class=" monthly_best">
+                    <h1 style="margin-bottom: 30px; font-family: 'Do Hyeon', sans-serif; font-size: 60px">
+                        <img 
+                            src="https://cdn-icons-png.flaticon.com/128/1021/1021220.png"
+                            width="60"
+                            height="60"
+                        />
+                        주요 인물
+                    </h1>
+                    <div class="sections">
+                        <div class="best_section1">
+                            <h4>가장 인기있는 인물</h4>
+                            <a href="playground/?search=%EC%95%84%EC%9D%B4%EC%9E%91+%EB%89%B4%ED%84%B4&filter_option=&categoryOption=">
+                                <div class="container">
+                                    <div class="front" style="width:15vw; height:25vh;">
+                                        <img src="{% static 'main/images/main_newton.png' %}" class="image" style="width:15vw; height:100%;">
+                                        <div class="inner">
+                                            <p>아이작 뉴턴</p>
+                                            <span>Issac newton</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="back" style="width:15vw; height:25vh;">
+                                        <img src="{% static 'main/images/card_back.jpg' %}" class="image" style="width:15vw; height:100%; border-radius: 10px;">
+                                        <div class="inner">
+                                            <h2>PLAY</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="best_section1">
+                            <h4>출시 예정 인물</h4>
+                                <div class="container">
+                                    <div class="front" style="width:15vw; height:25vh;">
+                                        <img src="../../media/books/앨런_튜링_썸ㄴㅇ_과학자_mknh5pK.png" class="image" style="width:15vw; height:100%;">
+                                        <div class="inner">
+                                            <h4>앨런 튜링<h4><br>
+                                            <h4>1월 26일 출시 예정<h4>
+                                        </div>
+                                    </div>
+                                    <div class="back" style="width:15vw; height:25vh;">
+                                        <img src="../../media/books/베토벤_썸ㄴㅇ_음악_4kIiy3M.png" class="image" style="width:15vw; height:100%; border-radius: 10px; filter: brightness(0.4);">
+                                        <div class="inner">
+                                            <h4>루트비히 판 베토벤<h4><br>
+                                            <h4>1월 28일 출시 예정<h4>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class=" animate__delay notice_list">
+                    <h1 style="margin-bottom: 30px; font-family: 'Do Hyeon', sans-serif; font-size: 60px;">
+                        <img
+                            src="https://cdn-icons-png.flaticon.com/128/10099/10099006.png"
+                            class="animate__animated animate__swing"
+                            width="48"
+                            height="48"
+                        />
+                        공지사항
+                        <div style="height: 2px; background-color: black; margin-top: 30px; margin-left: 50px;"></div>
+                    </h1>
+                    
+                    <div class=" animate__delay notice_sections">                       
+                        <ul style="list-style-type: disc; padding-left: 10%;">
+                            {% for postname, id, writer, date, nickname in notices %}
+                                {% if forloop.counter < 8 %}
+                                    <li>
+                                        <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                                            <a href="community/detail/{{id}}" style="text-decoration: none; color: black; width:50%; flex-grow: 1;" class=''>
+                                                <span class="postname">{{ postname }}</span>
+                                            </a>
+                                            <div style="display: flex; gap: 10px; align-items: center;">
+                                                <span class="date" style="font-size: 0.8em; color: grey;">{{ date }}</span>
+                                                <span class="writer" style="color: grey;">{{ nickname }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="underline"></div>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+        {% include 'footer.html' %}
+    </body>
+</html>

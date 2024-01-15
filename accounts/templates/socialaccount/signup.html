@@ -1,0 +1,147 @@
+{% load static %}
+{% load i18n %}
+{% load socialaccount %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link rel="icon" href="{% static 'img/favicon.png' %}" />
+    <link rel="apple-touch-icon" href="{% static 'img/favicon.png' %}" />
+    <link rel="stylesheet" href="{% static 'accounts/css/social_signup.css' %}">
+    <title>I&_ 회원가입</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'img/back_img_signup.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            -webkit-animation: myfirst 1s;
+            animation: myfirst 1s;
+        }
+
+        @-webkit-keyframes myfirst {
+            from {opacity: 0.2;}
+            to {opacity: 1;}
+        }
+
+        @keyframes myfirst {
+            from {opacity: 0.2;}
+            to {opacity: 1;}
+        }
+    </style>
+</head>
+
+{% if not user.nickname or user.first_name or user.second_name %}
+<body>
+    {% include 'fonts.html' %}
+    <header class="header">
+        <a href="/">
+            <img src="{% static 'img/iand_logo_w.png' %}" class="logo_img">
+        </a>
+    </header>
+
+    <main class="main">
+        <div class="main_container">
+            <div class="social_signuppage">
+                <form method="POST" action="{% url 'social_signup' %}">
+                    {% csrf_token %}
+                    <h1 class="social_signuppage-title" style="font-family: 'Do Hyeon', sans-serif; font-size:60px; border-bottom: 2px solid #f9bc28;">I&_ 회원가입</h1>
+                    {% if form.errors.email %}
+                        <p style="color:red;">이미 존재하는 이메일입니다.</p>
+                    {% endif %}
+                    <div class="social_signupbox">
+                        <a>이메일</a>
+                        <label for="email">{{ field.email }}</label>
+                        <div class="email-wrapper">
+                            <input type="email" class="email_class" name="email" value="{{ form.email.value }}" readonly/>
+                            <div id="emailHelp"></div>
+                        </div>
+
+                        {% comment %} <a>아이디</a>
+                        <label for="username">{{ field.username }}</label>
+                        <div class="username-wrapper"> {% endcomment %}
+                            <input type="username" class="username_class" name="username" value="{{ form.email.value }}"
+                            style="display:none"/>
+
+                        <a>성</a>
+                        <label for="last_name">{{ field.last_name }}</label>
+                        <div class="last_name-wrapper">
+                            <input id="last_name" type="last_name" name="last_name" value="{{ form.last_name.value }}"/>
+                            <div id="last_nameHelp"></div>
+                        </div>
+
+                        <a>이름</a>
+                        <label for="first_name">{{ field.first_name }}</label>
+                        <div class="first_name-wrapper">
+                            <input id="first_name" type="first_name" name="first_name" value="{{ form.first_name.value }}"/>
+                            <div id="fisrt_nameHelp"></div>
+                        </div>
+
+                        <a>닉네임</a>
+                        <label for="nickname">{{ field.nickname }}</label>
+                        <div class="nickname-wrapper">
+                            <input name="nickname" id="nickname"
+                            type="nickname" placeholder="ex) 뉴턴광팬"
+                            required oninput='validateNickname()' required>
+                            <div id="nicknameHelp"></div>
+                        </div>
+                        
+                        <div class="signup-security">
+                            <a>PIN 번호 4자리 입력</a>
+
+                            <input name="pin_number" id="pin_number" type="password"
+                                placeholder="· · · ·" required oninput="validateSecurityAnswer()">
+                        </div>
+                    <div id="pinHelp"></div><div class="signup-security">
+
+                        <div class="signup-button">
+                            <input type="submit" id="submitBtn" value="회원가입" disabled>
+                        </div>
+                        <div id='info_text'></div>
+
+                        
+                    </div> 
+                </form>
+            </div>
+        </div>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </main>
+
+    <footer class="footer">
+        <div class="footer_text">
+            <span>AIVLE 4기 빅프로젝트 1조 2023.12.11 ~ 2024.01.17 </span><br>
+            <span>경기도 성남시 분당구 불정로 90 (정자동)</span><br>
+            <span>Copyright© 2023 KT Corp. All rights reserved.</span>
+        </div>
+    </footer>
+</body>
+{% endif %}
+<script src="{% static 'accounts/js/social_signup.js' %}"></script>
+{% if request.method == 'POST' or user_signed_up %}
+<script src="{% static 'accounts/js/ip.js' %}"></script>
+{% endif %}
+
+{% comment %} {% if messages %}
+<script type="text/javascript">
+    {% for message in messages %}
+    alert("{{ message }}");
+    {% endfor %}
+</script>
+{% endif %} {% endcomment %}
+
+</html>

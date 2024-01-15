@@ -1,0 +1,288 @@
+:lang(ko-kr) {
+    word-break: keep-all;
+    letter-spacing: normal !important;
+}
+
+html {
+    background-color: black;
+}
+
+signup-id-pass * > a {
+    background: transparent;
+    padding: 15px 8px 15px;
+    box-sizing: border-box;
+    height: 50px;
+    display: block;
+    outline: none;
+    width: 100%;
+    color: rgb(31, 31, 31);
+    line-height: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "FF Mark W05", sans-serif;
+    border-radius: 5px;
+}
+
+.error-message {
+    display: none;
+    color: red;
+    font-size: 12px;
+}
+
+input.error {
+    border: 1px solid red;
+}
+
+.signup-pass .password {
+    font-size: 12px;
+}
+
+.signup-id-pass .already_signup {
+    font-size: 12px;
+    color: #004494;
+    text-decoration-line: none;
+}
+
+body > * {
+    box-sizing: border-box;
+}
+
+.header {
+    height: 80px;
+}
+
+.logo_img {
+    height: 15vw;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.main_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signuppage {
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 40%;
+    opacity: 0.7;
+    transition: opacity 0.5s ease;
+}
+
+.signuppage:hover {
+    opacity: 0.98;
+}
+
+.signup-id-pass * {
+    padding-bottom: 10px;
+}
+
+.signup-id-pass input[type="password"],
+.signup-id-pass input[type="text"] {
+    background: transparent;
+    border: none;
+    padding: 15px 8px 15px;
+    box-sizing: border-box;
+    height: 50px;
+    display: block;
+    outline: none;
+    width: 100%;
+    color: rgb(0, 0, 0);
+    line-height: 18px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: "FF Mark W05", sans-serif;
+    border-radius: 5px;
+}
+
+.signup-id-pass input:not(:focus):hover {
+    background: #f1f1f1;
+    border: #ececec;
+}
+
+.api-signup {
+    padding: 10px 0px;
+}
+
+.api-signup button {
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    border-radius: 12.8px;
+    height: auto;
+    border-radius: 9.6px;
+    padding: 0px 16px;
+    color: black;
+    border: 2px solid rgba(0, 0, 0, 0.05);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.signup-id-pass label {
+    color: rgb(102, 102, 102);
+    font-family: "FF Mark W05", sans-serif;
+    position: absolute;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    font-size: 12px;
+    left: 14px;
+    top: 20px;
+    opacity: 1;
+    height: 17.33px;
+    pointer-events: none;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s, opacity;
+}
+
+.signup-id-pass div {
+    position: relative;
+}
+
+.signup-button input[type="submit"] {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-color: black;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    width: 100%;
+}
+
+.signup-button input[type="submit"]:hover {
+    background-color: #004494;
+    color: white;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.signup-button input[type="submit"]:active,
+.signup-button input[type="submit"]:focus {
+    outline: none;
+    color: black;
+    background-color: #004494;
+}
+
+.signup-remember {
+    position: relative;
+}
+
+.signup-remember label {
+    cursor: pointer;
+}
+
+.signup-id-pass input:not(:focus) {
+    background: #f8f8f8;
+}
+
+.signup-id-pass input:focus {
+    background: none;
+    outline: auto;
+}
+
+.signup-id-pass input:focus ~ label {
+    display: none;
+}
+
+.signup-id-pass input:not(:focus) ~ span {
+    display: none;
+}
+
+.custom-select {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #444;
+    background-color: #fff;
+    background-image: url("arrow-down-icon.svg");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.custom-select:hover {
+    border-color: #888;
+}
+
+.custom-select:focus {
+    outline: none;
+    border-color: #555;
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+
+.agree_privacy {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 8px;
+    display: inline-block;
+    width: 100%;
+}
+
+.agree_privacy a {
+    margin-right: 10%;
+}
+
+.agree_privacy input[type="radio"] {
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.footer {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #f1f1f1;
+    font-size: 12px;
+    height: 100px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+input[type="submit"]:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}
+
+.signup-name {
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.signup-name > * {
+    font-size: 13px;
+}
+
+.signup-name a {
+    justify-content: center;
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+.signup-name div {
+    box-sizing: border-box;
+    margin-right: 1%;
+}
+
+.id_first_name div {
+    margin-right: 10px;
+}
+
+.first_name_div {
+    width: 100%;
+}

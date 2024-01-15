@@ -1,0 +1,65 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'community/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'community/css/main_center.css' %}">
+        <link rel="stylesheet" href="{% static 'css/global_style.css' %}">
+        <style>
+            #announcement {
+                font-weight: 900;
+                font-size: 22px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>{% include 'header.html'%}</header>
+        <main class="main">
+            <div class="main_top">
+                <div class="page_name">게시판 목록</div>
+            </div>
+            <div class="main_center">
+                <div class="div_center">
+                    <div class="side_center">   
+                        {% for cate in links %}
+                            <div class="board_div"><a href="{{ cate.get_url }}">- {{ cate.name }}</a></div>
+                        {% endfor %}
+                    </div>
+                    <div class="board_write_wrap">
+                        <p class="write_title">글쓰기 수정</p>
+                        <form method="POST" class="update_form">
+                            {% csrf_token %}
+                            {{ form }}
+                            <div class="finish_modify">
+                                <button type="submit" class="community_btn">
+                                    <div class="svg-wrapper-1">
+                                      <div class="svg-wrapper">
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          viewBox="0 0 24 24"
+                                          width="24"
+                                          height="24"
+                                        >
+                                          <path fill="none" d="M0 0h24v24H0z"></path>
+                                          <path
+                                            fill="currentColor"
+                                            d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                                          ></path>
+                                        </svg>
+                                      </div>
+                                    </div>
+                                    <span>수정 완료</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>{% include 'footer.html' %}</footer>
+        <script src="{% static 'community/js/update.js' %}" defer></script>
+    </body>
+</html>
