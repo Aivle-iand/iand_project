@@ -134,7 +134,7 @@ def upload_voice(args):
         
     with open(file_path, 'rb') as f:
         files = {'files': (file.name, f), 'name': (None, user_encode)}
-        headers = {'xi-api-key': env('XI_API_KEY')}
+        headers = {'xi-api-key': env('VOICE_API_KEY')}
         response = requests.post('https://api.elevenlabs.io/v1/voices/add',
                                   headers=headers,
                                   files=files,)
